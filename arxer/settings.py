@@ -50,6 +50,14 @@ TIME_ZONE = "America/Vancouver"
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
 LANGUAGE_CODE = "en-ca"
+gettext = lambda s: s
+LANGUAGES = (
+    ('en', gettext('English')),
+    ('fr', gettext('French')),
+)
+
+TRANSLATION_REGISTRY = "arxer.translation"
+MODELTRANSLATION_TRANSLATION_REGISTRY = "arxer.translation"
 
 SITE_ID = 1
 
@@ -157,6 +165,7 @@ INSTALLED_APPS = [
     "announcements",
     "pagination",
     "idios",
+    "south",
     
     # Pinax
     "pinax.apps.account",
@@ -166,7 +175,9 @@ INSTALLED_APPS = [
     # project
     "about",
     "profiles",
-    "south",
+    "arx",
+
+    "modeltranslation",
 ]
 
 FIXTURE_DIRS = [
