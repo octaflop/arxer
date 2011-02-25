@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Django settings for basic pinax project.
+# Django settings for social pinax project.
 
 import os.path
 import posixpath
@@ -9,8 +9,7 @@ PINAX_ROOT = os.path.abspath(os.path.dirname(pinax.__file__))
 PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
 
 # tells Pinax to use the default theme
-#PINAX_THEME = "default"
-PINAX_THEME = "arxed"
+PINAX_THEME = "default"
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -24,7 +23,6 @@ INTERNAL_IPS = [
 
 ADMINS = [
     # ("Your Name", "your_email@domain.com"),
-    ("Faris Chebib", "octaflop@gmail.com"),
 ]
 
 MANAGERS = ADMINS
@@ -45,19 +43,11 @@ DATABASES = {
 # although not all choices may be available on all operating systems.
 # If running in a Windows environment this must be set to the same as your
 # system time zone.
-TIME_ZONE = "America/Vancouver"
+TIME_ZONE = "US/Eastern"
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
-LANGUAGE_CODE = "en-ca"
-gettext = lambda s: s
-LANGUAGES = (
-    ('en', gettext('English')),
-    ('fr', gettext('French')),
-)
-
-TRANSLATION_REGISTRY = "arxer.translation"
-MODELTRANSLATION_TRANSLATION_REGISTRY = "arxer.translation"
+LANGUAGE_CODE = "en-us"
 
 SITE_ID = 1
 
@@ -94,7 +84,7 @@ STATICFILES_DIRS = [
 ADMIN_MEDIA_PREFIX = posixpath.join(STATIC_URL, "admin/")
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = "=c18(2w)sg%!=o1j_0&kb3@&i6&5zi!&b*y3(!lvsx=&xl$r#!"
+SECRET_KEY = "lf!g1*t!50%2tirg!pxb2(gf793zwn29=ftp(#9znd4*##id3k"
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = [
@@ -109,8 +99,11 @@ MIDDLEWARE_CLASSES = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django_openid.consumer.SessionConsumer",
     "django.contrib.messages.middleware.MessageMiddleware",
+    "groups.middleware.GroupAwareMiddleware",
     "pinax.apps.account.middleware.LocaleMiddleware",
+    "django.middleware.doc.XViewMiddleware",
     "pagination.middleware.PaginationMiddleware",
+    "django_sorting.middleware.SortingMiddleware",
     "pinax.middleware.security.HideSensistiveFieldsMiddleware",
     "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
@@ -138,6 +131,16 @@ TEMPLATE_CONTEXT_PROCESSORS = [
     
     "notification.context_processors.notification",
     "announcements.context_processors.site_wide_announcements",
+    "messages.context_processors.inbox",
+    "friends_app.context_processors.invitations",
+    
+    "arxer.context_processors.combined_inbox_count",
+]
+
+COMBINED_INBOX_COUNT_SOURCES = [
+    "messages.context_processors.inbox",
+    "friends_app.context_processors.invitations",
+    "notification.context_processors.notification",
 ]
 
 INSTALLED_APPS = [
@@ -149,6 +152,7 @@ INSTALLED_APPS = [
     "django.contrib.sites",
     "django.contrib.messages",
     "django.contrib.humanize",
+    "django.contrib.markup",
     
     "pinax.templatetags",
     
@@ -164,20 +168,39 @@ INSTALLED_APPS = [
     "emailconfirmation",
     "announcements",
     "pagination",
-    "idios",
-    "south",
+    "friends",
+    "messages",
+    "oembed",
+    "groups",
+    "threadedcomments",
+    "wakawaka",
+    "swaps",
+    "voting",
+    "tagging",
+    "bookmarks",
+    "photologue",
+    "avatar",
+    "flag",
+    "microblogging",
+    "locations",
+    "django_sorting",
+    "django_markup",
+    "tagging_ext",
     
     # Pinax
     "pinax.apps.account",
     "pinax.apps.signup_codes",
     "pinax.apps.analytics",
+    "pinax.apps.profiles",
+    "pinax.apps.blog",
+    "pinax.apps.tribes",
+    "pinax.apps.photos",
+    "pinax.apps.topics",
+    "pinax.apps.threadedcomments_extras",
+    "pinax.apps.voting_extras",
     
     # project
     "about",
-    "profiles",
-    "arx",
-
-    "modeltranslation",
 ]
 
 FIXTURE_DIRS = [
@@ -189,6 +212,14 @@ MESSAGE_STORAGE = "django.contrib.messages.storage.session.SessionStorage"
 ABSOLUTE_URL_OVERRIDES = {
     "auth.user": lambda o: "/profiles/profile/%s/" % o.username,
 }
+
+MARKUP_FILTER_FALLBACK = "none"
+MARKUP_CHOICES = [
+    ("restructuredtext", u"reStructuredText"),
+    ("textile", u"Textile"),
+    ("markdown", u"Markdown"),
+    ("creole", u"Creole"),
+]
 
 AUTH_PROFILE_MODULE = "profiles.Profile"
 NOTIFICATION_LANGUAGE_MODULE = "account.Account"
@@ -209,7 +240,39 @@ LOGIN_REDIRECT_URLNAME = "what_next"
 EMAIL_CONFIRMATION_DAYS = 2
 EMAIL_DEBUG = DEBUG
 
+ugettext = lambda s: s
+LANGUAGES = [
+    ("en", u"English"),
+]
+
 # URCHIN_ID = "ua-..."
+
+YAHOO_MAPS_API_KEY = "..."
+
+class NullStream(object):
+    def write(*args, **kwargs):
+        pass
+    writeline = write
+    writelines = write
+
+RESTRUCTUREDTEXT_FILTER_SETTINGS = {
+    "cloak_email_addresses": True,
+    "file_insertion_enabled": False,
+    "raw_enabled": False,
+    "warning_stream": NullStream(),
+    "strip_comments": True,
+}
+
+# if Django is running behind a proxy, we need to do things like use
+# HTTP_X_FORWARDED_FOR instead of REMOTE_ADDR. This setting is used
+# to inform apps of this fact
+BEHIND_PROXY = False
+
+FORCE_LOWERCASE_TAGS = True
+
+# Uncomment this line after signing up for a Yahoo Maps API key at the
+# following URL: https://developer.yahoo.com/wsregapp/
+# YAHOO_MAPS_API_KEY = ""
 
 DEBUG_TOOLBAR_CONFIG = {
     "INTERCEPT_REDIRECTS": False,
