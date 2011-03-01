@@ -84,7 +84,7 @@ STATICFILES_DIRS = [
 ADMIN_MEDIA_PREFIX = posixpath.join(STATIC_URL, "admin/")
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = "lf!g1*t!50%2tirg!pxb2(gf793zwn29=ftp(#9znd4*##id3k"
+SECRET_KEY = "y2pvlbgq1wc@7v2wd8m2j$)ao*^eh&nolb1u9b$y96vkcj5g^)"
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = [
@@ -201,6 +201,9 @@ INSTALLED_APPS = [
     
     # project
     "about",
+
+    # ARX
+    "verbena",
 ]
 
 FIXTURE_DIRS = [
