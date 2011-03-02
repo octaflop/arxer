@@ -11,6 +11,7 @@ PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
 # tells Pinax to use the default theme
 PINAX_THEME = "default"
 
+
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
@@ -153,7 +154,8 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.humanize",
     "django.contrib.markup",
-    
+
+    # Pinax    
     "pinax.templatetags",
     
     # external
@@ -198,7 +200,7 @@ INSTALLED_APPS = [
     "pinax.apps.topics",
     "pinax.apps.threadedcomments_extras",
     "pinax.apps.voting_extras",
-    
+
     # project
     "about",
 

@@ -56,7 +56,7 @@ class Faculty(Profile):
     * Choose to receive the newsletter
     """
     # The faculty the faculty member is in 
-    faculty = models.CharField(_("Is a member of faculty"), max_length=80)
+    in_faculty = models.CharField(_("Is a member of faculty"), max_length=80)
 
     class Meta:
         verbose_name = _("faculty member")
@@ -72,23 +72,69 @@ class NewsRelease(models.Model):
     A News release is a short document with up-to-date information for the
     press and other public media entities.
     """
-    pass
+    content = models.TextField(_("A description of the news"))
+    datetime = models.DateTimeField()
+
+class Location(models.Model):
+    """
+    A Location is simply a latitude and longitude
+    """
+    latitude = models.FloatField()
+    longitude = models.FloatField()
+    place = models.CharField(_("The name of the location"), max_length=100,\
+            default=_("Vancouver"))
 
 class Event(models.Model):
-    pass
+    """
+    Events are anything occurring at a specific time
+    """
+    title = models.CharField(_("Event title"), max_length=100)
+    slug = models.SlugField(_("Event slug"))
+    datetime = models.DateTimeField(_("Time and Date"))
+    location = models.ForeignKey(Location)
+
+    def __unicode__(self):
+        return self.title
+
+    class Meta:
+        ordering = ('-datetime',)
+        get_latest_by = 'datetime'
 
 class Workshop(Event):
-    pass
+    """
+    A workshop is an event with members
+    """
+    members = models.ManyToManyField(Profile,
+            related_name = "workshops",
+            verbose_name = "members",
+            )
 
 class Gathering(Event):
+    """
+    A gathering is an open event
+    """
     pass
 
 class VolunteerOpportunity(Event):
-    pass
+    """
+    A volunteer opportunity is an event with an organization and members
+    """
+    organization = models.ForeignKey(Organization)
+    volunteers = models.ManyToManyField(Profile,
+            related_name = "volunteer opportunities",
+            verbose_name = "volunteers",
+            )
+    class Meta:
+        verbose_name = _("volunteer opportunity")
+        verbose_name_plural = _("volunteer opportunities")
 
 # Project-Based Models
 class Project(Tribe):
     title = models.CharField(_("Project title"), max_length=80)
+    approval_status = models.CharField(_("approval status"),\
+            max_length=2, choices=PROJECT_APPROVAL_STATUS, blank=False)
+    progress_status = models.CharField(_("progress status"),\
+            max_length=2, choices=PROJECT_PROGRESS_STATUS, blank=False)
 
     def __unicode__(self):
         return self.title
@@ -97,5 +143,6 @@ class ProjectMember(models.Model):
     """
     A simple abstract for linking users to projects
     """
-    project = models.ManyToManyField(Project)
+    project = models.ManyToManyField(Project,\
+            related_name="%(app_label)s_%(class)s_related")
     user = models.ForeignKey(Profile)
