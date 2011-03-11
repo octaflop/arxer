@@ -200,6 +200,7 @@ INSTALLED_APPS = [
     "pinax.apps.topics",
     "pinax.apps.threadedcomments_extras",
     "pinax.apps.voting_extras",
+    "south",
 
     # project
     "about",

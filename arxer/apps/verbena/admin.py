@@ -11,7 +11,7 @@ class FacultyAdmin(admin.ModelAdmin):
     list_display = ('in_faculty',)
 
 class OrganizationAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('name', 'about', 'location', 'website',)
 
 class NewsReleaseAdmin(admin.ModelAdmin):
     list_display = ('content', 'datetime',)

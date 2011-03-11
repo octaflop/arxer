@@ -1,4 +1,6 @@
 from django.db import models
+from django.contrib.auth.models import User
+
 from django.utils.translation import ugettext_lazy as _
 
 from pinax.apps.profiles.models import Profile
@@ -25,13 +27,20 @@ PROJECT_PROGRESS_STATUS = (
 # Profile-based models
 # Action individual, Organization, Student, Faculty (admin is untouched?)
 class ActionIndividual(Profile):
-    """ Action individuals are members of action-groups """
+    """ Action individuals are leaders of action-groups """
     pass
 
-class Organization(Profile):
+class Organization(models.Model):
     """ Organizations are entities applying for projects or grants.
     Organizations share a single login """
-    pass
+    name = models.CharField(_("Name"), max_length=80)
+    slug = models.SlugField(_("Slug"), max_length=80)
+    about = models.TextField(_("About"))
+    location = models.CharField(_("Location"), max_length=80)
+    website = models.URLField(_("website"))
+
+    def __unicode__(self):
+        return self.name
 
 class Student(Profile):
     """
@@ -104,7 +113,7 @@ class Workshop(Event):
     """
     A workshop is an event with members
     """
-    members = models.ManyToManyField(Profile,
+    members = models.ManyToManyField(User,
             related_name = "workshops",
             verbose_name = "members",
             )
@@ -120,7 +129,7 @@ class VolunteerOpportunity(Event):
     A volunteer opportunity is an event with an organization and members
     """
     organization = models.ForeignKey(Organization)
-    volunteers = models.ManyToManyField(Profile,
+    volunteers = models.ManyToManyField(User,
             related_name = "volunteer opportunities",
             verbose_name = "volunteers",
             )
@@ -145,4 +154,4 @@ class ProjectMember(models.Model):
     """
     project = models.ManyToManyField(Project,\
             related_name="%(app_label)s_%(class)s_related")
-    user = models.ForeignKey(Profile)
+    user = models.ForeignKey(User)

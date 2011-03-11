@@ -1,0 +1,9 @@
+{% extends "site_base.html" %}
+{% block body %}
+	<h2>Organizations</h2>
+	<ul class='org_list'>
+		{% for org in object_list %}
+			<li><b><a href="{{ org.url }}">{{ org.name }}</a></b></li>
+		{% endfor %}
+	</ul>
+{% endblock %}

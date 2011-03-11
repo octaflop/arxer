@@ -68,6 +68,9 @@ urlpatterns = patterns("",
     url(r"^feeds/tweets/(.*)/$", "django.contrib.syndication.views.feed", tweets_feed_dict),
     url(r"^feeds/posts/(.*)/$", "django.contrib.syndication.views.feed", blogs_feed_dict),
     url(r"^feeds/bookmarks/(.*)/?$", "django.contrib.syndication.views.feed", bookmarks_feed_dict),
+
+    ## SFPIRG additions
+    url(r"^organizations/", include("verbena.urls.organization")),
 )
 
 ## @@@ for now, we'll use friends_app to glue this stuff together
