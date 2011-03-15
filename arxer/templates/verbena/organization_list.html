@@ -3,7 +3,8 @@
 	<h2>Organizations</h2>
 	<ul class='org_list'>
 		{% for org in object_list %}
-			<li><b><a href="{{ org.url }}">{{ org.name }}</a></b></li>
+			<li><b><a href="{{ org.get_absolute_url }}">{{ org.name }}</a></b></li>
 		{% endfor %}
 	</ul>
+	<a href="/organizations/add">Add an Organization</a>
 {% endblock %}

@@ -2,7 +2,7 @@
 from django.contrib import admin
 
 from verbena.models import Student, Faculty, NewsRelease, Location, Project,\
-    VolunteerOpportunity, Organization, Workshop
+    VolunteerOpportunity, Organization, Workshop, ActionGroup
 
 class StudentAdmin(admin.ModelAdmin):
     list_display = ('studying','comp_year',)
@@ -11,7 +11,9 @@ class FacultyAdmin(admin.ModelAdmin):
     list_display = ('in_faculty',)
 
 class OrganizationAdmin(admin.ModelAdmin):
-    list_display = ('name', 'about', 'location', 'website',)
+    list_display = ('name', 'about', 'website',)
+    prepopulated_fields = {'slug': ('name',)}
+    display_inline = ('location', 'workshops',)
 
 class NewsReleaseAdmin(admin.ModelAdmin):
     list_display = ('content', 'datetime',)
@@ -23,9 +25,14 @@ class ProjectAdmin(admin.ModelAdmin):
     list_display = ('title','approval_status','progress_status',)
     prepopulated_fields = {'slug': ('title',)}
 
+class ActionGroupAdmin(admin.ModelAdmin):
+    list_display = ('title',)
+    prepopulated_fields = {'slug': ('title',)}
+
 class WorkshopAdmin(admin.ModelAdmin):
     display_inline = ('members',)
     prepopulated_fields = {'slug': ('title',)}
+    display_inline = ('location', 'members',)
 
 class VolunteerOpportunityAdmin(admin.ModelAdmin):
     #list_display = ('organization','volunteers',)
@@ -39,4 +46,5 @@ admin.site.register(Location, LocationAdmin)
 admin.site.register(NewsRelease, NewsReleaseAdmin)
 admin.site.register(Student, StudentAdmin)
 admin.site.register(Faculty, FacultyAdmin)
+admin.site.register(ActionGroup, ActionGroupAdmin)
 admin.site.register(Organization, OrganizationAdmin)

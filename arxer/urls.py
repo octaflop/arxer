@@ -71,6 +71,7 @@ urlpatterns = patterns("",
 
     ## SFPIRG additions
     url(r"^organizations/", include("verbena.urls.organization")),
+    url(r"^action-group/", include("verbena.urls.action_group")),
 )
 
 ## @@@ for now, we'll use friends_app to glue this stuff together

@@ -1,0 +1,9 @@
+{% extends "site_base.html" %}
+{% block body %}
+	<h2><a href="{{ object.get_absolute_url }}">{{ object.name }}</a></h2>
+	<dl>
+		<dt>name:</dt><dd>{{ object.name }}</dd>
+		<dt>location:</dt><dd>{{ object.location }}</dd>
+		<dt>about:</dt><dd>{{ object.about }}</dd>
+	</dl>
+{% endblock %}

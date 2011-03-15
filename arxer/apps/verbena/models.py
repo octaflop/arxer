@@ -36,11 +36,16 @@ class Organization(models.Model):
     name = models.CharField(_("Name"), max_length=80)
     slug = models.SlugField(_("Slug"), max_length=80)
     about = models.TextField(_("About"))
-    location = models.CharField(_("Location"), max_length=80)
-    website = models.URLField(_("website"))
+    location = models.ForeignKey("Location")
+    website = models.URLField(_("website"), blank=True, null=True)
+    workshops = models.ForeignKey("Workshop", blank=True, null=True)
 
     def __unicode__(self):
         return self.name
+
+    @models.permalink
+    def get_absolute_url(self):
+        return ('org_view', [str(self.slug)])
 
 class Student(Profile):
     """
@@ -65,7 +70,8 @@ class Faculty(Profile):
     * Choose to receive the newsletter
     """
     # The faculty the faculty member is in 
-    in_faculty = models.CharField(_("Is a member of faculty"), max_length=80)
+    in_faculty = models.CharField(_("Is a member of faculty"),
+            max_length=80)
 
     class Meta:
         verbose_name = _("faculty member")
@@ -74,7 +80,8 @@ class Faculty(Profile):
 # Page-Based Models
 class ActionGroup(Tribe):
     """ Action groups are groups led by a leader to accomplish a goal """
-    pass
+    title = models.CharField(_("Action Group title"), max_length=80)
+    leader = models.ForeignKey("ActionIndividual")
 
 class NewsRelease(models.Model):
     """
@@ -88,10 +95,13 @@ class Location(models.Model):
     """
     A Location is simply a latitude and longitude
     """
-    latitude = models.FloatField()
-    longitude = models.FloatField()
+    latitude = models.FloatField(blank=True, default=49.28227)
+    longitude = models.FloatField(blank=True, default=-123.10754)
     place = models.CharField(_("The name of the location"), max_length=100,\
             default=_("Vancouver"))
+
+    def __unicode__(self):
+        return self.place
 
 class Event(models.Model):
     """
@@ -99,20 +109,22 @@ class Event(models.Model):
     """
     title = models.CharField(_("Event title"), max_length=100)
     slug = models.SlugField(_("Event slug"))
-    datetime = models.DateTimeField(_("Time and Date"))
+    start_date = models.DateTimeField(_("Workshop start date & time"))
+    end_date = models.DateTimeField(_("Workshop end date & time"))
     location = models.ForeignKey(Location)
 
     def __unicode__(self):
         return self.title
 
     class Meta:
-        ordering = ('-datetime',)
-        get_latest_by = 'datetime'
+        ordering = ('-start_date',)
+        get_latest_by = 'start_date'
 
 class Workshop(Event):
     """
     A workshop is an event with members
     """
+    room = models.CharField(_("Room"), max_length=80, blank=True)
     members = models.ManyToManyField(User,
             related_name = "workshops",
             verbose_name = "members",
@@ -130,9 +142,9 @@ class VolunteerOpportunity(Event):
     """
     organization = models.ForeignKey(Organization)
     volunteers = models.ManyToManyField(User,
-            related_name = "volunteer opportunities",
-            verbose_name = "volunteers",
-            )
+        related_name = "volunteer opportunities",
+        verbose_name = "volunteers",
+    )
     class Meta:
         verbose_name = _("volunteer opportunity")
         verbose_name_plural = _("volunteer opportunities")
