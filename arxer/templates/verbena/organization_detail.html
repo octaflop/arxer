@@ -5,5 +5,12 @@
 		<dt>name:</dt><dd>{{ object.name }}</dd>
 		<dt>location:</dt><dd>{{ object.location }}</dd>
 		<dt>about:</dt><dd>{{ object.about }}</dd>
+		<dt>url:</dt><dd><a href="{{object.website}}">{{ object.website }}</a></dd>
 	</dl>
+	{% if request.user.is_authenticated %}
+		{% if perms.verbena.change_organization %}
+			<a href="{{ object.get_absolute_url }}/edit">Edit Organization</a>
+		{% endif %}
+	{% endif %}
+	<a href="/organizations">Back to organizations</a>
 {% endblock %}

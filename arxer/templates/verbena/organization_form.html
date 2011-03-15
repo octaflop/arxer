@@ -1,9 +1,11 @@
 {% extends "site_base.html" %}
+{% load uni_form_tags %}
 {% block body %}
 	<h2>{{ org.name }}</h2>
 	<form action="" method="post" class="uniForm">
 	{% csrf_token %}
-	{{ form }}
+	{{ form|as_uni_form }}
 		<input type="submit" value="submit" />
+		<a href="/organizations/{{ org.slug }}">Cancel Edits</a>
 	</form>
 {% endblock %}
