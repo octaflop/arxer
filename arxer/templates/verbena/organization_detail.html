@@ -12,5 +12,5 @@
 			<a href="{{ object.get_absolute_url }}/edit">Edit Organization</a>
 		{% endif %}
 	{% endif %}
-	<a href="/organizations">Back to organizations</a>
+	<a href="{% url org_home %}">Back to organizations</a>
 {% endblock %}
