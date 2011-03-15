@@ -2,6 +2,7 @@ from django.conf.urls.defaults import *
 from django.views.generic.list_detail import object_list, object_detail
 from django.views.generic.create_update import create_object, update_object
 from verbena.models import Organization
+from verbena.forms import OrganizationForm
 
 org_list = {
     "queryset" : Organization.objects.all(),
@@ -12,7 +13,7 @@ org_add = {
 }
 
 org_edit = {
-    "model" : Organization,
+    "form_class" : OrganizationForm,
 }
 
 urlpatterns = patterns("",
