@@ -1,4 +1,7 @@
 {% extends "site_base.html" %}
+{% block head_title %}
+	{{ object.name }}
+{% endblock %}
 {% block body %}
 	<h2><a href="{{ object.get_absolute_url }}">{{ object.name }}</a></h2>
 	<dl>
@@ -6,6 +9,7 @@
 		<dt>location:</dt><dd>{{ object.location }}</dd>
 		<dt>about:</dt><dd>{{ object.about }}</dd>
 		<dt>url:</dt><dd><a href="{{object.website}}">{{ object.website }}</a></dd>
+		<dt>Workshops</dt><dd>{{ object.workshops }}</dd>
 	</dl>
 	{% if request.user.is_authenticated %}
 		{% if perms.verbena.change_organization %}
