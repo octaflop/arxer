@@ -1,0 +1,13 @@
+{% extends "site_base.html" %}
+{% block head_title %}
+	Organizations
+{% endblock %}
+{% block body %}
+	<h2>Grants</h2>
+	<ul class='org_list'>
+		{% for grant in object_list %}
+			<li><b><a href="{{ grant.get_absolute_url }}">{{ grant.title }}</a></b></li>
+		{% endfor %}
+	</ul>
+	<a href="{% url grant_add %}">Apply for a grant</a>
+{% endblock %}

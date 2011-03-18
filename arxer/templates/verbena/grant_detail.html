@@ -1,0 +1,16 @@
+{% extends "site_base.html" %}
+{% block head_title %}
+	{{ object.name }}
+{% endblock %}
+{% block body %}
+	<h2><a href="{{ object.get_absolute_url }}">{{ object.name }}</a></h2>
+	<dl>
+		<dt>name:</dt><dd>{{ object.org_name }}</dd>
+	</dl>
+	{% if request.user.is_authenticated %}
+		{% if perms.verbena.change_grant %}
+			<a href="{{ object.get_absolute_url }}/edit">Edit Organization</a>
+		{% endif %}
+	{% endif %}
+	<a href="{% url org_home %}">Back to organizations</a>
+{% endblock %}

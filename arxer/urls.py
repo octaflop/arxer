@@ -71,6 +71,7 @@ urlpatterns = patterns("",
 
     ## SFPIRG additions
     url(r"^organizations/", include("verbena.urls.organization")),
+    url(r"^grants/", include("verbena.urls.grant")),
     url(r"^action-group/", include("verbena.urls.action_group")),
 )
 

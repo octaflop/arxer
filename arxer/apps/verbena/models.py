@@ -1,10 +1,13 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.contrib.localflavor.us.models import PhoneNumberField
 
 from django.utils.translation import ugettext_lazy as _
 
 from pinax.apps.profiles.models import Profile
 from pinax.apps.tribes.models import Tribe
+
+import datetime
 
 # Project types
 PROJECT_TYPE = (
@@ -230,3 +233,73 @@ class ProjectMember(models.Model):
     project = models.ManyToManyField(Project,\
             related_name="%(app_label)s_%(class)s_related")
     user = models.ForeignKey(User)
+
+# Grant Progress
+GRANT_STATUS = (
+    (_("SU"), _("Submitted")),
+    (_("PE"), _("Pending")),
+    (_("AP"), _("Approved")),
+    (_("DN"), _("Denied")),
+)
+
+# Grant Type (amount)
+GRANT_TYPE = (
+    (_("SM"), _("Small")),
+    (_("LA"), _("Large")),
+)
+
+
+class Grant(models.Model):
+    """
+    A grant application model, written to spec of client
+    """
+    grant_type =  models.CharField(_("Grant type"), max_length=2,
+            choices=GRANT_TYPE,
+            help_text="Small: up to $500. Large: $500-$1000")
+    title = models.CharField(_("Grant title"),
+            help_text="The title of the grant-request",
+            max_length=100)
+    slug = models.SlugField(_("Slug"),
+            help_text="The slug is the URL-friendly title")
+    date_applied = models.DateTimeField(_("Date Applied"), blank=True)
+    org_name = models.ForeignKey(Organization)
+    applicant_name = models.CharField(_("Applicant's Name"), max_length=100)
+    mail_address = models.TextField(_("Mailing address with postal code"))
+    email = models.EmailField(_("Contact email"))
+    phone = PhoneNumberField(_("Phone Number"))
+    approval_status = models.CharField(_("approval status"),
+            max_length=2, choices=PROJECT_APPROVAL_STATUS, blank=False)
+    accessibility_opt = models.BooleanField(_("Accessibility Grant"),
+            help_text=("Select this option if you are applying for an\
+            accessibility grant in conjunction with your request."))
+    other_fund = models.TextField(_("Other funding sources"),
+            help_text="Where else have you applied for funding?",
+            blank=True)
+    description = models.TextField(_("Project description"),
+            help_text="What are you requesting this money for? Please briefly\
+            describe your project/campaign/event.")
+    comm_benefit = models.TextField(_("Community Benefit"),
+        help_text="How does this initiative benefit the community?")
+    budget_timeline = models.TextField(_("Breakdown and Timeline"),
+            help_text="Please provide a project break-down and timeline")
+    mandate = models.TextField(_("Mandate"), help_text="What is the mandate of\
+            your organization?")
+    history = models.TextField(_("History"),
+        help_text="How long has your project been around and what are some of\
+        your past projects/initiatives?")
+    magnitude = models.TextField(_("Amount of people"),
+            help_text="How may people are working on this project and how does\
+            your organization make decisions?")
+    how_heard = models.TextField(_("Reference"),
+            help_text="How did you hear about SFPIRG action grants?")
+
+    def __unicode__(self):
+        return self.title
+
+    @models.permalink
+    def get_absolute_url(self):
+        return ('grant_view', [str(self.slug)])
+
+    def save(self, *args, **kwargs):
+        self.date_applied = datetime.datetime.now()
+        super(Grant, self).save(*args, **kwargs)

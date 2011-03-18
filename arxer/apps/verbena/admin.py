@@ -2,7 +2,7 @@
 from django.contrib import admin
 
 from verbena.models import Student, Faculty, NewsRelease, Location, Project,\
-    VolunteerOpportunity, Organization, Workshop, ActionGroup
+    VolunteerOpportunity, Organization, Workshop, ActionGroup, Grant
 
 class StudentAdmin(admin.ModelAdmin):
     list_display = ('studying','comp_year',)
@@ -39,6 +39,10 @@ class VolunteerOpportunityAdmin(admin.ModelAdmin):
     display_inline = ('organization',)
     prepopulated_fields = {'slug': ('title',)}
 
+class GrantAdmin(admin.ModelAdmin):
+    display_inline = ('organization','date_applied',)
+    prepopulated_fields = {'slug': ('title',)}
+
 admin.site.register(Project, ProjectAdmin)
 admin.site.register(VolunteerOpportunity, VolunteerOpportunityAdmin)
 admin.site.register(Workshop, WorkshopAdmin)
@@ -48,3 +52,4 @@ admin.site.register(Student, StudentAdmin)
 admin.site.register(Faculty, FacultyAdmin)
 admin.site.register(ActionGroup, ActionGroupAdmin)
 admin.site.register(Organization, OrganizationAdmin)
+admin.site.register(Grant, GrantAdmin)

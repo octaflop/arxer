@@ -1,0 +1,16 @@
+{% extends "site_base.html" %}
+{% load uni_form_tags %}
+{% block head_title %}
+	Edit {{ object.name }}
+{% endblock %}
+{% block body %}
+	<h2>{{ object.name }}</h2>
+	<form action="" method="post" class="uniForm">
+	{% csrf_token %}
+	{{ form|as_uni_form }}
+		<input type="submit" value="submit" />
+		{% if object.slug %}
+			<a href="{% url org_view object.slug %}">Cancel Edits</a>
+		{% endif %}
+	</form>
+{% endblock %}
