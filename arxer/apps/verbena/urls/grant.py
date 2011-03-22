@@ -9,7 +9,8 @@ grant_list = {
 }
 
 grant_add = {
-    "model" : Grant,
+    #"model" : Grant,
+    "form_class" : GrantForm,
 }
 
 grant_edit = {

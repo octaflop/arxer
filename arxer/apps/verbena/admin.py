@@ -16,7 +16,7 @@ class OrganizationAdmin(admin.ModelAdmin):
     display_inline = ('location', 'workshops',)
 
 class NewsReleaseAdmin(admin.ModelAdmin):
-    list_display = ('content', 'datetime',)
+    list_display = ('content', 'datetime_released',)
 
 class LocationAdmin(admin.ModelAdmin):
     list_display = ('place', 'latitude', 'longitude',)
@@ -41,6 +41,7 @@ class VolunteerOpportunityAdmin(admin.ModelAdmin):
 
 class GrantAdmin(admin.ModelAdmin):
     display_inline = ('organization','date_applied',)
+    exclude = ('date_applied',)
     prepopulated_fields = {'slug': ('title',)}
 
 admin.site.register(Project, ProjectAdmin)

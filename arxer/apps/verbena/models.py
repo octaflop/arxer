@@ -146,7 +146,8 @@ class NewsRelease(models.Model):
     press and other public media entities.
     """
     content = models.TextField(_("A description of the news"))
-    datetime = models.DateTimeField()
+    datetime_released = models.DateTimeField(_("News Release date and time"),
+            help_text=_("Indicate the date and time of the news release"))
 
 class Location(models.Model):
     """
@@ -213,7 +214,7 @@ class Project(models.Model):
             help_text=_("Project title (be clear and short)"),
             max_length=80)
     slug = models.SlugField(_("URL-friendly name"))
-    app_date = models.DateField(_("Project start date"))
+    date_applied = models.DateField(_("Project start date"))
     research_question = models.TextField(_("Central Research Question"),
             help_text=_("What is the central research question you want answered?"),
             blank=True
@@ -239,9 +240,13 @@ class Project(models.Model):
             help_text=_("What larger goal is served by undertaking this project?")
             )
     approval_status = models.CharField(_("approval status"),
-            max_length=2, choices=PROJECT_APPROVAL_STATUS, blank=False)
+            max_length=2, choices=PROJECT_APPROVAL_STATUS,
+            default="PR",
+            blank=False)
     progress_status = models.CharField(_("progress status"),
-            max_length=2, choices=PROJECT_PROGRESS_STATUS, blank=False)
+            max_length=2, choices=PROJECT_PROGRESS_STATUS,
+            default="PO",
+            blank=False)
 
     def __unicode__(self):
         return self.title
@@ -249,6 +254,10 @@ class Project(models.Model):
     @models.permalink
     def get_absolute_url(self):
         return ('project_view', [str(self.slug)])
+
+    def save(self, *args, **kwargs):
+        self.date_applied = datetime.datetime.now()
+        super(Project, self).save(*args, **kwargs)
 
 class StudentProject(Project):
     """ The model if the student is applying for a project """
@@ -296,14 +305,16 @@ class Grant(models.Model):
             max_length=100)
     slug = models.SlugField(_("Slug"),
             help_text="The slug is the URL-friendly title")
-    date_applied = models.DateTimeField(_("Date Applied"), blank=True)
+    date_applied = models.DateTimeField(_("Date Applied"))
     org_name = models.ForeignKey(Organization)
     applicant_name = models.CharField(_("Applicant's Name"), max_length=100)
     mail_address = models.TextField(_("Mailing address with postal code"))
     email = models.EmailField(_("Contact email"))
     phone = PhoneNumberField(_("Phone Number"))
     approval_status = models.CharField(_("approval status"),
-            max_length=2, choices=PROJECT_APPROVAL_STATUS, blank=False)
+            max_length=2, choices=PROJECT_APPROVAL_STATUS,
+            default="PR",
+            blank=False)
     accessibility_opt = models.BooleanField(_("Accessibility Grant"),
             help_text=("Select this option if you are applying for an\
             accessibility grant in conjunction with your request."))

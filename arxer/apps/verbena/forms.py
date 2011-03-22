@@ -8,9 +8,10 @@ class OrganizationForm(ModelForm):
 class GrantForm(ModelForm):
     class Meta:
         model = Grant
-        exclude = ('approval_status','date_applied',)
+        exclude = ('date_applied','approval_status',)
 
 class ProjectForm(ModelForm):
     class Meta:
         model = Project
+        exclude = ('approval_status','date_applied','progress_status',)
 
