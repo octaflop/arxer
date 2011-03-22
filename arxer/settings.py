@@ -201,6 +201,7 @@ INSTALLED_APPS = [
     "pinax.apps.threadedcomments_extras",
     "pinax.apps.voting_extras",
     "south",
+    "haystack",
 
     # project
     "about",
@@ -208,6 +209,12 @@ INSTALLED_APPS = [
     # ARX
     "verbena",
 ]
+
+HAYSTACK_SITECONF = 'verbena.search_sites'
+
+HAYSTACK_SEARCH_ENGINE = 'solr'
+
+HAYSTACK_SOLR_URL = 'http://127.0.0.1:8983/solr'
 
 FIXTURE_DIRS = [
     os.path.join(PROJECT_ROOT, "fixtures"),

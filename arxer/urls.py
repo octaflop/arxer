@@ -73,6 +73,10 @@ urlpatterns = patterns("",
     url(r"^organizations/", include("verbena.urls.organization")),
     url(r"^grants/", include("verbena.urls.grant")),
     url(r"^action-group/", include("verbena.urls.action_group")),
+    url(r"^projects/", include("verbena.urls.project")),
+
+    # search
+    url(r"search/", include('haystack.urls')),
 )
 
 ## @@@ for now, we'll use friends_app to glue this stuff together

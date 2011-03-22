@@ -86,6 +86,12 @@ class Organization(models.Model):
     def get_absolute_url(self):
         return ('org_view', [str(self.slug)])
 
+CALL_TIMES = (
+            ('MO', 'Morning'),
+            ('AF', 'Afternoon'),
+            ('EV', 'Evening'),
+        )
+
 class Student(Profile):
     """
         A student must be able to:
@@ -95,6 +101,11 @@ class Student(Profile):
         * Lookup volunteer opportunities
         * Choose to receive the newsletter
     """
+    phone = PhoneNumberField(_("Phone Number"))
+    call_time = models.CharField(_("Best time to call"),
+            help_text=_("Generally, when is the best time to call?"),
+            choices=CALL_TIMES,
+            max_length=2)
     studying = models.CharField(_("Course of study"), max_length=80)
     comp_year = models.IntegerField(_("Expected year of completion"),
             max_length=4)
@@ -111,7 +122,14 @@ class Faculty(Profile):
     # The faculty the faculty member is in 
     in_faculty = models.CharField(_("Is a member of faculty"),
             max_length=80)
-
+    phone = PhoneNumberField(_("Phone Number"))
+    phone_ext = models.CharField(_("Phone extension"),
+            blank=True,
+            max_length=10)
+    call_time = models.CharField(_("Best time to call"),
+            help_text=_("Generally, when is the best time to call?"),
+            choices=CALL_TIMES,
+            max_length=2)
     class Meta:
         verbose_name = _("faculty member")
         verbose_name_plural = _("faculty members")
@@ -134,6 +152,7 @@ class Location(models.Model):
     """
     A Location is simply a latitude and longitude
     """
+    # Default = Woodwards @ Vancouver
     latitude = models.FloatField(blank=True, default=49.28227)
     longitude = models.FloatField(blank=True, default=-123.10754)
     place = models.CharField(_("The name of the location"), max_length=100,\
@@ -189,34 +208,35 @@ class VolunteerOpportunity(Event):
         verbose_name_plural = _("volunteer opportunities")
 
 # Project-Based Models
-class Project(Tribe):
-    title = models.CharField(
-            _("Project title (be clear and short)"),
+class Project(models.Model):
+    title = models.CharField(_("Project title"),
+            help_text=_("Project title (be clear and short)"),
             max_length=80)
+    slug = models.SlugField(_("URL-friendly name"))
     app_date = models.DateField(_("Project start date"))
-    research_question = models.TextField(
-            _("What is the central research question you want answered?"),
+    research_question = models.TextField(_("Central Research Question"),
+            help_text=_("What is the central research question you want answered?"),
             blank=True
             )
-    project_type = models.CharField(
-            _("What type of project is this?"),
+    project_type = models.CharField(_("Project type"),
+            help_text=_("What type of project is this?"),
             max_length=2, choices=PROJECT_TYPE, blank=False
             )
-    magnitude = models.TextField(
-            _("Describe the size of the project in quantifiable terms\
+    magnitude = models.TextField(_("Scope of Project"),
+            help_text=_("Describe the size of the project in quantifiable terms\
                 (e.g. word/page count, duration of radio, number of hours)."),
             )
-    project_description = models.TextField(
-            _("Please describe your project here")
+    project_description = models.TextField(_("Project Description"),
+            help_text=_("Please describe your project here")
             )
-    issues = models.TextField(
-            _("What social/environmental issues are addressed by this project?")
+    issues = models.TextField(_("Issues Address"),
+            help_text=_("What social/environmental issues are addressed by this project?")
             )
-    results_plan = models.TextField(
-            _("How do you plan on using the results of this project?")
+    results_plan = models.TextField(_("Resultant goal"),
+            help_text=_("How do you plan on using the results of this project?")
             )
-    goal = models.TextField(
-            _("What larger goal is served by undertaking this project?")
+    goal = models.TextField(_("Project goal"),
+            help_text=_("What larger goal is served by undertaking this project?")
             )
     approval_status = models.CharField(_("approval status"),
             max_length=2, choices=PROJECT_APPROVAL_STATUS, blank=False)
@@ -225,6 +245,21 @@ class Project(Tribe):
 
     def __unicode__(self):
         return self.title
+
+    @models.permalink
+    def get_absolute_url(self):
+        return ('project_view', [str(self.slug)])
+
+class StudentProject(Project):
+    """ The model if the student is applying for a project """
+    student_leader = models.ForeignKey(Student)
+    course_name = models.CharField(_("Course name"),
+            help_text=_("Course name and number"),
+            max_length=100)
+    course_apply = models.TextField(_("Course application"),
+            help_text=_("How would you like to apply this project in your\
+                course?"))
+    professor = models.ForeignKey(Faculty)
 
 class ProjectMember(models.Model):
     """
