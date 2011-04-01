@@ -1,13 +1,223 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.contrib.localflavor.us.models import PhoneNumberField
+from django.template.defaultfilters import slugify
 
 from django.utils.translation import ugettext_lazy as _
 
-from pinax.apps.profiles.models import Profile
+#from pinax.apps.profiles.models import Profile
 from pinax.apps.tribes.models import Tribe
 
 import datetime
+
+#############################################################################
+# INDIVIDUAL-based models
+# Organization -> a non-individual user
+# Action individual, Student, Faculty (admin is untouched?) -> individual users
+
+class Member(models.Model):
+    """ An abstract to represent all signed-in users"""
+    slug = models.SlugField(_("URL-friendly name"), max_length=80)
+    user = models.ForeignKey(User, unique=True)
+
+    def __unicode__(self):
+        return self.user.username
+
+    class Meta:
+        verbose_name = _("Member")
+        verbose_name_plural = _("Members")
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.user.username)
+        super(Member, self).save(*args, **kwargs)
+
+class GeneralMember(Member):
+    """ An entity representing a registered, unaffiliated user.
+        Individual persons are represented in this way. This ensures that only
+        individuals can sign up for projects and volunteer events.
+        This is also the main model for initial signups.
+        * apply for grants
+    """
+    how_heard = models.TextField(_("Reference"),
+            help_text=_("How did you hear about us?"),
+            blank=True)
+
+class Organization(Member):
+    """ Organizations are entities applying for projects or grants.
+    Organizations share a single login.
+    Organizations may not apply for workshops and participate in volunteer
+    events.
+    """
+    name = models.CharField(_("Organization name"),
+            help_text=_("The name of your organization"),
+            max_length=100)
+    community = models.CharField(
+            _("What community do you represent or work with?"),
+            max_length=180,
+            blank=True)
+    mandate = models.CharField(
+            _("What is your organization's goal or mandate?"),
+            max_length=180,
+            blank=True)
+    service = models.TextField(
+            _("How does your organization goal or mandate fit in with our\
+                desire to support community organizations?"),
+            blank=True)
+    funding = models.TextField(
+            _("What are your organization's principal sources of funding?"),
+            blank=True)
+    annual_budget = models.CharField(
+            _("What is your organization's annual budget?"),
+            max_length=25,
+            blank=True)
+    nonprofit_status = models.BooleanField(
+            _("Are you a registered non-profit?"),
+            default=False)
+
+    about = models.TextField(_("About"))
+    location = models.ForeignKey("Location")
+    website = models.URLField(_("website"), blank=True, null=True)
+    #workshops = models.ManyToManyField("Workshop",
+    #        related_name = "organization-workshops",
+    #        verbose_name = "organization's workshops",
+    #        blank=True, null=True)
+
+    def __unicode__(self):
+        return self.name
+
+    @models.permalink
+    def get_absolute_url(self):
+        return ('org_view', [str(self.slug)])
+
+# Call time options for students and faculty
+CALL_TIMES = (
+            ('MO', 'Morning'),
+            ('AF', 'Afternoon'),
+            ('EV', 'Evening'),
+        )
+
+class Student(GeneralMember):
+    """
+        A student must be able to:
+        * apply for an ARX project
+        * Request to book a room
+        * Lookup volunteer opportunities
+        * Choose to receive the newsletter
+    """
+    phone = PhoneNumberField(_("Phone Number"), blank=True, null=True)
+    call_time = models.CharField(_("Best time to call"),
+            help_text=_("Generally, when is the best time to call?"),
+            choices=CALL_TIMES,
+            max_length=2,
+            blank=True, null=True)
+    studying = models.CharField(_("Course of study"), max_length=80,
+            blank=True, null=True)
+    comp_year = models.IntegerField(_("Expected year of completion"),
+            max_length=4,
+            blank=True, null=True)
+
+    class Meta:
+        verbose_name = _("student")
+        verbose_name_plural = _("students")
+
+class Faculty(GeneralMember):
+    """
+    * Book a presentation
+    * Choose to receive the newsletter
+    They may not apply for grants
+    """
+    # The faculty the faculty member is in 
+    in_faculty = models.CharField(_("Is a member of faculty"),
+            max_length=80, blank=True, null=True)
+    phone = PhoneNumberField(_("Phone Number"), blank=True, null=True)
+    phone_ext = models.CharField(_("Phone extension"),
+            blank=True,
+            max_length=10, null=True)
+    call_time = models.CharField(_("Best time to call"),
+            help_text=_("Generally, when is the best time to call?"),
+            choices=CALL_TIMES,
+            max_length=2, blank=True, null=True)
+    class Meta:
+        verbose_name = _("faculty member")
+        verbose_name_plural = _("faculty members")
+
+#############################################################################
+# GROUP-Based Models
+# Each of these models refers to individuals in some way.
+class ActionGroup(models.Model):
+    """ Action groups are groups led by a leader to accomplish a goal.
+    Action groups may be supported by any member, but only led & started by
+    GeneralMembers """
+    title = models.CharField(_("Action Group title"), max_length=80)
+    slug = models.SlugField(_("URL-friendly title"))
+    leader = models.ForeignKey("GeneralMember")
+    # Similar to facebook's "like"
+    supporters = models.ManyToManyField("Member",
+            related_name = "group-supporters",
+            blank=True)
+
+    def __unicode__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = _("Action group")
+        verbose_name_plural = _("Action groups")
+
+class Location(models.Model):
+    """
+    A Location is simply a latitude and longitude
+    """
+    ## Default data == Woodwards @ Vancouver
+    latitude = models.FloatField(blank=True, default=49.28227)
+    longitude = models.FloatField(blank=True, default=-123.10754)
+    place = models.CharField(_("The name of the location"), max_length=100,\
+            default=_("Vancouver"))
+
+    def __unicode__(self):
+        return self.place
+
+class Event(models.Model):
+    """
+    ABSTRACT Model
+    Events are anything occurring at a specific time
+    """
+    title = models.CharField(_("Event title"), max_length=100)
+    slug = models.SlugField(_("Event slug"))
+    start_date = models.DateTimeField(_("Event start date & time"))
+    end_date = models.DateTimeField(_("Event end date & time"))
+    location = models.ForeignKey(Location, blank=True)
+
+    def __unicode__(self):
+        return self.title
+
+    class Meta:
+        ordering = ('-start_date',)
+        get_latest_by = 'start_date'
+
+class Workshop(Event):
+    """
+    A workshop is an event with members
+    """
+    room = models.CharField(_("Room"), max_length=80, blank=True)
+    # organizations may NOT sign up for a workshop
+    members = models.ManyToManyField(GeneralMember,
+            related_name = "workshops",
+            verbose_name = "members",
+        )
+
+class VolunteerOpportunity(Event):
+    """
+    A volunteer opportunity is an event with an organization and members
+    organization may NOT sign up (GeneralMembers only)
+    """
+    organization = models.ForeignKey(Organization)
+    volunteers = models.ManyToManyField(Member,
+            related_name = "volunteer-opportunities",
+            verbose_name = "volunteers",
+        )
+    class Meta:
+        verbose_name = _("volunteer opportunity")
+        verbose_name_plural = _("volunteer opportunities")
 
 # Project types
 PROJECT_TYPE = (
@@ -36,180 +246,12 @@ PROJECT_PROGRESS_STATUS = (
     (_("FU"), _("Finished - Unsuccessful")),
 )
 
-
-# Profile-based models
-# Action individual, Organization, Student, Faculty (admin is untouched?)
-class ActionIndividual(Profile):
-    """ Action individuals are leaders of action-groups """
-    pass
-
-class Organization(models.Model):
-    """ Organizations are entities applying for projects or grants.
-    Organizations share a single login """
-    name = models.CharField(_("Name"), max_length=80)
-    slug = models.SlugField(_("URL-friendly name"), max_length=80)
-    community = models.CharField(
-            _("What community do you represent or work with?"),
-            max_length=180,
-            blank=True)
-    mandate = models.CharField(
-            _("What is your organization's goal or mandate?"),
-            max_length=180,
-            blank=True)
-    service = models.TextField(
-            _("How does your organization goal or mandate fit in with our\
-                desire to support community organizations?"),
-            blank=True)
-    funding = models.TextField(
-            _("What are your organization's principal sources of funding?"),
-            blank=True)
-    annual_budget = models.CharField(
-            _("What is your organization's annual budget?"),
-            max_length=25,
-            blank=True)
-    nonprofit_status = models.BooleanField(
-            _("Are you a registered non-profit?"),
-            default=False)
-
-    about = models.TextField(_("About"))
-    location = models.ForeignKey("Location")
-    website = models.URLField(_("website"), blank=True, null=True)
-    workshops = models.ManyToManyField("Workshop",
-            related_name = "organization-workshops",
-            verbose_name = "organization's workshops",
-            blank=True, null=True)
-
-    def __unicode__(self):
-        return self.name
-
-    @models.permalink
-    def get_absolute_url(self):
-        return ('org_view', [str(self.slug)])
-
-CALL_TIMES = (
-            ('MO', 'Morning'),
-            ('AF', 'Afternoon'),
-            ('EV', 'Evening'),
-        )
-
-class Student(Profile):
-    """
-        A student must be able to:
-        * apply for an ARX project
-        * apply for grants
-        * Request to book a room
-        * Lookup volunteer opportunities
-        * Choose to receive the newsletter
-    """
-    phone = PhoneNumberField(_("Phone Number"))
-    call_time = models.CharField(_("Best time to call"),
-            help_text=_("Generally, when is the best time to call?"),
-            choices=CALL_TIMES,
-            max_length=2)
-    studying = models.CharField(_("Course of study"), max_length=80)
-    comp_year = models.IntegerField(_("Expected year of completion"),
-            max_length=4)
-
-    class Meta:
-        verbose_name = _("student")
-        verbose_name_plural = _("students")
-
-class Faculty(Profile):
-    """
-    * Book a presentation
-    * Choose to receive the newsletter
-    """
-    # The faculty the faculty member is in 
-    in_faculty = models.CharField(_("Is a member of faculty"),
-            max_length=80)
-    phone = PhoneNumberField(_("Phone Number"))
-    phone_ext = models.CharField(_("Phone extension"),
-            blank=True,
-            max_length=10)
-    call_time = models.CharField(_("Best time to call"),
-            help_text=_("Generally, when is the best time to call?"),
-            choices=CALL_TIMES,
-            max_length=2)
-    class Meta:
-        verbose_name = _("faculty member")
-        verbose_name_plural = _("faculty members")
-
-# Page-Based Models
-class ActionGroup(Tribe):
-    """ Action groups are groups led by a leader to accomplish a goal """
-    title = models.CharField(_("Action Group title"), max_length=80)
-    leader = models.ForeignKey("ActionIndividual")
-
-class NewsRelease(models.Model):
-    """
-    A News release is a short document with up-to-date information for the
-    press and other public media entities.
-    """
-    content = models.TextField(_("A description of the news"))
-    datetime_released = models.DateTimeField(_("News Release date and time"),
-            help_text=_("Indicate the date and time of the news release"))
-
-class Location(models.Model):
-    """
-    A Location is simply a latitude and longitude
-    """
-    # Default = Woodwards @ Vancouver
-    latitude = models.FloatField(blank=True, default=49.28227)
-    longitude = models.FloatField(blank=True, default=-123.10754)
-    place = models.CharField(_("The name of the location"), max_length=100,\
-            default=_("Vancouver"))
-
-    def __unicode__(self):
-        return self.place
-
-class Event(models.Model):
-    """
-    Events are anything occurring at a specific time
-    """
-    title = models.CharField(_("Event title"), max_length=100)
-    slug = models.SlugField(_("Event slug"))
-    start_date = models.DateTimeField(_("Event start date & time"))
-    end_date = models.DateTimeField(_("Event end date & time"))
-    location = models.ForeignKey(Location)
-
-    def __unicode__(self):
-        return self.title
-
-    class Meta:
-        ordering = ('-start_date',)
-        get_latest_by = 'start_date'
-
-class Workshop(Event):
-    """
-    A workshop is an event with members
-    """
-    room = models.CharField(_("Room"), max_length=80, blank=True)
-    members = models.ManyToManyField(Profile,
-            related_name = "workshops",
-            verbose_name = "members",
-        )
-
-class Gathering(Event):
-    """
-    A gathering is an open event
-    """
-    pass
-
-class VolunteerOpportunity(Event):
-    """
-    A volunteer opportunity is an event with an organization and members
-    """
-    organization = models.ForeignKey(Organization)
-    volunteers = models.ManyToManyField(User,
-            related_name = "volunteer opportunities",
-            verbose_name = "volunteers",
-        )
-    class Meta:
-        verbose_name = _("volunteer opportunity")
-        verbose_name_plural = _("volunteer opportunities")
-
 # Project-Based Models
 class Project(models.Model):
+    """
+    Projects are the ARX projects.
+    Only organizations can create projects.
+    """
     title = models.CharField(_("Project title"),
             help_text=_("Project title (be clear and short)"),
             max_length=80)
@@ -219,10 +261,39 @@ class Project(models.Model):
             help_text=_("What is the central research question you want answered?"),
             blank=True
             )
-    project_type = models.CharField(_("Project type"),
-            help_text=_("What type of project is this?"),
-            max_length=2, choices=PROJECT_TYPE, blank=False
-            )
+    #project_type = models.CharField(_("Project type"),
+    #        help_text=_("What type of project is this?"),
+    #        max_length=2, choices=PROJECT_TYPE, blank=False
+    #        )
+    type_comp_rel = models.BooleanField(_("Computer related"),
+            help_text=_("These boxes indicate your project type.\
+                        Please select all that apply."),
+            blank=True)
+    type_creative = models.BooleanField(_("Creative"),
+            help_text=_("These boxes indicate your project type.\
+                        Please select all that apply."),
+            blank=True)
+    type_form_res = models.BooleanField(_("Formal Research"),
+            help_text=_("These boxes indicate your project type.\
+                        Please select all that apply."),
+            blank=True)
+    type_org_dev = models.BooleanField(_("Organizational Development"),
+            help_text=_("These boxes indicate your project type.\
+                        Please select all that apply."),
+            blank=True)
+    type_survey = models.BooleanField(_("Survey"),
+            help_text=_("These boxes indicate your project type.\
+                        Please select all that apply."),
+            blank=True)
+    type_other = models.BooleanField(_("Other (please indicate)"),
+            help_text=_("These boxes indicate your project type.\
+                        Please select all that apply."),
+            blank=True)
+    other_project_type = models.CharField(_("Other description"),
+            help_text=_("If you checked 'other,' please briefly \
+                        describe your project-type."),
+            max_length=200,
+            blank=True)
     magnitude = models.TextField(_("Scope of Project"),
             help_text=_("Describe the size of the project in quantifiable terms\
                 (e.g. word/page count, duration of radio, number of hours)."),
@@ -260,23 +331,27 @@ class Project(models.Model):
         super(Project, self).save(*args, **kwargs)
 
 class StudentProject(Project):
-    """ The model if the student is applying for a project """
+    """
+    Only student can sign up for projects.
+    """
     student_leader = models.ForeignKey(Student)
+    professor = models.ForeignKey(Faculty, blank=True)
     course_name = models.CharField(_("Course name"),
             help_text=_("Course name and number"),
-            max_length=100)
+            max_length=100,
+            blank=True)
     course_apply = models.TextField(_("Course application"),
             help_text=_("How would you like to apply this project in your\
-                course?"))
-    professor = models.ForeignKey(Faculty)
+                course?"),
+            blank=True)
 
-class ProjectMember(models.Model):
-    """
-    A simple abstract for linking users to projects
-    """
-    project = models.ManyToManyField(Project,\
-            related_name="%(app_label)s_%(class)s_related")
-    user = models.ForeignKey(User)
+#class ProjectMember(models.Model):
+#    """
+#    A simple abstract for linking users to projects
+#    """
+#    project = models.ManyToManyField(Project,\
+#            related_name="%(app_label)s_%(class)s_related")
+#    user = models.ForeignKey(User)
 
 # Grant Progress
 GRANT_STATUS = (
@@ -295,7 +370,7 @@ GRANT_TYPE = (
 
 class Grant(models.Model):
     """
-    A grant application model, written to spec of client
+    A grant application model, written to spec of client.
     """
     grant_type =  models.CharField(_("Grant type"), max_length=2,
             choices=GRANT_TYPE,
@@ -349,3 +424,18 @@ class Grant(models.Model):
     def save(self, *args, **kwargs):
         self.date_applied = datetime.datetime.now()
         super(Grant, self).save(*args, **kwargs)
+
+################################################################################
+# Flatpage entities
+# These models can be edited, but do not contain "members"
+
+class NewsRelease(models.Model):
+    """
+    A News release is a short document with up-to-date information for the
+    press and other public media entities.
+    """
+    content = models.TextField(_("A description of the news"))
+    datetime_released = models.DateTimeField(_("News Release date and time"),
+            help_text=_("Indicate the date and time of the news release"))
+
+

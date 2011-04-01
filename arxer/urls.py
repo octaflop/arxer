@@ -42,6 +42,7 @@ urlpatterns = patterns("",
     url(r"^$", direct_to_template, {
         "template": "homepage.html",
     }, name="home"),
+    url(r"^admin/filebrowser/", include('filebrowser.urls')),
     url(r"^admin/invite_user/$", "pinax.apps.signup_codes.views.admin_invite_user", name="admin_invite_user"),
     url(r"^admin/", include(admin.site.urls)),
     url(r"^about/", include("about.urls")),
@@ -77,6 +78,8 @@ urlpatterns = patterns("",
 
     # search
     url(r"search/", include('haystack.urls')),
+    # tinymce
+    url(r"tinymce/", include('tinymce.urls')),
 )
 
 ## @@@ for now, we'll use friends_app to glue this stuff together

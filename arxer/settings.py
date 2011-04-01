@@ -11,6 +11,9 @@ PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
 # tells Pinax to use the default theme
 PINAX_THEME = "default"
 
+# informs django of the new verbena user class
+AUTH_PROFILE_MODULE = 'verebena.Member'
+
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -200,8 +203,11 @@ INSTALLED_APPS = [
     "pinax.apps.topics",
     "pinax.apps.threadedcomments_extras",
     "pinax.apps.voting_extras",
+    # Locally installed apps
     "south",
     "haystack",
+    "tinymce",
+    "filebrowser",
 
     # project
     "about",

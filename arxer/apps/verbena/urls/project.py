@@ -17,4 +17,4 @@ urlpatterns = patterns("",
     url(r"^(?P<slug>[-\w]+)$", object_detail, proj_list, name="project_view"),
     url(r"^apply/$", create_object, proj_edit, name="project_add"),
     url(r"^(?P<slug>[-\w]+)/edit$", update_object, proj_edit, name="project_edit"),
-    )
+)

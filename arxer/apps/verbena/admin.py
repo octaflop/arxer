@@ -1,19 +1,26 @@
 # the admin views
 from django.contrib import admin
+from django.contrib.auth.admin import UserAdmin
 
 from verbena.models import Student, Faculty, NewsRelease, Location, Project,\
     VolunteerOpportunity, Organization, Workshop, ActionGroup, Grant
 
+#class StudentAdmin(UserAdmin):
 class StudentAdmin(admin.ModelAdmin):
-    list_display = ('studying','comp_year',)
+    list_display = ('user','studying','comp_year',)
+    exclude = ('slug',)
 
+#class FacultyAdmin(UserAdmin):
 class FacultyAdmin(admin.ModelAdmin):
     list_display = ('in_faculty',)
+    exclude = ('slug',)
 
+#class OrganizationAdmin(UserAdmin):
 class OrganizationAdmin(admin.ModelAdmin):
     list_display = ('name', 'about', 'website',)
     prepopulated_fields = {'slug': ('name',)}
     display_inline = ('location', 'workshops',)
+    exclude = ('slug',)
 
 class NewsReleaseAdmin(admin.ModelAdmin):
     list_display = ('content', 'datetime_released',)

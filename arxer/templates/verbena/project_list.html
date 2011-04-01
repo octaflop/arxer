@@ -8,7 +8,7 @@
 	<h2>{% trans "Projects" %}</h2>
 	<ul class='proj_list'>
 		{% for proj in object_list %}
-			<li><b><a href="{{ proj.get_absolute_url }}">{{ proj.name }}</a></b></li>
+			<li><b><a href="{{ proj.get_absolute_url }}">{{ proj.title }}</a></b></li>
 		{% endfor %}
 	</ul>
 	<a href="{% url project_add %}">{% trans "Apply for a project" %}</a>
