@@ -1,7 +1,11 @@
-from verbena.models import Organization, Grant, Project
+from verbena.models import Organization, Grant, Project, ActionGroup
 from django.forms import ModelForm
 
 class OrganizationForm(ModelForm):
+    class Meta:
+        model = Organization
+
+class ActionGroupForm(ModelForm):
     class Meta:
         model = Organization
 

@@ -27,6 +27,24 @@ class Member(models.Model):
         verbose_name = _("Member")
         verbose_name_plural = _("Members")
 
+    def is_student(self):
+        if self.pk == self.student.pk:
+            return True
+        else:
+            return False
+
+    def is_faculty(self):
+        if self.pk == self.faculty.pk:
+            return True
+        else:
+            return False
+
+    def is_org(self):
+        if self.pk == self.organization.pk:
+            return True
+        else:
+            return False
+
     def save(self, *args, **kwargs):
         self.slug = slugify(self.user.username)
         super(Member, self).save(*args, **kwargs)
@@ -77,10 +95,6 @@ class Organization(Member):
     about = models.TextField(_("About"))
     location = models.ForeignKey("Location")
     website = models.URLField(_("website"), blank=True, null=True)
-    #workshops = models.ManyToManyField("Workshop",
-    #        related_name = "organization-workshops",
-    #        verbose_name = "organization's workshops",
-    #        blank=True, null=True)
 
     def __unicode__(self):
         return self.name
@@ -261,10 +275,6 @@ class Project(models.Model):
             help_text=_("What is the central research question you want answered?"),
             blank=True
             )
-    #project_type = models.CharField(_("Project type"),
-    #        help_text=_("What type of project is this?"),
-    #        max_length=2, choices=PROJECT_TYPE, blank=False
-    #        )
     type_comp_rel = models.BooleanField(_("Computer related"),
             help_text=_("These boxes indicate your project type.\
                         Please select all that apply."),
@@ -344,14 +354,6 @@ class StudentProject(Project):
             help_text=_("How would you like to apply this project in your\
                 course?"),
             blank=True)
-
-#class ProjectMember(models.Model):
-#    """
-#    A simple abstract for linking users to projects
-#    """
-#    project = models.ManyToManyField(Project,\
-#            related_name="%(app_label)s_%(class)s_related")
-#    user = models.ForeignKey(User)
 
 # Grant Progress
 GRANT_STATUS = (
@@ -437,5 +439,4 @@ class NewsRelease(models.Model):
     content = models.TextField(_("A description of the news"))
     datetime_released = models.DateTimeField(_("News Release date and time"),
             help_text=_("Indicate the date and time of the news release"))
-
 

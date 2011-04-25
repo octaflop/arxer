@@ -1,0 +1,13 @@
+{% extends "site_base.html" %}
+{% block head_title %}
+	Organizations
+{% endblock %}
+{% block body %}
+	<h2>Organizations</h2>
+	<ul class='org_list'>
+		{% for ag in object_list %}
+			<li><b><a href="{{ ag.get_absolute_url }}">{{ ag.name }}</a></b></li>
+		{% endfor %}
+	</ul>
+	<a href="{% url act_add %}">Add an Action Group</a>
+{% endblock %}

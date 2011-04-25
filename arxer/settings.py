@@ -47,7 +47,7 @@ DATABASES = {
 # although not all choices may be available on all operating systems.
 # If running in a Windows environment this must be set to the same as your
 # system time zone.
-TIME_ZONE = "US/Eastern"
+TIME_ZONE = "America/Vancouver"
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
@@ -139,6 +139,8 @@ TEMPLATE_CONTEXT_PROCESSORS = [
     "friends_app.context_processors.invitations",
     
     "arxer.context_processors.combined_inbox_count",
+
+    "emencia.django.newsletter.context_processors.media",
 ]
 
 COMBINED_INBOX_COUNT_SOURCES = [
@@ -208,6 +210,7 @@ INSTALLED_APPS = [
     "haystack",
     "tinymce",
     "filebrowser",
+    "emencia.django.newsletter",
 
     # project
     "about",
@@ -262,11 +265,12 @@ EMAIL_DEBUG = DEBUG
 ugettext = lambda s: s
 LANGUAGES = [
     ("en", u"English"),
+    ("fr", u"French"),
 ]
 
 # URCHIN_ID = "ua-..."
 
-YAHOO_MAPS_API_KEY = "..."
+# YAHOO_MAPS_API_KEY = "..."
 
 class NullStream(object):
     def write(*args, **kwargs):
