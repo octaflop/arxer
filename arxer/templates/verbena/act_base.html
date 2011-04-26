@@ -1,0 +1,12 @@
+{% extends "site_base.html" %}
+{% load i18n %}
+{% block body_class %}action group{% endblock %}
+
+{% block subnav %}
+	<ul>
+		<li><a href="{% url act_home %}">{% trans "List action groups" %}</a></li>
+		<li><a href="{% url act_add %}">{% trans "Create action group" %}</a></li>
+	<ul>
+{% endblock %}
+
+

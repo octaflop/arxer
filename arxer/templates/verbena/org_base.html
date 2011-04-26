@@ -1,0 +1,11 @@
+{% extends "site_base.html" %}
+{% load i18n %}
+{% block body_class %}organization{% endblock %}
+
+{% block subnav %}
+	<ul>
+		<li><a href="{% url org_home %}">{% trans "List Organizations" %}</a></li>
+		<li><a href="{% url org_add %}">{% trans "Create Organization" %}</a></li>
+	<ul>
+{% endblock %}
+

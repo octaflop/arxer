@@ -1,4 +1,4 @@
-{% extends "site_base.html" %}
+{% extends "verbena/org_base.html" %}
 {% load uni_form_tags %}
 {% block head_title %}
 	Edit {{ object.name }}
@@ -13,4 +13,14 @@
 			<a href="{% url org_view object.slug %}">Cancel Edits</a>
 		{% endif %}
 	</form>
+	<script type="text/javascript" 
+	src="{{ STATIC_URL	}}admin/js/urlify.js"></script>
+	<script type="text/javascript">
+		document.getElementById("id_name").onkeyup = function () {
+			var e = document.getElementById("id_slug");
+			if (!e._changed) { 
+				e.value =	URLify(document.getElementById("id_name").value, 75); 
+			}
+		}
+	</script>
 {% endblock %}

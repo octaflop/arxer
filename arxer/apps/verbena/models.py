@@ -39,12 +39,6 @@ class Member(models.Model):
         else:
             return False
 
-    def is_org(self):
-        if self.pk == self.organization.pk:
-            return True
-        else:
-            return False
-
     def save(self, *args, **kwargs):
         self.slug = slugify(self.user.username)
         super(Member, self).save(*args, **kwargs)
@@ -60,15 +54,18 @@ class GeneralMember(Member):
             help_text=_("How did you hear about us?"),
             blank=True)
 
-class Organization(Member):
+class Organization(models.Model):
     """ Organizations are entities applying for projects or grants.
     Organizations share a single login.
     Organizations may not apply for workshops and participate in volunteer
     events.
+    CHANGED = Organizations are no longer sub-classes of Members
     """
     name = models.CharField(_("Organization name"),
             help_text=_("The name of your organization"),
             max_length=100)
+    slug = models.SlugField(_("URL-friendly name"), max_length=80)
+    leader = models.ForeignKey(User)
     community = models.CharField(
             _("What community do you represent or work with?"),
             max_length=180,
@@ -91,13 +88,16 @@ class Organization(Member):
     nonprofit_status = models.BooleanField(
             _("Are you a registered non-profit?"),
             default=False)
-
     about = models.TextField(_("About"))
     location = models.ForeignKey("Location")
     website = models.URLField(_("website"), blank=True, null=True)
 
     def __unicode__(self):
         return self.name
+
+    class Meta:
+        verbose_name = _("Organization")
+        verbose_name_plural = _("Organizations")
 
     @models.permalink
     def get_absolute_url(self):
@@ -176,6 +176,10 @@ class ActionGroup(models.Model):
     class Meta:
         verbose_name = _("Action group")
         verbose_name_plural = _("Action groups")
+
+    @models.permalink
+    def get_absolute_url(self):
+        return ('act_view', [str(self.slug)])
 
 class Location(models.Model):
     """

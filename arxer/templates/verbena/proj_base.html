@@ -1,0 +1,12 @@
+{% extends "site_base.html" %}
+{% load i18n %}
+{% block body_class %}project{% endblock %}
+
+{% block subnav %}
+	<ul>
+		<li><a href="{% url project_home %}">{% trans "List Projects" %}</a></li>
+		<li><a href="{% url project_add %}">{% trans "Create Project" %}</a></li>
+	<ul>
+{% endblock %}
+
+
