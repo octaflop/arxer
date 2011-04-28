@@ -10,6 +10,7 @@ class OrganizationForm(ModelForm):
 class ActionGroupForm(ModelForm):
     class Meta:
         model = ActionGroup
+        """
     leader = forms.ModelChoiceField(queryset=Member.objects.all())
     def __init__(self, *args, **kwargs):
         if 'instance' in kwargs:
@@ -31,6 +32,7 @@ class ActionGroupForm(ModelForm):
             instance.save()
             self.save_m2m()
         return instance
+        """
 
 
 class GrantForm(ModelForm):

@@ -14,7 +14,7 @@ act_add = {
 }
 
 act_edit = {
-    "model" : ActionGroupForm,
+    "form_class" : ActionGroupForm,
     "login_required": True,
 }
 
