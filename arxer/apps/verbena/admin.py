@@ -20,7 +20,6 @@ class OrganizationAdmin(admin.ModelAdmin):
     list_display = ('name', 'about', 'website',)
     prepopulated_fields = {'slug': ('name',)}
     display_inline = ('location', 'workshops',)
-    exclude = ('slug',)
 
 class NewsReleaseAdmin(admin.ModelAdmin):
     list_display = ('content', 'datetime_released',)
