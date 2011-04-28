@@ -6,12 +6,10 @@ from django.template.defaultfilters import slugify
 class OrganizationForm(ModelForm):
     class Meta:
         model = Organization
-        #exclude = ['slug']
 
 class ActionGroupForm(ModelForm):
     class Meta:
         model = ActionGroup
-        #exclude = ['slug']
     leader = forms.ModelChoiceField(queryset=Member.objects.all())
     def __init__(self, *args, **kwargs):
         if 'instance' in kwargs:

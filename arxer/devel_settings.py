@@ -18,4 +18,4 @@ DATABASES = {
 }
 MEDIA_ROOT = os.path.join(PROJECT_ROOT, "site_media", "media")
 MEDIA_URL = "/site_media/media/"
-ADMIN_MEDIA_PREFIX = posixpath.join(STATIC_URL, "admin/")
+ADMIN_MEDIA_PREFIX = os.path.join(STATIC_URL, "admin/")

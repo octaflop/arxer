@@ -1,4 +1,4 @@
-{% extends "site_base.html" %}
+{% extends "verbena/grant_base.html" %}
 {% block head_title %}
 	{{ object.name }}
 {% endblock %}
@@ -9,8 +9,8 @@
 	</dl>
 	{% if request.user.is_authenticated %}
 		{% if perms.verbena.change_grant %}
-			<a href="{{ object.get_absolute_url }}/edit">Edit Organization</a>
+			<a href="{{ object.get_absolute_url }}/edit">Edit Grant</a>
 		{% endif %}
 	{% endif %}
-	<a href="{% url org_home %}">Back to organizations</a>
+	<a href="{% url org_home %}">Back to list of grant</a>
 {% endblock %}
