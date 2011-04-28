@@ -66,9 +66,12 @@ STATIC_ROOT = os.path.join(PROJECT_ROOT, "site_media", "static")
 # Example: "http://media.lawrence.com"
 STATIC_URL = "/site_media/static/"
 
+# Local theme for the media files
+LOCAL_THEME = "arxer"
+
 # Additional directories which hold static files
 STATICFILES_DIRS = [
-    os.path.join(PROJECT_ROOT, "media"),
+    os.path.join(PROJECT_ROOT, "media", LOCAL_THEME),
     os.path.join(PINAX_ROOT, "media", PINAX_THEME),
 ]
 

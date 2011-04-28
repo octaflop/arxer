@@ -19,6 +19,8 @@
     <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/topics.css" />
     <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/wiki.css" />
     <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/jquery.autocomplete.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/ui-lightness/jquery-ui-1.8.12.custom.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/datetimepicker.css" />
     <link rel="stylesheet" href="{{ STATIC_URL }}bookmarks/css/bookmarks.css" />
     {% block extra_head %}{% endblock %}
 {% endblock %}
@@ -85,8 +87,11 @@
 </div>
 {% endblock %}
 
+{% block jquery_src %}{{ STATIC_URL }}pinax/js/jquery-1.5.1.min.js{% endblock %}
 {% block extra_body_base %}
     {% ga %}
     <script type="text/javascript" src="{{ STATIC_URL }}pinax/js/topics.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL	}}pinax/js/jquery-ui.custom.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}pinax/js/jquery-ui-timepicker-addon.js"></script>
     {% block extra_body %}{% endblock %}
 {% endblock %}

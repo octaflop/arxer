@@ -212,9 +212,14 @@ class Event(models.Model):
         ordering = ('-start_date',)
         get_latest_by = 'start_date'
 
+    @models.permalink
+    def get_absolute_url(self):
+        return ('workshop_view', [str(self.slug)])
+
 class Workshop(Event):
     """
     A workshop is an event with members
+    Workshops are held by SFPIRG at the request of a user
     """
     room = models.CharField(_("Room"), max_length=80, blank=True)
     # organizations may NOT sign up for a workshop

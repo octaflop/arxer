@@ -72,10 +72,11 @@ urlpatterns = patterns("",
     url(r"^feeds/bookmarks/(.*)/?$", "django.contrib.syndication.views.feed", bookmarks_feed_dict),
 
     ## SFPIRG additions
-    url(r"^organizations/", include("verbena.urls.organization")),
+    url(r"^organization/", include("verbena.urls.organization")),
     url(r"^grants/", include("verbena.urls.grant")),
     url(r"^action-group/", include("verbena.urls.action_group")),
-    url(r"^projects/", include("verbena.urls.project")),
+    url(r"^project/", include("verbena.urls.project")),
+    url(r"^workshop/", include("verbena.urls.workshop")),
 
     # search
     url(r"search/", include('haystack.urls')),

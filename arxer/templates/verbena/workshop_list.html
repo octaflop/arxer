@@ -1,0 +1,16 @@
+{% extends "verbena/workshop_base.html" %}
+{% load i18n %}
+
+{% block head_title %}
+	{% trans "Workshops" %}
+{% endblock %}
+
+{% block body %}
+	<h2>{% trans "Workshops" %}</h2>
+	<ul class='workshop_list'>
+		{% for workshop in object_list %}
+			<li><b><a href="{{ workshop.get_absolute_url }}">{{ workshop.title }}</a></b></li>
+		{% endfor %}
+	</ul>
+	<a href="{% url workshop_add %}">{% trans "Apply for a workshop" %}</a>
+{% endblock %}

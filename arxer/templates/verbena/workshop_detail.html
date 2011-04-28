@@ -1,4 +1,4 @@
-{% extends "verbena/proj_base.html" %}
+{% extends "verbena/workshop_base.html" %}
 {% load i18n %}
 {% block head_title %}
 	{{ object.title }}
@@ -10,8 +10,8 @@
 	</dl>
 	{% if request.user.is_authenticated %}
 		{% if perms.verbena.change_grant %}
-			<a href="{{ object.get_absolute_url }}/edit">Edit Project</a>
+			<a href="{{ object.get_absolute_url }}/edit">Edit workshop</a>
 		{% endif %}
 	{% endif %}
-	<a href="{% url project_home %}">Back to Projects</a>
+	<a href="{% url workshop_home %}">Back to Workshops</a>
 {% endblock %}
