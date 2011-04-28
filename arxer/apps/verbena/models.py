@@ -200,7 +200,8 @@ class Event(models.Model):
     Events are anything occurring at a specific time
     """
     title = models.CharField(_("Event title"), max_length=100)
-    slug = models.SlugField(_("Event slug"))
+    slug = models.SlugField(_("URL-friendly name"), 
+    help_text=_("A URL-Friendly title for your event"))
     start_date = models.DateTimeField(_("Event start date & time"))
     end_date = models.DateTimeField(_("Event end date & time"))
     location = models.ForeignKey(Location, blank=True)
