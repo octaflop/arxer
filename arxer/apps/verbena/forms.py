@@ -1,7 +1,12 @@
-from verbena.models import Organization, Grant, Project, ActionGroup, Member, Workshop
+from verbena.models import Organization, Grant, Project, ActionGroup, Member,\
+    Workshop, VolunteerOpportunity
 from django.forms import ModelForm
 import django.forms as forms
 from django.template.defaultfilters import slugify
+
+class VolunteerOpForm(ModelForm):
+    class Meta:
+        model = VolunteerOpportunity
 
 class WorkshopForm(ModelForm):
     class Meta:

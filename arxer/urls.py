@@ -76,6 +76,7 @@ urlpatterns = patterns("",
     url(r"^grants/", include("verbena.urls.grant")),
     url(r"^action-group/", include("verbena.urls.action_group")),
     url(r"^project/", include("verbena.urls.project")),
+    url(r"^volunteer/", include("verbena.urls.volunteer_op")),
     url(r"^workshop/", include("verbena.urls.workshop")),
 
     # search

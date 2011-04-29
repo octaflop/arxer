@@ -242,6 +242,9 @@ class VolunteerOpportunity(Event):
     class Meta:
         verbose_name = _("volunteer opportunity")
         verbose_name_plural = _("volunteer opportunities")
+    @models.permalink
+    def get_absolute_url(self):
+        return ('volunteer_view', [str(self.slug)])
 
 # Project types
 PROJECT_TYPE = (
@@ -271,6 +274,8 @@ PROJECT_PROGRESS_STATUS = (
 )
 
 # Project-Based Models
+
+#ARX Projects: The moneymaker
 class Project(models.Model):
     """
     Projects are the ARX projects.

@@ -1,0 +1,17 @@
+{% extends "verbena/volunteeropportunity_base.html" %}
+{% load i18n %}
+{% block head_title %}
+	{{ object.title }}
+{% endblock %}
+{% block body %}
+	<h2><a href="{{ object.get_absolute_url }}">{{ object.title }}</a></h2>
+	<dl>
+		<dt>title:</dt><dd>{{ object.title }}</dd>
+	</dl>
+	{% if request.user.is_authenticated %}
+		{% if perms.verbena.change_grant %}
+			<a href="{{ object.get_absolute_url }}/edit">Edit volunteer opportunity</a>
+		{% endif %}
+	{% endif %}
+	<a href="{% url volunteer_home %}">Back to Volunteer Opportunities</a>
+{% endblock %}
