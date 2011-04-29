@@ -8,6 +8,11 @@
 	<dl>
 		<dt>title:</dt><dd>{{ object.title }}</dd>
 	</dl>
+	{# if request.user.is_in? #}
+		<a href="{{ object.get_absolute_url }}/leave">Leave group</a>
+	{# else #}
+		<a href="{{ object.get_absolute_url }}/join">Join group</a>
+	{# endif #}
 	{% if request.user.is_authenticated %}
 		{% if perms.verbena.change_grant %}
 			<a href="{{ object.get_absolute_url }}/edit">Edit volunteer opportunity</a>

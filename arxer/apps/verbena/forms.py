@@ -3,6 +3,7 @@ from verbena.models import Organization, Grant, Project, ActionGroup, Member,\
 from django.forms import ModelForm
 import django.forms as forms
 from django.template.defaultfilters import slugify
+from django.utils.translation import ugettext_lazy as _
 
 class VolunteerOpForm(ModelForm):
     class Meta:
@@ -13,8 +14,20 @@ class WorkshopForm(ModelForm):
         model = Workshop
 
 class OrganizationForm(ModelForm):
+    """Form for adding new organizations, user is the logged-in user by
+    default"""
+
+    def __init__(self, *args, **kwargs):
+        systemid = kwargs.pop('systemid')
+        super(OrganizationForm, self).__init__(*args, **kwargs)
+        self.fields['leader'] = forms.ModelChoiceField(
+                required=False,
+                queryset=Member.objects.all(),
+                widget=forms.Select(attrs={'title': _("Add leader")})
+            )
     class Meta:
         model = Organization
+        exclude = ('leader',)
 
 class ActionGroupForm(ModelForm):
     class Meta:

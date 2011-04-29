@@ -9,6 +9,11 @@
 		<dt>leader:</dt><dd><a href="{% url profile_detail object.leader.slug %}">{{ object.leader }}</a></dd>
 		<dt>location:</dt><dd>{{ object.location }}</dd>
 	</dl>
+	{# if request.user.is_in? #}
+		<a href="{{ object.get_absolute_url }}/leave">Leave group</a>
+	{# else #}
+		<a href="{{ object.get_absolute_url }}/join">Join group</a>
+	{# endif #}
 	{% if request.user.is_authenticated %}
 		{% if perms.verbena.change_organization %}
 			<a href="{{ object.get_absolute_url }}/edit">Edit Organization</a>

@@ -53,6 +53,11 @@ class GeneralMember(Member):
     how_heard = models.TextField(_("Reference"),
             help_text=_("How did you hear about us?"),
             blank=True)
+    class Meta:
+        permissions = (
+                ("join_volunteer", "Can join volunteer event"),
+                ("join_actiongroup", "Can join action group"),
+                )
 
 class Organization(models.Model):
     """ Organizations are entities applying for projects or grants.
