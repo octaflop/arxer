@@ -7,24 +7,565 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-20 00:13+0100\n"
+"POT-Creation-Date: 2011-05-02 14:27-0700\n"
 "PO-Revision-Date: 2010-03-04 09:26+0100\n"
 "Last-Translator: James Pic <http://jamespic.com>\n"
-"Language-Team: Pinax French <http://www.transifex.net/projects/p/pinax/team/fr/>\n"
+"Language-Team: Pinax French <http://www.transifex.net/projects/p/pinax/team/"
+"fr/>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n>1;\n"
 
+#: apps/friends_app/views.py:33
+#, python-format
+msgid "Accepted friendship request from %(from_user)s"
+msgstr ""
+
+#: apps/friends_app/views.py:45
+#, python-format
+msgid "Declined friendship request from %(from_user)s"
+msgstr ""
+
+#: apps/friends_app/views.py:108
+#, python-format
+msgid "%(total)s vCards found, %(imported)s contacts imported."
+msgstr ""
+
+#: apps/friends_app/views.py:122 apps/friends_app/views.py:133
+#, python-format
+msgid "%(total)s people with email found, %(imported)s contacts imported."
+msgstr ""
+
+#: apps/verbena/forms.py:38
+msgid "Add leader"
+msgstr ""
+
+#: apps/verbena/models.py:20 apps/verbena/models.py:72
+#: apps/verbena/models.py:216 apps/verbena/models.py:300
+msgid "URL-friendly name"
+msgstr ""
+
+#: apps/verbena/models.py:27
+msgid "Member"
+msgstr ""
+
+#: apps/verbena/models.py:28
+msgid "Members"
+msgstr ""
+
+#: apps/verbena/models.py:53 apps/verbena/models.py:444
+msgid "Reference"
+msgstr ""
+
+#: apps/verbena/models.py:54
+msgid "How did you hear about us?"
+msgstr ""
+
+#: apps/verbena/models.py:69
+msgid "Organization name"
+msgstr ""
+
+#: apps/verbena/models.py:70
+msgid "The name of your organization"
+msgstr ""
+
+#: apps/verbena/models.py:75
+msgid "What community do you represent or work with?"
+msgstr ""
+
+#: apps/verbena/models.py:79
+msgid "What is your organization's goal or mandate?"
+msgstr ""
+
+#: apps/verbena/models.py:83
+msgid ""
+"How does your organization goal or mandate fit in with our                "
+"desire to support community organizations?"
+msgstr ""
+
+#: apps/verbena/models.py:87
+msgid "What are your organization's principal sources of funding?"
+msgstr ""
+
+#: apps/verbena/models.py:90
+msgid "What is your organization's annual budget?"
+msgstr ""
+
+#: apps/verbena/models.py:94
+msgid "Are you a registered non-profit?"
+msgstr ""
+
+#: apps/verbena/models.py:96 templates/site_base.html:90
+#: templates/profiles/profile.html:39
+msgid "About"
+msgstr "A propos"
+
+#: apps/verbena/models.py:98
+msgid "website"
+msgstr ""
+
+#: apps/verbena/models.py:104
+#, fuzzy
+msgid "Organization"
+msgstr "Invitations"
+
+#: apps/verbena/models.py:105 templates/site_base.html:59
+#, fuzzy
+msgid "Organizations"
+msgstr "Invitations"
+
+#: apps/verbena/models.py:126 apps/verbena/models.py:155
+#: apps/verbena/models.py:418
+msgid "Phone Number"
+msgstr ""
+
+#: apps/verbena/models.py:127 apps/verbena/models.py:159
+msgid "Best time to call"
+msgstr ""
+
+#: apps/verbena/models.py:128 apps/verbena/models.py:160
+msgid "Generally, when is the best time to call?"
+msgstr ""
+
+#: apps/verbena/models.py:132
+msgid "Course of study"
+msgstr ""
+
+#: apps/verbena/models.py:134
+msgid "Expected year of completion"
+msgstr ""
+
+#: apps/verbena/models.py:139
+msgid "student"
+msgstr ""
+
+#: apps/verbena/models.py:140
+msgid "students"
+msgstr ""
+
+#: apps/verbena/models.py:153
+msgid "Is a member of faculty"
+msgstr ""
+
+#: apps/verbena/models.py:156
+msgid "Phone extension"
+msgstr ""
+
+#: apps/verbena/models.py:164
+msgid "faculty member"
+msgstr ""
+
+#: apps/verbena/models.py:165
+msgid "faculty members"
+msgstr ""
+
+#: apps/verbena/models.py:178
+msgid "Action Group title"
+msgstr ""
+
+#: apps/verbena/models.py:179
+msgid "URL-friendly title"
+msgstr ""
+
+#: apps/verbena/models.py:190
+msgid "Action group"
+msgstr ""
+
+#: apps/verbena/models.py:191
+msgid "Action groups"
+msgstr ""
+
+#: apps/verbena/models.py:204
+msgid "The name of the location"
+msgstr ""
+
+#: apps/verbena/models.py:205
+msgid "Vancouver"
+msgstr ""
+
+#: apps/verbena/models.py:215
+msgid "Event title"
+msgstr ""
+
+#: apps/verbena/models.py:217
+msgid "A URL-Friendly title for your event"
+msgstr ""
+
+#: apps/verbena/models.py:218
+msgid "Event start date & time"
+msgstr ""
+
+#: apps/verbena/models.py:219
+msgid "Event end date & time"
+msgstr ""
+
+#: apps/verbena/models.py:238
+msgid "Room"
+msgstr ""
+
+#: apps/verbena/models.py:256
+msgid "volunteer opportunity"
+msgstr ""
+
+#: apps/verbena/models.py:257
+msgid "volunteer opportunities"
+msgstr ""
+
+#: apps/verbena/models.py:264
+msgid "CO"
+msgstr ""
+
+#: apps/verbena/models.py:264
+msgid "Computer Related"
+msgstr ""
+
+#: apps/verbena/models.py:265
+msgid "CR"
+msgstr ""
+
+#: apps/verbena/models.py:265 apps/verbena/models.py:310
+msgid "Creative"
+msgstr ""
+
+#: apps/verbena/models.py:266
+msgid "FR"
+msgstr ""
+
+#: apps/verbena/models.py:266 apps/verbena/models.py:314
+msgid "Formal Research"
+msgstr ""
+
+#: apps/verbena/models.py:267
+msgid "OD"
+msgstr ""
+
+#: apps/verbena/models.py:267 apps/verbena/models.py:318
+msgid "Organizational Development"
+msgstr ""
+
+#: apps/verbena/models.py:268 apps/verbena/models.py:388
+msgid "SU"
+msgstr ""
+
+#: apps/verbena/models.py:268 apps/verbena/models.py:322
+msgid "Survey"
+msgstr ""
+
+#: apps/verbena/models.py:269
+msgid "OT"
+msgstr ""
+
+#: apps/verbena/models.py:269
+msgid "Other"
+msgstr ""
+
+#: apps/verbena/models.py:274
+msgid "PR"
+msgstr ""
+
+#: apps/verbena/models.py:274
+msgid "Proposed"
+msgstr ""
+
+#: apps/verbena/models.py:275
+msgid "RE"
+msgstr ""
+
+#: apps/verbena/models.py:275
+msgid "Received"
+msgstr ""
+
+#: apps/verbena/models.py:276 apps/verbena/models.py:389
+msgid "PE"
+msgstr ""
+
+#: apps/verbena/models.py:276 apps/verbena/models.py:389
+msgid "Pending"
+msgstr ""
+
+#: apps/verbena/models.py:277 apps/verbena/models.py:391
+msgid "DN"
+msgstr ""
+
+#: apps/verbena/models.py:277 apps/verbena/models.py:391
+msgid "Denied"
+msgstr ""
+
+#: apps/verbena/models.py:278 apps/verbena/models.py:390
+msgid "AP"
+msgstr ""
+
+#: apps/verbena/models.py:278 apps/verbena/models.py:390
+msgid "Approved"
+msgstr ""
+
+#: apps/verbena/models.py:282
+msgid "PO"
+msgstr ""
+
+#: apps/verbena/models.py:282
+msgid "Populating"
+msgstr ""
+
+#: apps/verbena/models.py:283
+msgid "PL"
+msgstr ""
+
+#: apps/verbena/models.py:283
+msgid "Planning"
+msgstr ""
+
+#: apps/verbena/models.py:284
+msgid "IP"
+msgstr ""
+
+#: apps/verbena/models.py:284
+msgid "In Progress"
+msgstr ""
+
+#: apps/verbena/models.py:285
+msgid "FS"
+msgstr ""
+
+#: apps/verbena/models.py:285
+msgid "Finished - Successful"
+msgstr ""
+
+#: apps/verbena/models.py:286
+msgid "FU"
+msgstr ""
+
+#: apps/verbena/models.py:286
+msgid "Finished - Unsuccessful"
+msgstr ""
+
+#: apps/verbena/models.py:297
+#, fuzzy
+msgid "Project title"
+msgstr "Projets"
+
+#: apps/verbena/models.py:298
+msgid "Project title (be clear and short)"
+msgstr ""
+
+#: apps/verbena/models.py:301
+#, fuzzy
+msgid "Project start date"
+msgstr "Projets"
+
+#: apps/verbena/models.py:302
+msgid "Central Research Question"
+msgstr ""
+
+#: apps/verbena/models.py:303
+msgid "What is the central research question you want answered?"
+msgstr ""
+
+#: apps/verbena/models.py:306
+msgid "Computer related"
+msgstr ""
+
+#: apps/verbena/models.py:307 apps/verbena/models.py:311
+#: apps/verbena/models.py:315 apps/verbena/models.py:319
+#: apps/verbena/models.py:323 apps/verbena/models.py:327
+msgid ""
+"These boxes indicate your project type.                        Please select "
+"all that apply."
+msgstr ""
+
+#: apps/verbena/models.py:326
+msgid "Other (please indicate)"
+msgstr ""
+
+#: apps/verbena/models.py:330
+msgid "Other description"
+msgstr ""
+
+#: apps/verbena/models.py:331
+msgid ""
+"If you checked 'other,' please briefly                         describe your "
+"project-type."
+msgstr ""
+
+#: apps/verbena/models.py:335
+msgid "Scope of Project"
+msgstr ""
+
+#: apps/verbena/models.py:336
+msgid ""
+"Describe the size of the project in quantifiable terms                (e.g. "
+"word/page count, duration of radio, number of hours)."
+msgstr ""
+
+#: apps/verbena/models.py:339
+msgid "Project Description"
+msgstr ""
+
+#: apps/verbena/models.py:340
+msgid "Please describe your project here"
+msgstr ""
+
+#: apps/verbena/models.py:342
+msgid "Issues Address"
+msgstr ""
+
+#: apps/verbena/models.py:343
+msgid "What social/environmental issues are addressed by this project?"
+msgstr ""
+
+#: apps/verbena/models.py:345
+msgid "Resultant goal"
+msgstr ""
+
+#: apps/verbena/models.py:346
+msgid "How do you plan on using the results of this project?"
+msgstr ""
+
+#: apps/verbena/models.py:348
+#, fuzzy
+msgid "Project goal"
+msgstr "Projets"
+
+#: apps/verbena/models.py:349
+msgid "What larger goal is served by undertaking this project?"
+msgstr ""
+
+#: apps/verbena/models.py:351 apps/verbena/models.py:419
+msgid "approval status"
+msgstr ""
+
+#: apps/verbena/models.py:355
+msgid "progress status"
+msgstr ""
+
+#: apps/verbena/models.py:377
+msgid "Course name"
+msgstr ""
+
+#: apps/verbena/models.py:378
+msgid "Course name and number"
+msgstr ""
+
+#: apps/verbena/models.py:381
+msgid "Course application"
+msgstr ""
+
+#: apps/verbena/models.py:382
+msgid "How would you like to apply this project in your                course?"
+msgstr ""
+
+#: apps/verbena/models.py:388
+msgid "Submitted"
+msgstr ""
+
+#: apps/verbena/models.py:396
+msgid "SM"
+msgstr ""
+
+#: apps/verbena/models.py:396
+msgid "Small"
+msgstr ""
+
+#: apps/verbena/models.py:397
+msgid "LA"
+msgstr ""
+
+#: apps/verbena/models.py:397
+msgid "Large"
+msgstr ""
+
+#: apps/verbena/models.py:405
+msgid "Grant type"
+msgstr ""
+
+#: apps/verbena/models.py:408
+msgid "Grant title"
+msgstr ""
+
+#: apps/verbena/models.py:411
+msgid "Slug"
+msgstr ""
+
+#: apps/verbena/models.py:413
+msgid "Date Applied"
+msgstr ""
+
+#: apps/verbena/models.py:415
+msgid "Applicant's Name"
+msgstr ""
+
+#: apps/verbena/models.py:416
+msgid "Mailing address with postal code"
+msgstr ""
+
+#: apps/verbena/models.py:417
+#, fuzzy
+msgid "Contact email"
+msgstr "Contacts"
+
+#: apps/verbena/models.py:423
+msgid "Accessibility Grant"
+msgstr ""
+
+#: apps/verbena/models.py:426
+msgid "Other funding sources"
+msgstr ""
+
+#: apps/verbena/models.py:429
+msgid "Project description"
+msgstr ""
+
+#: apps/verbena/models.py:432
+msgid "Community Benefit"
+msgstr ""
+
+#: apps/verbena/models.py:434
+msgid "Breakdown and Timeline"
+msgstr ""
+
+#: apps/verbena/models.py:436
+msgid "Mandate"
+msgstr ""
+
+#: apps/verbena/models.py:438
+msgid "History"
+msgstr ""
+
+#: apps/verbena/models.py:441
+msgid "Amount of people"
+msgstr ""
+
+#: apps/verbena/models.py:467
+msgid "A description of the news"
+msgstr ""
+
+#: apps/verbena/models.py:468
+msgid "News Release date and time"
+msgstr ""
+
+#: apps/verbena/models.py:469
+msgid "Indicate the date and time of the news release"
+msgstr ""
+
+#: templates/base.html:37
+msgid "Hide announcement"
+msgstr ""
+
+#: templates/base.html:58
+msgid "clear"
+msgstr ""
+
 #: templates/homepage.html:6
 msgid "Welcome"
 msgstr "Bienevenue"
 
-#: templates/homepage.html:11
+#: templates/homepage.html:12
 msgid "Welcome to Pinax"
 msgstr "Bienvenue sur notre site"
 
-#: templates/homepage.html:14
+#: templates/homepage.html:15
 msgid ""
 "\n"
 "        <b>Pinax</b> is a <a href=\"http://djangoproject.com/\">Django</a>\n"
@@ -35,7 +576,7 @@ msgid ""
 "        "
 msgstr ""
 
-#: templates/homepage.html:24
+#: templates/homepage.html:25
 msgid ""
 "\n"
 "        For more information about Pinax, see\n"
@@ -43,11 +584,11 @@ msgid ""
 "        "
 msgstr ""
 
-#: templates/homepage.html:30
+#: templates/homepage.html:31
 msgid "About this project"
 msgstr "A propos de ce projet"
 
-#: templates/homepage.html:33
+#: templates/homepage.html:34
 msgid ""
 "\n"
 "        This project demonstrates a social networking site. It provides\n"
@@ -56,171 +597,109 @@ msgid ""
 "        "
 msgstr ""
 
-#: templates/homepage.html:40
+#: templates/homepage.html:41
 msgid ""
 "\n"
 "        In 0.5 this was called \"complete_project\".\n"
 "        "
 msgstr ""
 
-#: templates/homepage.html:44
+#: templates/homepage.html:49
 #, python-format
 msgid "Wondering <a href=\"%(what_next_url)s\">What Next</a>?"
-msgstr "Vous demandez-vous <a href=\"%(what_next_url)s\">Que faire maintenant</a>?"
+msgstr ""
+"Vous demandez-vous <a href=\"%(what_next_url)s\">Que faire maintenant</a>?"
 
-#: templates/homepage.html:49
+#: templates/homepage.html:54
 #, python-format
 msgid ""
 "You can <a href=\"%(signup_url)s\">Sign up</a> and <a href=\"%(login_url)s"
 "\">Log in</a> to try out the site."
 msgstr ""
-"Vous pouvez <a href=\"%(signup_url)s\">vous inscrire</a> et <a href=\"%(login_url)s"
-"\">vous authentifier</a> pour essayer le site."
+"Vous pouvez <a href=\"%(signup_url)s\">vous inscrire</a> et <a href="
+"\"%(login_url)s\">vous authentifier</a> pour essayer le site."
 
-#: templates/homepage.html:51
+#: templates/homepage.html:56
 #, python-format
 msgid "You can <a href=\"%(login_url)s\">Log in</a> to try out the site."
-msgstr "Vous pouvez <a href=\"%(login_url)s\">vous authentifier</a> pour essayer le site."
+msgstr ""
+"Vous pouvez <a href=\"%(login_url)s\">vous authentifier</a> pour essayer le "
+"site."
 
-#: templates/site_base.html:17
-msgid "Account"
-msgstr "Compte"
-
-#: templates/site_base.html:17
-msgid "Admin"
-msgstr "Administration"
-
-#: templates/site_base.html:17
-msgid "Logout"
-msgstr "Déconnection"
-
-#: templates/site_base.html:19
-msgid "Login"
-msgstr "Authentification"
-
-#: templates/site_base.html:19
-msgid "or"
-msgstr "ou"
-
-#: templates/site_base.html:19
-msgid "Sign up"
-msgstr "Inscription"
-
-#: templates/site_base.html:28
+#: templates/site_base.html:48
 msgid "Profile"
 msgstr "Profil"
 
-#: templates/site_base.html:29
+#: templates/site_base.html:50
+msgid "Grants"
+msgstr ""
+
+#: templates/site_base.html:53 templates/verbena/project_list.html:9
 msgid "Projects"
 msgstr "Projets"
 
-#: templates/site_base.html:30
-msgid "Notices"
-msgstr "Notifications"
+#: templates/site_base.html:56
+msgid "Action Groups"
+msgstr ""
 
-#: templates/site_base.html:42
-msgid "&copy; 2010 &lt;your company here&gt;"
-msgstr "&copy; 2010 &lt;votre entreprise ici&gt;"
+#: templates/site_base.html:62
+#: templates/verbena/volunteeropportunity_list.html:5
+#: templates/verbena/volunteeropportunity_list.html:9
+msgid "Volunteer Opportunities"
+msgstr ""
 
-#: templates/site_base.html:43
-msgid "About"
-msgstr "A propos"
+#: templates/site_base.html:65 templates/verbena/workshop_list.html:5
+#: templates/verbena/workshop_list.html:9
+msgid "Workshops"
+msgstr ""
 
-#: templates/site_base.html:44
+#: templates/site_base.html:67 templates/profiles/profile.html:183
+msgid "Photos"
+msgstr "Photos"
+
+#: templates/site_base.html:78
+msgid "Locations"
+msgstr "Locations"
+
+#: templates/site_base.html:79
+msgid "Inbox"
+msgstr "Boite de récéption"
+
+#: templates/site_base.html:81
+msgid "Search"
+msgstr ""
+
+#: templates/site_base.html:89
+msgid "&copy; 2011 Simon Fraser Public Interest Research Group"
+msgstr ""
+
+#: templates/site_base.html:91
 msgid "Terms of Service"
 msgstr "Termes du service"
 
-#: templates/site_base.html:45
+#: templates/site_base.html:92
 msgid "Privacy Policy"
 msgstr "Politique de confidentialité"
-
-#: templates/site_base.html:46
-msgid "DMCA Notice"
-msgstr ""
 
 #: templates/about/what_next.html:6 templates/about/what_next.html.py:9
 msgid "What Next?"
 msgstr "Que faire maintenant?"
 
-#: templates/about/what_next.html:35
+#: templates/about/what_next.html:51
 #, python-format
 msgid ""
-"Start by <a href=\"%(signup_url)s\">signing up</a> and <a href=\"%(login_url)"
-"s\">logging in</a>."
+"Start by <a href=\"%(signup_url)s\">signing up</a> and <a href="
+"\"%(login_url)s\">logging in</a>."
 msgstr ""
-"Commencez par <a href=\"%(signup_url)s\">vous inscrire</a> et <a href=\"%(login_url)"
-"s\">vous authentifier</a>."
+"Commencez par <a href=\"%(signup_url)s\">vous inscrire</a> et <a href="
+"\"%(login_url)s\">vous authentifier</a>."
 
-#: templates/about/what_next.html:37
+#: templates/about/what_next.html:53
 #, python-format
 msgid "Start by <a href=\"%(login_url)s\">logging in</a>."
 msgstr "Commencez par <a href=\"%(login_url)s\">vous authentifier</a>."
 
-#: templates/account/base.html:10
-msgid "E-Mail Addresses"
-msgstr "Adresses email"
-
-#: templates/account/base.html:11
-msgid "OpenID Associations"
-msgstr "Associations OpenID"
-
-#: templates/account/base.html:13
-msgid "Change Password"
-msgstr "Changer de mot de passe"
-
-#: templates/account/base.html:15
-msgid "Set Password"
-msgstr "Définir le mot de passe"
-
-#: templates/account/base.html:18
-msgid "Delete Password"
-msgstr "Effacer le mot de passe"
-
-#: templates/account/base.html:20
-msgid "Language"
-msgstr "Langage"
-
-#: templates/account/base.html:21
-msgid "Timezone"
-msgstr "Fuseau horairre"
-
-#: templates/site_base.html:54
-msgid "Photos"
-msgstr "Photos"
-
-#: templates/site_base.html:55
-msgid "Blogs"
-msgstr "Blogs"
-
-#: templates/site_base.html:56
-msgid "Tribes"
-msgstr "Tribus"
-
-#: templates/site_base.html:57
-msgid "Tweets"
-msgstr "Tweets"
-
-#: templates/site_base.html:58
-msgid "Bookmarks"
-msgstr "Favoris"
-
-#: templates/site_base.html:59
-msgid "Swaps"
-msgstr "Echanges"
-
-#: templates/site_base.html:60
-msgid "Locations"
-msgstr "Locations"
-
-#: templates/site_base.html:61
-msgid "Inbox"
-msgstr "Boite de récéption"
-
-#: templates/account/base.html:22
-msgid "Avatar"
-msgstr "Avatar"
-
-#: templates/account/base.html:23 templates/account/other_services.html:5
+#: templates/account/other_services.html:5
 #: templates/account/other_services.html:9
 msgid "Other Services"
 msgstr "Autres services"
@@ -281,10 +760,12 @@ msgid "Friendship Requests Received"
 msgstr "Demande d'ami recu"
 
 #: templates/friends_app/invitations.html:28
+#: templates/profiles/profile.html:87
 msgid "accept"
 msgstr "accepter"
 
 #: templates/friends_app/invitations.html:34
+#: templates/profiles/profile.html:93
 msgid "decline"
 msgstr "décliner"
 
@@ -343,33 +824,356 @@ msgstr "Photos de vos amis"
 msgid "Upload a Photo"
 msgstr "Envoyer une photo"
 
-#: templates/tags/index.html:17
+#: templates/profiles/base.html:10
+#, fuzzy
+msgid "Your Profile"
+msgstr "Profil"
+
+#: templates/profiles/base.html:11 templates/profiles/profiles.html:9
+#, fuzzy
+msgid "All Profiles"
+msgstr "Profil"
+
+#: templates/profiles/base.html:12
+#, fuzzy
+msgid "Student Profiles"
+msgstr "Profil"
+
+#: templates/profiles/base.html:13
+#, fuzzy
+msgid "Faculty Profiles"
+msgstr "Profil"
+
+#: templates/profiles/profile.html:14
+#, python-format
+msgid "Profile for %(other_user_display)s"
+msgstr ""
+
+#: templates/profiles/profile.html:32
+#, python-format
+msgid "Profile for <span class=\"nickname\">%(other_user_display)s</span>"
+msgstr ""
+
+#: templates/profiles/profile.html:34
+#, python-format
+msgid "Profile for <span class=\"fn nickname\">%(other_user_display)s</span>"
+msgstr ""
+
+#: templates/profiles/profile.html:38 templates/profiles/profiles.html:26
+msgid "Name"
+msgstr ""
+
+#: templates/profiles/profile.html:40
+#, fuzzy
+msgid "Location"
+msgstr "Locations"
+
+#: templates/profiles/profile.html:41
+msgid "Website"
+msgstr ""
+
+#: templates/profiles/profile.html:50
+msgid "Followers"
+msgstr ""
+
+#: templates/profiles/profile.html:51
+msgid "Following"
+msgstr ""
+
+#: templates/profiles/profile.html:61
+msgid "unfollow"
+msgstr ""
+
+#: templates/profiles/profile.html:63
+msgid "follow tweets"
+msgstr ""
+
+#: templates/profiles/profile.html:70
+#, python-format
+msgid "You are friends with %(other_user_display)s."
+msgstr ""
+
+#: templates/profiles/profile.html:70
+msgid "Send a message"
+msgstr ""
+
+#: templates/profiles/profile.html:74
+msgid "remove from friends"
+msgstr ""
+
+#: templates/profiles/profile.html:79
+#, python-format
+msgid "%(other_user_display)s has requested friendship."
+msgstr ""
+
+#: templates/profiles/profile.html:99
+#, fuzzy
+msgid "Friendship request sent."
+msgstr "Pas de demande d'ami envoyé"
+
+#: templates/profiles/profile.html:101
+msgid "Add As Friend"
+msgstr ""
+
+#: templates/profiles/profile.html:108
+msgid "invite"
+msgstr ""
+
+#: templates/profiles/profile.html:109
+#, python-format
+msgid "%(other_user_display)s to be a friend."
+msgstr ""
+
+#: templates/profiles/profile.html:119
+msgid "Wiki Articles"
+msgstr ""
+
+#: templates/profiles/profile.html:136
+msgid "No wiki articles yet."
+msgstr ""
+
+#: templates/profiles/profile.html:139
+msgid "Bookmarks"
+msgstr "Favoris"
+
+#: templates/profiles/profile.html:159
+#, python-format
+msgid ""
+"You haven't added any <a href=\"%(add_bookmark_url)s\">bookmarks</a> yet."
+msgstr ""
+
+#: templates/profiles/profile.html:163
+#, fuzzy
+msgid "Blog Posts"
+msgstr "Blogs"
+
+#: templates/profiles/profile.html:170
+#, fuzzy
+msgid "No blog posts yet."
+msgstr "Pas de demande d'inscriptio envoyée."
+
+#: templates/profiles/profile.html:174
+msgid "Tweets"
+msgstr "Tweets"
+
+#: templates/profiles/profile.html:196
+msgid "No photos uploaded yet."
+msgstr ""
+
+#: templates/profiles/profile.html:202
+#, fuzzy, python-format
+msgid ""
+"<a href=\"%(signup_url)s\">Sign up</a> and <a href=\"%(login_url)s\">log in "
+"</a> to add this person as a friend and see their tweets and blog posts."
+msgstr ""
+"Vous pouvez <a href=\"%(signup_url)s\">vous inscrire</a> et <a href="
+"\"%(login_url)s\">vous authentifier</a> pour essayer le site."
+
+#: templates/profiles/profile_edit.html:5
+#: templates/profiles/profile_edit.html:9
+#: templates/profiles/profile_edit_facebox.html:3
+#, fuzzy
+msgid "Edit Profile"
+msgstr "Profil"
+
+#: templates/profiles/profile_right_panel.html:9
+#, fuzzy
+msgid "Your Tribes"
+msgstr "Tribus"
+
+#: templates/profiles/profile_right_panel.html:16
+#, python-format
+msgid "You are not yet a member of any <a href=\"%(tribe_url)s\">tribes</a>."
+msgstr ""
+
+#: templates/profiles/profile_right_panel.html:20
+msgid "Your Friends"
+msgstr ""
+
+#: templates/profiles/profile_right_panel.html:34
+msgid ""
+"None. You should look at the list of <a href=\"/profiles/\">profiles</a> and "
+"see if there's anyone you know."
+msgstr ""
+
+#: templates/profiles/profile_right_panel.html:41
+#, python-format
+msgid "%(other_user_display)s's Tribes"
+msgstr ""
+
+#: templates/profiles/profile_right_panel.html:47
+msgid "Not yet a member of any tribes."
+msgstr ""
+
+#: templates/profiles/profile_right_panel.html:51
+#, python-format
+msgid "%(other_user_display)s's Friends"
+msgstr ""
+
+#: templates/profiles/profiles.html:12
+#, fuzzy
+msgid "Profiles"
+msgstr "Profil"
+
+#: templates/profiles/profiles.html:24
+msgid "Order by:"
+msgstr ""
+
+#: templates/profiles/profiles.html:28
+msgid "Date"
+msgstr ""
+
+#: templates/profiles/profiles.html:38
+msgid "MONTH_DAY_FORMAT"
+msgstr ""
+
+#: templates/tags/index.html:16
 msgid "Tags"
 msgstr "Tags"
 
-#: templates/tags/index.html:20
+#: templates/tags/index.html:19
 msgid "All Photos Matching "
 msgstr "Toutes les photos correspondantes "
 
-#: templates/tags/index.html:66
+#: templates/tags/index.html:65
 msgid "All Blog Posts Matching "
 msgstr "Tout les articles de blog correspondants "
 
-#: templates/tags/index.html:69
+#: templates/tags/index.html:68
 msgid "These are blog posts from everyone:"
 msgstr "Ce sont les articles de blog de tout les membres:"
 
-#: templates/tags/index.html:77
+#: templates/tags/index.html:76
 #, python-format
 msgid "All Tribes Matching <i>%(tag)s</i>"
 msgstr "Toutes les tribus correspondant à <i>%(tag)s</i>"
 
-#: templates/tags/index.html:86
+#: templates/tags/index.html:85
 #, python-format
 msgid "All Tribe Topics Matching <i>%(tag)s</i>"
 msgstr "Tout les sujets de tribus correspondant à <i>%(tag)s</i>"
 
-#: templates/tags/index.html:93
+#: templates/tags/index.html:92
 #, python-format
 msgid "All Wiki Articles Matching <i>%(tag)s</i>"
 msgstr "Tout les articles wiki correspondant à <i>%(tag)s</i>"
+
+#: templates/verbena/act_base.html:7
+msgid "List action groups"
+msgstr ""
+
+#: templates/verbena/act_base.html:8
+msgid "Create action group"
+msgstr ""
+
+#: templates/verbena/grant_base.html:7
+msgid "List grants"
+msgstr ""
+
+#: templates/verbena/grant_base.html:8
+msgid "Apply for a grant"
+msgstr ""
+
+#: templates/verbena/org_base.html:7
+msgid "List Organizations"
+msgstr ""
+
+#: templates/verbena/org_base.html:8
+msgid "Create Organization"
+msgstr ""
+
+#: templates/verbena/proj_base.html:7
+#, fuzzy
+msgid "List Projects"
+msgstr "Projets"
+
+#: templates/verbena/proj_base.html:8
+#, fuzzy
+msgid "Create Project"
+msgstr "Projets"
+
+#: templates/verbena/project_form.html:15
+#: templates/verbena/volunteeropportunity_form.html:14
+#: templates/verbena/workshop_form.html:14
+msgid "Cancel Edits"
+msgstr ""
+
+#: templates/verbena/project_form.html:19
+msgid "Sorry, you do not have permission to add an ARX Project"
+msgstr ""
+
+#: templates/verbena/project_list.html:15
+msgid "Apply for a project"
+msgstr ""
+
+#: templates/verbena/volunteeropportunity_base.html:7
+msgid "List Volunteer Opportunities"
+msgstr ""
+
+#: templates/verbena/volunteeropportunity_base.html:8
+msgid "Apply to Volunteer"
+msgstr ""
+
+#: templates/verbena/volunteeropportunity_list.html:15
+msgid "Apply to create a Volunteer\tOpportunity"
+msgstr ""
+
+#: templates/verbena/workshop_base.html:7
+msgid "List Workshops"
+msgstr ""
+
+#: templates/verbena/workshop_base.html:8
+#: templates/verbena/workshop_list.html:15
+msgid "Apply for a workshop"
+msgstr ""
+
+#~ msgid "Account"
+#~ msgstr "Compte"
+
+#~ msgid "Admin"
+#~ msgstr "Administration"
+
+#~ msgid "Logout"
+#~ msgstr "Déconnection"
+
+#~ msgid "Login"
+#~ msgstr "Authentification"
+
+#~ msgid "or"
+#~ msgstr "ou"
+
+#~ msgid "Sign up"
+#~ msgstr "Inscription"
+
+#~ msgid "Notices"
+#~ msgstr "Notifications"
+
+#~ msgid "&copy; 2010 &lt;your company here&gt;"
+#~ msgstr "&copy; 2010 &lt;votre entreprise ici&gt;"
+
+#~ msgid "E-Mail Addresses"
+#~ msgstr "Adresses email"
+
+#~ msgid "OpenID Associations"
+#~ msgstr "Associations OpenID"
+
+#~ msgid "Change Password"
+#~ msgstr "Changer de mot de passe"
+
+#~ msgid "Set Password"
+#~ msgstr "Définir le mot de passe"
+
+#~ msgid "Delete Password"
+#~ msgstr "Effacer le mot de passe"
+
+#~ msgid "Language"
+#~ msgstr "Langage"
+
+#~ msgid "Timezone"
+#~ msgstr "Fuseau horairre"
+
+#~ msgid "Swaps"
+#~ msgstr "Echanges"
+
+#~ msgid "Avatar"
+#~ msgstr "Avatar"

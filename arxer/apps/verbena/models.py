@@ -18,7 +18,8 @@ import datetime
 class Member(models.Model):
     """ An abstract to represent all signed-in users"""
     slug = models.SlugField(_("URL-friendly name"), max_length=80)
-    user = models.ForeignKey(User, unique=True)
+    ##user = models.ForeignKey(User, unique=True, blank=True,
+    user = models.ForeignKey(User, blank=True, related_name='member_profile')
 
     def __unicode__(self):
         return self.user.username
@@ -26,17 +27,24 @@ class Member(models.Model):
     class Meta:
         verbose_name = _("Member")
         verbose_name_plural = _("Members")
+        #abstract = True
 
     def is_student(self):
-        if self.pk == self.student.pk:
-            return True
-        else:
+        try:
+            if self.pk == self.student.pk:
+                return True
+            else:
+                return False
+        except:
             return False
 
     def is_faculty(self):
-        if self.pk == self.faculty.pk:
-            return True
-        else:
+        try:
+            if self.pk == self.faculty.pk:
+                return True
+            else:
+                return False
+        except:
             return False
 
     def save(self, *args, **kwargs):
@@ -53,24 +61,26 @@ class GeneralMember(Member):
     how_heard = models.TextField(_("Reference"),
             help_text=_("How did you hear about us?"),
             blank=True)
+
     class Meta:
         permissions = (
                 ("join_volunteer", "Can join volunteer event"),
                 ("join_actiongroup", "Can join action group"),
                 )
 
-class Organization(models.Model):
+class Organization(Member):
     """ Organizations are entities applying for projects or grants.
     Organizations share a single login.
     Organizations may not apply for workshops and participate in volunteer
     events.
-    CHANGED = Organizations are no longer sub-classes of Members
+    CHANGED AGAIN = Organizations are now sub-classes of Members (again)
     """
-    name = models.CharField(_("Organization name"),
+    title = models.CharField(_("Organization name"),
             help_text=_("The name of your organization"),
             max_length=100)
-    slug = models.SlugField(_("URL-friendly name"), max_length=80)
-    leader = models.ForeignKey(User)
+    ##slug = models.SlugField(_("URL-friendly name"), max_length=80)
+    ##leader = models.ForeignKey(User)
+    leader = models.ForeignKey(Member, related_name="org_leader")
     community = models.CharField(
             _("What community do you represent or work with?"),
             max_length=180,
@@ -179,7 +189,7 @@ class ActionGroup(models.Model):
     slug = models.SlugField(_("URL-friendly title"))
     leader = models.ForeignKey("GeneralMember")
     # Similar to facebook's "like"
-    supporters = models.ManyToManyField("Member",
+    supporters = models.ManyToManyField(GeneralMember,
             related_name = "group-supporters",
             blank=True)
 
@@ -248,7 +258,7 @@ class VolunteerOpportunity(Event):
     organization may NOT sign up (GeneralMembers only)
     """
     organization = models.ForeignKey(Organization)
-    volunteers = models.ManyToManyField(Member,
+    volunteers = models.ManyToManyField(GeneralMember,
             related_name = "volunteer-opportunities",
             verbose_name = "volunteers",
         )

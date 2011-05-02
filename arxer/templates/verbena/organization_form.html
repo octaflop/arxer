@@ -1,10 +1,10 @@
 {% extends "verbena/org_base.html" %}
 {% load uni_form_tags %}
 {% block head_title %}
-	Edit {{ object.name }}
+	Edit {{ object.title }}
 {% endblock %}
 {% block body %}
-	<h2>{{ object.name }}</h2>
+	<h2>{{ object.title }}</h2>
 	<form action="" method="post" class="uniForm">
 	{% csrf_token %}
 	{{ form|as_uni_form }}
@@ -16,10 +16,10 @@
 	<script type="text/javascript" 
 	src="{{ STATIC_URL	}}admin/js/urlify.js"></script>
 	<script type="text/javascript">
-		document.getElementById("id_name").onkeyup = function () {
+		document.getElementById("id_title").onkeyup = function () {
 			var e = document.getElementById("id_slug");
 			if (!e._changed) { 
-				e.value =	URLify(document.getElementById("id_name").value, 75); 
+				e.value =	URLify(document.getElementById("id_title").value, 75); 
 			}
 		}
 	</script>
