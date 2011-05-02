@@ -1,0 +1,14 @@
+{% extends "profiles/base.html" %}
+{% block head_title %}
+	{{ object.user.username }}
+{% endblock %}
+{% block body %}
+	<h2><a href="{{ object.get_absolute_url }}">{{ object.user.username	}}</a></h2>
+	<dl>
+		<dt>Username:</dt><dd>{{ object.user.username }}</dd>
+		<dt>Name:</dt><dd>{{ object.user.last_name }}, {{ object.user.first_name }}</dd>
+		<dt>email:</dt><dd>{{ object.user.email }}</dd>
+		<dt>Studying:</dt><dd>{{ object.studying }}</dd>
+		<dt>Expected Year of Completion:</dt><dd>{{ object.comp_year }}</dd>
+	</dl>
+{% endblock %}

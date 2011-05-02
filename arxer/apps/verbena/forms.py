@@ -1,9 +1,21 @@
 from verbena.models import Organization, Grant, Project, ActionGroup, Member,\
-    Workshop, VolunteerOpportunity
+    Workshop, VolunteerOpportunity, Faculty, Student, GeneralMember
 from django.forms import ModelForm
 import django.forms as forms
 from django.template.defaultfilters import slugify
 from django.utils.translation import ugettext_lazy as _
+
+class GeneralMemberForm(ModelForm):
+    class Meta:
+        model = GeneralMember
+
+class FacultyForm(ModelForm):
+    class Meta:
+        model = Faculty
+
+class StudentForm(ModelForm):
+    class Meta:
+        model = Student
 
 class VolunteerOpForm(ModelForm):
     class Meta:

@@ -139,6 +139,10 @@ class Student(GeneralMember):
         verbose_name = _("student")
         verbose_name_plural = _("students")
 
+    @models.permalink
+    def get_absolute_url(self):
+        return ('student_view', [str(self.slug)])
+
 class Faculty(GeneralMember):
     """
     * Book a presentation
@@ -159,6 +163,10 @@ class Faculty(GeneralMember):
     class Meta:
         verbose_name = _("faculty member")
         verbose_name_plural = _("faculty members")
+
+    @models.permalink
+    def get_absolute_url(self):
+        return ('faculty_view', [str(self.slug)])
 
 #############################################################################
 # GROUP-Based Models
