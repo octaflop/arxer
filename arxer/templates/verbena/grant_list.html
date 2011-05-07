@@ -1,10 +1,10 @@
 {% extends "verbena/grant_base.html" %}
 {% block head_title %}
-	Organizations
+	Grants
 {% endblock %}
 {% block body %}
 	<h2>Grants</h2>
-	<ul class='org_list'>
+	<ul class='grant_list'>
 		{% for grant in object_list %}
 			<li><b><a href="{{ grant.get_absolute_url }}">{{ grant.title }}</a></b></li>
 		{% endfor %}

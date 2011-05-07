@@ -200,6 +200,7 @@ INSTALLED_APPS = [
     "pinax.apps.voting_extras",
     # Locally installed apps
     "south",
+    "django_nose",
     "haystack",
     "tinymce",
     "filebrowser",
@@ -210,6 +211,7 @@ INSTALLED_APPS = [
 
     # ARX
     "verbena",
+    "django_extensions",
 ]
 
 HAYSTACK_SITECONF = 'verbena.search_sites'
@@ -293,6 +295,8 @@ FORCE_LOWERCASE_TAGS = True
 DEBUG_TOOLBAR_CONFIG = {
     "INTERCEPT_REDIRECTS": False,
 }
+
+##TEST_RUNNER = "djangonose.testrunner"
 
 # local_settings.py can be used to override environment-specific settings
 # like database and email that differ between development and production.
