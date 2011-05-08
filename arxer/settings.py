@@ -133,7 +133,7 @@ TEMPLATE_CONTEXT_PROCESSORS = [
     
     "arxer.context_processors.combined_inbox_count",
 
-    "emencia.django.newsletter.context_processors.media",
+    #"emencia.django.newsletter.context_processors.media",
 ]
 
 COMBINED_INBOX_COUNT_SOURCES = [
@@ -151,7 +151,7 @@ INSTALLED_APPS = [
     "django.contrib.sites",
     "django.contrib.messages",
     "django.contrib.humanize",
-    "django.contrib.markup",
+    #"django.contrib.markup",
 
     # Pinax    
     "pinax.templatetags",
@@ -170,11 +170,11 @@ INSTALLED_APPS = [
     "pagination",
     "friends",
     "messages",
-    "oembed",
+    #"oembed",
     "groups",
     "threadedcomments",
     "wakawaka",
-    "swaps",
+    #"swaps",
     "voting",
     "tagging",
     "bookmarks",
@@ -184,7 +184,7 @@ INSTALLED_APPS = [
     "microblogging",
     "locations",
     "django_sorting",
-    "django_markup",
+    #"django_markup",
     "tagging_ext",
     
     # Pinax
@@ -204,14 +204,13 @@ INSTALLED_APPS = [
     "haystack",
     "tinymce",
     "filebrowser",
-    "emencia.django.newsletter",
+    #"emencia.django.newsletter",
 
     # project
     "about",
 
     # ARX
     "verbena",
-    "django_extensions",
 ]
 
 HAYSTACK_SITECONF = 'verbena.search_sites'
