@@ -40,6 +40,19 @@
     </form>
 {% endblock %}
 
+{% block search_box %}
+		<form action="/search/" method='get' class='search_form'> 
+			<input type='text' value="{% trans "search" %}"	id="bar_q" name="q" />
+			<input class='sb_hidden' type='checkbox' value="verbena.actiongroup" id="id_models_0"	checked='checked' />
+			<input class='sb_hidden' type='checkbox' value="verbena.faculty" id="id_models_1"	checked='checked' />
+			<input class='sb_hidden' type='checkbox' value="verbena.generalmember" id="id_models_2"	checked='checked' />
+			<input class='sb_hidden' type='checkbox' value="verbena.organization" id="id_models_3"	checked='checked' />
+			<input class='sb_hidden' type='checkbox' value="verbena.project" id="id_models_4"	checked='checked' />
+			<input class='sb_hidden' type='checkbox' value="verbena.student" id="id_models_5"	checked='checked' />
+			<input class='sb_submit' type='submit' value="{% trans "Go" %}" />
+		</form>
+{% endblock %}
+
 {% block right_tabs %}
     {% if user.is_authenticated %}
         <ul class="tabs">{% spaceless %}
