@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+#-*- coding: utf-8 -*-
 # Django settings for social pinax project.
 
 import os.path
@@ -170,7 +170,7 @@ INSTALLED_APPS = [
     "pagination",
     "friends",
     "messages",
-    #"oembed",
+    "oembed",
     "groups",
     "threadedcomments",
     "wakawaka",

@@ -17,9 +17,9 @@ import datetime
 
 class Member(models.Model):
     """ An abstract to represent all signed-in users"""
+    user = models.ForeignKey(User, blank=True, related_name='member_profile')
     slug = models.SlugField(_("URL-friendly name"), max_length=80)
     ##user = models.ForeignKey(User, unique=True, blank=True,
-    user = models.ForeignKey(User, blank=True, related_name='member_profile')
 
     def __unicode__(self):
         return self.user.username
@@ -108,7 +108,7 @@ class Organization(Member):
     website = models.URLField(_("website"), blank=True, null=True)
 
     def __unicode__(self):
-        return self.name
+        return self.title
 
     class Meta:
         verbose_name = _("Organization")

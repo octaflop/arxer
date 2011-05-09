@@ -12,7 +12,7 @@ class StudentAdmin(admin.ModelAdmin):
 
 #class FacultyAdmin(UserAdmin):
 class FacultyAdmin(admin.ModelAdmin):
-    list_display = ('in_faculty',)
+    list_display = ('user','in_faculty',)
     exclude = ('slug',)
 
 #class OrganizationAdmin(UserAdmin):

@@ -1,0 +1,250 @@
+[
+   {
+      "fields" : {
+         "slug" : "sallie",
+         "user" : 2
+      },
+      "pk" : 1,
+      "model" : "verbena.member"
+   },
+   {
+      "fields" : {
+         "slug" : "faris",
+         "user" : 1
+      },
+      "pk" : 2,
+      "model" : "verbena.member"
+   },
+   {
+      "fields" : {
+         "slug" : "ryan",
+         "user" : 3
+      },
+      "pk" : 3,
+      "model" : "verbena.member"
+   },
+   {
+      "fields" : {
+         "slug" : "sallie",
+         "user" : 2
+      },
+      "pk" : 4,
+      "model" : "verbena.member"
+   },
+   {
+      "fields" : {
+         "slug" : "lucy",
+         "user" : 4
+      },
+      "pk" : 5,
+      "model" : "verbena.member"
+   },
+   {
+      "fields" : {
+         "how_heard" : "Through a course website."
+      },
+      "pk" : 1,
+      "model" : "verbena.generalmember"
+   },
+   {
+      "fields" : {
+         "how_heard" : "Through the posters."
+      },
+      "pk" : 2,
+      "model" : "verbena.generalmember"
+   },
+   {
+      "fields" : {
+         "how_heard" : "A friend emailed me about it."
+      },
+      "pk" : 3,
+      "model" : "verbena.generalmember"
+   },
+   {
+      "fields" : {
+         "how_heard" : "Someone came into my class and talked about ARX."
+      },
+      "pk" : 5,
+      "model" : "verbena.generalmember"
+   },
+   {
+      "fields" : {
+         "leader" : 3,
+         "website" : "http://example.com",
+         "location" : 1,
+         "service" : "We would like to improve the environmental situation regarding stuff.",
+         "community" : "First nations",
+         "funding" : "Some rich dude.",
+         "nonprofit_status" : true,
+         "annual_budget" : "4,000",
+         "about" : "We were formed when we realized that ripping off the coppertone inuit was not a good idea. Then we decided that there would perhaps be better fields to be carried over.",
+         "title" : "Coppertone Hopies",
+         "mandate" : "to do stuff"
+      },
+      "pk" : 4,
+      "model" : "verbena.organization"
+   },
+   {
+      "fields" : {
+         "studying" : "Mining",
+         "phone" : "876-234-0908",
+         "call_time" : "EV",
+         "comp_year" : 2014
+      },
+      "pk" : 1,
+      "model" : "verbena.student"
+   },
+   {
+      "fields" : {
+         "studying" : "International Development",
+         "phone" : "716-334-0909",
+         "call_time" : "AF",
+         "comp_year" : 2013
+      },
+      "pk" : 5,
+      "model" : "verbena.student"
+   },
+   {
+      "fields" : {
+         "phone_ext" : "6868",
+         "in_faculty" : "Cognitive Science",
+         "phone" : "778-230-9386",
+         "call_time" : "MO"
+      },
+      "pk" : 2,
+      "model" : "verbena.faculty"
+   },
+   {
+      "fields" : {
+         "phone_ext" : "3434",
+         "in_faculty" : "Geography",
+         "phone" : "819-876-1554",
+         "call_time" : "MO"
+      },
+      "pk" : 3,
+      "model" : "verbena.faculty"
+   },
+   {
+      "fields" : {
+         "leader" : 1,
+         "slug" : "cancer-allies",
+         "title" : "Cancer Allies",
+         "supporters" : [
+            1
+         ]
+      },
+      "pk" : 1,
+      "model" : "verbena.actiongroup"
+   },
+   {
+      "fields" : {
+         "longitude" : -123.10754,
+         "latitude" : 49.28227,
+         "place" : "Vancouver"
+      },
+      "pk" : 1,
+      "model" : "verbena.location"
+   },
+   {
+      "fields" : {
+         "location" : 1,
+         "end_date" : "2011-05-19 13:42:08",
+         "slug" : "hacktivism",
+         "title" : "Hacktivism",
+         "start_date" : "2011-05-13 13:42:05"
+      },
+      "pk" : 2,
+      "model" : "verbena.event"
+   },
+   {
+      "fields" : {
+         "location" : 1,
+         "end_date" : "2011-05-10 18:00:00",
+         "slug" : "shave-whales",
+         "title" : "Shave the Whales",
+         "start_date" : "2011-05-09 13:41:29"
+      },
+      "pk" : 1,
+      "model" : "verbena.event"
+   },
+   {
+      "fields" : {
+         "members" : [
+            1,
+            2,
+            3
+         ],
+         "room" : "AQ6777"
+      },
+      "pk" : 2,
+      "model" : "verbena.workshop"
+   },
+   {
+      "fields" : {
+         "volunteers" : [
+            2,
+            5
+         ],
+         "organization" : 4
+      },
+      "pk" : 1,
+      "model" : "verbena.volunteeropportunity"
+   },
+   {
+      "fields" : {
+         "type_form_res" : true,
+         "issues" : "Incarceration practices and their place in society.",
+         "magnitude" : "We will need to draw up a research article with some charts.",
+         "research_question" : "We want to know if prisoners who utilize their library system stay out of prison longer.",
+         "type_comp_rel" : true,
+         "slug" : "letters-underground",
+         "other_project_type" : "Social cause",
+         "type_survey" : false,
+         "type_other" : false,
+         "type_org_dev" : true,
+         "date_applied" : "2011-05-09",
+         "approval_status" : "PR",
+         "progress_status" : "PO",
+         "goal" : "We want to improve Canada's cultural interpretation of crime.",
+         "type_creative" : false,
+         "title" : "Letters from the underground",
+         "project_description" : "We have a lot of ideas regarding the way prisoner rehabilitation should be accomplished.",
+         "results_plan" : "We plan on presenting the results to parliament hill. Considering the new majority, we think it would be advisable."
+      },
+      "pk" : 1,
+      "model" : "verbena.project"
+   },
+   {
+      "fields" : {
+         "applicant_name" : "Herbert",
+         "magnitude" : "4000. We work on consensus-based operative.",
+         "mail_address" : "7089 Inlet Dr.\r\nBurnaby, BC V5A 1S6",
+         "grant_type" : "SM",
+         "org_name" : 4,
+         "how_heard" : "There was a poster in the rotunda.",
+         "email" : "herb@example.com",
+         "slug" : "flowerpot",
+         "mandate" : "To improve well-being via plants and flowers.",
+         "date_applied" : "2011-05-09 10:33:37",
+         "history" : "One upon a time, some children planted some flowers in the cement jungle of the city. Hilarity ensued.",
+         "approval_status" : "PR",
+         "description" : "We would like to make the world a better place by planting flowerpots everywhere.",
+         "phone" : "514-334-8989",
+         "other_fund" : "Some online grass-roots fundraising.",
+         "budget_timeline" : "In march we would do X. Then in June the plants will grow.",
+         "accessibility_opt" : true,
+         "comm_benefit" : "By making the neighbourhood pretty.",
+         "title" : "Flowerpot"
+      },
+      "pk" : 1,
+      "model" : "verbena.grant"
+   },
+   {
+      "fields" : {
+         "datetime_released" : "2011-05-09 13:34:37",
+         "content" : "We will be opening up our site on the 19þ of may."
+      },
+      "pk" : 1,
+      "model" : "verbena.newsrelease"
+   }
+]

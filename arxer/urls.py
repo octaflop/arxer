@@ -86,7 +86,7 @@ urlpatterns = patterns("",
     url(r"tinymce/", include('tinymce.urls')),
 
     # newsletters
-    url(r'newsletters/', include('emencia.django.newsletter.urls')),
+    #url(r'newsletters/', include('emencia.django.newsletter.urls')),
 )
 
 ## @@@ for now, we'll use friends_app to glue this stuff together

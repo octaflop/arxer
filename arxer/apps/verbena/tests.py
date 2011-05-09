@@ -16,6 +16,7 @@ from django.contrib.auth.models import User
 from verbena.models import Student, Faculty, Organization, Location, Member
 
 class StudentTestCase(TestCase):
+    fixtures = ['dev.json']
     def setUp(self):
         self.u = User.objects.create(username='bob', password='that', first_name='Bob',
         last_name='Exampler')
