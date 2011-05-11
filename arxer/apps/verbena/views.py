@@ -9,6 +9,25 @@ from verbena.models import Organization, Project, VolunteerOpportunity,\
 from verbena.forms import ProjectForm
 from django.views.generic.list_detail import object_list, object_detail
 from django.views.generic.create_update import create_object, update_object
+#haystack
+from haystack.query import SearchQuerySet
+from django.utils import simplejson
+
+def compile_search(results):
+    resultlist = [r.title_auto for r in results]
+    encoder = simplejson.JSONEncoder()
+    resp = encoder.encode(resultlist)
+    return resp
+
+#haystack search
+# Search suggestions
+def suggestion(request):
+    # from haystack.query import SearchQuerySet
+    word = request.GET['term']
+    results = SearchQuerySet().autocomplete(title_auto=word)
+    resp = compile_search(results)
+    #resp = "\n".join([r.title_auto for r in results])
+    return HttpResponse(resp, content_type='application/x-javascript')
 
 # Simple Wrappers
 @permission_required('verbena.add_project')

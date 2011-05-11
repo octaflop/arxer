@@ -82,6 +82,7 @@ urlpatterns = patterns("",
 
     # search
     url(r"search/", include('haystack.urls')),
+    url(r"autocomplete/", "verbena.views.suggestion"),
     # tinymce
     url(r"tinymce/", include('tinymce.urls')),
 
