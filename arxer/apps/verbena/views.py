@@ -3,12 +3,15 @@ from django.http import HttpResponseRedirect, HttpResponse
 # other imports
 from django.contrib.auth.decorators import permission_required, login_required
 from django.shortcuts import get_object_or_404, render_to_response, redirect
+from django.views.generic.simple import direct_to_template as render
 from django.core.urlresolvers import reverse
 from verbena.models import Organization, Project, VolunteerOpportunity,\
     Member, ActionGroup
-from verbena.forms import ProjectForm
+from verbena.forms import ProjectForm, OrganizationForm, LocationForm
+from verbena.models import Organization, Location
 from django.views.generic.list_detail import object_list, object_detail
 from django.views.generic.create_update import create_object, update_object
+from django.core.urlresolvers import reverse
 #haystack
 from haystack.query import SearchQuerySet
 from django.utils import simplejson
@@ -26,7 +29,6 @@ def suggestion(request):
     word = request.GET['term']
     results = SearchQuerySet().autocomplete(title_auto=word)
     resp = compile_search(results)
-    #resp = "\n".join([r.title_auto for r in results])
     return HttpResponse(resp, content_type='application/x-javascript')
 
 # Simple Wrappers
@@ -35,7 +37,6 @@ def add_project(*args, **kwargs):
     "Add a project: must be organization"
     return create_object(*args, **kwargs)
 
-# TODO: Not implemented
 @permission_required('verbena.change_project')
 def change_project(*args, **kwargs):
     "Change the project: must be owner"
@@ -94,4 +95,25 @@ def leave_actiongroup(request, *args, **kwargs):
     except:
         return HttpResponse(status=500)
     return redirect(ag.get_absolute_url())
+
+def add_organization(request, *args, **kwargs):
+    data = request.POST or None
+    locform = LocationForm(data=data)
+    orgform = OrganizationForm(data=data)
+    location = {}
+    if locform.is_valid() and orgform.is_valid():
+        new_location = locform.save()
+        new_organization = orgform.save(commit=False)
+        new_organization.location = new_location
+        new_organization.save()
+        location = {
+            "latitude": new_location.latitude,
+            "longitude": new_location.longitude,
+            "place": new_location.place
+        }
+        return HttpResponseRedirect(reverse('org_view',
+            new_organization.slug))
+    ret = dict(locform=locform, orgform=orgform, location=location)
+    return render(request, 'verbena/organization_form.html', ret)
+#            {'locform':locform, 'orgform':orgform, 'location':location})
 

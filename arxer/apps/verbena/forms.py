@@ -1,9 +1,17 @@
 from verbena.models import Organization, Grant, Project, ActionGroup, Member,\
-    Workshop, VolunteerOpportunity, Faculty, Student, GeneralMember
+    Workshop, VolunteerOpportunity, Faculty, Student, GeneralMember, Location
 from django.forms import ModelForm
 import django.forms as forms
+from django.forms.formsets import formset_factory
 from django.template.defaultfilters import slugify
 from django.utils.translation import ugettext_lazy as _
+
+class LocationForm(ModelForm):
+    #latitude = forms.CharField()
+    #longitude = forms.CharField()
+    #place = forms.CharField()
+    class Meta:
+        model = Location
 
 class GeneralMemberForm(ModelForm):
     class Meta:
@@ -30,7 +38,6 @@ class OrganizationForm(ModelForm):
     default"""
 
     def __init__(self, *args, **kwargs):
-        systemid = kwargs.pop('systemid')
         super(OrganizationForm, self).__init__(*args, **kwargs)
         self.fields['leader'] = forms.ModelChoiceField(
                 required=False,
@@ -39,7 +46,7 @@ class OrganizationForm(ModelForm):
             )
     class Meta:
         model = Organization
-        exclude = ('leader',)
+        exclude = ('leader','location',)
 
 class ActionGroupForm(ModelForm):
     class Meta:

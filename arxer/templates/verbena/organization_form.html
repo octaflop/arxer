@@ -7,7 +7,8 @@
 	<h2>{{ object.title }}</h2>
 	<form action="" method="post" class="uniForm">
 	{% csrf_token %}
-	{{ form|as_uni_form }}
+	{{ orgform|as_uni_form }}
+	{{ locform|as_uni_form }}
 		<input type="submit" value="submit" />
 		{% if object.slug %}
 			<a href="{% url org_view object.slug %}">Cancel Edits</a>
@@ -23,4 +24,12 @@
 			}
 		}
 	</script>
+
+		<!-- NEEDS Implementation -->
+    <script type="text/javascript">
+			var _geo = [[{{ location.latitude }}, {{ location.longitude }}, '{{	location.place }}']];
+		</script>
+		<script type="text/javascript"
+			src="http://api.maps.yahoo.com/ajaxymap?v=3.8&appid={{ YAHOO_MAPS_API_KEY }}">
+		</script>
 {% endblock %}
