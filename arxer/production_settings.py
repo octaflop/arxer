@@ -1,3 +1,7 @@
+# CHANGE THIS:
+SECRET_KEY = "y2pvlbgq1wc@7v2wd8m2j$)ao*^eh&nolb1u9b$y96vkcj5g^)"
+YAHOO_MAPS_API_KEY = "S1oXzE_V34FP7CDPXxik7jEFPssOJLQ87aGY_bJSInZ_TYACPjaaAHJWe.yRYjKFtnEF.6Y-"
+
 COMPRESS=True
 COMPRESS_VERSION = True
 DEBUG = False
@@ -16,4 +20,5 @@ DATABASES = {
         "PORT": "",                             # Set to empty string for default. Not used with sqlite3.
     }
 }
+
 

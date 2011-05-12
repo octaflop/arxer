@@ -5,4 +5,6 @@ if "VIRTUAL_ENV" not in os.environ:
 virtualenv = os.environ["VIRTUAL_ENV"]
 file_path = os.path.dirname(__file__)
 subprocess.call(["pip", "install", "-E", virtualenv, "--requirement",
+                 os.path.join(file_path, "arxer/project.txt")])
+subprocess.call(["pip", "install", "-E", virtualenv, "--requirement",
                  os.path.join(file_path, "requirements.txt")])
