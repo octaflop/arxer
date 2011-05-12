@@ -1,3 +1,11 @@
 *.pyc
 *.swp
 _build
+lib/
+bin/
+man/
+share/
+include/
+src/
+dev.db
+local_settings.py
