@@ -223,8 +223,10 @@ class Event(models.Model):
     Events are anything occurring at a specific time
     """
     title = models.CharField(_("Event title"), max_length=100)
-    slug = models.SlugField(_("URL-friendly name"), 
-    help_text=_("A URL-Friendly title for your event"))
+    slug = models.SlugField(
+        _("URL-friendly name"),
+        help_text=_("A URL-Friendly title for your event")
+    )
     start_date = models.DateTimeField(_("Event start date & time"))
     end_date = models.DateTimeField(_("Event end date & time"))
     location = models.ForeignKey(Location, blank=True)
@@ -238,7 +240,7 @@ class Event(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        return ('workshop_view', [str(self.slug)])
+        return ('event_view', [str(self.slug)])
 
 class Workshop(Event):
     """
@@ -251,6 +253,10 @@ class Workshop(Event):
             related_name = "workshops",
             verbose_name = "members",
         )
+
+    @models.permalink
+    def get_absolute_url(self):
+        return ('workshop_view', [str(self.slug)])
 
 class VolunteerOpportunity(Event):
     """
@@ -265,6 +271,7 @@ class VolunteerOpportunity(Event):
     class Meta:
         verbose_name = _("volunteer opportunity")
         verbose_name_plural = _("volunteer opportunities")
+
     @models.permalink
     def get_absolute_url(self):
         return ('volunteer_view', [str(self.slug)])

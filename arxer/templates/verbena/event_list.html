@@ -1,16 +1,13 @@
 {% extends "verbena/act_base.html" %}
-{% load gencal %}
 {% block head_title %}
 	Events
 {% endblock %}
 {% block body %}
 	<h2>Action Groups</h2>
 	<ul class='event_list'>
-		{% gencal.gencal object_list %}
-		{#
 		{% for event in object_list %}
 			<li><b><a href="{{ event.get_absolute_url }}">{{ event.title }}</a></b></li>
-		{% endfor %}#}
+		{% endfor %}
 	</ul>
 	<a href="{% url act_add %}">Add an Action Group</a>
 {% endblock %}

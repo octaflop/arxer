@@ -8,12 +8,15 @@ TODO:
     - add invalid test cases with assertnotcontains
     - add a permission inspector function to each test-case
     - add a general login inspector for an anonymous client
+    - add tests for the event/date-based models (verbena.models Event)
 """
 
 from django.test import TestCase
 from django.test.client import Client
 from django.contrib.auth.models import User
-from verbena.models import Student, Faculty, Organization, Location, Member
+import datetime
+from verbena.models import Student, Faculty, Organization, Location, Member,\
+Event
 
 class StudentTestCase(TestCase):
     fixtures = ['dev.json']
@@ -43,7 +46,7 @@ class FacultyTestCase(TestCase):
 class OrganizationTestCase(TestCase):
     def setUp(self):
         self.u = User.objects.create(username='hippieclub', password='that',
-            first_name='', last_name='')
+            first_name='Bill', last_name='Hippie')
         self.bob = User.objects.create(username='BobMarley',
             password='that', first_name='Bob', last_name='Marley')
         self.leader = Member.objects.create(user=self.bob)
@@ -51,7 +54,33 @@ class OrganizationTestCase(TestCase):
         self.hippies = Organization.objects.create(user=self.u,
             leader=self.leader, location=self.location, title="The Hippies")
         self.c = Client()
+        self.c.logout()
     def test_page_disp(self):
         url = "/organization/%s" % self.hippies.slug
         response = self.c.get(url)
         self.assertContains(response, self.hippies.title)
+    def test_page_noedit(self):
+        url = "/organization/%s/edit" % self.hippies.slug
+        self.c.login(username='hippieclub', password='that')
+        response = self.c.get(url)
+        self.assertNotContains(response, self.hippies.title)
+    def test_page_noedit(self):
+        url = "/organization/%s/edit" % self.hippies.slug
+        login_url = "/account/login/"
+        redirect_url = "%s?next=/organization/%s/edit" % (login_url,
+                self.hippies.slug)
+        response = self.c.get(url)
+        self.assertRedirects(response, redirect_url)
+
+class EventTestCase(TestCase):
+    def setUp(self):
+        self.location =  Location.objects.create(place='Vancouver')
+        self.event = Event.objects.create(title='Lunch',
+                start_date = datetime.datetime.now(),
+                end_date = datetime.datetime.now() + datetime.timedelta(200),
+                location = self.location)
+        self.c = Client()
+    def test_page_disp(self):
+        url = "/event/%s" % self.event.slug
+        response = self.c.get(url)
+        self.assertContains(response, self.event.title)
