@@ -205,6 +205,7 @@ INSTALLED_APPS = [
     "tinymce",
     "filebrowser",
     #"emencia.django.newsletter",
+    "gencal",
 
     # project
     "about",

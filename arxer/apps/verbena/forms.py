@@ -1,10 +1,15 @@
 from verbena.models import Organization, Grant, Project, ActionGroup, Member,\
-    Workshop, VolunteerOpportunity, Faculty, Student, GeneralMember, Location
+    Workshop, VolunteerOpportunity, Faculty, Student, GeneralMember, Location,\
+    Event
 from django.forms import ModelForm
 import django.forms as forms
 from django.forms.formsets import formset_factory
 from django.template.defaultfilters import slugify
 from django.utils.translation import ugettext_lazy as _
+
+class EventForm(ModelForm):
+    class Meta:
+        model = Event
 
 class LocationForm(ModelForm):
     #latitude = forms.CharField()

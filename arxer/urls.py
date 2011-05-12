@@ -79,6 +79,7 @@ urlpatterns = patterns("",
     url(r"^project/", include("verbena.urls.project")),
     url(r"^volunteer/", include("verbena.urls.volunteer_op")),
     url(r"^workshop/", include("verbena.urls.workshop")),
+    url(r"event/", include("verbena.urls.event")),
 
     # search
     url(r"search/", include('haystack.urls')),
