@@ -1,6 +1,7 @@
+from django.contrib.admin.models import User
 from verbena.models import Organization, Grant, Project, ActionGroup, Member,\
     Workshop, VolunteerOpportunity, Faculty, Student, GeneralMember, Location,\
-    Event
+    Event, Member
 from django.forms import ModelForm
 import django.forms as forms
 from django.forms.formsets import formset_factory
@@ -17,6 +18,17 @@ class LocationForm(ModelForm):
     #place = forms.CharField()
     class Meta:
         model = Location
+
+class UserForm(forms.Form):
+    username = forms.CharField()
+    password = forms.CharField(widget=forms.PasswordInput())#label=_('please input a password'))
+    passconf = forms.CharField(widget=forms.PasswordInput(),
+            label=_("Please confirm your password"))#_('and please confirm your password'))
+    email = forms.EmailField()
+
+class MemberForm(ModelForm):
+    class Meta:
+        model = Member
 
 class GeneralMemberForm(ModelForm):
     class Meta:
@@ -51,7 +63,10 @@ class OrganizationForm(ModelForm):
             )
     class Meta:
         model = Organization
-        exclude = ('leader','location',)
+        exclude = ('location','user',)
+        fields = ('title', 'slug', 'leader', 'about', 'mandate',
+                'community','service', 'funding', 'annual_budget',
+                'nonprofit_status', 'website',)
 
 class ActionGroupForm(ModelForm):
     class Meta:

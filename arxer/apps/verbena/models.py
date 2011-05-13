@@ -18,7 +18,7 @@ import datetime
 class Member(models.Model):
     """ An abstract to represent all signed-in users"""
     user = models.ForeignKey(User, blank=True, related_name='member_profile')
-    slug = models.SlugField(_("URL-friendly name"), max_length=80)
+    slug = models.SlugField(_("URL-friendly name"), max_length=80, unique=True)
     ##user = models.ForeignKey(User, unique=True, blank=True,
 
     def __unicode__(self):
@@ -47,9 +47,11 @@ class Member(models.Model):
         except:
             return False
 
+    """
     def save(self, *args, **kwargs):
         self.slug = slugify(self.user.username)
         super(Member, self).save(*args, **kwargs)
+    """
 
 class GeneralMember(Member):
     """ An entity representing a registered, unaffiliated user.
@@ -77,7 +79,8 @@ class Organization(Member):
     """
     title = models.CharField(_("Organization name"),
             help_text=_("The name of your organization"),
-            max_length=100)
+            max_length=100,
+            unique=True)
     ##slug = models.SlugField(_("URL-friendly name"), max_length=80)
     ##leader = models.ForeignKey(User)
     leader = models.ForeignKey(Member, related_name="org_leader")
@@ -113,6 +116,11 @@ class Organization(Member):
     class Meta:
         verbose_name = _("Organization")
         verbose_name_plural = _("Organizations")
+
+    #def save(self, *args, **kwargs):
+    #    # Overriding member slug?
+    #    self.slug = slugify(self.title)
+    #    super(Organization, self).save(*args, **kwargs)
 
     @models.permalink
     def get_absolute_url(self):

@@ -2,12 +2,14 @@
 from django.http import HttpResponseRedirect, HttpResponse
 # other imports
 from django.contrib.auth.decorators import permission_required, login_required
+from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404, render_to_response, redirect
 from django.views.generic.simple import direct_to_template as render
 from django.core.urlresolvers import reverse
 from verbena.models import Organization, Project, VolunteerOpportunity,\
     Member, ActionGroup
-from verbena.forms import ProjectForm, OrganizationForm, LocationForm
+from verbena.forms import ProjectForm, OrganizationForm, LocationForm,\
+    GeneralMemberForm, StudentForm, UserForm, MemberForm
 from verbena.models import Organization, Location
 from django.views.generic.list_detail import object_list, object_detail
 from django.views.generic.create_update import create_object, update_object
@@ -100,20 +102,27 @@ def add_organization(request, *args, **kwargs):
     data = request.POST or None
     locform = LocationForm(data=data)
     orgform = OrganizationForm(data=data)
+    userform = UserForm(data=data)
     location = {}
-    if locform.is_valid() and orgform.is_valid():
+    if locform.is_valid() and orgform.is_valid() and userform.is_valid():
         new_location = locform.save()
         new_organization = orgform.save(commit=False)
         new_organization.location = new_location
+        if userform.cleaned_data['password'] == userform.cleaned_data['passconf']:
+            new_user = User.objects.create_user(
+                userform.cleaned_data['username'],
+                userform.cleaned_data['email'],
+                userform.cleaned_data['password'])
+        new_organization.user = new_user
         new_organization.save()
+        # JS Map information
         location = {
             "latitude": new_location.latitude,
             "longitude": new_location.longitude,
             "place": new_location.place
         }
-        return HttpResponseRedirect(reverse('org_view',
-            new_organization.slug))
-    ret = dict(locform=locform, orgform=orgform, location=location)
+        return HttpResponseRedirect(new_organization.get_absolute_url())
+    ret = dict(userform=userform, locform=locform, orgform=orgform, location=location)
     return render(request, 'verbena/organization_form.html', ret)
 #            {'locform':locform, 'orgform':orgform, 'location':location})
 

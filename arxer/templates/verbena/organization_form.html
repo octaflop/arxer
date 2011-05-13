@@ -7,6 +7,7 @@
 	<h2>{{ object.title }}</h2>
 	<form action="" method="post" class="uniForm">
 	{% csrf_token %}
+	{{ userform|as_uni_form }}
 	{{ orgform|as_uni_form }}
 	{{ locform|as_uni_form }}
 		<input type="submit" value="submit" />
