@@ -1,5 +1,5 @@
 {% load i18n %}
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!doctype html>
 <html xmlns="http://www.w3.org/1999/xhtml" dir="{% if LANGUAGE_BIDI %}rtl{% else %}ltr{% endif %}" xml:lang="{{ LANGUAGE_CODE }}" lang="{{ LANGUAGE_CODE }}">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -18,6 +18,9 @@
         <link rel="stylesheet" href="{{ STATIC_URL }}verbena/css/style.css" />
         <!-- Ajax_select icons -->
         <link rel="stylesheet" href="{{ STATIC_URL }}verbena/css/iconic.css" />
+
+				<!-- diversifist theming -->
+        <link rel="stylesheet" href="{{ STATIC_URL }}verbena/diversifist/css/sfpirg.css" />
         {% if LANGUAGE_BIDI %}
         <style type="text/css" media="screen">
             div.right_panel {
@@ -46,13 +49,14 @@
             </div>
         {% endif %}
         
-        <div id="tabhead">
-            <div class="logo" dir="ltr">{% block logo_link_image %}{% endblock %}</div>
+				<div class="logo" dir="ltr">{% block logo_link_image %}{% endblock %}</div>
+        <nav id="tabhead">
             <div class="login">{% block login %}{% endblock %}{% block locale_switcher %}{% endblock %}<div style="text-align: right;"></div></div>
-            <div id="left_tabs" >{% block left_tabs %}{% endblock %}</div>
 						<div id="search_box">{% block search_box %}{% endblock %}</div>
-            <div id="right_tabs" >{% block right_tabs %}{% endblock %}</div>
-        </div>
+        </nav>
+
+				<div id="left_tabs" >{% block left_tabs %}{% endblock %}</div>
+				<div id="nav" >{% block right_tabs %}{% endblock %}</div>
         <div id="subnav" class="clearfix">{% block subnav_base %}<div class="clearfix">{% block subnav %}&nbsp;{% endblock %}</div>{% endblock %}</div>
         
         {% block body_outer %}
