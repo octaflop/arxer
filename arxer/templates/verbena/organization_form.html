@@ -9,28 +9,41 @@
 	{% csrf_token %}
 	{{ userform|as_uni_form }}
 	{{ orgform|as_uni_form }}
+	<!-- The gMap canvas element -->
+	<div id="map_canvas">
+	</div>
 	{{ locform|as_uni_form }}
 		<input type="submit" value="submit" />
 		{% if object.slug %}
 			<a href="{% url org_view object.slug %}">Cancel Edits</a>
 		{% endif %}
 	</form>
-	<script type="text/javascript" 
-	src="{{ STATIC_URL	}}admin/js/urlify.js"></script>
-	<script type="text/javascript">
-		document.getElementById("id_title").onkeyup = function () {
-			var e = document.getElementById("id_slug");
-			if (!e._changed) { 
-				e.value =	URLify(document.getElementById("id_title").value, 75); 
+{% endblock %}
+	{% block extra_body %}
+		<script type="text/javascript" 
+		src="{{ STATIC_URL	}}admin/js/urlify.js"></script>
+		<script type="text/javascript">
+			document.getElementById("id_title").onkeyup = function () {
+				var e = document.getElementById("id_slug");
+				if (!e._changed) { 
+					e.value =	URLify(document.getElementById("id_title").value, 75); 
+				}
 			}
-		}
-	</script>
+		</script>
 
-		<!-- NEEDS Implementation; perhaps GMap -->
-    <script type="text/javascript">
-			var _geo = [[{{ location.latitude }}, {{ location.longitude }}, '{{	location.place }}']];
-		</script>
-		<script type="text/javascript"
-			src="http://api.maps.yahoo.com/ajaxymap?v=3.8&appid={{ YAHOO_MAPS_API_KEY }}">
-		</script>
+			<!-- NEEDS Implementation; perhaps GMap -->
+			<script type="text/javascript">
+	//			var _geo = [[{{ location.latitude }}, {{ location.longitude }}, '{{	location.place }}']];
+				// Marker addition based on location
+				// faked for now...
+				var vancouver = new google.maps.LatLng(49.28227, -123.10754);
+				var marker = new google.maps.Marker({
+						map: map,
+						draggable: true,
+						animation: google.maps.Animation.DROP,
+						position: vancouver,
+						title: "Hello, Vancouver!"
+						});
+				marker.setMap(map);
+			</script>
 {% endblock %}

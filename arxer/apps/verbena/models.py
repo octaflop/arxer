@@ -81,9 +81,10 @@ class Organization(Member):
             help_text=_("The name of your organization"),
             max_length=100,
             unique=True)
-    ##slug = models.SlugField(_("URL-friendly name"), max_length=80)
-    ##leader = models.ForeignKey(User)
-    leader = models.ForeignKey(Member, related_name="org_leader")
+    leader = models.ForeignKey(Member, related_name="org_leader",
+            help_text=_("Please select a leader from these registered site\
+                users. If you require a new leader, please create a login\
+                account for that leader."))
     community = models.CharField(
             _("What community do you represent or work with?"),
             max_length=180,
