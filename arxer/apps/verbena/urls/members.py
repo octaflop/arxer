@@ -37,7 +37,7 @@ urlpatterns = patterns("",
         name="student_edit"),
     url(r"faculty$", object_list, faculty_list, name="faculty_list"),
     url(r"faculty/add", create_object, faculty_add,  name="faculty_add"),
-    url(r"faculty/(?P<slug>[-\w]+)$", object_detail, faculty_list,  name="faculty_view"),
+    url(r"faculty/(?P<slug>[-\w]+)$", object_detail, faculty_list, name="faculty_view"),
     url(r"faculty/(?P<slug>[-\w]+)/edit$", update_object, faculty_add,
         name="faculty_edit"),
     )

@@ -17,9 +17,9 @@ import datetime
 
 class Member(models.Model):
     """ An abstract to represent all signed-in users"""
-    user = models.ForeignKey(User, blank=True, related_name='member_profile')
+    user = models.ForeignKey(User, blank=True, related_name='member_profile',
+                        unique=True)
     slug = models.SlugField(_("URL-friendly name"), max_length=80, unique=True)
-    ##user = models.ForeignKey(User, unique=True, blank=True,
 
     def __unicode__(self):
         return self.user.username
@@ -47,11 +47,9 @@ class Member(models.Model):
         except:
             return False
 
-    """
     def save(self, *args, **kwargs):
         self.slug = slugify(self.user.username)
         super(Member, self).save(*args, **kwargs)
-    """
 
 class GeneralMember(Member):
     """ An entity representing a registered, unaffiliated user.

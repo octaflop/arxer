@@ -57,7 +57,9 @@
 
 {% block right_tabs %}
         <ul class="tabs">{% spaceless %}
+					{% if user.is_authenticated %}
             <li id="tab_profile"><a href="{% url profile_detail user.username %}">{% trans "Profile" %}</a></li>
+					{% endif %}
 						<li id="tab_grants"><a href="{% url grant_home %}">
 							{% trans "Grants" %}</a>
 						</li>
@@ -91,10 +93,6 @@
 							{% trans "Search" %}</a>
 						</li>
         {% endspaceless %}</ul>
-		<!--{#
-			{% if user.is_authenticated %}
-			{% endif %}
-		#}-->
 {% endblock %}
 
 {% block footer %}
