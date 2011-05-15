@@ -212,6 +212,7 @@ INSTALLED_APPS = [
 
     # ARX
     "verbena",
+    "ajax_select",
 ]
 
 HAYSTACK_SITECONF = 'verbena.search_sites'
