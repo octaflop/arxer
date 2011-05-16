@@ -213,6 +213,7 @@ INSTALLED_APPS = [
     # ARX
     "verbena",
     "ajax_select",
+    "idios",
 ]
 
 HAYSTACK_SITECONF = 'verbena.search_sites'
@@ -298,6 +299,9 @@ DEBUG_TOOLBAR_CONFIG = {
 }
 
 ##TEST_RUNNER = "djangonose.testrunner"
+
+#AJAX_LOOKUPS_CHANNELS = {
+#    'profile' : 
 
 # local_settings.py can be used to override environment-specific settings
 # like database and email that differ between development and production.

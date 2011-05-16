@@ -1,4 +1,7 @@
 import os
+SITE_NAME = "SFPIRG Development"
+CONTACT_EMAIL = "test@example.com"
+
 ROOT_PATH = os.path.dirname(__file__)
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG

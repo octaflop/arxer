@@ -2,12 +2,13 @@ from django.conf.urls.defaults import *
 from django.views.generic.list_detail import object_list, object_detail
 from django.views.generic.create_update import create_object, update_object
 from verbena.views import join_actiongroup, leave_actiongroup
-from verbena.models import Student, GeneralMember, Faculty
+from verbena.models import Student, GeneralMember, Faculty, Member
 from verbena.forms import StudentForm, FacultyForm, GeneralMemberForm
 
 # all profiles
 member_list = {
-    "queryset"  : GeneralMember.objects.all()
+    #"queryset"  : GeneralMember.objects.all()
+    "queryset"  : Member.objects.all()
 }
 
 student_list = {
@@ -30,6 +31,7 @@ faculty_add = {
 
 urlpatterns = patterns("",
     url(r"^$", object_list, member_list, name="member_list"),
+    url(r"(?P<slug>[-\w]+)$", object_detail, member_list, name="member_view"),
     url(r"students$", object_list, student_list, name="student_list"),
     url(r"students/add", create_object, student_add,  name="student_add"),
     url(r"students/(?P<slug>[-\w]+)$", object_detail, student_list, name="student_view"),

@@ -1,5 +1,9 @@
 from django.db import models
+from django.db.models.signals import post_save
 from django.contrib.auth.models import User
+##from idios.models import ProfileBase
+from photologue.models import Gallery
+from pinax.apps.profiles.models import Profile
 from django.contrib.localflavor.us.models import PhoneNumberField
 from django.template.defaultfilters import slugify
 
@@ -10,6 +14,7 @@ from pinax.apps.tribes.models import Tribe
 
 import datetime
 
+
 #############################################################################
 # INDIVIDUAL-based models
 # Organization -> a non-individual user
@@ -17,12 +22,12 @@ import datetime
 
 class Member(models.Model):
     """ An abstract to represent all signed-in users"""
-    user = models.ForeignKey(User, blank=True, related_name='member_profile',
-                        unique=True)
+    user = models.ForeignKey(Profile, blank=True, related_name='member_profile')
+    ##username = models.CharField(max_length=100) # when using idios
     slug = models.SlugField(_("URL-friendly name"), max_length=80, unique=True)
 
     def __unicode__(self):
-        return self.user.username
+        return self.user.user.username
 
     class Meta:
         verbose_name = _("Member")
@@ -36,7 +41,7 @@ class Member(models.Model):
             else:
                 return False
         except:
-            return False
+            return
 
     def is_faculty(self):
         try:
@@ -45,11 +50,53 @@ class Member(models.Model):
             else:
                 return False
         except:
-            return False
+            return
+
+    # Will be overridden by student & faculty views (I hope)
+    @models.permalink
+    def get_absolute_url(self):
+        return ('member_view', [str(self.slug)])
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.user.username)
+        self.slug = slugify(self.user.user.username)
         super(Member, self).save(*args, **kwargs)
+
+# Perhaps not the best place for it, but here's a hook for creating a new
+# member when a new user profile is created.
+
+def create_member(sender, **kwargs):
+    """
+    Create a new member when a User object is saved
+    """
+    # Check for a new user
+    if not kwargs['created']:
+        return
+
+    # get the User account instance
+    user = kwargs['instance']
+
+    # don't make a member if it already exists
+    try:
+        p = Member.objects.get(user=user)
+    except Member.DoesNotExist:
+        p = None
+
+    if p:
+        return
+
+    try:
+        profile = Profile.objects.get(user=user)
+    except Profile.DoesNotExist:
+        profile = Profile(
+            user = user,
+        )
+        profile.save()
+    member = Member(
+        user = profile,
+    )
+    member.save()
+
+post_save.connect(create_member, sender=User)
 
 class GeneralMember(Member):
     """ An entity representing a registered, unaffiliated user.
@@ -198,6 +245,9 @@ class ActionGroup(models.Model):
     # Similar to facebook's "like"
     supporters = models.ManyToManyField(GeneralMember,
             related_name = "group-supporters",
+            blank=True)
+    photos = models.ManyToManyField(Gallery,
+            related_name = "group-photos",
             blank=True)
 
     def __unicode__(self):
