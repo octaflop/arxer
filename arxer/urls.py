@@ -82,6 +82,8 @@ urlpatterns = patterns("",
     url(r"^workshop/", include("verbena.urls.workshop")),
     url(r"event/", include("verbena.urls.event")),
 
+    url(r"ajax_select/", include("ajax_select.urls")),
+
     # search
     url(r"search/", include('haystack.urls')),
     url(r"autocomplete/", "verbena.views.suggestion"),

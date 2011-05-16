@@ -2,21 +2,24 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
+from ajax_select import make_ajax_form
+
 from verbena.models import Student, Faculty, NewsRelease, Location, Project,\
     VolunteerOpportunity, Organization, Workshop, ActionGroup, Grant
 
 #class StudentAdmin(UserAdmin):
 class StudentAdmin(admin.ModelAdmin):
-    list_display = ('user','studying','comp_year',)
+    list_display = ('profile','studying','comp_year',)
     exclude = ('slug',)
 
 #class FacultyAdmin(UserAdmin):
 class FacultyAdmin(admin.ModelAdmin):
-    list_display = ('user','in_faculty',)
+    list_display = ('profile','in_faculty',)
     exclude = ('slug',)
 
 #class OrganizationAdmin(UserAdmin):
 class OrganizationAdmin(admin.ModelAdmin):
+    form = make_ajax_form(Organization, dict(leader='member'))
     list_display = ('title', 'about', 'website',)
     prepopulated_fields = {'slug': ('title',)}
     display_inline = ('location', 'workshops',)

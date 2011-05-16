@@ -8,22 +8,21 @@ from django.forms.formsets import formset_factory
 from django.template.defaultfilters import slugify
 from django.utils.translation import ugettext_lazy as _
 
+from ajax_select.fields import AutoCompleteSelectField
+
 class EventForm(ModelForm):
     class Meta:
         model = Event
 
 class LocationForm(ModelForm):
-    #latitude = forms.CharField()
-    #longitude = forms.CharField()
-    #place = forms.CharField()
     class Meta:
         model = Location
 
 class UserForm(forms.Form):
     username = forms.CharField()
-    password = forms.CharField(widget=forms.PasswordInput())#label=_('please input a password'))
+    password = forms.CharField(widget=forms.PasswordInput())
     passconf = forms.CharField(widget=forms.PasswordInput(),
-            label=_("Please confirm your password"))#_('and please confirm your password'))
+            label=_("Please confirm your password"))
     email = forms.EmailField()
 
 class MemberForm(ModelForm):
@@ -56,14 +55,16 @@ class OrganizationForm(ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(OrganizationForm, self).__init__(*args, **kwargs)
-        self.fields['leader'] = forms.ModelChoiceField(
-                required=False,
-                queryset=Member.objects.all(),
-                widget=forms.Select(attrs={'title': _("Add leader")})
-            )
+        #self.fields['leader'] = forms.ModelChoiceField(
+        #        required=False,
+        #        queryset=Member.objects.all(),
+        #        widget=forms.Select(attrs={'title': _("Add leader")})
+        #    )
+        self.fields['leader'] = AutoCompleteSelectField('member', required=False)
+
     class Meta:
         model = Organization
-        exclude = ('location','user',)
+        exclude = ('location','profile',)
         fields = ('title', 'slug', 'leader', 'about', 'mandate',
                 'community','service', 'funding', 'annual_budget',
                 'nonprofit_status', 'website',)

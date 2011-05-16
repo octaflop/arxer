@@ -22,17 +22,15 @@ import datetime
 
 class Member(models.Model):
     """ An abstract to represent all signed-in users"""
-    user = models.ForeignKey(Profile, blank=True, related_name='member_profile')
-    ##username = models.CharField(max_length=100) # when using idios
+    profile = models.ForeignKey(Profile, blank=True, related_name='member_profile')
     slug = models.SlugField(_("URL-friendly name"), max_length=80, unique=True)
 
     def __unicode__(self):
-        return self.user.user.username
+        return self.profile.user.username
 
     class Meta:
         verbose_name = _("Member")
         verbose_name_plural = _("Members")
-        #abstract = True
 
     def is_student(self):
         try:
@@ -58,7 +56,7 @@ class Member(models.Model):
         return ('member_view', [str(self.slug)])
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.user.user.username)
+        self.slug = slugify(self.profile.user.username)
         super(Member, self).save(*args, **kwargs)
 
 # Perhaps not the best place for it, but here's a hook for creating a new
@@ -77,7 +75,7 @@ def create_member(sender, **kwargs):
 
     # don't make a member if it already exists
     try:
-        p = Member.objects.get(user=user)
+        p = Member.objects.get(profile=user)
     except Member.DoesNotExist:
         p = None
 
@@ -92,7 +90,7 @@ def create_member(sender, **kwargs):
         )
         profile.save()
     member = Member(
-        user = profile,
+        profile = profile,
     )
     member.save()
 
