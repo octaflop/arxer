@@ -42,4 +42,4 @@ urlpatterns = patterns("",
     url(r"faculty/(?P<slug>[-\w]+)$", object_detail, faculty_list, name="faculty_view"),
     url(r"faculty/(?P<slug>[-\w]+)/edit$", update_object, faculty_add,
         name="faculty_edit"),
-    )
+)

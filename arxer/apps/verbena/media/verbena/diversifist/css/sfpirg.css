@@ -217,16 +217,50 @@ aside section {
 	-webkit-border-radius: 11px;
 }
 
-	aside section ul {
-		list-style: none;
-	}
+aside section ul {
+	list-style: none;
+}
 	
-		aside section ul li a {
-			display: block;
-			text-decoration: none;
-			color: #000;
-		}
+aside section ul li a {
+	display: block;
+	text-decoration: none;
+	color: #000;
+}
 		
-			aside section ul li a:hover {
-				text-decoration: underline;
-			}
+aside section ul li a:hover {
+	text-decoration: underline;
+}
+
+/*-------------------------------
+ * Nav
+--------------------------------*/
+
+#nav_about {
+	width: 57px;
+	height: 81px;
+	border: 0px;
+}
+
+#nav_involved {
+	width: 76px;
+	height: 79px;
+	border: 0px;
+}
+
+#nav_action {
+	width: 112px;
+	height: 85px;
+	border: 0px;
+}
+
+#nav_research {
+	width: 98px;
+	height: 99px;
+	border: 0px;
+}
+
+#nav_arx {
+	width: 53px;
+	height: 80px;
+	border: 0px;
+}

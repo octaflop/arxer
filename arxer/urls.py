@@ -22,6 +22,7 @@ from pinax.apps.topics.models import Topic
 from pinax.apps.tribes.models import Tribe
 
 
+
 handler500 = "pinax.views.server_error"
 
 
@@ -46,7 +47,7 @@ urlpatterns = patterns("",
     url(r"^admin/filebrowser/", include('filebrowser.urls')),
     url(r"^admin/invite_user/$", "pinax.apps.signup_codes.views.admin_invite_user", name="admin_invite_user"),
     url(r"^admin/", include(admin.site.urls)),
-    url(r"^about/", include("about.urls")),
+    ##url(r"^about/", include("about.urls")),
     url(r"^account/", include("pinax.apps.account.urls")),
     url(r"^openid/(.*)", PinaxConsumer()),
     url(r"^profiles/", include("pinax.apps.profiles.urls")),
@@ -77,7 +78,8 @@ urlpatterns = patterns("",
     url(r"^organization/", include("verbena.urls.organization")),
     url(r"^grants/", include("verbena.urls.grant")),
     url(r"^action-group/", include("verbena.urls.action_group")),
-    url(r"^project/", include("verbena.urls.project")),
+    ##url(r"^project/", include("verbena.urls.project")),
+    url(r"^arx/", include("verbena.urls.project")),
     url(r"^volunteer/", include("verbena.urls.volunteer_op")),
     url(r"^workshop/", include("verbena.urls.workshop")),
     url(r"event/", include("verbena.urls.event")),
@@ -163,6 +165,22 @@ urlpatterns += patterns("",
         kwargs=tagging_ext_kwargs, name="tagging_ext_tag"),
     url(r"^tags/$", "tagging_ext.views.index", name="tagging_ext_index"),
 )
+
+# Flatpages -- static pages on the site
+urlpatterns += patterns("django.contrib.flatpages.views",
+    url(r"^about/$", 'flatpage', {'url': '/about/'}, name="about"),
+    url(r"^about/staff/$", 'flatpage', {'url': '/about/staff/'},
+        name="about-staff"),
+    url(r"^about/board/$", 'flatpage', {'url': '/about/board/'},
+        name="about-board"),
+    url(r"^get-involved/$", 'flatpage', {'url': '/get-involved/'},
+        name="get-involved"),
+    url(r"^terms/$", 'flatpage', {'url': '/terms/'},
+        name="terms"),
+    url(r"^privacy/$", 'flatpage', {'url': '/privacy/'},
+        name="privacy"),
+)
+
 
 if settings.SERVE_MEDIA:
     urlpatterns += patterns("",

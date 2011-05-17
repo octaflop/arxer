@@ -1,7 +1,7 @@
 from django.contrib.admin.models import User
 from verbena.models import Organization, Grant, Project, ActionGroup, Member,\
     Workshop, VolunteerOpportunity, Faculty, Student, GeneralMember, Location,\
-    Event, Member
+    Event, Member, Research
 from django.forms import ModelForm
 import django.forms as forms
 from django.forms.formsets import formset_factory
@@ -48,6 +48,10 @@ class VolunteerOpForm(ModelForm):
 class WorkshopForm(ModelForm):
     class Meta:
         model = Workshop
+
+class ResearchForm(ModelForm):
+    class Meta:
+        model = Research
 
 class OrganizationForm(ModelForm):
     """Form for adding new organizations, user is the logged-in user by

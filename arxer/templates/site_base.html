@@ -60,6 +60,17 @@
 					{% if user.is_authenticated %}
             <li id="tab_profile"><a href="{% url profile_detail user.username %}">{% trans "Profile" %}</a></li>
 					{% endif %}
+				</ul>
+				<nav id="nav_header">
+					<ul>
+						<a href="{% url about %}"><img src="{{ STATIC_URL	}}verbena/diversifist/img/about_us.png"	id="nav_about" alt="about" /></a>
+						<a href="{% url get-involved %}"><img src="{{ STATIC_URL }}verbena/diversifist/img/get_involved.png"	id="nav_involved" alt="get involved" /></a>
+						<a href="{% url act_home %}"><img src="{{ STATIC_URL }}verbena/diversifist/img/action_groups.png"	id="nav_action" alt="action groups" /></a>
+						<a href="{% url res_home %}"><img src="{{ STATIC_URL }}verbena/diversifist/img/research_resources.png"	id="nav_research" alt="research and resources" /></a>
+						<a href="{% url project_home %}"><img src="{{ STATIC_URL }}verbena/diversifist/img/arx.png"	id="nav_arx" alt="action research exchange" /></a>
+					</ul>
+				</nav>
+				<ul class='tabs'>
 						<li id="tab_grants"><a href="{% url grant_home %}">
 							{% trans "Grants" %}</a>
 						</li>
@@ -108,7 +119,5 @@
 {% block extra_body_base %}
     {% ga %}
     <script type="text/javascript" src="{{ STATIC_URL }}pinax/js/topics.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL	}}pinax/js/jquery-ui.custom.min.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}pinax/js/jquery-ui-timepicker-addon.js"></script>
     {% block extra_body %}{% endblock %}
 {% endblock %}

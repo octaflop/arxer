@@ -259,6 +259,21 @@ class ActionGroup(models.Model):
     def get_absolute_url(self):
         return ('act_view', [str(self.slug)])
 
+class Research(models.Model):
+    """ Research & Resources have their own logos and pages """
+    title = models.CharField(_("Group title"), max_length=80)
+    slug = models.SlugField(_("URL-friendly title"))
+    supporters = models.ManyToManyField(Member,
+            related_name = "research-supporters",
+            blank=True)
+
+    def __unicode__(self):
+        return self.title
+
+    @models.permalink
+    def get_absolute_url(self):
+        return ('res_view', [str(self.slug)])
+
 class Location(models.Model):
     """
     A Location is simply a latitude and longitude

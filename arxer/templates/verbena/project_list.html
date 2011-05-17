@@ -2,11 +2,11 @@
 {% load i18n %}
 
 {% block head_title %}
-	Organizations
+	Action Research Exchange 
 {% endblock %}
 
 {% block body %}
-	<h2>{% trans "Projects" %}</h2>
+	<h2>{% trans "ARX Projects" %}</h2>
 	<ul class='proj_list'>
 		{% for proj in object_list %}
 			<li><b><a href="{{ proj.get_absolute_url }}">{{ proj.title }}</a></b></li>
