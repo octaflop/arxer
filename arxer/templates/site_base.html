@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 
+{% load nav_build %}
 {% load i18n %}
 {% load analytics %}
 
@@ -56,21 +57,27 @@
 {% endblock %}
 
 {% block right_tabs %}
-        <ul class="tabs">{% spaceless %}
-					{% if user.is_authenticated %}
-            <li id="tab_profile"><a href="{% url profile_detail user.username %}">{% trans "Profile" %}</a></li>
-					{% endif %}
-				</ul>
 				<nav id="nav_header">
+					{% sfpirgnav %}
 					<ul>
-						<a href="{% url about %}"><img src="{{ STATIC_URL	}}verbena/diversifist/img/about_us.png"	id="nav_about" alt="about" /></a>
-						<a href="{% url get-involved %}"><img src="{{ STATIC_URL }}verbena/diversifist/img/get_involved.png"	id="nav_involved" alt="get involved" /></a>
-						<a href="{% url act_home %}"><img src="{{ STATIC_URL }}verbena/diversifist/img/action_groups.png"	id="nav_action" alt="action groups" /></a>
-						<a href="{% url res_home %}"><img src="{{ STATIC_URL }}verbena/diversifist/img/research_resources.png"	id="nav_research" alt="research and resources" /></a>
-						<a href="{% url project_home %}"><img src="{{ STATIC_URL }}verbena/diversifist/img/arx.png"	id="nav_arx" alt="action research exchange" /></a>
+            <li><a href="{% url about-us %}"><img src="{{ STATIC_URL	}}verbena/diversifist/img/about_us.png"	id="nav_about" alt="about" /></a>
+            <li><a href="{% url get-involved %}"><img src="{{ STATIC_URL }}verbena/diversifist/img/get_involved.png"	id="nav_involved" alt="get involved" /></a>
+            <li><a href="{% url act_home %}"><img src="{{ STATIC_URL }}verbena/diversifist/img/action_groups.png"	id="nav_action" alt="action groups" /></a>
+            <li><a href="{% url res_home %}"><img src="{{ STATIC_URL }}verbena/diversifist/img/research_resources.png"	id="nav_research" alt="research and resources" /></a>
+            <li><a href="{% url project_home %}"><img src="{{ STATIC_URL }}verbena/diversifist/img/arx.png"	id="nav_arx" alt="action research exchange" /></a>
 					</ul>
 				</nav>
+{% endblock %}
+
+{% block footer %}
+<!-- Extra Dev links -->
 				<ul class='tabs'>
+          <ul class="tabs">{% spaceless %}
+            {% if user.is_authenticated %}
+              <li id="tab_profile"><a href="{% url profile_detail user.username %}">{% trans "Profile" %}</a></li>
+            {% endif %}
+          </ul>
+
 						<li id="tab_grants"><a href="{% url grant_home %}">
 							{% trans "Grants" %}</a>
 						</li>
@@ -104,9 +111,7 @@
 							{% trans "Search" %}</a>
 						</li>
         {% endspaceless %}</ul>
-{% endblock %}
 
-{% block footer %}
 <div class="legal">
     {% trans "&copy; 2011 Simon Fraser Public Interest Research Group" %}
     - <a href="{% url about %}">{% trans "About" %}</a>

@@ -555,3 +555,14 @@ class NewsRelease(models.Model):
     datetime_released = models.DateTimeField(_("News Release date and time"),
             help_text=_("Indicate the date and time of the news release"))
 
+class Navigation(models.Model):
+    """
+    A model referring back to the site structure to build links based on images
+    """
+    title = models.TextField(_("Menu title"))
+    link = models.URLField(_("Website"))
+    menu_slug = models.SlugField(_("A template-friendly name, such as\
+        'action-group'"))
+
+    def __unicode__(self):
+        return self.title

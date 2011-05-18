@@ -5,7 +5,11 @@ from django.contrib.auth.admin import UserAdmin
 from ajax_select import make_ajax_form
 
 from verbena.models import Student, Faculty, NewsRelease, Location, Project,\
-    VolunteerOpportunity, Organization, Workshop, ActionGroup, Grant
+    VolunteerOpportunity, Organization, Workshop, ActionGroup, Grant,\
+    Navigation
+
+class NavigationAdmin(admin.ModelAdmin):
+    list_display = ('title', 'link',)
 
 #class StudentAdmin(UserAdmin):
 class StudentAdmin(admin.ModelAdmin):
@@ -63,3 +67,4 @@ admin.site.register(Faculty, FacultyAdmin)
 admin.site.register(ActionGroup, ActionGroupAdmin)
 admin.site.register(Organization, OrganizationAdmin)
 admin.site.register(Grant, GrantAdmin)
+admin.site.register(Navigation, NavigationAdmin)

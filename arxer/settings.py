@@ -215,6 +215,7 @@ INSTALLED_APPS = [
     "ajax_select",
     "idios",
     "django.contrib.flatpages",
+    "django_assets",
 ]
 
 HAYSTACK_SITECONF = 'verbena.search_sites'
@@ -301,27 +302,8 @@ DEBUG_TOOLBAR_CONFIG = {
 
 ##TEST_RUNNER = "djangonose.testrunner"
 
-# COMPRESS CSS SETTINGS
-COMPRESS_CSS = {
-    'all': {
-        'source_filenames': (
-            '',
-        ),
-        'output_filename': 'css/all_compressed.css',
-        'extra_context': {
-            'media': 'screen,projection',
-        },
-    },
-}
-
-COMPRESS_JS = {
-    'all': {
-        'source_filenames': (
-            '',
-        ),
-        'output_filename': 'js/all_compressed.css',
-    },
-}
+ASSETS = STATIC_ROOT
+##ASSETS_URL = STATIC_URL
 
 AJAX_LOOKUP_CHANNELS = {
     'member': ('verbena.lookups', 'MemberLookup'),

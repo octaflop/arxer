@@ -114,7 +114,7 @@ p {
 =NAVIGATION
 ------------------------------*/
 
-#nav_header {
+#tabhead nav {
 	position: absolute;
 	width: 694px;
 	height: 143px;
@@ -124,28 +124,28 @@ p {
 }
 
 nav ul {
-	margin: 30px auto;
-	width: 694px;
-	list-style: none;
-}
+		margin: 30px auto;
+		width: 694px;
+		list-style: none;
+	}
 
-nav ul li {
-	float: left;
-}
-
-nav ul li a {
-	display: block;
-	margin: 0 18px;
-	width: 100px;
-	font-size: 14px;
-	line-height: 44px;
-	text-align: center;
-	text-decoration: none;
-}
-
-nav ul li a:hover {
-	color: #fff;
-}
+		nav ul li {
+			float: left;
+		}
+		
+			nav ul li a {
+				display: block;
+				margin: 0 18px;
+				width: 100px;
+				font-size: 14px;
+				line-height: 44px;
+				text-align: center;
+				text-decoration: none;
+			}
+			
+				nav ul li a:hover {
+					color: #fff;
+				}
 
 /*------------------------------
 =CONTENT AREA AND SIDEBAR LAYOUT
@@ -156,21 +156,21 @@ nav ul li a:hover {
 	width: 1088px;
 }
 
-#mainContent {
-	display: table-cell;
-	width: 620px;
-	padding-right: 22px;
-}
+	#mainContent {
+		display: table-cell;
+		width: 620px;
+		padding-right: 22px;
+	}
 	
-aside {
-	display: table-cell;
-	width: 170px;
-	/*background: url("images/sidebar_background.png") top left;*/
-}
+	aside {
+		display: table-cell;
+		width: 170px;
+		/*background: url("images/sidebar_background.png") top left;*/
+	}
 
 .calendar{
-	float: left;
-	background-image: url("../img/calendar.png") top left;
+ float: left;
+ background-image: url("../img/calendar.png") top left;
 }
 
 .sideBack {
@@ -184,23 +184,23 @@ aside {
 =CONTENT POST
 ------------------------------*/
 .title {
-	font-size: 14px;
-	padding: 8px 30px;
-	margin: 10px 20px;
-	color: #fff;
-	background: #323232;
-	width: 450px;
-	height: 25px;
-	border: 1px solid #323232;
-	-moz-border-radius: 20px;
-	-webkit-border-radius: 11px;
-}
+		font-size: 14px;
+		padding: 8px 30px;
+		margin: 10px 20px;
+		color: #fff;
+		background: #323232;
+		width: 450px;
+		height: 25px;
+		border: 1px solid #323232;
+		-moz-border-radius: 20px;
+		-webkit-border-radius: 11px;
+	}
 	
-.contentPost header p a:hover {
-	text-decoration: none;
-	color: #000;
-}
-
+		.contentPost header p a:hover {
+			text-decoration: none;
+			color: #000;
+		}
+	
 .contentPost img {
 	margin: 22px 0;
 	-webkit-box-shadow: 3px 3px 7px #777;
@@ -217,50 +217,16 @@ aside section {
 	-webkit-border-radius: 11px;
 }
 
-aside section ul {
-	list-style: none;
-}
+	aside section ul {
+		list-style: none;
+	}
 	
-aside section ul li a {
-	display: block;
-	text-decoration: none;
-	color: #000;
-}
+		aside section ul li a {
+			display: block;
+			text-decoration: none;
+			color: #000;
+		}
 		
-aside section ul li a:hover {
-	text-decoration: underline;
-}
-
-/*-------------------------------
- * Nav
---------------------------------*/
-
-#nav_about {
-	width: 57px;
-	height: 81px;
-	border: 0px;
-}
-
-#nav_involved {
-	width: 76px;
-	height: 79px;
-	border: 0px;
-}
-
-#nav_action {
-	width: 112px;
-	height: 85px;
-	border: 0px;
-}
-
-#nav_research {
-	width: 98px;
-	height: 99px;
-	border: 0px;
-}
-
-#nav_arx {
-	width: 53px;
-	height: 80px;
-	border: 0px;
-}
+			aside section ul li a:hover {
+				text-decoration: underline;
+			}
