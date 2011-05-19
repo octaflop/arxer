@@ -9,13 +9,13 @@ the source.
 
 Simply clone the repo and run:
 
-````python
+````bash
 python bootstrap.py
 ````
 
 If you have issues, try manually installing:
 
-````python
+````bash
 virtualenv arxer
 cd arxer
 source bin/activate && cd arxer
