@@ -567,6 +567,7 @@ class Navigation(models.Model):
     navlogo_path = models.FilePathField(_("Logo path"), help_text=_("Path to\
             navigation logo, based on STATIC_URL, include name. Must be a\
             png."), path="%s/%s" % (STATIC_ROOT, "nav"), blank=True, recursive=True)
+    weight = models.IntegerField(default=0)
 
     def __unicode__(self):
         return self.title

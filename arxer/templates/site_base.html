@@ -48,17 +48,10 @@
 {% endblock %}
 
 {% block nav %}
-				<nav id="nav_header">
-					{% sfpirgnav %}
-					{% block subnav %}{# sfpirgnavsub homepage #}{% endblock %}
-					<ul>
-            <li><a href="{% url about-us %}"><img src="{{ STATIC_URL	}}verbena/diversifist/img/about_us.png"	id="nav_about" alt="about" /></a>
-            <li><a href="{% url get-involved %}"><img src="{{ STATIC_URL }}verbena/diversifist/img/get_involved.png"	id="nav_involved" alt="get involved" /></a>
-            <li><a href="{% url act_home %}"><img src="{{ STATIC_URL }}verbena/diversifist/img/action_groups.png"	id="nav_action" alt="action groups" /></a>
-            <li><a href="{% url res_home %}"><img src="{{ STATIC_URL }}verbena/diversifist/img/research_resources.png"	id="nav_research" alt="research and resources" /></a>
-            <li><a href="{% url project_home %}"><img src="{{ STATIC_URL }}verbena/diversifist/img/arx.png"	id="nav_arx" alt="action research exchange" /></a>
-					</ul>
-				</nav>
+	<nav id="nav_header">
+		{% sfpirgnav %}
+		{% block subnav %}{# sfpirgnavsub homepage #}{% endblock %}
+	</nav>
 {% endblock %}
 
 {% block footer %}

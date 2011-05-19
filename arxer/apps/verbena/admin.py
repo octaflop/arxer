@@ -9,7 +9,7 @@ from verbena.models import Student, Faculty, NewsRelease, Location, Project,\
     Navigation
 
 class NavigationAdmin(admin.ModelAdmin):
-    list_display = ('title', 'link',)
+    list_display = ('title', 'link', 'weight',)
 
 #class StudentAdmin(UserAdmin):
 class StudentAdmin(admin.ModelAdmin):
