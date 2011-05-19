@@ -1,4 +1,5 @@
 <ul class='subnav'>
+{% if navi %}
 {% for nav in navi %}
   <li>
       <a href="{{ nav.title }}">
@@ -6,4 +7,5 @@
       </a>
   </li>
 {% endfor %}
+{% endif %}
 </ul>
