@@ -10,15 +10,11 @@ def sfpirgnav(context):
     context['navi'] = navi
     return dict(navi=context['navi'])
 
-@register.inclusion_tag('verbena/templatetags/sfpirgnavsub.html', takes_context=True)
-def sfpirgnavsub(context, menu):
-    navi = SubNavigation.objects.all()
-    navi = navi.filter(nav_key__menu_slug=menu)
-    if navi.exists():
-        context['navi'] = navi
-    else:
-        context['navi'] = None
-    return dict(navi=context['navi'])
+@register.inclusion_tag('verbena/templatetags/sfpirgnavsub.html')#, takes_context=True)
+def sfpirgnavsub(menu):
+    ##context['navi'] = SubNavigation.objects.filter(nav_key__menu_slug=menu)
+    navi = SubNavigation.objects.filter(nav_key__menu_slug=menu)
+    return dict(navi=navi)
 
 @register.inclusion_tag('verbena/templatetags/search.html', takes_context=True)
 def searchbox(context):
