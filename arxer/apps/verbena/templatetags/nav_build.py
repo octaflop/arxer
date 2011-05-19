@@ -1,5 +1,5 @@
 from django import template
-from verbena.models import Navigation
+from verbena.models import Navigation, SubNavigation
 from django.utils.translation import ugettext_lazy as _
 
 register = template.Library()
@@ -10,16 +10,15 @@ def sfpirgnav(context):
     context['navi'] = navi
     return dict(navi=context['navi'])
 
-@register.inclusion_tag('verbena/templatetags/sfpirgnavsub.html')
-def sfpirgnavsub(menu):
-    navi = Navigation.objects.get_or_create(menu_slug=menu)
-    if navi[1]:
-        navi = navi[0]
+@register.inclusion_tag('verbena/templatetags/sfpirgnavsub.html', takes_context=True)
+def sfpirgnavsub(context, menu):
+    navi = SubNavigation.objects.all()
+    navi = navi.filter(nav_key__menu_slug=menu)
+    if navi.exists():
+        context['navi'] = navi
     else:
-        navi.title = "%s" % (menu)
-        navi.link = "#"
-        navi.navlogo_path = "/site_media/static/nav/%s-nav-icon.png" % (menu)
-    return dict(navi=navi)
+        context['navi'] = None
+    return dict(navi=context['navi'])
 
 @register.inclusion_tag('verbena/templatetags/search.html', takes_context=True)
 def searchbox(context):

@@ -580,3 +580,29 @@ class Navigation(models.Model):
         self.navlogo_path = str(self.navlogo_path).replace(STATIC_ROOT, '')
         self.navlogo_path = "%s%s" % ("/site_media/static", self.navlogo_path)
         super(Navigation, self).save(*args, **kwargs)
+
+class SubNavigation(models.Model):
+    """
+    A model referring to the subnavigation template tags.
+    """
+    title = models.CharField(_("Menu title"), max_length=80)
+    link = models.CharField(_("URL reference"), max_length=80)
+    menu_slug = models.SlugField(_("Menu slug"), help_text=_("A\
+            template-friendly name, such as 'action-group'"))
+    navlogo_path = models.FilePathField(_("Logo path"), help_text=_("Path to\
+            navigation logo, based on STATIC_URL, include name. Must be a\
+            png."), path="%s/%s" % (STATIC_ROOT, "nav"), blank=True, recursive=True)
+    weight = models.IntegerField(default=0)
+    nav_key = models.ForeignKey(Navigation, related_name="supernav")
+
+    def __unicode__(self):
+        return self.title
+
+    class Meta:
+        ordering = ["weight"]
+        verbose_name_plural = "SubNavigation Paths"
+
+    def save(self, *args, **kwargs):
+        self.navlogo_path = str(self.navlogo_path).replace(STATIC_ROOT, '')
+        self.navlogo_path = "%s%s" % ("/site_media/static", self.navlogo_path)
+        super(SubNavigation, self).save(*args, **kwargs)

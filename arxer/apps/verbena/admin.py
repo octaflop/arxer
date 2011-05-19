@@ -6,7 +6,10 @@ from ajax_select import make_ajax_form
 
 from verbena.models import Student, Faculty, NewsRelease, Location, Project,\
     VolunteerOpportunity, Organization, Workshop, ActionGroup, Grant,\
-    Navigation
+    Navigation, SubNavigation
+
+class SubNavigationAdmin(admin.ModelAdmin):
+    list_display = ('title', 'link', 'weight', 'nav_key',)
 
 class NavigationAdmin(admin.ModelAdmin):
     list_display = ('title', 'link', 'weight',)
@@ -68,3 +71,4 @@ admin.site.register(ActionGroup, ActionGroupAdmin)
 admin.site.register(Organization, OrganizationAdmin)
 admin.site.register(Grant, GrantAdmin)
 admin.site.register(Navigation, NavigationAdmin)
+admin.site.register(SubNavigation, SubNavigationAdmin)
