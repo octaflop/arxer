@@ -5,24 +5,6 @@
 {% load analytics %}
 
 {% block extra_head_base %}
-    <link rel="stylesheet" href="{{ STATIC_URL }}css/site_tabs.css" />
-    <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/avatar.css" />
-    <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/blogs.css" />
-    <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/comments.css" />
-    <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/friends.css" />
-    <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/groups.css" />
-    <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/locations.css" />
-    <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/messages.css" />
-    <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/microblogging.css" />
-    <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/pagination.css" />
-    <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/photos.css" />
-    <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/tabs.css" />
-    <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/topics.css" />
-    <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/wiki.css" />
-    <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/jquery.autocomplete.css" />
-    <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/ui-lightness/jquery-ui-1.8.12.custom.css" />
-    <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/datetimepicker.css" />
-    <link rel="stylesheet" href="{{ STATIC_URL }}bookmarks/css/bookmarks.css" />
     {% block extra_head %}{% endblock %}
 {% endblock %}
 
@@ -50,7 +32,8 @@
 {% block nav %}
 		{% sfpirgnav %}
 {% endblock %}
-{% block subnav %}{% sfpirgnavsub "about-us" %}{% endblock %}
+{% block subnav %}
+{% endblock %}
 
 
 {% block footer %}

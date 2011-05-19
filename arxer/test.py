@@ -2,13 +2,11 @@ import pdb
 pdb.set_trace()
 from django.template import Template, Context
 
-src1 = """
-    {% load nav_build %}{% sfpirgnavsub "arx" %}
+src =\
 """
-src2 = """
-    {% load nav_build %}{% sfpirgnavsub "rew" %}
+    {% load nav_build %}{% sfpirgnavsub "oops" %}
 """
-t = Template(src1)
-t = Template(src2)
 
-t.render(Context({}))
+t = Template(src)
+
+print t.render(Context({}))
