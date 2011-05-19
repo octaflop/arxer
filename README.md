@@ -14,6 +14,7 @@ Simply clone the repo and run:
 ````
 
 If you have issues, try manually installing:
+
 ````
     virtualenv arxer
     cd arxer
