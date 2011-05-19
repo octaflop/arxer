@@ -2,6 +2,7 @@
  * Semantic Additions
 ------------------------------*/
 /* logo width, height -- dynamic for mobile TODO */
+
 #site_logo {
 	width: 1088px;
 	height: 187px;
@@ -115,12 +116,12 @@ p {
 ------------------------------*/
 
 #nav_header {
-	position: absolute;
 	width: 694px;
 	height: 143px;
 	margin: 0px 210px;
 	background-image: url('../img/back_nav.png');
 	background-position: top center;
+	padding-top: 10px;
 }
 
 nav ul {

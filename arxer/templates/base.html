@@ -68,14 +68,18 @@
         
 				<div class="logo" dir="ltr">{% block logo_link_image %}{% endblock %}</div>
         <nav id="tabhead">
-            <div class="login">{% block login %}{% endblock %}{% block locale_switcher %}{% endblock %}<div style="text-align: right;"></div></div>
-						<div id="search_box">{% block search_box %}{% endblock %}</div>
+					<div id="search_box">{% block search_box %}{% endblock %}</div>
+					<div id="left_tabs" ></div>
+							<div class="login">{% block login %}{% endblock %}{% block locale_switcher %}{% endblock %}<div style="text-align: right;"></div>
+							{% block left_tabs %}{% endblock %}
+							</div>
         </nav>
-
-				<div id="left_tabs" >{% block left_tabs %}{% endblock %}</div>
-				<div id="nav" >{% block nav %}{% endblock %}</div>
-        <div id="subnav" class="clearfix">{% block subnav_base %}<div class="clearfix">{% block subnav %}&nbsp;{% endblock %}</div>{% endblock %}</div>
-        
+				<div id='nav_header'>
+					<nav id="sitenav" >{% block nav %}{% endblock %}</nav>
+				</div>
+        <nav id="sitenavsub" class="clearfix">{% block	navsub %}
+				&nbsp;
+				{% endblock %}</nav>
         {% block body_outer %}
 					<div id="body">
 							{% if messages %}

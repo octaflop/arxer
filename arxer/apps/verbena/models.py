@@ -569,6 +569,10 @@ class Navigation(models.Model):
             png."), path="%s/%s" % (STATIC_ROOT, "nav"), blank=True, recursive=True)
     weight = models.IntegerField(default=0)
 
+    class Meta:
+        ordering = ["weight"]
+        verbose_name_plural = "Navigation Paths"
+
     def __unicode__(self):
         return self.title
 
