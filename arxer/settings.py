@@ -143,7 +143,12 @@ COMBINED_INBOX_COUNT_SOURCES = [
 ]
 
 INSTALLED_APPS = [
-    # Django
+    #admin tools
+    "admin_tools",
+    "admin_tools.theming",
+    "admin_tools.menu",
+    "admin_tools.dashboard",
+   # Django
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -308,6 +313,8 @@ ASSETS = STATIC_ROOT
 AJAX_LOOKUP_CHANNELS = {
     'member': ('verbena.lookups', 'MemberLookup'),
 }
+
+ADMIN_TOOLS_MENU = 'arxer.menu.CustomMenu'
 
 # local_settings.py can be used to override environment-specific settings
 # like database and email that differ between development and production.
