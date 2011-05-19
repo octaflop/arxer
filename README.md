@@ -8,8 +8,9 @@ the source.
 # Installation:
 
 Simply clone the repo and run:
+````
     python bootstrap.py
-
+````
 If you have issues, try manually installing:
     virtualenv arxer
     cd arxer
