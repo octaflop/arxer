@@ -1,4 +1,4 @@
-**Verbena** is a public interest research group ("PIRG") application for
+**Verbena** is a [public interest research group (“PIRG”)](http://en.wikipedia.org/wiki/Public_Interest_Research_Group) application for
 *django*. It aims to allow PIRGS to organize projects, events, and researchers
 around a centralized web platform.
 
