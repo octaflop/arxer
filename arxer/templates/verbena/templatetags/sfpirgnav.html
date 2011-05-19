@@ -1,8 +1,9 @@
-<ul class='{# navi.class #}'>
+<ul class='header_nav'>
 {% for nav in navi %}
   <li>
       <a href="{{ nav.title }}">
-      <b>{{ nav.title }}</b>
+        <img src="{{ nav.navlogo_path }}" alt="{{ nav.title }}">
+        <b>{{ nav.title }}</b>
       </a>
   </li>
 {% endfor %}

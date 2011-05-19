@@ -11,6 +11,7 @@ from django.utils.translation import ugettext_lazy as _
 
 #from pinax.apps.profiles.models import Profile
 from pinax.apps.tribes.models import Tribe
+from settings import STATIC_ROOT
 
 import datetime
 
@@ -559,10 +560,18 @@ class Navigation(models.Model):
     """
     A model referring back to the site structure to build links based on images
     """
-    title = models.TextField(_("Menu title"))
-    link = models.URLField(_("Website"))
-    menu_slug = models.SlugField(_("A template-friendly name, such as\
-        'action-group'"))
+    title = models.CharField(_("Menu title"), max_length=80)
+    link = models.CharField(_("URL reference"), max_length=80)
+    menu_slug = models.SlugField(_("Menu slug"), help_text=_("A\
+            template-friendly name, such as 'action-group'"))
+    navlogo_path = models.FilePathField(_("Logo path"), help_text=_("Path to\
+            navigation logo, based on STATIC_URL, include name. Must be a\
+            png."), path="%s/%s" % (STATIC_ROOT, "nav"), blank=True, recursive=True)
 
     def __unicode__(self):
         return self.title
+
+    def save(self, *args, **kwargs):
+        self.navlogo_path = str(self.navlogo_path).replace(STATIC_ROOT, '')
+        self.navlogo_path = "%s%s" % ("/site_media/static", self.navlogo_path)
+        super(Navigation, self).save(*args, **kwargs)

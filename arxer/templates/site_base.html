@@ -44,21 +44,13 @@
 {% endblock %}
 
 {% block search_box %}
-		<form action="/search/" method='get' class='search_form'> 
-			<input type='text' value="{% trans "search" %}"	id="bar_q" name="q" />
-			<input class='sb_hidden' type='checkbox' value="verbena.actiongroup" id="id_models_0"	checked='checked' />
-			<input class='sb_hidden' type='checkbox' value="verbena.faculty" id="id_models_1"	checked='checked' />
-			<input class='sb_hidden' type='checkbox' value="verbena.generalmember" id="id_models_2"	checked='checked' />
-			<input class='sb_hidden' type='checkbox' value="verbena.organization" id="id_models_3"	checked='checked' />
-			<input class='sb_hidden' type='checkbox' value="verbena.project" id="id_models_4"	checked='checked' />
-			<input class='sb_hidden' type='checkbox' value="verbena.student" id="id_models_5"	checked='checked' />
-			<input class='sb_submit' type='submit' value="{% trans "Go" %}" />
-		</form>
+		{% searchbox %}
 {% endblock %}
 
-{% block right_tabs %}
+{% block nav %}
 				<nav id="nav_header">
 					{% sfpirgnav %}
+					{% block subnav %}{# sfpirgnavsub homepage #}{% endblock %}
 					<ul>
             <li><a href="{% url about-us %}"><img src="{{ STATIC_URL	}}verbena/diversifist/img/about_us.png"	id="nav_about" alt="about" /></a>
             <li><a href="{% url get-involved %}"><img src="{{ STATIC_URL }}verbena/diversifist/img/get_involved.png"	id="nav_involved" alt="get involved" /></a>

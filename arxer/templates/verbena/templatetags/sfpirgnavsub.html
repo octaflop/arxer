@@ -1,8 +1,8 @@
-<ul class='{# navi.class #}'>
+<ul class='subnav, {{ navi.class }}'>
 {% for nav in navi %}
   <li>
       <a href="{{ nav.title }}">
-      <b>{{ nav.title }}</b>
+        <b>{{ nav.title }}</b>
       </a>
   </li>
 {% endfor %}
