@@ -2,16 +2,14 @@
 
 {% load nav_build %}
 {% load i18n %}
-{% load analytics %}
 
-{% block extra_head_base %}
-    {% block extra_head %}{% endblock %}
+{% block sign_in %}
+	{# sign_in_box #}
+	{% include "_account_bar.html" %}
 {% endblock %}
 
-{% block logo_link_image %}<a href="{% url home %}"><img src="{{ STATIC_URL }}verbena/diversifist/img/banner.png" id="site_logo" alt="SFPIRG"/></a>{% endblock %}
-
-{% block login %}
-    {% include "_account_bar.html" %}
+{% block search_box %}
+	{% searchbox %}
 {% endblock %}
 
 {% block locale_switcher %}
@@ -25,71 +23,48 @@
     </form>
 {% endblock %}
 
-{% block search_box %}
-		{% searchbox %}
+{% block main_nav %}
+	{% sfpirgnav %}
 {% endblock %}
 
-{% block nav %}
-		{% sfpirgnav %}
-{% endblock %}
-{% block subnav %}
+{% block main_navsub %}
+	{# sfpirgnavsub #}
 {% endblock %}
 
+{% block header %}
+	<img src="{{ STATIC_URL }}verbena/img/banner.png" alt="SFPIRG Banner" />
+{% endblock %}
+
+{% block calendar %}
+	<header>
+		<h1>calendar</h1>
+	</header>
+	<h3 class="calendar">
+		<img src="{{ STATIC_URL }}verbena/img/calendar.png" alt="Calendar"
+		title="Click to see events" />
+	</h3>
+{% endblock %}
+
+{% block archives %}
+	<header>
+		<h1>archives</h1>
+	</header>
+	<ul class="side_back">
+		{# archive_list #}
+	</ul>
+{% endblock %}
+
+{% block main_content %}
+	<header>
+		<h1><h1>
+	</header>
+	<article class="content_back">
+		<article class="content_dot">
+			<span class="title"></span>
+			<br />
+		</article>
+	</article>
+{% endblock %}
 
 {% block footer %}
-<!-- Extra Dev links -->
-				<ul class='tabs'>
-          <ul class="tabs">{% spaceless %}
-            {% if user.is_authenticated %}
-              <li id="tab_profile"><a href="{% url profile_detail user.username %}">{% trans "Profile" %}</a></li>
-            {% endif %}
-          </ul>
-
-						<li id="tab_grants"><a href="{% url grant_home %}">
-							{% trans "Grants" %}</a>
-						</li>
-						<li id="tab_projects"><a href="{% url project_home %}">
-							{% trans "Projects" %}
-						</a></li>
-						<li id="tab_actiongroups"><a href="{% url act_home %}">
-							{% trans "Action Groups" %}
-						</a></li>
-						<li id="tab_organizations"><a href="{% url org_home %}">
-							{% trans "Organizations" %}
-						</a></li>
-						<li id="tab_volunteer"><a href="{% url volunteer_home %}">
-							{% trans "Volunteer Opportunities" %}
-						</a></li>
-						<li id="tab_workshops"><a href="{% url workshop_home %}">
-							{% trans "Workshops" %}
-						</a></li>
-            <li id="tab_photos"><a href="{% url photos %}">{% trans "Photos" %}</a></li>
-            <!--<li id="tab_blogs"><a href="{% url blog_list_all %}">{% trans
-								"Blogs" %}</a></li>-->
-            <!--<li id="tab_tribes"><a href="{% url tribe_list %}">{% trans
-								"Tribes" %}</a></li>-->
-            <!--<li id="tab_tweets"><a href="{% url tweets_you_follow %}">{%
-								trans "Tweets" %}</a></li>-->
-            <!--<li id="tab_bookmarks"><a href="{% url all_bookmarks %}">{%	trans "Bookmarks" %}</a></li>-->
-            <!--<li id="tab_swaps"><a href="{% url offer_list_all %}">{% trans "Swaps" %}</a></li>-->
-            <li id="tab_locations"><a href="{% url loc_yours %}">{% trans "Locations" %}</a></li>
-            <li id="tab_inbox"><a href="{% url messages_inbox %}">{% trans "Inbox" %} ({{ combined_inbox_count }})</a></li>
-						<li id="tab_search"><a href="/search/">
-							{% trans "Search" %}</a>
-						</li>
-        {% endspaceless %}</ul>
-
-<div class="legal">
-    {% trans "&copy; 2011 Simon Fraser Public Interest Research Group" %}
-    - <a href="{% url about %}">{% trans "About" %}</a>
-    - <a href="{% url terms %}">{% trans "Terms of Service" %}</a>
-    - <a href="{% url privacy %}">{% trans "Privacy Policy" %}</a>
-</div>
-{% endblock %}
-
-{% block jquery_src %}{{ STATIC_URL }}pinax/js/jquery-1.5.1.min.js{% endblock %}
-{% block extra_body_base %}
-    {% ga %}
-    <script type="text/javascript" src="{{ STATIC_URL }}pinax/js/topics.js"></script>
-    {% block extra_body %}{% endblock %}
 {% endblock %}
