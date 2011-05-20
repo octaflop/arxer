@@ -171,10 +171,10 @@ urlpatterns += patterns("",
 
 # Flatpages -- static pages on the site
 urlpatterns += patterns("django.contrib.flatpages.views",
-    url(r"^about-us/$", 'flatpage', {'url': '/about/'}, name="about-us"),
-    url(r"^about-us/staff/$", 'flatpage', {'url': '/about/staff/'},
+    url(r"^about-us/$", 'flatpage', {'url': '/about-us/'}, name="about-us"),
+    url(r"^about-us/staff/$", 'flatpage', {'url': '/about-us/staff/'},
         name="about-staff"),
-    url(r"^about/board/$", 'flatpage', {'url': '/about/board/'},
+    url(r"^about-us/board/$", 'flatpage', {'url': '/about-us/board/'},
         name="about-board"),
     url(r"^get-involved/$", 'flatpage', {'url': '/get-involved/'},
         name="get-involved"),
