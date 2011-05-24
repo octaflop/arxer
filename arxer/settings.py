@@ -16,6 +16,7 @@ AUTH_PROFILE_MODULE = 'verebena.Member'
 
 
 DEBUG = True
+COMPRESS_ENABLED = True
 TEMPLATE_DEBUG = DEBUG
 
 # tells Pinax to serve media through the staticfiles app.
@@ -220,8 +221,11 @@ INSTALLED_APPS = [
     "ajax_select",
     "idios",
     "django.contrib.flatpages",
-    "django_assets",
+#    "django_assets",
+    "template_repl",
+    "compressor",
 ]
+
 
 HAYSTACK_SITECONF = 'verbena.search_sites'
 
