@@ -1,0 +1,15 @@
+{% extends "verbena/act_group/act_base.html" %}
+{% block head_title %}
+	Action Groups
+{% endblock %}
+{% block content_title %}
+	Action Groups
+{% endblock %}
+{% block main_article %}
+	<ul class='org_list'>
+		{% for ag in object_list %}
+			<li><b><a href="{{ ag.get_absolute_url }}">{{ ag.title }}</a></b></li>
+		{% endfor %}
+	</ul>
+	<a href="{% url act_add %}">Add an Action Group</a>
+{% endblock %}

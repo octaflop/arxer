@@ -1,0 +1,19 @@
+{% extends "verbena/arx/arx_base.html" %}
+{% load i18n %}
+{% block head_title %}
+	{{ object.title }}
+{% endblock %}
+{% block  main_content %}
+	{% block content_title %}<a href="{{ object.get_absolute_url }}">{{ object.title	}}</a>{% endblock %}
+	{% block main_article %}
+	<dl>
+		<dt>title:</dt><dd>{{ object.title }}</dd>
+	</dl>
+	{% if request.user.is_authenticated %}
+		{% if perms.verbena.change_grant %}
+			<a href="{{ object.get_absolute_url }}/edit">Edit Project</a>
+		{% endif %}
+	{% endif %}
+	<a href="{% url project_home %}">Back to Projects</a>
+	{% endblock %}
+{% endblock %}

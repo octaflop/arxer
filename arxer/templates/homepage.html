@@ -1,0 +1,15 @@
+{% extends "site_base.html" %}
+
+{% load i18n %}
+
+{% block head_title %}{% trans "Home" %}{% endblock %}
+
+{% block content_class %}home{% endblock %}
+
+{% block content_title %}{% trans "SFPIRG Home page" %}{% endblock %}
+
+{% block main_article %}
+	{% blocktrans %}
+		Welcome to the SFPIRG homepage. This site is under development.
+	{% endblocktrans %}
+{% endblock %}

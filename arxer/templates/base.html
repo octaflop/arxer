@@ -1,10 +1,10 @@
 {% load i18n %}
+{% load assets %}
 <!doctype html>
 <html lang="{{ LANGUAGE_CODE }}">
 	<head>
 		<title>{% block head_title_base %}
-			{% block head_title %}{% endblock %} : 
-			{% if SITE_NAME %}{{ SITE_NAME }}{% endif %}
+			{% block head_title %}{% endblock %}{% if SITE_NAME %}: {{ SITE_NAME }}{% endif %}
 		{% endblock %}</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -12,7 +12,7 @@
 		<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 		<link rel="shortcut icon" href="/favicon.ico">
 
-		<link rel="stylesheet" href="{{ STATIC_URL }}verbena/css/sfpirg.css" />
+		{#<link rel="stylesheet" href="{{ STATIC_URL }}verbena/css/sfpirg.css" />#}
 		<!-- django-assets PROD -->
 		{% assets "js_top" %}
 			<script type="text/javascript" src="{{ ASSET_URL }}"></script>
@@ -44,7 +44,7 @@
 		<aside class="search">
 			{% block search_box %}{% endblock %}
 		</aside>
-		<nav>
+		<nav id="site_nav">
 			<nav id="main_nav">
 				{% block main_nav %}
 				{% endblock %}
@@ -68,7 +68,7 @@
 				{% endblock %}
 			</section>
 		</aside>
-		<article id="content" class="{% block article_class %}{% endblock %}">
+		<article id="content" class="{% block content_class %}{% endblock %}">
 			<section id="main_content">
 			{% block main_content %}
 			{% endblock %}
@@ -78,6 +78,13 @@
 			{% block footer %}
 			{% endblock %}
 		</footer>
+		{% block js_bottom %}
+			{% assets "js_bottom" %}
+				<script type="text/javascript" src="{{ ASSET_URL }}"></script>
+			{% endassets %}
+		{% endblock %}
+	{% block extra_body %}
+	{% endblock %}
 	</body>
 </html>
 

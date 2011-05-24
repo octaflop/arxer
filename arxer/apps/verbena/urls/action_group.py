@@ -7,21 +7,29 @@ from verbena.forms import ActionGroupForm
 
 act_list = {
     "queryset"  : ActionGroup.objects.all(),
+    "template_name": "verbena/act_group/actiongroup_list.html",
 }
 
 act_add = {
     "model" : ActionGroup,
     "login_required": True,
+    "template_name": "verbena/act_group/actiongroup_form.html",
 }
 
 act_edit = {
     "form_class" : ActionGroupForm,
     "login_required": True,
+    "template_name": "verbena/act_group/actiongroup_form.html",
+}
+
+act_view = {
+    "queryset"  : ActionGroup.objects.all(),
+    "template_name" : "verbena/act_group/actiongroup_detail.html",
 }
 
 urlpatterns = patterns("",
     url(r"^$", object_list, act_list, name="act_home"),
-    url(r"^(?P<slug>[-\w]+)$", object_detail, act_list, name="act_view"),
+    url(r"^(?P<slug>[-\w]+)$", object_detail, act_view, name="act_view"),
     url(r"^(?P<slug>[-\w]+)/join$", join_actiongroup, act_list, name="act_join"),
     url(r"^(?P<slug>[-\w]+)/leave$", leave_actiongroup, act_list, name="act_leave"),
     url(r"^add/$", create_object, act_add, name="act_add"),

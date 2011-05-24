@@ -1,0 +1,19 @@
+{% extends "verbena/arx/arx_base.html" %}
+{% load i18n %}
+
+{% block head_title %}
+	Action Research Exchange 
+{% endblock %}
+
+{% block main_content %}
+	{% block content_title %}{% trans "ARX Projects" %}{% block content_title %}
+
+	{% block main_article %}
+	<ul class='proj_list'>
+		{% for proj in object_list %}
+			<li><b><a href="{{ proj.get_absolute_url }}">{{ proj.title }}</a></b></li>
+		{% endfor %}
+	</ul>
+	<a href="{% url project_add %}">{% trans "Apply for a project" %}</a>
+	{% endblock %}
+{% endblock %}
