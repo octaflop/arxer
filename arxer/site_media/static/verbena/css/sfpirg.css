@@ -52,13 +52,19 @@ h3 {
 	padding: 11px 0;
 }
 
-p {
+/*.content_dot p {
 	padding: 30px;
 	margin-left: 50px;
 	background-image: url('../img/back_content.png');
 	background-repeat: no-repeat;
 	width: 470px;
 	height: 358px;
+}*/
+
+p {
+	-moz-transform: rotate(4deg);
+	-webkit-transform: rotate(4deg);
+	margin: 30px;
 }
 
 .sign_in {
@@ -186,6 +192,7 @@ aside {
 	color: black;
 	border-radius: 20px;
 	-moz-transform: rotate(2deg);
+	-webkit-transform: rotate(2deg);
 }
 
 .content_dot {
@@ -195,6 +202,7 @@ aside {
 	border: 2px dashed #666666;
 	border-radius: 50px;
 	-moz-transform: rotate(-6deg);
+	-webkit-transform: rotate(-6deg);
 }
 
 aside section {

@@ -7,10 +7,10 @@ from django.shortcuts import get_object_or_404, render_to_response, redirect
 from django.views.generic.simple import direct_to_template as render
 from django.core.urlresolvers import reverse
 from verbena.models import Organization, Project, VolunteerOpportunity,\
-    Member, ActionGroup
+    Member, ActionGroup, Research, GeneralMember
 from verbena.forms import ProjectForm, OrganizationForm, LocationForm,\
-    GeneralMemberForm, StudentForm, UserForm, MemberForm
-from verbena.models import Organization, Location
+    GeneralMemberForm, StudentForm, UserForm, MemberForm, ActionGroupForm
+from verbena.models import Organization, Location, Project
 from django.views.generic.list_detail import object_list, object_detail
 from django.views.generic.create_update import create_object, update_object
 from django.core.urlresolvers import reverse
@@ -34,6 +34,8 @@ def suggestion(request):
     return HttpResponse(resp, content_type='application/x-javascript')
 
 # Simple Wrappers
+
+# ARX
 @permission_required('verbena.add_project')
 def add_project(*args, **kwargs):
     "Add a project: must be organization"
@@ -44,18 +46,9 @@ def change_project(*args, **kwargs):
     "Change the project: must be owner"
     return update_object(*args, **kwargs)
 
-@permission_required('verbena.add_research')
-def join_research(*args, **kwargs):
-    "join a research project"
-    return update_object(*args, **kwargs)
-
-@permission_required('verbena.change_research')
-def change_research(*args, **kwargs):
-    "join a research project"
-    return update_object(*args, **kwargs)
-
-@permission_required('verbena.leave_research')
-def leave_research(request, *args, **kwargs):
+# all leave permissions are == to join permissions
+@permission_required('verbena.join_project')
+def leave_project(request, *args, **kwargs):
     "Leave a volunteer opportunity"
     volunteer = Member.objects.get(profile__user=request.user)
     res = Research.objects.get(slug=kwargs['slug'])
@@ -66,9 +59,20 @@ def leave_research(request, *args, **kwargs):
         return HttpResponse(status=500)
     return redirect(res.get_absolute_url())
 
+@permission_required('verbena.join_project')
+def join_project(*args, **kwargs):
+    "join a research project"
+    ##project = Project.objects.get(slug=request.slug)
+    project = Project.objects.get(slug=kwargs['slug'])
+    return update_object(*args, **kwargs)
 
+@permission_required('verbena.change_research')
+def change_research(*args, **kwargs):
+    "join a research project"
+    return update_object(*args, **kwargs)
 
 # Heavy lifting
+# Volunteer opportunities
 @login_required
 @permission_required('verbena.join_volunteer')
 def join_vop(request, *args, **kwargs):
@@ -96,6 +100,25 @@ def leave_vop(request, *args, **kwargs):
         return HttpResponse(status=500)
     return redirect(op.get_absolute_url())
 
+# Action Group
+@login_required
+@permission_required('verbena.add_actiongroup')
+def add_actiongroup(request, *args, **kwargs):
+    "Create an action group and set up logged-in user as the leader"
+    data = request.POST or None
+    agform = ActionGroupForm(data)
+    if agform.is_valid():
+        new_ag = agform.save(commit=False)
+        user = GeneralMember.objects.get(profile__user=request.user) or None
+        try:
+            new_ag.leader = user
+            saved_ag = new_ag.save()
+        except:
+            return HttpResponse(status=500)
+        return HttpResponseRedirect(saved_ag.get_absolute_url())
+    ret = dict(form=agform)
+    return render(request, 'verbena/act_group/actiongroup_form.html', ret)
+
 @login_required
 @permission_required('verbena.join_actiongroup')
 def join_actiongroup(request, *args, **kwargs):
@@ -122,6 +145,7 @@ def leave_actiongroup(request, *args, **kwargs):
         return HttpResponse(status=500)
     return redirect(ag.get_absolute_url())
 
+# Organizations
 def add_organization(request, *args, **kwargs):
     data = request.POST or None
     locform = LocationForm(data=data)
@@ -148,6 +172,5 @@ def add_organization(request, *args, **kwargs):
         }
         return HttpResponseRedirect(new_organization.get_absolute_url())
     ret = dict(userform=userform, locform=locform, orgform=orgform, location=location)
-    return render(request, 'verbena/organization_form.html', ret)
-#            {'locform':locform, 'orgform':orgform, 'location':location})
+    return render(request, 'verbena/organization/organization_form.html', ret)
 

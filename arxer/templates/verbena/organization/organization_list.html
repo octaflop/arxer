@@ -1,0 +1,13 @@
+{% extends "verbena/organization/org_base.html" %}
+{% block head_title %}
+	Organizations
+{% endblock %}
+{% block body %}
+	<h2>Organizations</h2>
+	<ul class='org_list'>
+		{% for org in object_list %}
+			<li><b><a href="{{ org.get_absolute_url }}">{{ org.title }}</a></b></li>
+		{% endfor %}
+	</ul>
+	<a href="{% url org_add %}">Add an Organization</a>
+{% endblock %}

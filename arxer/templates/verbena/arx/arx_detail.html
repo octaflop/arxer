@@ -10,6 +10,7 @@
 		<dt>title:</dt><dd>{{ object.title }}</dd>
 	</dl>
 	{% if request.user.is_authenticated %}
+		<a href="{{ object.get_absolute_url }}/join">{% trans "Join" %}
 		{% if perms.verbena.change_grant %}
 			<a href="{{ object.get_absolute_url }}/edit">Edit Project</a>
 		{% endif %}

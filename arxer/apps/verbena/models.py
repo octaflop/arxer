@@ -56,9 +56,9 @@ class Member(models.Model):
     def get_absolute_url(self):
         return ('member_view', [str(self.slug)])
 
-    def save(self, *args, **kwargs):
-        self.slug = slugify(self.profile.user.username)
-        super(Member, self).save(*args, **kwargs)
+#    def save(self, *args, **kwargs):
+#        self.slug = slugify(self.profile.user.username)
+#        super(Member, self).save(*args, **kwargs)
 
 # Perhaps not the best place for it, but here's a hook for creating a new
 # member when a new user profile is created.
@@ -79,10 +79,8 @@ def create_member(sender, **kwargs):
         p = Member.objects.get(profile=user)
     except Member.DoesNotExist:
         p = None
-
     if p:
         return
-
     try:
         profile = Profile.objects.get(user=user)
     except Profile.DoesNotExist:
@@ -112,7 +110,7 @@ class GeneralMember(Member):
         permissions = (
                 ("join_volunteer", "Can join volunteer event"),
                 ("join_actiongroup", "Can join action group"),
-                )
+            )
 
 class Organization(Member):
     """ Organizations are entities applying for projects or grants.

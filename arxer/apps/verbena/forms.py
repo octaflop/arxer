@@ -76,7 +76,20 @@ class OrganizationForm(ModelForm):
 class ActionGroupForm(ModelForm):
     class Meta:
         model = ActionGroup
+        fields =('title', 'slug',)
         """
+    def __init__(self, user, *args, **kwargs):
+        if 'instance' in kwargs:
+            instance = kwargs['instance']
+            self.leader = instance.user
+        ModelForm.__init__(self, *args, **kwargs)
+    def save(self, commit=True):
+        model = super(ActionGroupForm, self).save(commit=False)
+        model.leader = 
+        """
+
+        #exclude = ('leader', 'supporters', 'photos',)
+    """
     leader = forms.ModelChoiceField(queryset=Member.objects.all())
     def __init__(self, *args, **kwargs):
         if 'instance' in kwargs:

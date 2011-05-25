@@ -1,11 +1,16 @@
-{% extends "verbena/proj_base.html" %}
+{% extends "verbena/arx/arx_base.html" %}
 {% load i18n %}
 {% load uni_form_tags %}
 {% block head_title %}
 	Edit {{ object.name }}
 {% endblock %}
-{% block main_content %}
-	{% block content_title %}{{ object.name }}{% endblock %}
+
+{% if object.name %}
+{% block content_title %}
+	{{ object.name }}
+{% endblock %}
+{% endif %}
+
 {% block main_article %}
 {% if perms.verbena.can_add_project %}
 	<form action="" method="post" class="uniForm">
@@ -19,6 +24,8 @@
 {% else %}
 	{% trans "Sorry, you do not have permission to add an ARX Project" %}
 {% endif %}
+{% endblock %}
+{% block extra_body %}
 	<script type="text/javascript" 
 	src="{{ STATIC_URL	}}admin/js/urlify.js"></script>
 	<script type="text/javascript">
@@ -29,5 +36,4 @@
 			}
 		}
 	</script>
-{% endblock %}
 {% endblock %}

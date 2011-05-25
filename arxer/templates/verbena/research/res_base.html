@@ -2,10 +2,10 @@
 {% load i18n %}
 {% block body_class %}ARX{% endblock %}
 
-{% block subnav %}
+{% block main_navsub %}
 	<ul>
-		<li><a href="{% url project_home %}">{% trans "List Projects" %}</a></li>
-		<li><a href="{% url project_add %}">{% trans "Create Project" %}</a></li>
+		<li><a href="{% url res_home %}">{% trans "List Research & Resources" %}</a></li>
+		<li><a href="{% url res_add %}">{% trans "Create Research or Resource" %}</a></li>
 	<ul>
 {% endblock %}
 

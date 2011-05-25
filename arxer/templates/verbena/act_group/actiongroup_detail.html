@@ -2,10 +2,13 @@
 {% block head_title %}
 	{{ object.title }}
 {% endblock %}
-	<h2><a href="{{ object.get_absolute_url }}">{{ object.name }}</a></h2>
+
+	{% block content_title %}<a href="{{ object.get_absolute_url }}">{{	object.name }}</a>{% endblock %}
+
+{% block main_article %}
 	<dl>
 		<dt>title:</dt><dd>{{ object.title }}</dd>
-		<dt>leader:</dt><dd><a href="{% url profile_detail object.leader.slug %}">{{ object.leader }}</a></dd>
+		<dt>leader:</dt><dd><a href="{% url member_view object.leader.slug %}">{{ object.leader }}</a></dd>
 		<dt>location:</dt><dd>{{ object.location }}</dd>
 	</dl>
 	{# if request.user.is_in? #}
@@ -19,3 +22,4 @@
 		{% endif %}
 	{% endif %}
 	<a href="{% url act_edit object.slug %}">Back to organizations</a>
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends "flatpages/default.html" %}
+
+{% load i18n %}
+
+{% block main_navsub %}
+	<ul>
+		<li><a href="{% url about-us %}">{% trans "About Us" %}</a></li>
+		<li><a href="{% url about-staff %}">{% trans "Our Staff" %}</a></li>
+		<li><a href="{% url about-board %}">{% trans "SFPIRG Board of Directors" %}</a></li>
+	</ul>
+{% endblock %}

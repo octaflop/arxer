@@ -54,7 +54,7 @@
 {% endblock %}
 
 {% block header %}
-	<img src="{{ STATIC_URL }}verbena/img/banner.png" alt="SFPIRG Banner" />
+	<a href="/" title="back to home"><img src="{{ STATIC_URL }}verbena/img/banner.png" alt="SFPIRG Banner" /></a>
 {% endblock %}
 
 {% block calendar %}
@@ -77,14 +77,12 @@
 {% endblock %}
 
 {% block main_content %}
-	<header>
-		<h1>{% block content_title %}{% endblock %}<h1>
-	</header>
 	<article class="content_back">
 		<article class="content_dot">
+			<header>
+				<h1><span class="title">{% block content_title %}{% endblock %}</span></h1>
+			</header>
 			{% block main_article %}{% endblock %}
-			<span class="title"></span>
-			<br />
 		</article>
 	</article>
 {% endblock %}

@@ -4,28 +4,32 @@
 	Add Action Group
 {% endblock %}
 
-{% block main_content %}
+{% if object.name %}
 	{% block content_title %}
 		Edit {{ object.name }}
 	{% endblock %}
-	{% block main_article %}
-		<form action="" method="post" class="uniForm">
-		{% csrf_token %}
-		{{ form|as_uni_form }}
-			<input type="submit" value="submit" />
-			{% if object.slug %}
-				<a href="{% url act_view object.slug %}">Cancel Edits</a>
-			{% endif %}
-		</form>
-		<script type="text/javascript" 
-		src="{{ STATIC_URL	}}admin/js/urlify.js"></script>
-		<script type="text/javascript">
-			document.getElementById("id_title").onkeyup = function () {
-				var e = document.getElementById("id_slug");
-				if (!e._changed) { 
-					e.value =	URLify(document.getElementById("id_title").value, 75); 
-				}
+{% endif %}
+
+{% block main_article %}
+	<form action="" method="post" class="uniForm">
+	{% csrf_token %}
+	{{ form|as_uni_form }}
+		<input type="submit" value="submit" />
+		{% if object.slug %}
+			<a href="{% url act_view object.slug %}">Cancel Edits</a>
+		{% endif %}
+	</form>
+{% endblock %}
+
+{% block extra_body %}
+	<script type="text/javascript" 
+	src="{{ STATIC_URL	}}admin/js/urlify.js"></script>
+	<script type="text/javascript">
+		document.getElementById("id_title").onkeyup = function () {
+			var e = document.getElementById("id_slug");
+			if (!e._changed) { 
+				e.value =	URLify(document.getElementById("id_title").value, 75); 
 			}
-		</script>
-	{% endblock %}
+		}
+	</script>
 {% endblock %}
