@@ -1,0 +1,12 @@
+{% extends "site_base.html" %}
+
+{% load i18n %}
+
+{% block head_title %}{% trans "Signup closed" %}{% endblock %}
+{% block content_title %}{% trans "Signup closed" %}{% endblock %}
+
+{% block main_article %}
+    <h1>{% trans "Signup closed" %}</h1>
+    
+    <p>{% blocktrans %}Whoops, you can't register for an account now. This site is currently closed for sign-up.{% endblocktrans %}
+{% endblock %}

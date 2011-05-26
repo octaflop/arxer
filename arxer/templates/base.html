@@ -39,6 +39,7 @@
 		{% endblock %}
 	</head>
 	<body>
+	{% if site_wide_announcements %}
 		<div id="site_wide_announcements">
 				<ul>
 						{% for announcement in site_wide_announcements %}
@@ -49,7 +50,7 @@
 						{% endfor %}
 				</ul>
 		</div>	
-	</div>
+		{% endif %}
 		<header>
 			{% block header %}{% endblock %}
 		</header>
@@ -80,6 +81,10 @@
 			</section>
 			<section class='archives'>
 				{% block archives %}
+				{% endblock %}
+			</section>
+			<section class='latest_news'>
+				{% block latest_news %}
 				{% endblock %}
 			</section>
 		</aside>

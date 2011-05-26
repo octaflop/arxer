@@ -16,7 +16,7 @@ AUTH_PROFILE_MODULE = 'verebena.Member'
 
 
 DEBUG = True
-COMPRESS_ENABLED = True
+#COMPRESS_ENABLED = True
 TEMPLATE_DEBUG = DEBUG
 
 # tells Pinax to serve media through the staticfiles app.

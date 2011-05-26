@@ -1,0 +1,11 @@
+{% extends "site_base.html" %}
+
+{% load i18n %}
+
+{% block head_title %}{% trans "Already logged in" %}{% endblock %}
+{% block content_title %}{% trans "Already logged in" %}{% endblock %}
+
+{% block main_article %}
+    {% url acct_logout as url_acct_logout %}
+    <p>{% blocktrans %}You are already logged into the site. To login with a different OpenID please <a href="/openid/logout/?next={{ url_acct_logout }}">logout</a> first.{% endblocktrans %}
+{% endblock %}

@@ -35,9 +35,9 @@ h1 {
 }
 
 h2 {
-	width: 669px;
+	width: 650px;
 	height: 147px;
-	font-size: 20px;
+	font-size: 18px;
 	line-height: 28px;
 	padding: 20px 0;
 	color: #ffffff;
@@ -52,33 +52,47 @@ h3 {
 	padding: 11px 0;
 }
 
-/*.content_dot p {
-	padding: 30px;
-	margin-left: 50px;
-	background-image: url('../img/back_content.png');
-	background-repeat: no-repeat;
-	width: 470px;
-	height: 358px;
-}*/
-
-p {
-	-moz-transform: rotate(4deg);
-	-webkit-transform: rotate(4deg);
-	margin: 30px;
+h4 {
+	font-size: 20px;
+	font-weight: bold;
+	line-height: 22px;
+	margin: 20px 0 15px 0;
 }
 
 .sign_in {
-	width: 164px;
+	font-size: 14px;
+	color: #fff;
+	padding: 5px 10px;
+	font-weight: bold;
+	background-color: #605D56;
+	border-radius: 20px;
+	width: 160px;
+	height: 134px;
 	float: left;
 }
 
 .contact_box {
+	text-align: center;
+	color: #999999;
 	float: right;
 	width: 145px;
 	height: 147px;
-	background-image: url('../img/contact_box.png');
+	background: repeat scroll 0 0 #ffffff;
+	border-radius: 15px;
+	-moz-transform: rotate(8deg);
+	-webkit-transform: rotate(8deg);
 }
 
+.contact_dot {
+	width: 145px;
+	height: 147px;
+	display: block;
+	background: repeat scroll 0 0;
+	border: 2px dashed #666666;
+	border-radius: 20px;
+	-moz-transform: rotate(-8deg);
+	-webkit-transform: rotate(-8deg);
+}
 
 /*------------------------------
 =NAVIGATION
@@ -90,7 +104,6 @@ p {
 	margin: 0px 210px;
 	background-image: url('../img/back_nav.png');
 	background-position: top center;
-	padding-top: 10px;
 }
 
 #site_nav nav ul {
@@ -100,7 +113,9 @@ p {
 }
 
 #site_nav nav ul li {
+	font-family: arial;
 	float: left;
+	color: #999999;
 }
 
 #site_nav nav ul li a {
@@ -108,9 +123,10 @@ p {
 	margin: 0 18px;
 	width: 100px;
 	font-size: 14px;
-	line-height: 44px;
+	line-height: 18px;
 	text-align: center;
 	text-decoration: none;
+	letter-spacing: -1px;
 }
 
 #site_nav #main_navsub {
@@ -119,7 +135,11 @@ p {
 }
 
 nav ul li a:hover {
-	color: #fff;
+	color: #000;
+}
+
+nav ul li img {
+	padding: 0 20px;
 }
 
 /*------------------------------
@@ -140,7 +160,6 @@ nav ul li a:hover {
 aside {
 	display: table-cell;
 	width: 170px;
-	/*background: url("images/sidebar_background.png") top left;*/
 }
 
 .calendar {
@@ -153,6 +172,16 @@ aside {
 	border-radius: 11px;
 	padding: 21px;
 	width: 164px;
+}
+
+.latest_news {
+	font-size: 14px;
+	color: #fff;
+	padding: 10px;
+	background-color: #999999;
+	border-radius: 20px;
+	width: 160px;
+	float: left;
 }
 
 /*------------------------------
@@ -171,18 +200,37 @@ aside {
 	-webkit-border-radius: 11px;
 }
 	
-.contentPost header p a:hover {
+.content_post header p a:hover {
 	text-decoration: none;
 	color: #000;
+
+h3#articleTitle {
+	font-family: verdana;
+	color: #CC0000;
+	font-size: 12px;
+	line-height: 12px;
 }
 
-.contentPost img {
+.content_post img {
 	margin: 22px 0;
 	-webkit-box-shadow: 3px 3px 7px #777;
 }
+article {
+	font-family: verdana;
+	color: #666666;
+	font-size: 10px;
+	line-height: 14px;
+	margin-bottom: 10px;
+}
+
+hr {
+	border-width: 1px;
+	border-style:dashed;
+	border-color:#ffffff;
+}
 
 /*------------------------------
-=SIDEBAR
+=CONTENT AREA
 ------------------------------*/
 .content_back {
 	padding: 10px;
@@ -190,9 +238,10 @@ aside {
 	display: block;
 	background: repeat scroll 0 0 #ffffff;
 	color: black;
-	border-radius: 20px;
+	border-radius: 50px / 30px;
 	-moz-transform: rotate(2deg);
 	-webkit-transform: rotate(2deg);
+	margin: 30px;
 }
 
 .content_dot {
@@ -200,67 +249,32 @@ aside {
 	display: block;
 	background: repeat scroll 0 0;
 	border: 2px dashed #666666;
-	border-radius: 50px;
-	-moz-transform: rotate(-6deg);
-	-webkit-transform: rotate(-6deg);
+	border-radius: 22px;
+	-moz-transform: rotate(-4deg);
+	-webkit-transform: rotate(-4deg);
+}
+
+article .content_dot p,h1,h2,h3,h4,h5,form {
+	-moz-transform: rotate(2deg);
+	-webkit-transform: rotate(2deg);
+	margin: 30px;
 }
 
 aside section {
 	padding: 0;
-	
 	/* Border-radius not implemented yet */
 	-moz-border-radius: 11px;
 	-webkit-border-radius: 11px;
 }
 
-aside section ul {
-	list-style: none;
-}
-	
-aside section ul li a {
-	display: block;
-	text-decoration: none;
-	color: #000;
-}
-		
-aside section ul li a:hover {
-	text-decoration: underline;
-}
-
-/*-------------------------------
- * Nav
---------------------------------*/
-
-#main_nav a > b {
-	color: #090909;
-}
-
-#nav_about {
-	width: 57px;
-	height: 81px;
-	border: 0px;
-}
-
-#nav_involved {
-	width: 76px;
-	height: 79px;
-	border: 0px;
-}
-
-#nav_action {
-	width: 112px;
-	height: 85px;
-	border: 0px;
-}
-
-#nav_research {
-	width: 98px;
-	height: 99px;
-	border: 0px;
-}
-
-#nav_arx {
-	width: 53px;
-	height: 80px;
-	border: 0px;
-}
+.title {
+		font-size: 14px;
+		padding: 8px 30px;
+		margin: 10px 20px;
+		color: #fff;
+		background: #323232;
+		height: 25px;
+		border: none;
+		-moz-border-radius: 12px;
+		-webkit-border-radius: 12px;
+	}
