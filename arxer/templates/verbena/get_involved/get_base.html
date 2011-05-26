@@ -7,3 +7,18 @@
 		<li><a href="{% url get-involved %}">{% trans "Get Involved" %}</a></li>
 	</ul>
 {% endblock %}
+
+{% block main_article %}
+  {{ flatpage.content }}
+
+<ul class="action_options">
+  <li>{% trans "Sign up as a student" %}</li>
+  <li>{% trans "Sign up as a faculty member" %}</li>
+  <li>{% trans "Sign up as an organization" %}</li>
+  <li><a href="{% url acct_signup %}">{% trans "I'm none of these, just sign me up!" %}</a></li>
+
+  <li><a href="{% url act_add %}">{% trans "Start an Action Group" %}</a></li>
+  <li><a href="{% url arx_add %}">{% trans "Start an Action Research Project" %}</a></li>
+</ul>
+
+{% endblock %}

@@ -1,5 +1,4 @@
 from django.db import models
-from django.db.models.signals import post_save
 from django.contrib.auth.models import User
 ##from idios.models import ProfileBase
 from photologue.models import Gallery
@@ -23,11 +22,12 @@ import datetime
 
 class Member(models.Model):
     """ An abstract to represent all signed-in users"""
-    profile = models.ForeignKey(Profile, blank=True, related_name='member_profile')
-    slug = models.SlugField(_("URL-friendly name"), max_length=80, unique=True)
+    #profile = models.ForeignKey(Profile, blank=True, related_name='member_profile')
+    profile = models.ForeignKey(User, blank=True, related_name='member_profile')
+    slug = models.SlugField(_("URL-friendly name"), max_length=80)#, unique=True)
 
     def __unicode__(self):
-        return self.profile.user.username
+        return self.profile.username
 
     class Meta:
         verbose_name = _("Member")
@@ -56,44 +56,10 @@ class Member(models.Model):
     def get_absolute_url(self):
         return ('member_view', [str(self.slug)])
 
-#    def save(self, *args, **kwargs):
-#        self.slug = slugify(self.profile.user.username)
-#        super(Member, self).save(*args, **kwargs)
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.profile.username)
+        super(Member, self).save(*args, **kwargs)
 
-# Perhaps not the best place for it, but here's a hook for creating a new
-# member when a new user profile is created.
-
-def create_member(sender, **kwargs):
-    """
-    Create a new member when a User object is saved
-    """
-    # Check for a new user
-    if not kwargs['created']:
-        return
-
-    # get the User account instance
-    user = kwargs['instance']
-
-    # don't make a member if it already exists
-    try:
-        p = Member.objects.get(profile=user)
-    except Member.DoesNotExist:
-        p = None
-    if p:
-        return
-    try:
-        profile = Profile.objects.get(user=user)
-    except Profile.DoesNotExist:
-        profile = Profile(
-            user = user,
-        )
-        profile.save()
-    member = Member(
-        profile = profile,
-    )
-    member.save()
-
-post_save.connect(create_member, sender=User)
 
 class GeneralMember(Member):
     """ An entity representing a registered, unaffiliated user.

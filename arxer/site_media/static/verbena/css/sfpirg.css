@@ -231,6 +231,10 @@ aside section ul li a:hover {
  * Nav
 --------------------------------*/
 
+#main_nav a > b {
+	color: #090909;
+}
+
 #nav_about {
 	width: 57px;
 	height: 81px;

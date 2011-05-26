@@ -55,7 +55,7 @@ def leave_project(request, *args, **kwargs):
     res.volunteers.remove(volunteer)
     try:
         res.save()
-    except:
+    except DoesNotExist:
         return HttpResponse(status=500)
     return redirect(res.get_absolute_url())
 
