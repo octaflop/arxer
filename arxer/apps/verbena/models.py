@@ -1,5 +1,7 @@
 from django.db import models
+from verbena.managers import ProjectManager, MemberManager
 from django.contrib.auth.models import User
+from settings import MEDIA_ROOT
 ##from idios.models import ProfileBase
 from photologue.models import Gallery
 from pinax.apps.profiles.models import Profile
@@ -26,12 +28,16 @@ class Member(models.Model):
     profile = models.ForeignKey(User, blank=True, related_name='member_profile')
     slug = models.SlugField(_("URL-friendly name"), max_length=80)#, unique=True)
 
+#    objects = models.Manager()
+    objects = MemberManager()
+
     def __unicode__(self):
         return self.profile.username
 
     class Meta:
         verbose_name = _("Member")
         verbose_name_plural = _("Members")
+        abstract = True
 
     def is_student(self):
         try:
@@ -73,10 +79,8 @@ class GeneralMember(Member):
             blank=True)
 
     class Meta:
-        permissions = (
-                ("join_volunteer", "Can join volunteer event"),
-                ("join_actiongroup", "Can join action group"),
-            )
+        verbose_name = _("GeneralMember")
+        verbose_name_plural = _("GeneralMembers")
 
 class Organization(Member):
     """ Organizations are entities applying for projects or grants.
@@ -89,10 +93,11 @@ class Organization(Member):
             help_text=_("The name of your organization"),
             max_length=100,
             unique=True)
-    leader = models.ForeignKey(Member, related_name="org_leader",
-            help_text=_("Please select a leader from these registered site\
-                users. If you require a new leader, please create a login\
-                account for that leader."))
+    # the leader is the org profile
+    #leader = models.ForeignKey(Member, related_name="org_leader",
+    #        help_text=_("Please select a leader from these registered site\
+    #            users. If you require a new leader, please create a login\
+    #            account for that leader."))
     community = models.CharField(
             _("What community do you represent or work with?"),
             max_length=180,
@@ -127,6 +132,7 @@ class Organization(Member):
         verbose_name_plural = _("Organizations")
 
     #def save(self, *args, **kwargs):
+    ## This may be your issue
     #    # Overriding member slug?
     #    self.slug = slugify(self.title)
     #    super(Organization, self).save(*args, **kwargs)
@@ -198,23 +204,43 @@ class Faculty(GeneralMember):
 #############################################################################
 # GROUP-Based Models
 # Each of these models refers to individuals in some way.
-class ActionGroup(models.Model):
-    """ Action groups are groups led by a leader to accomplish a goal.
-    Action groups may be supported by any member, but only led & started by
-    GeneralMembers """
-    title = models.CharField(_("Action Group title"), max_length=80)
+class Research(models.Model):
+    """ Research & Resources have their own logos and pages """
+    title = models.CharField(_("Research title"), max_length=80)
     slug = models.SlugField(_("URL-friendly title"))
+    summary = models.TextField(_("Summary of your group"))
     leader = models.ForeignKey("GeneralMember")
-    # Similar to facebook's "like"
+    avatar = models.ImageField(_("Group Avatar"), help_text=_("Please upload\
+        an image representing your site"), upload_to=MEDIA_ROOT)
     supporters = models.ManyToManyField(GeneralMember,
-            related_name = "group-supporters",
+            related_name = "research-supporters",
             blank=True)
-    photos = models.ManyToManyField(Gallery,
-            related_name = "group-photos",
-            blank=True)
+
+    class Meta:
+        verbose_name = _("Research")
+        verbose_name_plural = _("Researches")
 
     def __unicode__(self):
         return self.title
+
+    @models.permalink
+    def get_absolute_url(self):
+        return ('res_view', [str(self.slug)])
+
+class ActionGroup(Research):
+    """ Action groups are groups led by a leader to accomplish a goal.
+    Action groups may be supported by any member, but only led & started by
+    GeneralMembers """
+    # Similar to facebook's "like"
+    supporters = models.ManyToManyField(GeneralMember,
+            related_name = "ag-supporters",
+            blank=True)
+    photos = models.ManyToManyField(Gallery,
+            related_name = "ag-photos",
+            blank=True)
+    events = models.ManyToManyField("Event",
+            related_name = "ag-events",
+            blank=True)
 
     class Meta:
         verbose_name = _("Action group")
@@ -223,21 +249,6 @@ class ActionGroup(models.Model):
     @models.permalink
     def get_absolute_url(self):
         return ('act_view', [str(self.slug)])
-
-class Research(models.Model):
-    """ Research & Resources have their own logos and pages """
-    title = models.CharField(_("Group title"), max_length=80)
-    slug = models.SlugField(_("URL-friendly title"))
-    supporters = models.ManyToManyField(Member,
-            related_name = "research-supporters",
-            blank=True)
-
-    def __unicode__(self):
-        return self.title
-
-    @models.permalink
-    def get_absolute_url(self):
-        return ('res_view', [str(self.slug)])
 
 class Location(models.Model):
     """
@@ -324,10 +335,10 @@ PROJECT_TYPE = (
 # Possible Project statuses
 PROJECT_APPROVAL_STATUS = (
     (_("PR"), _("Proposed")),
-    (_("RE"), _("Received")),
-    (_("PE"), _("Pending")),
-    (_("DN"), _("Denied")),
-    (_("AP"), _("Approved")),
+##    (_("RE"), _("Received")),
+##    (_("PE"), _("Pending")),
+    (_("DN"), _("Denied")), # informs org of denial TODO: add to email-manager
+    (_("AP"), _("Approved")), # The only one which shows up, uses managers.py
 )
 
 PROJECT_PROGRESS_STATUS = (
@@ -349,7 +360,8 @@ class Project(models.Model):
     title = models.CharField(_("Project title"),
             help_text=_("Project title (be clear and short)"),
             max_length=80)
-    slug = models.SlugField(_("URL-friendly name"))
+    slug = models.SlugField(_("URL-friendly name"), unique=True)
+    leader = models.ForeignKey("Organization", _("Leader: must be an organization"))
     date_applied = models.DateField(_("Project start date"))
     research_question = models.TextField(_("Central Research Question"),
             help_text=_("What is the central research question you want answered?"),
@@ -409,12 +421,15 @@ class Project(models.Model):
             default="PO",
             blank=False)
 
+    objects = models.Manager()
+    approved = ProjectManager()
+
     def __unicode__(self):
         return self.title
 
     @models.permalink
     def get_absolute_url(self):
-        return ('project_view', [str(self.slug)])
+        return ('arx_view', [str(self.slug)])
 
     def save(self, *args, **kwargs):
         self.date_applied = datetime.datetime.now()
