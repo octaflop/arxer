@@ -1,0 +1,25 @@
+Installation notes for verbena
+
+- Install mysql & create a database with UTF-8 charset
+- initiate the folder's virtualenvironment by running bootstrap.py. Alternately,
+  one may simply run "virtualenv --no-site-packages arxer" to initiate a fresh
+  environment
+- run source bin/activate to initiate the virtualenv
+- install required pinax packages by running "pip install -r
+  requirements/project.txt"
+- install required site packages by running "pip install -r ../requirements.txt"
+- change settings in "production_settings.py" to something which matches your
+  requirements; you can copy production_settings.py.example
+- Once the requirements are satisfied, run "./manage.py syncdb" and set up an
+  admin account.
+- Migrate the admin dashboard by running "./manage.py migrate
+  admin_tools.dashboard" & "./manage.py migrate admin_tools.menu"
+- Initiate the navigation by running "./manage.py loaddata
+  apps/verbena/fixtures/initial_data.json" (this should happen automatically)
+- Initiate the flatpages by running "./manage.py loaddata apps/verbena/fixtures/flatpages.json"
+- install apache-solr and build a schema. Place the schema in the
+  conf/schema.xml and run apache solr (required for search & autocomplete)
+- Use "./manage.py runserver 127.0.0.1:8005" to run the site, and adjust nginx.
+- Alternately, install gunicorn and use that
+
+

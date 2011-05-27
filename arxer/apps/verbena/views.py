@@ -85,6 +85,29 @@ def change_research(*args, **kwargs):
     return update_object(*args, **kwargs)
 
 # Heavy lifting
+
+# Member
+
+def list_all_members(request, *args, **kargs):
+    """
+    List all of the members
+    """
+    member_list = []
+    genmems = GeneralMember.objects.all()
+    for genmem in genmems:
+        member_list.append(genmem)
+    orgs = Organization.objects.all()
+    for org in orgs:
+        member_list.append(org)
+    students = Student.objects.all()
+    for student in students:
+        member_list.append(student)
+    facultys = Faculty.objects.all()
+    for faculty in facultys:
+        member_list.append(faculty)
+    ret = dict(object_list=member_list)
+    return render(request, 'verbena/members/member_list.html', ret)
+
 # Volunteer opportunities
 @login_required
 @permission_required('verbena.join_volunteer')

@@ -1,5 +1,5 @@
 from django.db import models
-from verbena.managers import ProjectManager, MemberManager
+from verbena.managers import ProjectManager#, MemberManager
 from django.contrib.auth.models import User
 from settings import MEDIA_ROOT
 ##from idios.models import ProfileBase
@@ -29,7 +29,7 @@ class Member(models.Model):
     slug = models.SlugField(_("URL-friendly name"), max_length=80)#, unique=True)
 
 #    objects = models.Manager()
-    objects = MemberManager()
+#    objects = MemberManager()
 
     def __unicode__(self):
         return self.profile.username
@@ -94,7 +94,7 @@ class Organization(Member):
             max_length=100,
             unique=True)
     # the leader is the org profile
-    #leader = models.ForeignKey(Member, related_name="org_leader",
+    #leader = models.ForeignKey(User, related_name="org_leader",
     #        help_text=_("Please select a leader from these registered site\
     #            users. If you require a new leader, please create a login\
     #            account for that leader."))
@@ -232,9 +232,9 @@ class ActionGroup(Research):
     Action groups may be supported by any member, but only led & started by
     GeneralMembers """
     # Similar to facebook's "like"
-    supporters = models.ManyToManyField(GeneralMember,
-            related_name = "ag-supporters",
-            blank=True)
+    #supporters = models.ManyToManyField(GeneralMember,
+    #        related_name = "ag-supporters",
+    #        blank=True)
     photos = models.ManyToManyField(Gallery,
             related_name = "ag-photos",
             blank=True)
