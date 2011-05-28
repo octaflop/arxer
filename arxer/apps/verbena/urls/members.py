@@ -11,18 +11,18 @@ memtemp = "verbena/members/"
 member_list = {
     #"queryset"  : GeneralMember.objects.all()
     "queryset"  : Member.objects.all(),
-    "template_name" : "%s%s" % (memtemp, "member_list.html"),
+    "template_name" : "%s%s" % (memtemp, "generalmember_list.html"),
 }
 
 student_list = {
     "queryset"  : Student.objects.all(),
-    "template_name" : "%s%s" % (memtemp, "member_list.html"),
+    "template_name" : "%s%s" % (memtemp, "student_list.html"),
 }
 
 student_add = {
     "form_class" : StudentForm,
     #"login_required": True,
-    "template_name" : "%s%s" % (memtemp, "member_form.html"),
+    "template_name" : "%s%s" % (memtemp, "student_form.html"),
 }
 
 faculty_list = {
@@ -33,7 +33,7 @@ faculty_list = {
 faculty_add = {
     "form_class" : FacultyForm,
     "login_required": True,
-    "template_name" : "%s%s" % (memtemp, "member_form.html"),
+    "template_name" : "%s%s" % (memtemp, "faculty_form.html"),
 }
 
 member_view = {
@@ -44,7 +44,6 @@ member_view = {
 urlpatterns = patterns("",
     ##url(r"^$", object_list, member_list, name="member_list"),
     url(r"^$", list_all_members, name="member_list"),
-    url(r"(?P<slug>[-\w]+)$", object_detail, member_view, name="member_view"),
     url(r"students$", object_list, student_list, name="student_list"),
     url(r"students/add", create_object, student_add, name="student_add"),
     url(r"students/(?P<slug>[-\w]+)$", object_detail, member_view, name="student_view"),
@@ -55,4 +54,5 @@ urlpatterns = patterns("",
     url(r"faculty/(?P<slug>[-\w]+)$", object_detail, member_view, name="faculty_view"),
     url(r"faculty/(?P<slug>[-\w]+)/edit$", update_object, faculty_add,
         name="faculty_edit"),
+    url(r"(?P<slug>[-\w]+)$", object_detail, member_view, name="member_view"),
 )

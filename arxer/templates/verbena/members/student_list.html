@@ -1,0 +1,20 @@
+{% extends "profiles/base.html" %}
+
+{% load i18n %}
+{% block head_title %}
+	Students
+{% endblock %}
+{% block content_title %}
+	Students
+{% endblock %}
+{% block main_article %}
+	<ul class="student_list">
+		{% for student in object_list %}
+			<li><b><a href="{{ student.get_absolute_url }}">{{ student.user.username }}
+			{{ student.user.first_name }}
+			{{ student.user.last_name }}</a><b></li>
+		{% endfor %}
+	</ul>
+	<a href="{% url member_list %}">Back to member list</a>
+{% endblock %}
+

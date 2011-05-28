@@ -12,13 +12,17 @@
   {{ flatpage.content }}
 
 <ul class="action_options">
-  <li>{% trans "Sign up as a student" %}</li>
-  <li>{% trans "Sign up as a faculty member" %}</li>
-  <li>{% trans "Sign up as an organization" %}</li>
-  <li><a href="{% url acct_signup %}">{% trans "I'm none of these, just sign me up!" %}</a></li>
+	{% if user.is_authenticated %}
+		<li><a href="{% url student_add %}">{% trans "Sign up as a student" %}</a></li>
+		<li><a href="{% url faculty_add %}">{% trans "Sign up as a faculty member" %}</a></li>
+		<li><a href="{% url org_add %}">{% trans "Sign up as an organization" %}</a></li>
+		<li><a href="{% url act_add %}">{% trans "Start an Action Group" %}</a></li>
+		<li><a href="{% url arx_add %}">{% trans "Start an Action Research Project" %}</a></li>
+		<li><a href="{% url arx_home %}">{% trans "Join an Action Research Project" %}</a></li>
+	{% else %}
+		<li><a href="{% url acct_signup %}">{% trans "I'm none of these, just sign me up!" %}</a></li>
+	{% endif %}
 
-  <li><a href="{% url act_add %}">{% trans "Start an Action Group" %}</a></li>
-  <li><a href="{% url arx_add %}">{% trans "Start an Action Research Project" %}</a></li>
 </ul>
 
 {% endblock %}

@@ -1,0 +1,16 @@
+{% extends "profiles/base.html" %}
+{% load uni_form_tags %}
+{% block head_title %}
+	Edit {{ object.name }}
+{% endblock %}
+	{% block content_title %}{{ object.user.username }}{% endblock %}
+{% block main_article %}
+	<form action="" method="post" class="uniForm">
+	{% csrf_token %}
+	{{ form|as_uni_form }}
+		<input type="submit" value="submit" />
+		{% if object.slug %}
+			<a href="{% url student_view object.slug %}">Cancel Edits</a>
+		{% endif %}
+	</form>
+{% endblock %}

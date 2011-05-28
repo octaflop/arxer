@@ -1,0 +1,13 @@
+{% extends "profiles/base.html" %}
+
+{% load i18n %}
+
+{% block head_title %}{% blocktrans %}Edit Profile{% endblocktrans %}{% endblock %}
+{% block content_title %}{% blocktrans %}Edit Profile{% endblocktrans %}{% endblock %}
+
+{% block main_article %}
+    
+    
+    {% include "profiles/profile_form.html" %}
+    
+{% endblock %}
