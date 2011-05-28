@@ -7,7 +7,7 @@ from django.shortcuts import get_object_or_404, render_to_response, redirect
 from django.views.generic.simple import direct_to_template as render
 from django.core.urlresolvers import reverse
 from verbena.models import Organization, Project, VolunteerOpportunity,\
-    Member, ActionGroup, Research, GeneralMember
+    Member, ActionGroup, Research, GeneralMember, Student, Faculty
 from verbena.forms import ProjectForm, OrganizationForm, LocationForm,\
     GeneralMemberForm, StudentForm, UserForm, MemberForm, ActionGroupForm
 from verbena.models import Organization, Location, Project
@@ -72,6 +72,26 @@ def change_research(*args, **kwargs):
     return update_object(*args, **kwargs)
 
 # Heavy lifting
+def list_all_members(request, *args, **kargs):
+    """
+    List all of the members
+    """
+    member_list = []
+    genmems = GeneralMember.objects.all()
+    for genmem in genmems:
+        member_list.append(genmem)
+    orgs = Organization.objects.all()
+    for org in orgs:
+        member_list.append(org)
+    students = Student.objects.all()
+    for student in students:
+        member_list.append(student)
+    facultys = Faculty.objects.all()
+    for faculty in facultys:
+        member_list.append(faculty)
+    ret = dict(object_list=member_list)
+    return render(request, 'verbena/members/member_list.html', ret)
+
 # Volunteer opportunities
 @login_required
 @permission_required('verbena.join_volunteer')

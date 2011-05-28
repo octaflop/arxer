@@ -1,10 +1,12 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, UserManager
 ##from idios.models import ProfileBase
 from photologue.models import Gallery
 from pinax.apps.profiles.models import Profile
 from django.contrib.localflavor.us.models import PhoneNumberField
 from django.template.defaultfilters import slugify
+
+from verbena.managers import ProjectManager
 
 from django.utils.translation import ugettext_lazy as _
 
@@ -25,6 +27,8 @@ class Member(models.Model):
     #profile = models.ForeignKey(Profile, blank=True, related_name='member_profile')
     profile = models.ForeignKey(User, blank=True, related_name='member_profile')
     slug = models.SlugField(_("URL-friendly name"), max_length=80)#, unique=True)
+
+    objects = UserManager()
 
     def __unicode__(self):
         return self.profile.username
@@ -408,6 +412,9 @@ class Project(models.Model):
             max_length=2, choices=PROJECT_PROGRESS_STATUS,
             default="PO",
             blank=False)
+    # manager:
+    approved = ProjectManager()
+    objects = models.Manager()
 
     def __unicode__(self):
         return self.title
