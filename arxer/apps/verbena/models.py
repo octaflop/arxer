@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User, UserManager
 ##from idios.models import ProfileBase
-from photologue.models import Gallery
+from photologue.models import Gallery, Photo, ImageModel
 from pinax.apps.profiles.models import Profile
 from django.contrib.localflavor.us.models import PhoneNumberField
 from django.template.defaultfilters import slugify
@@ -12,10 +12,43 @@ from django.utils.translation import ugettext_lazy as _
 
 #from pinax.apps.profiles.models import Profile
 from pinax.apps.tribes.models import Tribe
-from settings import STATIC_ROOT
+from settings import STATIC_ROOT, MEDIA_ROOT
 
 import datetime
 
+#############################################################################
+# Media & Avatar models
+
+#class Avatar(ImageModel):
+"""
+create an avatar for the users
+"""
+#    member = models.OneToOneField("Member", primary_key=True,
+#            related_name='member_avatar')
+
+#    def __unicode__(self):
+#        return self.user.username
+
+#class ActionGroupPortrait(ImageModel):
+"""
+A portrait for groups in listings
+"""
+#    action_group = models.OneToOneField("ActionGroup", primary_key=True,
+#            related_name='actiongroup_portrait')
+
+#class ResearchPortrait(ImageModel):
+"""
+A portrait for research and resource listings
+"""
+#    research = models.OneToOneField("Research", primary_key=True,
+#            related_name='research_portrait')
+
+#class ProjectPortrait(ImageModel):
+"""
+A portrait for groups in action research projects
+"""
+#    project = models.OneToOneField("Project", primary_key=True,
+#            related_name='project_portrait')
 
 #############################################################################
 # INDIVIDUAL-based models
@@ -27,6 +60,7 @@ class Member(models.Model):
     #profile = models.ForeignKey(Profile, blank=True, related_name='member_profile')
     profile = models.ForeignKey(User, blank=True, related_name='member_profile')
     slug = models.SlugField(_("URL-friendly name"), max_length=80)#, unique=True)
+    avatar = models.ForeignKey(Photo, related_name='member_avatar')
 
     objects = UserManager()
 
@@ -77,10 +111,7 @@ class GeneralMember(Member):
             blank=True)
 
     class Meta:
-        permissions = (
-                ("join_volunteer", "Can join volunteer event"),
-                ("join_actiongroup", "Can join action group"),
-            )
+        verbose_name = _("General Member")
 
 class Organization(Member):
     """ Organizations are entities applying for projects or grants.
@@ -208,7 +239,9 @@ class ActionGroup(models.Model):
     GeneralMembers """
     title = models.CharField(_("Action Group title"), max_length=80)
     slug = models.SlugField(_("URL-friendly title"))
+    portrait = models.ForeignKey(Photo, related_name='actiongroup_portrait')
     leader = models.ForeignKey("GeneralMember")
+    # a required portrait
     # Similar to facebook's "like"
     supporters = models.ManyToManyField(GeneralMember,
             related_name = "group-supporters",
@@ -232,6 +265,7 @@ class Research(models.Model):
     """ Research & Resources have their own logos and pages """
     title = models.CharField(_("Group title"), max_length=80)
     slug = models.SlugField(_("URL-friendly title"))
+    portrait = models.ForeignKey(Photo, related_name='research_portrait')
     supporters = models.ManyToManyField(Member,
             related_name = "research-supporters",
             blank=True)
@@ -354,6 +388,7 @@ class Project(models.Model):
             help_text=_("Project title (be clear and short)"),
             max_length=80)
     slug = models.SlugField(_("URL-friendly name"))
+    portrait = models.ForeignKey(Photo, related_name='project_portrait')
     date_applied = models.DateField(_("Project start date"))
     research_question = models.TextField(_("Central Research Question"),
             help_text=_("What is the central research question you want answered?"),
@@ -429,7 +464,7 @@ class Project(models.Model):
 
 class StudentProject(Project):
     """
-    Only student can sign up for projects.
+    Only student can sign up for these projects.
     """
     student_leader = models.ForeignKey(Student)
     professor = models.ForeignKey(Faculty, blank=True)

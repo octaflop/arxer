@@ -16,12 +16,12 @@ class NavigationAdmin(admin.ModelAdmin):
 
 #class StudentAdmin(UserAdmin):
 class StudentAdmin(admin.ModelAdmin):
-    list_display = ('profile','studying','comp_year',)
+    list_display = ('profile', 'avatar', 'studying','comp_year',)
     exclude = ('slug',)
 
 #class FacultyAdmin(UserAdmin):
 class FacultyAdmin(admin.ModelAdmin):
-    list_display = ('profile','in_faculty',)
+    list_display = ('profile', 'avatar', 'in_faculty',)
     exclude = ('slug',)
 
 #class OrganizationAdmin(UserAdmin):

@@ -1,4 +1,5 @@
 {% load i18n ifsetting_tag account_tags openid_tags %}
+{% load nav_build %}
 {% if user.is_authenticated %}
     {% ifopenid %}<img src="{{ STATIC_URL }}images/openid-icon.png" alt="Logged in with OpenID" />{% endifopenid %}<b>{% user_display user %}</b>
     |
@@ -11,6 +12,8 @@
         |
     {% endif %}
     <a href="{% if request.openid %}/openid/logout/?next={% url acct_logout %}{% else %}{% url acct_logout %}{% endif %}">Logout</a>
+
+		<section class='member_box'>{% memberbox %}</section>
 {% else %}
     <a href="{% url acct_login %}">Log in</a> or <a href="{% url acct_signup %}">Sign Up</a>
 {% endif %}

@@ -1,5 +1,6 @@
 from django import template
 from verbena.models import Navigation##, SubNavigation
+from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 
 register = template.Library()
@@ -23,3 +24,14 @@ def searchbox(context):
             }
     context['searchbox'] = search
     return dict(searchbox=context['searchbox'])
+
+@register.inclusion_tag('verbena/templatetags/memberbox.html', takes_context=True)
+def memberbox(context):
+    if 'user' in context:
+        user = context['user']
+        usm = User.objects.get(username=user.username)
+        member = usm.member_profile.get()
+    else:
+        user = None
+        member = None
+    return dict(user=user, member=member)
