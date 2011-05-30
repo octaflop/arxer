@@ -27,8 +27,9 @@ class FacultyAdmin(admin.ModelAdmin):
 #class OrganizationAdmin(UserAdmin):
 class OrganizationAdmin(admin.ModelAdmin):
     list_display = ('title', 'about', 'website',)
-    prepopulated_fields = {'slug': ('title',)}
+    prepopulated_fields = {'org_slug': ('title',)}
     display_inline = ('location', 'workshops',)
+    exclude=('slug',)
 
 class NewsReleaseAdmin(admin.ModelAdmin):
     list_display = ('content', 'datetime_released',)

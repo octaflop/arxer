@@ -92,6 +92,7 @@ class Organization(Member):
             help_text=_("The name of your organization"),
             max_length=100,
             unique=True)
+    org_slug = models.SlugField(_("URL-friendly name for organization"))
     community = models.CharField(
             _("What community do you represent or work with?"),
             max_length=180,
@@ -128,15 +129,10 @@ class Organization(Member):
     class Meta:
         verbose_name = _("Organization")
         verbose_name_plural = _("Organizations")
-
-    def save(self):
-        if not self.slug:
-            self.slug = slugify(self.title)
-            super(Organization, self).save(*args, **kwargs)
-
+    
     @models.permalink
     def get_absolute_url(self):
-        return ('org_view', [str(self.slug)])
+        return ('org_view', [str(self.org_slug)])
 
 # Call time options for students and faculty
 CALL_TIMES = (
