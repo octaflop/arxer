@@ -1,5 +1,6 @@
 from django import template
 from verbena.models import Navigation##, SubNavigation
+from pinax.apps.account.forms import LoginForm
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 
@@ -18,6 +19,11 @@ def searchbox(context):
             }
     context['searchbox'] = search
     return dict(searchbox=context['searchbox'])
+
+@register.inclusion_tag('verbena/templatetags/loginbox.html', takes_context=True)
+def loginbox(context):
+    loginform = LoginForm()
+    return dict(form=loginform)
 
 @register.inclusion_tag('verbena/templatetags/memberbox.html', takes_context=True)
 def memberbox(context):

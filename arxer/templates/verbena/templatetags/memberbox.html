@@ -1,3 +1,6 @@
+{% load i18n %}
+{% load uni_form_tags %}
+{% load ifsetting_tag %}
 {% if member %}
 	<img src="{{ member.avatar.get_thumbnail_url }}" alt="{{ member.avatar.title }}"/>
 {% endif %}
