@@ -200,7 +200,7 @@ def leave_actiongroup(request, *args, **kwargs):
 # Organizations
 def add_organization(request, *args, **kwargs):
     data = request.POST or None
-    #locform = LocationForm(data=data)
+    locform = LocationForm(data=data)
     orgform = OrganizationForm(data=data)
     userform = UserForm(data=data)
     location = {}

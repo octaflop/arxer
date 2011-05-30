@@ -1,0 +1,15 @@
+{% extends "verbena/events/ev_base.html" %}
+{% block head_title %}
+	Events
+{% endblock %}
+{% block content_title %}
+	Events
+{% endblock %}
+{% block main_article %}
+	<ul class='event_list'>
+		{% for event in events %}
+			<li><b><a href="{{ event.get_absolute_url }}">{{ event.title }}</a></b></li>
+		{% endfor %}
+	</ul>
+	<a href="{% url event_add %}">Add an Event</a>
+{% endblock %}

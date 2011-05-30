@@ -1,0 +1,12 @@
+{% extends "site_base.html" %}
+{% load i18n %}
+{% block body_class %}Events{% endblock %}
+
+{% block main_navsub %}
+	<ul>
+		<li><a href="{% url event_home %}">{% trans "List Events" %}</a></li>
+		<li><a href="{% url event_add %}">{% trans "Create Events" %}</a></li>
+	<ul>
+{% endblock %}
+
+

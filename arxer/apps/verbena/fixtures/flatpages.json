@@ -10,7 +10,7 @@
       "sites": [
         1
       ], 
-      "content": "< This is the about us page. Edit it by going to \u2192 admin/flatpages/flatpage/add/ >", 
+      "content": "< This is the about us page. Edit it by going to  admin/flatpages/flatpage/add/ >", 
       "enable_comments": false
     }
   }, 
@@ -25,7 +25,7 @@
       "sites": [
         1
       ], 
-      "content": "< This page hasn't been changed yet. You can change it by logging in as an administrator and going to \u2192 admin/flatpages/flatpage/add >", 
+      "content": "< This page hasn't been changed yet. You can change it by logging in as an administrator and going to  admin/flatpages/flatpage/add >", 
       "enable_comments": false
     }
   }, 
@@ -40,7 +40,7 @@
       "sites": [
         1
       ], 
-      "content": "< This page hasn't been changed yet. You can change it by logging in as an administrator and going to \u2192 admin/flatpages >", 
+      "content": "< This page hasn't been changed yet. You can change it by logging in as an administrator and going to  admin/flatpages >", 
       "enable_comments": false
     }
   }, 
@@ -55,7 +55,7 @@
       "sites": [
         1
       ], 
-      "content": "< This page hasn't been changed yet. You can change it by logging in as an administrator and going to \u2192 admin/flatpages/flatpage/add >", 
+      "content": "< This page hasn't been changed yet. You can change it by logging in as an administrator and going to  admin/flatpages/flatpage/add >", 
       "enable_comments": false
     }
   }, 
@@ -70,7 +70,7 @@
       "sites": [
         1
       ], 
-      "content": "< This page hasn't been changed yet. You can change it by logging in as an administrator and going to \u2192 admin/flatpages/flatpage/add >", 
+      "content": "< This page hasn't been changed yet. You can change it by logging in as an administrator and going to  admin/flatpages/flatpage/add >", 
       "enable_comments": false
     }
   }, 
@@ -85,7 +85,7 @@
       "sites": [
         1
       ], 
-      "content": "< This page hasn't been changed yet. You can change it by logging in as an administrator and going to \u2192 admin/flatpages/flatpage/add >", 
+      "content": "< This page hasn't been changed yet. You can change it by logging in as an administrator and going to  admin/flatpages/flatpage/add >", 
       "enable_comments": false
     }
   }
