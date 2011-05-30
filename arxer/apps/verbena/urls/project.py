@@ -7,7 +7,8 @@ from verbena.views import add_project, change_project, leave_project,\
     join_project
 
 proj_list = {
-    "queryset"  : Project.objects.all(),
+    ##"queryset"  : Project.objects.all(),
+    "queryset"  : Project.approved.all(),
     "template_name": "verbena/arx/arx_list.html",
 }
 
