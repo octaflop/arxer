@@ -116,7 +116,7 @@ def list_all_members(request, *args, **kargs):
     for faculty in facultys:
         member_list.append(faculty)
     ret = dict(object_list=member_list)
-    return render(request, 'verbena/members/member_list.html', ret)
+    return render(request, 'verbena/members/generalmember_list.html', ret)
 
 # Volunteer opportunities
 @login_required

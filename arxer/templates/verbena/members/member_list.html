@@ -1,4 +1,4 @@
-{% extends "profiles/base.html" %}
+{% extends "verbena/members/mem_base.html" %}
 
 {% load i18n %}
 {% block head_title %}
@@ -8,7 +8,8 @@
 	<h2>All Individual Members</h2>
 	<ul class="members_list">
 		{% for member in object_list %}
-			<li><b><a href="{{ member.get_absolute_url }}">{{ member.user.user.username }}
+			<li><img src="{{ member.avatar.get_thumbnail_url }}" 
+			alt="{{	member.avatar.title }} "/><b><a href="{{ member.get_absolute_url }}">{{ member.user.user.username }}
 			{{ member.user.user.first_name }}
 			{{ member.user.user.last_name }}</a><b></li>
 		{% endfor %}

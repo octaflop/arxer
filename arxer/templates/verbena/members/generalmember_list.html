@@ -1,16 +1,19 @@
-{% extends "profiles/base.html" %}
+{% extends "verbena/members/mem_base.html" %}
 
 {% load i18n %}
 {% block head_title %}
 	General Members
 {% endblock %}
-{% block body %}
-	<h2>All Individual Members</h2>
+{% block content_title %}
+	General Members
+{% endblock %}
+{% block main_article %}
 	<ul class="members_list">
 		{% for member in object_list %}
-			<li><b><a href="{{ member.get_absolute_url }}">{{ member.user.username }}
-			{{ member.user.first_name }}
-			{{ member.user.last_name }}</a><b></li>
+			<li><img src="{{ member.avatar.get_thumbnail_url }}" 
+			alt="{{	member.avatar.title }} "/><b><a href="{{ member.get_absolute_url }}">{{ member.profile.username }}
+			{{ member.profile.first_name }}
+			{{ member.profile.last_name }}</a><b></li>
 		{% endfor %}
 	</ul>
 {% endblock %}

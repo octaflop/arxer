@@ -11,12 +11,6 @@ def sfpirgnav(context):
     context['navi'] = navi
     return dict(navi=context['navi'])
 
-#@register.inclusion_tag('verbena/templatetags/sfpirgnavsub.html')#, takes_context=True)
-#def sfpirgnavsub(menu):
-#    ##context['navi'] = SubNavigation.objects.filter(nav_key__menu_slug=menu)
-#    navi = SubNavigation.objects.filter(nav_key__menu_slug=menu)
-#    return dict(navi=navi)
-
 @register.inclusion_tag('verbena/templatetags/search.html', takes_context=True)
 def searchbox(context):
     search = {
@@ -29,7 +23,7 @@ def searchbox(context):
 def memberbox(context):
     if 'user' in context:
         user = context['user']
-        usm = User.objects.get(username=user.username)
+        usm = User.objects.filter(username=user.username)[0]
         member = usm.member_profile.get()
     else:
         user = None

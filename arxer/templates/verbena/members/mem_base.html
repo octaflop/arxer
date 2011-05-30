@@ -1,0 +1,15 @@
+{% extends "site_base.html" %}
+{% load i18n %}
+
+{% block body_class %}member{% endblock %}
+
+{% block main_navsub %}
+	{% if user.is_authenticated %}
+			<ul>
+					<li><a href="{% url member_view user.username %} ">{% trans "Your Profile" %}</a></li>
+					<li><a href="{% url member_list %} ">{% trans "All Members" %}</a></li>
+					<li><a href="{% url student_list %} ">{% trans "Student Members" %}</a></li>
+					<li><a href="{% url faculty_list %} ">{% trans "Faculty Members" %}</a></li>
+			</ul>
+	{% endif %}
+{% endblock %}
