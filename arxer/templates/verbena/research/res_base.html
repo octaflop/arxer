@@ -5,7 +5,9 @@
 {% block main_navsub %}
 	<ul>
 		<li><a href="{% url res_home %}">{% trans "List Research & Resources" %}</a></li>
-		<li><a href="{% url res_add %}">{% trans "Create Research or Resource" %}</a></li>
+		{% if user.is_staff %}
+			<li><a href="{% url res_add %}">{% trans "Create Research or Resource" %}</a></li>
+		{% endif %}
 	<ul>
 {% endblock %}
 
