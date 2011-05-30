@@ -26,8 +26,7 @@ class Member(models.Model):
     """ An abstract to represent all signed-in users"""
     profile = models.ForeignKey(User, blank=True, related_name='member_profile')
     slug = models.SlugField(_("URL-friendly name"), max_length=80)#, unique=True)
-    avatar = models.ForeignKey(Photo, related_name='member_avatar', blank=True,
-            null=True)
+    avatar = models.ForeignKey(Photo, related_name='member_avatar', blank=True)
 
     objects = UserManager()
 
