@@ -62,8 +62,8 @@
 		<h1>calendar</h1>
 	</header>
 	<h3 class="calendar">
-		<img src="{{ STATIC_URL }}verbena/img/calendar.png" alt="Calendar"
-		title="Click to see events" />
+		<a href="{% url event_home %}"><img src="{{ STATIC_URL }}verbena/img/calendar.png" alt="Calendar"
+		title="Click to see events" /></a>
 	</h3>
 {% endblock %}
 

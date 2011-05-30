@@ -4,13 +4,15 @@
 {% block head_title %}
 	Action Research Exchange 
 {% endblock %}
+{% block content_title %}
+	{% trans "Research and Resources" %}
+{% endblock %}
 
-{% block body %}
-	<h2>{% trans "ARX Projects" %}</h2>
-	<ul class='proj_list'>
-		{% for proj in object_list %}
-			<li><b><a href="{{ proj.get_absolute_url }}">{{ proj.title }}</a></b></li>
+{% block main_article %}
+	<ul class='res_list'>
+		{% for res in object_list %}
+			<li><b><a href="{{ res.get_absolute_url }}">{{ res.title }}</a></b></li>
 		{% endfor %}
 	</ul>
-	<a href="{% url project_add %}">{% trans "Apply for a project" %}</a>
+	<a href="{% url res_add %}">{% trans "Apply for a project" %}</a>
 {% endblock %}

@@ -2,8 +2,10 @@
 {% block head_title %}
 	Organizations
 {% endblock %}
-{% block body %}
-	<h2>Organizations</h2>
+{% block content_title %}
+	Organizations
+{% endblock %}
+{% block main_article %}
 	<ul class='org_list'>
 		{% for org in object_list %}
 			<li><b><a href="{{ org.get_absolute_url }}">{{ org.title }}</a></b></li>

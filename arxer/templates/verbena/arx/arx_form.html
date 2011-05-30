@@ -12,7 +12,7 @@
 {% endif %}
 
 {% block main_article %}
-{% if perms.verbena.can_add_project %}
+{% if perms.verbena.add_project %}
 	<form action="" method="post" class="uniForm">
 	{% csrf_token %}
 	{{ form|as_uni_form }}

@@ -63,8 +63,9 @@ class Member(models.Model):
         return ('member_view', [str(self.slug)])
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.profile.username)
-        super(Member, self).save(*args, **kwargs)
+        if not self.slug:
+            self.slug = slugify(self.profile.username)
+            super(Member, self).save(*args, **kwargs)
 
 class GeneralMember(Member):
     """ An entity representing a registered, unaffiliated user.
@@ -91,10 +92,6 @@ class Organization(Member):
             help_text=_("The name of your organization"),
             max_length=100,
             unique=True)
-    leader = models.ForeignKey(Member, related_name="org_leader",
-            help_text=_("Please select a leader from these registered site\
-                users. If you require a new leader, please create a login\
-                account for that leader."))
     community = models.CharField(
             _("What community do you represent or work with?"),
             max_length=180,
@@ -118,8 +115,12 @@ class Organization(Member):
             _("Are you a registered non-profit?"),
             default=False)
     about = models.TextField(_("About"))
-    location = models.ForeignKey("Location")
+    location = models.ForeignKey("Location", blank=True)
     website = models.URLField(_("website"), blank=True, null=True)
+
+    @property
+    def leader(self):
+        return self.profile
 
     def __unicode__(self):
         return self.title
@@ -128,10 +129,10 @@ class Organization(Member):
         verbose_name = _("Organization")
         verbose_name_plural = _("Organizations")
 
-    #def save(self, *args, **kwargs):
-    #    # Overriding member slug?
-    #    self.slug = slugify(self.title)
-    #    super(Organization, self).save(*args, **kwargs)
+    def save(self):
+        if not self.slug:
+            self.slug = slugify(self.title)
+            super(Organization, self).save(*args, **kwargs)
 
     @models.permalink
     def get_absolute_url(self):
@@ -278,7 +279,6 @@ class Event(models.Model):
 
     class Meta:
         ordering = ('-start_date',)
-        get_latest_by = 'start_date'
 
     @models.permalink
     def get_absolute_url(self):

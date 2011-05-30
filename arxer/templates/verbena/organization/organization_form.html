@@ -3,8 +3,10 @@
 {% block head_title %}
 	Edit {{ object.title }}
 {% endblock %}
-{% block body %}
-	<h2>{{ object.title }}</h2>
+{% block content_title %}
+	Edit {{ object.title }}
+{% endblock %}
+{% block main_article %}
 	<form action="" method="post" class="uniForm">
 	{% csrf_token %}
 	{{ userform|as_uni_form }}

@@ -1,9 +1,9 @@
 {% extends "verbena/organization/org_base.html" %}
+{% block head_title %}<a href="{{ object.get_absolute_url }}">{{ object.title	}}</a><{% endblock %}
 {% block content_title %}
 	{{ object.title }}
 {% endblock %}
 {% block main_article %}
-	{% block head_title %}<a href="{{ object.get_absolute_url }}">{{ object.title	}}</a><{% endblock %}
 	<dl>
 		<dt>title:</dt><dd>{{ object.title }}</dd>
 		<dt>location:</dt><dd>{{ object.location }}</dd>

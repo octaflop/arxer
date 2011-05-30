@@ -7,7 +7,8 @@ from django.shortcuts import get_object_or_404, render_to_response, redirect
 from django.views.generic.simple import direct_to_template as render
 from django.core.urlresolvers import reverse
 from verbena.models import Organization, Project, VolunteerOpportunity,\
-    Member, ActionGroup, Research, GeneralMember, Student, Faculty
+    Member, ActionGroup, Research, GeneralMember, Student, Faculty, Event,\
+    StudentProject
 from verbena.forms import ProjectForm, OrganizationForm, LocationForm,\
     GeneralMemberForm, StudentForm, UserForm, MemberForm, ActionGroupForm
 from verbena.models import Organization, Location, Project
@@ -17,6 +18,18 @@ from django.core.urlresolvers import reverse
 #haystack
 from haystack.query import SearchQuerySet
 from django.utils import simplejson
+import datetime
+
+def ev_list(request, *args, **kwargs):
+    """
+    list all events
+    """
+    try:
+        events = Event.objects.filter(end_date__gte=datetime.datetime.now())
+    except Event.DoesNotExist:
+        events = {}
+    ret = dict(events=events)
+    return render(request, 'verbena/events/event_list.html', ret)
 
 def compile_search(results):
     resultlist = [r.title_auto for r in results]
@@ -37,9 +50,22 @@ def suggestion(request):
 
 # ARX
 @permission_required('verbena.add_project')
-def add_project(*args, **kwargs):
+def add_project(request, *args, **kwargs):
     "Add a project: must be organization"
-    return create_object(*args, **kwargs)
+    data = request.POST or None
+    projform = ProjectForm(data=data)
+    if projform.is_valid():
+        try:
+            projform.student_leader = Organization.objects.get(profile=request.user)
+        except Organization.DoesNotExist:
+            return HttpResponse(status=403)
+        try:
+            projform.save()
+        except:
+            return HttpResponse(status=500)
+    #return create_object(*args, **kwargs)
+    ret = dict(form=projform)
+    return render(request, 'verbena/arx/arx_form.html', ret)
 
 @permission_required('verbena.change_project')
 def change_project(*args, **kwargs):
@@ -174,7 +200,7 @@ def leave_actiongroup(request, *args, **kwargs):
 # Organizations
 def add_organization(request, *args, **kwargs):
     data = request.POST or None
-    locform = LocationForm(data=data)
+    #locform = LocationForm(data=data)
     orgform = OrganizationForm(data=data)
     userform = UserForm(data=data)
     location = {}

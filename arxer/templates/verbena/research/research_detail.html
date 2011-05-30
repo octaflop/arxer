@@ -3,7 +3,10 @@
 {% block head_title %}
 	{{ object.title }}
 {% endblock %}
-{% block body %}
+{% block content_title %}
+	{{ object.title }}
+{% endblock %}
+{% block main_article %}
 	<h2><a href="{{ object.get_absolute_url }}">{{ object.title }}</a></h2>
 	<dl>
 		<dt>title:</dt><dd>{{ object.title }}</dd>

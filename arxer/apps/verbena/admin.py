@@ -26,7 +26,6 @@ class FacultyAdmin(admin.ModelAdmin):
 
 #class OrganizationAdmin(UserAdmin):
 class OrganizationAdmin(admin.ModelAdmin):
-    form = make_ajax_form(Organization, dict(leader='member'))
     list_display = ('title', 'about', 'website',)
     prepopulated_fields = {'slug': ('title',)}
     display_inline = ('location', 'workshops',)

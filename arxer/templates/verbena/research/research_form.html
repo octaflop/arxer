@@ -4,8 +4,10 @@
 {% block head_title %}
 	Edit {{ object.name }}
 {% endblock %}
-{% block body %}
-	<h2>{{ object.name }}</h2>
+{% block content_title %}
+	Edit {{ object.name }}
+{% endblock %}
+{% block main_article %}
 {% if perms.verbena.can_add_project %}
 	<form action="" method="post" class="uniForm">
 	{% csrf_token %}
