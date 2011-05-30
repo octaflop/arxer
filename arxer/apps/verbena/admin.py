@@ -8,9 +8,6 @@ from verbena.models import Student, Faculty, NewsRelease, Location, Project,\
     VolunteerOpportunity, Organization, Workshop, ActionGroup, Grant,\
     Navigation, Member##, SubNavigation
 
-#class SubNavigationAdmin(admin.ModelAdmin):
-#    list_display = ('title', 'link', 'weight', 'nav_key',)
-
 class MemberAdmin(admin.ModelAdmin):
     list_display = ('profile',)
 

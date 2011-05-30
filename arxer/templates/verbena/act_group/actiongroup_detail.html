@@ -9,6 +9,14 @@
 	<dl>
 		<dt>title:</dt><dd>{{ object.title }}</dd>
 		<dt>leader:</dt><dd><a href="{% url member_view object.leader.slug %}">{{ object.leader }}</a></dd>
+		<dt>supporters:</dt>
+		<dd>
+			<ul>
+			{% for supporter in object.supporters.all %}
+				<li><b>{{ supporter.profile.username }}</b></li>
+			{% endfor %}
+			</ul>
+		</dd>
 		<dt>location:</dt><dd>{{ object.location }}</dd>
 	</dl>
 	{# if request.user.is_in? #}

@@ -50,7 +50,7 @@ def change_project(*args, **kwargs):
 @permission_required('verbena.join_project')
 def leave_project(request, *args, **kwargs):
     "Leave a volunteer opportunity"
-    volunteer = Member.objects.get(profile=request.user)
+    volunteer = GeneralMember.objects.get(profile=request.user)
     res = Research.objects.get(slug=kwargs['slug'])
     res.volunteers.remove(volunteer)
     try:
@@ -97,7 +97,7 @@ def list_all_members(request, *args, **kargs):
 @permission_required('verbena.join_volunteer')
 def join_vop(request, *args, **kwargs):
     "Join a volunteer opportunity: must be a general member"
-    volunteer = Member.objects.get(user=request.user)
+    volunteer = GeneralMember.objects.get(user=request.user)
     op = VolunteerOpportunity.objects.get(slug=kwargs['slug'])
     op.volunteers.add(volunteer)
     try:
@@ -111,7 +111,7 @@ def join_vop(request, *args, **kwargs):
 @permission_required('verbena.join_volunteer')
 def leave_vop(request, *args, **kwargs):
     "Leave a volunteer opportunity"
-    volunteer = Member.objects.get(profile=request.user)
+    volunteer = GeneralMember.objects.get(profile=request.user)
     op = VolunteerOpportunity.objects.get(slug=kwargs['slug'])
     op.volunteers.remove(volunteer)
     try:
@@ -132,10 +132,10 @@ def add_actiongroup(request, *args, **kwargs):
         user = GeneralMember.objects.get(profile=request.user) or None
         try:
             new_ag.leader = user
-            saved_ag = new_ag.save()
-        except:
-            return HttpResponse(status=500)
-        return HttpResponseRedirect(saved_ag.get_absolute_url())
+            return HttpResponseRedirect(new_ag.get_absolute_url())
+        except GeneralMember.DoesNotExist:
+            return HttpResponse(status=404)
+        return HttpResponseRedirect(new_ag.get_absolute_url())
     ret = dict(form=agform)
     return render(request, 'verbena/act_group/actiongroup_form.html', ret)
 
@@ -143,8 +143,11 @@ def add_actiongroup(request, *args, **kwargs):
 @permission_required('verbena.join_actiongroup')
 def join_actiongroup(request, *args, **kwargs):
     "Join an action group: must be a general member"
-    member = Member.objects.get(profile=request.user)
-    ag = ActionGroup.objects.get(slug=kwargs['slug'])
+    member = GeneralMember.objects.get(profile=request.user)
+    try:
+        ag = ActionGroup.objects.get(slug=kwargs['slug'])
+    except ActionGroup.DoesNotExist:
+        return HttpResponse(status=404)
     ag.supporters.add(member)
     try:
         ag.save()
@@ -156,8 +159,11 @@ def join_actiongroup(request, *args, **kwargs):
 @permission_required('verbena.join_actiongroup')
 def leave_actiongroup(request, *args, **kwargs):
     "Leave an action group: must be a general member"
-    member = Member.objects.get(profile=request.user)
-    ag = ActionGroup.objects.get(slug=kwargs['slug'])
+    member = GeneralMember.objects.get(profile=request.user)
+    try:
+        ag = ActionGroup.objects.get(slug=kwargs['slug'])
+    except ActionGroup.DoesNotExist:
+        return HttpResponse(status=404)
     ag.supporters.remove(member)
     try:
         ag.save()

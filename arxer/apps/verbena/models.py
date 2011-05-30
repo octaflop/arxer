@@ -206,8 +206,9 @@ class ActionGroup(models.Model):
     GeneralMembers """
     title = models.CharField(_("Action Group title"), max_length=80)
     slug = models.SlugField(_("URL-friendly title"))
-    portrait = models.ForeignKey(Photo, related_name='actiongroup_portrait')
-    leader = models.ForeignKey("GeneralMember")
+    portrait = models.ForeignKey(Photo, related_name='actiongroup_portrait',
+            null=True, blank=True)
+    leader = models.ForeignKey("GeneralMember", related_name='ag_leader')
     # a required portrait
     # Similar to facebook's "like"
     supporters = models.ManyToManyField(GeneralMember,
@@ -232,7 +233,8 @@ class Research(models.Model):
     """ Research & Resources have their own logos and pages """
     title = models.CharField(_("Group title"), max_length=80)
     slug = models.SlugField(_("URL-friendly title"))
-    portrait = models.ForeignKey(Photo, related_name='research_portrait')
+    portrait = models.ForeignKey(Photo, related_name='research_portrait',
+            null=True, blank=True)
     supporters = models.ManyToManyField(Member,
             related_name = "research-supporters",
             blank=True)
@@ -355,7 +357,8 @@ class Project(models.Model):
             help_text=_("Project title (be clear and short)"),
             max_length=80)
     slug = models.SlugField(_("URL-friendly name"))
-    portrait = models.ForeignKey(Photo, related_name='project_portrait')
+    portrait = models.ForeignKey(Photo, related_name='project_portrait',
+            null=True, blank=True)
     date_applied = models.DateField(_("Project start date"))
     research_question = models.TextField(_("Central Research Question"),
             help_text=_("What is the central research question you want answered?"),
