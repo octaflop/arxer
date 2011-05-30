@@ -6,10 +6,13 @@ from ajax_select import make_ajax_form
 
 from verbena.models import Student, Faculty, NewsRelease, Location, Project,\
     VolunteerOpportunity, Organization, Workshop, ActionGroup, Grant,\
-    Navigation##, SubNavigation
+    Navigation, Member##, SubNavigation
 
 #class SubNavigationAdmin(admin.ModelAdmin):
 #    list_display = ('title', 'link', 'weight', 'nav_key',)
+
+class MemberAdmin(admin.ModelAdmin):
+    list_display = ('profile',)
 
 class NavigationAdmin(admin.ModelAdmin):
     list_display = ('title', 'link', 'weight',)
@@ -60,6 +63,7 @@ class GrantAdmin(admin.ModelAdmin):
     exclude = ('date_applied',)
     prepopulated_fields = {'slug': ('title',)}
 
+admin.site.register(Member, MemberAdmin)
 admin.site.register(Project, ProjectAdmin)
 admin.site.register(VolunteerOpportunity, VolunteerOpportunityAdmin)
 admin.site.register(Workshop, WorkshopAdmin)

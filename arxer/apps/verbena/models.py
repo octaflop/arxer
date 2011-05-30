@@ -1,5 +1,6 @@
 from django.db import models
-from django.contrib.auth.models import User, UserManager
+from django.db.models.signals import post_save
+from django.contrib.auth.models import User, UserManager, Permission
 ##from idios.models import ProfileBase
 from photologue.models import Gallery, Photo, ImageModel
 from pinax.apps.profiles.models import Profile
@@ -10,45 +11,11 @@ from verbena.managers import ProjectManager
 
 from django.utils.translation import ugettext_lazy as _
 
-#from pinax.apps.profiles.models import Profile
-from pinax.apps.tribes.models import Tribe
+##from pinax.apps.profiles.models import Profile
+##from pinax.apps.tribes.models import Tribe
 from settings import STATIC_ROOT, MEDIA_ROOT
 
 import datetime
-
-#############################################################################
-# Media & Avatar models
-
-#class Avatar(ImageModel):
-"""
-create an avatar for the users
-"""
-#    member = models.OneToOneField("Member", primary_key=True,
-#            related_name='member_avatar')
-
-#    def __unicode__(self):
-#        return self.user.username
-
-#class ActionGroupPortrait(ImageModel):
-"""
-A portrait for groups in listings
-"""
-#    action_group = models.OneToOneField("ActionGroup", primary_key=True,
-#            related_name='actiongroup_portrait')
-
-#class ResearchPortrait(ImageModel):
-"""
-A portrait for research and resource listings
-"""
-#    research = models.OneToOneField("Research", primary_key=True,
-#            related_name='research_portrait')
-
-#class ProjectPortrait(ImageModel):
-"""
-A portrait for groups in action research projects
-"""
-#    project = models.OneToOneField("Project", primary_key=True,
-#            related_name='project_portrait')
 
 #############################################################################
 # INDIVIDUAL-based models
@@ -60,7 +27,8 @@ class Member(models.Model):
     #profile = models.ForeignKey(Profile, blank=True, related_name='member_profile')
     profile = models.ForeignKey(User, blank=True, related_name='member_profile')
     slug = models.SlugField(_("URL-friendly name"), max_length=80)#, unique=True)
-    avatar = models.ForeignKey(Photo, related_name='member_avatar')
+    avatar = models.ForeignKey(Photo, related_name='member_avatar', blank=True,
+            null=True)
 
     objects = UserManager()
 
@@ -98,6 +66,36 @@ class Member(models.Model):
         self.slug = slugify(self.profile.username)
         super(Member, self).save(*args, **kwargs)
 
+def create_member(sender, **kwargs):
+    """
+    Create a new member when a User object is saved
+    """
+    # Check for a new user
+    if not kwargs['created']:
+        return
+
+    # get the User account instance
+    user = kwargs['instance']
+
+    # don't make a member if it already exists
+    try:
+        p = Member.objects.get(profile=user)
+        return p
+    except Member.DoesNotExist:
+        p = None
+    try:
+        profile = Profile.objects.get(user=user)
+    except Profile.DoesNotExist:
+        profile = Profile(
+            user = user,
+        )
+        profile.save()
+    member = Member(
+        profile = user,
+    )
+    member.save()
+
+post_save.connect(create_member, sender=User)
 
 class GeneralMember(Member):
     """ An entity representing a registered, unaffiliated user.
@@ -614,3 +612,31 @@ class Navigation(models.Model):
 #        self.navlogo_path = str(self.navlogo_path).replace(STATIC_ROOT, '')
 #        self.navlogo_path = "%s%s" % ("/site_media/static", self.navlogo_path)
 #        super(SubNavigation, self).save(*args, **kwargs)
+
+# listeners
+def grant_addgroup_perms(sender, **kwargs):
+    """
+    Grant permission to faculty and students to create groups
+    """
+    user = kwargs['instance']
+    perms = Permission.objects.get(codename='add_actiongroup')
+    user.profile.user_permissions.add(perm)
+    user.save()
+    return user
+
+post_save.connect(grant_addgroup_perms, sender=Student)
+post_save.connect(grant_addgroup_perms, sender=Faculty)
+
+def grant_arx_perms(sender, **kwargs):
+    """
+    Grant permission to organizations to manage arx:
+        - add new project
+        - delete their own project
+    """
+    user = kwargs['instance']
+    perms = Permission.objects.get(codename='add_project')
+    user.profile.user_permissions.add(perms)
+    user.save()
+    return user
+
+post_save.connect(grant_arx_perms, sender=Organization)
