@@ -224,6 +224,7 @@ INSTALLED_APPS = [
 #    "django_assets",
     "template_repl",
     "compressor",
+    "gunicorn",
 ]
 
 
