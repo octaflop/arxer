@@ -50,7 +50,7 @@ def change_project(*args, **kwargs):
 @permission_required('verbena.join_project')
 def leave_project(request, *args, **kwargs):
     "Leave a volunteer opportunity"
-    volunteer = Member.objects.get(profile__user=request.user)
+    volunteer = Member.objects.get(profile=request.user)
     res = Research.objects.get(slug=kwargs['slug'])
     res.volunteers.remove(volunteer)
     try:
@@ -111,7 +111,7 @@ def join_vop(request, *args, **kwargs):
 @permission_required('verbena.join_volunteer')
 def leave_vop(request, *args, **kwargs):
     "Leave a volunteer opportunity"
-    volunteer = Member.objects.get(profile__user=request.user)
+    volunteer = Member.objects.get(profile=request.user)
     op = VolunteerOpportunity.objects.get(slug=kwargs['slug'])
     op.volunteers.remove(volunteer)
     try:
@@ -129,7 +129,7 @@ def add_actiongroup(request, *args, **kwargs):
     agform = ActionGroupForm(data)
     if agform.is_valid():
         new_ag = agform.save(commit=False)
-        user = GeneralMember.objects.get(profile__user=request.user) or None
+        user = GeneralMember.objects.get(profile=request.user) or None
         try:
             new_ag.leader = user
             saved_ag = new_ag.save()
@@ -143,7 +143,7 @@ def add_actiongroup(request, *args, **kwargs):
 @permission_required('verbena.join_actiongroup')
 def join_actiongroup(request, *args, **kwargs):
     "Join an action group: must be a general member"
-    member = Member.objects.get(profile__user=request.user)
+    member = Member.objects.get(profile=request.user)
     ag = ActionGroup.objects.get(slug=kwargs['slug'])
     ag.supporters.add(member)
     try:
@@ -156,7 +156,7 @@ def join_actiongroup(request, *args, **kwargs):
 @permission_required('verbena.join_actiongroup')
 def leave_actiongroup(request, *args, **kwargs):
     "Leave an action group: must be a general member"
-    member = Member.objects.get(profile__user=request.user)
+    member = Member.objects.get(profile=request.user)
     ag = ActionGroup.objects.get(slug=kwargs['slug'])
     ag.supporters.remove(member)
     try:

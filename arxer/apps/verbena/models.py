@@ -66,37 +66,6 @@ class Member(models.Model):
         self.slug = slugify(self.profile.username)
         super(Member, self).save(*args, **kwargs)
 
-def create_member(sender, **kwargs):
-    """
-    Create a new member when a User object is saved
-    """
-    # Check for a new user
-    if not kwargs['created']:
-        return
-
-    # get the User account instance
-    user = kwargs['instance']
-
-    # don't make a member if it already exists
-    try:
-        p = Member.objects.get(profile=user)
-        return p
-    except Member.DoesNotExist:
-        p = None
-    try:
-        profile = Profile.objects.get(user=user)
-    except Profile.DoesNotExist:
-        profile = Profile(
-            user = user,
-        )
-        profile.save()
-    member = Member(
-        profile = user,
-    )
-    member.save()
-
-post_save.connect(create_member, sender=User)
-
 class GeneralMember(Member):
     """ An entity representing a registered, unaffiliated user.
         Individual persons are represented in this way. This ensures that only
@@ -585,35 +554,41 @@ class Navigation(models.Model):
         self.navlogo_path = "%s%s" % ("/site_media/static", self.navlogo_path)
         super(Navigation, self).save(*args, **kwargs)
 
-## Not my best solution, but I may need to revisit this upon the client's
-## request.
-#class SubNavigation(models.Model):
-#    """
-#    A model referring to the subnavigation template tags.
-#    """
-#    title = models.CharField(_("Menu title"), max_length=80)
-#    link = models.CharField(_("URL reference"), max_length=80)
-#    menu_slug = models.SlugField(_("Menu slug"), help_text=_("A\
-#            template-friendly name, such as 'action-group'"))
-#    navlogo_path = models.FilePathField(_("Logo path"), help_text=_("Path to\
-#            navigation logo, based on STATIC_URL, include name. Must be a\
-#            png."), path="%s/%s" % (STATIC_ROOT, "nav"), blank=True, recursive=True)
-#    weight = models.IntegerField(default=0)
-#    nav_key = models.ForeignKey(Navigation, related_name="supernav")
-#
-#    def __unicode__(self):
-#        return self.title
-#
-#    class Meta:
-#        ordering = ["weight"]
-#        verbose_name_plural = "SubNavigation Paths"
-#
-#    def save(self, *args, **kwargs):
-#        self.navlogo_path = str(self.navlogo_path).replace(STATIC_ROOT, '')
-#        self.navlogo_path = "%s%s" % ("/site_media/static", self.navlogo_path)
-#        super(SubNavigation, self).save(*args, **kwargs)
+################################################################################
+# Listeners
+################################################################################
+def create_member(sender, **kwargs):
+    """
+    Create a new member when a User object is saved
+    """
+    # Check for a new user
+    if not kwargs['created']:
+        return
 
-# listeners
+    # get the User account instance
+    user = kwargs['instance']
+
+    # don't make a member if it already exists
+    try:
+        p = Member.objects.get(profile=user)
+        return p
+    except Member.DoesNotExist:
+        p = None
+    try:
+        profile = Profile.objects.get(user=user)
+    except Profile.DoesNotExist:
+        profile = Profile(
+            user = user,
+        )
+        profile.save()
+    member = GeneralMember(
+        profile = user,
+    )
+    member.save()
+
+post_save.connect(create_member, sender=User)
+
+
 def grant_addgroup_perms(sender, **kwargs):
     """
     Grant permission to faculty and students to create groups
