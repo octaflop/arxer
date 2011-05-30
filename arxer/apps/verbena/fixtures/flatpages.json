@@ -30,6 +30,21 @@
     }
   }, 
   {
+    "pk": 7, 
+    "model": "flatpages.flatpage", 
+    "fields": {
+      "registration_required": false, 
+      "title": "About This Website", 
+      "url": "/about-us/site/", 
+      "template_name": "verbena/about_us/about_site.html", 
+      "sites": [
+        1
+      ], 
+      "content": "This site was made by the VCN webteam.", 
+      "enable_comments": false
+    }
+  }, 
+  {
     "pk": 2, 
     "model": "flatpages.flatpage", 
     "fields": {
