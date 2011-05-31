@@ -14,32 +14,31 @@ TODO:
 from django.test import TestCase
 from django.test.client import Client
 from django.contrib.auth.models import User
+from verbena.models import Student, Faculty, Organization, Location, Member, Event
 import datetime
-from verbena.models import Student, Faculty, Organization, Location, Member,\
-Event
 
 class StudentTestCase(TestCase):
     #fixtures = ['dev.json']
     def setUp(self):
         self.u = User.objects.create(username='bob', password='that', first_name='Bob',
         last_name='Exampler')
-        self.bob = Student.objects.create(user=self.u)
+        self.bob = Student.objects.create(member=self.u.member)
         self.c = Client()
 
     def test_url(self):
-        url = "/members/students/%s" % self.bob.slug
+        url = "/members/students/%s" % self.bob.member.slug
         response = self.c.get(url)
         self.assertContains(response, self.u.username)
 
 class FacultyTestCase(TestCase):
     def setUp(self):
         self.u = User.objects.create(username='julie', password='that',
-        first_name='Julie', last_name='example')
-        self.julie = Faculty.objects.create(user=self.u)
+            first_name='Julie', last_name='example')
+        self.julie = Faculty.objects.create(member=self.u.member)
         self.c = Client()
 
     def test_url(self):
-        url = "/members/faculty/%s" % self.julie.slug
+        url = "/members/faculty/%s" % self.julie.member.slug
         response = self.c.get(url)
         self.assertContains(response, self.u.username)
 
@@ -49,26 +48,27 @@ class OrganizationTestCase(TestCase):
             first_name='Bill', last_name='Hippie')
         self.bob = User.objects.create(username='BobMarley',
             password='that', first_name='Bob', last_name='Marley')
-        self.leader = Member.objects.create(user=self.bob)
+        self.leader = self.bob.member
         self.location =  Location.objects.create(place='Vancouver')
-        self.hippies = Organization.objects.create(user=self.u,
-            leader=self.leader, location=self.location, title="The Hippies")
+        self.hippies = Organization.objects.create(
+            leader=self.leader, about="About noting", location=self.location, title="The Hippies")
         self.c = Client()
         self.c.logout()
+
     def test_page_disp(self):
-        url = "/organization/%s" % self.hippies.slug
+        url = "/organization/%s" % self.hippies.org_slug
         response = self.c.get(url)
         self.assertContains(response, self.hippies.title)
     def test_page_noedit(self):
-        url = "/organization/%s/edit" % self.hippies.slug
+        url = "/organization/%s/edit" % self.hippies.org_slug
         self.c.login(username='hippieclub', password='that')
         response = self.c.get(url)
         self.assertNotContains(response, self.hippies.title)
     def test_page_noedit(self):
-        url = "/organization/%s/edit" % self.hippies.slug
+        url = "/organization/%s/edit" % self.hippies.org_slug
         login_url = "/account/login/"
         redirect_url = "%s?next=/organization/%s/edit" % (login_url,
-                self.hippies.slug)
+                self.hippies.org_slug)
         response = self.c.get(url)
         self.assertRedirects(response, redirect_url)
 

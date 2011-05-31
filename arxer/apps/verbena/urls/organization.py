@@ -26,7 +26,8 @@ org_edit = {
 
 org_detail = {
     "queryset" : Organization.objects.all(),
-    "template_name" : "%s%s" % (tdir, "organization_detail.html")
+    "template_name" : "%s%s" % (tdir, "organization_detail.html"),
+    "slug_field" : "org_slug",
 }
 
 urlpatterns = patterns("",

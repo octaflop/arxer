@@ -163,7 +163,7 @@ class Student(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        return ('student_view', [str(self.slug)])
+        return ('student_view', [str(self.member.slug)])
 
 class Faculty(models.Model):
     """
@@ -189,7 +189,7 @@ class Faculty(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        return ('faculty_view', [str(self.slug)])
+        return ('faculty_view', [str(self.member.slug)])
 
 #############################################################################
 # GROUP-Based Models
@@ -591,7 +591,7 @@ def grant_addgroup_perms(sender, **kwargs):
         return
     generic_member = kwargs['instance']
     perms = Permission.objects.get(codename='add_actiongroup')
-    generic_member.member.user.user_permissions.add(perm)
+    generic_member.member.user.user_permissions.add(perms)
     generic_member.save()
     return generic_member
 
@@ -612,7 +612,7 @@ def grant_arx_perms(sender, **kwargs):
     org.save()
     return org
 
-#post_save.connect(grant_arx_perms, sender=Organization)
+post_save.connect(grant_arx_perms, sender=Organization)
 
 
 ################################################################################

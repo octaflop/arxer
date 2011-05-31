@@ -56,7 +56,7 @@ def add_project(request, *args, **kwargs):
     projform = ProjectForm(data=data)
     if projform.is_valid():
         try:
-            projform.student_leader = Organization.objects.get(user=request.user)
+            projform.student_leader = Organization.objects.get(leader__user=request.user)
         except Organization.DoesNotExist:
             return HttpResponse(status=403)
         try:
@@ -94,7 +94,9 @@ def join_project(*args, **kwargs):
 
 @permission_required('verbena.change_research')
 def change_research(*args, **kwargs):
-    "join a research project"
+    """
+    join a research project
+    """
     return update_object(*args, **kwargs)
 
 # Heavy lifting
@@ -122,7 +124,9 @@ def list_all_members(request, *args, **kargs):
 @login_required
 @permission_required('verbena.join_volunteer')
 def join_vop(request, *args, **kwargs):
-    "Join a volunteer opportunity: must be a general member"
+    """
+    Join a volunteer opportunity: must be a general member
+    """
     volunteer = Member.objects.get(user=request.user)
     op = VolunteerOpportunity.objects.get(slug=kwargs['slug'])
     op.volunteers.add(volunteer)
@@ -136,7 +140,9 @@ def join_vop(request, *args, **kwargs):
 @login_required
 @permission_required('verbena.join_volunteer')
 def leave_vop(request, *args, **kwargs):
-    "Leave a volunteer opportunity"
+    """
+    Leave a volunteer opportunity
+    """
     volunteer = Member.objects.get(user=request.user)
     op = VolunteerOpportunity.objects.get(slug=kwargs['slug'])
     op.volunteers.remove(volunteer)
@@ -150,12 +156,13 @@ def leave_vop(request, *args, **kwargs):
 @login_required
 @permission_required('verbena.add_actiongroup')
 def add_actiongroup(request, *args, **kwargs):
-    "Create an action group and set up logged-in user as the leader"
+    """
+    Create an action group and set up logged-in user as the leader
+    """
     data = request.POST or None
     agform = ActionGroupForm(data)
     if agform.is_valid():
         new_ag = agform.save(commit=False)
-        ##user = Member.objects.get(profile=request.user) or None
         user = request.user.member or None
         try:
             new_ag.leader = user
@@ -170,7 +177,6 @@ def add_actiongroup(request, *args, **kwargs):
 @permission_required('verbena.join_actiongroup')
 def join_actiongroup(request, *args, **kwargs):
     "Join an action group: must be a general member"
-    ##member = Member.objects.get(profile=request.user)
     member = request.user.member
     try:
         ag = ActionGroup.objects.get(slug=kwargs['slug'])
@@ -187,7 +193,6 @@ def join_actiongroup(request, *args, **kwargs):
 @permission_required('verbena.join_actiongroup')
 def leave_actiongroup(request, *args, **kwargs):
     "Leave an action group: must be a general member"
-    #member = Member.objects.get(profile=request.user)
     member = request.user.member
     try:
         ag = ActionGroup.objects.get(slug=kwargs['slug'])
