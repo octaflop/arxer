@@ -1,5 +1,5 @@
 from django import template
-from verbena.models import Navigation##, SubNavigation
+from verbena.models import Navigation
 from pinax.apps.account.forms import LoginForm
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _

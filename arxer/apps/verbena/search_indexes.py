@@ -1,7 +1,7 @@
 from haystack.indexes import *
 from haystack import site
 from verbena.models import Project, ActionGroup, Organization, Student,\
-Faculty, GeneralMember, Event
+Faculty, Member, Event
 
 class ProjectIndex(SearchIndex):
     text = CharField(document=True, use_template=True)
@@ -24,7 +24,7 @@ class EventIndex(SearchIndex):
     text = CharField(document=True, use_template=True)
     title_auto = EdgeNgramField(model_attr='title')
 
-class GeneralMemberIndex(SearchIndex):
+class MemberIndex(SearchIndex):
     text = CharField(document=True, use_template=True)
 
 class StudentIndex(SearchIndex):
@@ -36,7 +36,7 @@ class FacultyIndex(SearchIndex):
 site.register(Project, ProjectIndex)
 site.register(ActionGroup, ActionGroupIndex)
 site.register(Organization, OrganizationIndex)
-site.register(GeneralMember, GeneralMemberIndex)
+site.register(Member, MemberIndex)
 site.register(Student, StudentIndex)
 site.register(Faculty, FacultyIndex)
 site.register(Event, EventIndex)

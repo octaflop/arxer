@@ -7,10 +7,10 @@ from django.shortcuts import get_object_or_404, render_to_response, redirect
 from django.views.generic.simple import direct_to_template as render
 from django.core.urlresolvers import reverse
 from verbena.models import Organization, Project, VolunteerOpportunity,\
-    Member, ActionGroup, Research, GeneralMember, Student, Faculty, Event,\
+    Member, ActionGroup, Research, Student, Faculty, Event,\
     StudentProject
 from verbena.forms import ProjectForm, OrganizationForm, LocationForm,\
-    GeneralMemberForm, StudentForm, UserForm, MemberForm, ActionGroupForm
+    StudentForm, UserForm, MemberForm, ActionGroupForm
 from verbena.models import Organization, Location, Project
 from django.views.generic.list_detail import object_list, object_detail
 from django.views.generic.create_update import create_object, update_object
@@ -56,7 +56,7 @@ def add_project(request, *args, **kwargs):
     projform = ProjectForm(data=data)
     if projform.is_valid():
         try:
-            projform.student_leader = Organization.objects.get(profile=request.user)
+            projform.student_leader = Organization.objects.get(user=request.user)
         except Organization.DoesNotExist:
             return HttpResponse(status=403)
         try:
@@ -76,7 +76,7 @@ def change_project(*args, **kwargs):
 @permission_required('verbena.join_project')
 def leave_project(request, *args, **kwargs):
     "Leave a volunteer opportunity"
-    volunteer = GeneralMember.objects.get(profile=request.user)
+    volunteer = Member.objects.get(user=request.user)
     res = Research.objects.get(slug=kwargs['slug'])
     res.volunteers.remove(volunteer)
     try:
@@ -103,7 +103,7 @@ def list_all_members(request, *args, **kargs):
     List all of the members
     """
     member_list = []
-    genmems = GeneralMember.objects.all()
+    genmems = Member.objects.all()
     for genmem in genmems:
         member_list.append(genmem)
     orgs = Organization.objects.all()
@@ -123,7 +123,7 @@ def list_all_members(request, *args, **kargs):
 @permission_required('verbena.join_volunteer')
 def join_vop(request, *args, **kwargs):
     "Join a volunteer opportunity: must be a general member"
-    volunteer = GeneralMember.objects.get(user=request.user)
+    volunteer = Member.objects.get(user=request.user)
     op = VolunteerOpportunity.objects.get(slug=kwargs['slug'])
     op.volunteers.add(volunteer)
     try:
@@ -137,7 +137,7 @@ def join_vop(request, *args, **kwargs):
 @permission_required('verbena.join_volunteer')
 def leave_vop(request, *args, **kwargs):
     "Leave a volunteer opportunity"
-    volunteer = GeneralMember.objects.get(profile=request.user)
+    volunteer = Member.objects.get(user=request.user)
     op = VolunteerOpportunity.objects.get(slug=kwargs['slug'])
     op.volunteers.remove(volunteer)
     try:
@@ -155,7 +155,7 @@ def add_actiongroup(request, *args, **kwargs):
     agform = ActionGroupForm(data)
     if agform.is_valid():
         new_ag = agform.save(commit=False)
-        ##user = GeneralMember.objects.get(profile=request.user) or None
+        ##user = Member.objects.get(profile=request.user) or None
         user = request.user.member or None
         try:
             new_ag.leader = user
@@ -170,7 +170,7 @@ def add_actiongroup(request, *args, **kwargs):
 @permission_required('verbena.join_actiongroup')
 def join_actiongroup(request, *args, **kwargs):
     "Join an action group: must be a general member"
-    ##member = GeneralMember.objects.get(profile=request.user)
+    ##member = Member.objects.get(profile=request.user)
     member = request.user.member
     try:
         ag = ActionGroup.objects.get(slug=kwargs['slug'])
@@ -187,7 +187,7 @@ def join_actiongroup(request, *args, **kwargs):
 @permission_required('verbena.join_actiongroup')
 def leave_actiongroup(request, *args, **kwargs):
     "Leave an action group: must be a general member"
-    #member = GeneralMember.objects.get(profile=request.user)
+    #member = Member.objects.get(profile=request.user)
     member = request.user.member
     try:
         ag = ActionGroup.objects.get(slug=kwargs['slug'])
@@ -220,7 +220,7 @@ def add_organization(request, *args, **kwargs):
                         userform.cleaned_data['password'])
         else:
             new_user = request.user
-        new_organization.profile = new_user
+        new_organization.user = new_user
         new_organization.save()
         # JS Map information
         location = {

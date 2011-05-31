@@ -1,6 +1,6 @@
 from django.contrib.admin.models import User
 from verbena.models import Organization, Grant, Project, ActionGroup, Member,\
-    Workshop, VolunteerOpportunity, Faculty, Student, GeneralMember, Location,\
+    Workshop, VolunteerOpportunity, Faculty, Student, Location,\
     Event, Member, Research, StudentProject
 from django.forms import ModelForm
 import django.forms as forms
@@ -34,9 +34,9 @@ class MemberForm(ModelForm):
     class Meta:
         model = Member
 
-class GeneralMemberForm(ModelForm):
+class MemberForm(ModelForm):
     class Meta:
-        model = GeneralMember
+        model = Member
 
 class FacultyForm(ModelForm):
     class Meta:
@@ -64,7 +64,7 @@ class OrganizationForm(ModelForm):
 
     class Meta:
         model = Organization
-        exclude = ('location','profile',)
+        exclude = ('location','user',)
         fields = ('title', 'slug', 'about', 'mandate',
                 'community','service', 'funding', 'annual_budget',
                 'nonprofit_status', 'website',)

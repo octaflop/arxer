@@ -6,30 +6,27 @@ from ajax_select import make_ajax_form
 
 from verbena.models import Student, Faculty, NewsRelease, Location, Project,\
     VolunteerOpportunity, Organization, Workshop, ActionGroup, Grant,\
-    Navigation, Member##, SubNavigation
+    Navigation, Member
+
+#class MemberAdmin(UserAdmin):
+#    pass
 
 class MemberAdmin(admin.ModelAdmin):
-    list_display = ('profile',)
+    pass
 
 class NavigationAdmin(admin.ModelAdmin):
     list_display = ('title', 'link', 'weight',)
 
-#class StudentAdmin(UserAdmin):
 class StudentAdmin(admin.ModelAdmin):
-    list_display = ('profile', 'avatar', 'studying','comp_year',)
-    exclude = ('slug',)
+    list_display = ('member', 'studying','comp_year',)
 
-#class FacultyAdmin(UserAdmin):
 class FacultyAdmin(admin.ModelAdmin):
-    list_display = ('profile', 'avatar', 'in_faculty',)
-    exclude = ('slug',)
+    list_display = ('member', 'in_faculty',)
 
-#class OrganizationAdmin(UserAdmin):
 class OrganizationAdmin(admin.ModelAdmin):
-    list_display = ('title', 'about', 'website',)
+    list_display = ('title', 'leader', 'about', 'website',)
     prepopulated_fields = {'org_slug': ('title',)}
     display_inline = ('location', 'workshops',)
-    exclude=('slug',)
 
 class NewsReleaseAdmin(admin.ModelAdmin):
     list_display = ('content', 'datetime_released',)
@@ -60,16 +57,39 @@ class GrantAdmin(admin.ModelAdmin):
     exclude = ('date_applied',)
     prepopulated_fields = {'slug': ('title',)}
 
-admin.site.register(Member, MemberAdmin)
+# akin to adding !important, but for some "AlreadyRegistered" error.
+#admin.site.unregister(Project)
 admin.site.register(Project, ProjectAdmin)
+
+#admin.site.unregister(VolunteerOpportunity)
 admin.site.register(VolunteerOpportunity, VolunteerOpportunityAdmin)
+
+#admin.site.unregister(Workshop)
 admin.site.register(Workshop, WorkshopAdmin)
-admin.site.register(Location, LocationAdmin)
-admin.site.register(NewsRelease, NewsReleaseAdmin)
-admin.site.register(Student, StudentAdmin)
-admin.site.register(Faculty, FacultyAdmin)
-admin.site.register(ActionGroup, ActionGroupAdmin)
+
+#admin.site.unregister(Organization)
 admin.site.register(Organization, OrganizationAdmin)
+
+#admin.site.unregister(Location)
+admin.site.register(Location, LocationAdmin)
+
+#admin.site.unregister(NewsRelease)
+admin.site.register(NewsRelease, NewsReleaseAdmin)
+
+#admin.site.unregister(Student)
+admin.site.register(Student, StudentAdmin)
+
+#admin.site.unregister(Faculty)
+admin.site.register(Faculty, FacultyAdmin)
+
+#admin.site.unregister(ActionGroup)
+admin.site.register(ActionGroup, ActionGroupAdmin)
+
+#admin.site.unregister(Grant)
 admin.site.register(Grant, GrantAdmin)
+
+#admin.site.unregister(Navigation)
 admin.site.register(Navigation, NavigationAdmin)
-##admin.site.register(SubNavigation, SubNavigationAdmin)
+
+#admin.site.unregister(Member)
+admin.site.register(Member, MemberAdmin)

@@ -2,14 +2,12 @@ from django.conf.urls.defaults import *
 from django.views.generic.list_detail import object_list, object_detail
 from django.views.generic.create_update import create_object, update_object
 from verbena.views import join_actiongroup, leave_actiongroup, list_all_members
-from verbena.models import Student, GeneralMember, Faculty, Member
-from verbena.forms import StudentForm, FacultyForm, GeneralMemberForm
-
+from verbena.models import Student, Faculty, Member
+from verbena.forms import StudentForm, FacultyForm
 
 memtemp = "verbena/members/"
 # all profiles
 member_list = {
-    #"queryset"  : GeneralMember.objects.all()
     "queryset"  : Member.objects.all(),
     "template_name" : "%s%s" % (memtemp, "generalmember_list.html"),
 }

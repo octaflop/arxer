@@ -24,18 +24,23 @@ import datetime
 
 class Member(models.Model):
     """ An abstract to represent all signed-in users"""
-    profile = models.OneToOneField(User, related_name='member')
-    slug = models.SlugField(_("URL-friendly name"), max_length=80)#, unique=True)
+    user = models.OneToOneField(User)
+    slug = models.SlugField(_("URL-friendly name"), max_length=80, unique=True)
     avatar = models.ForeignKey(Photo, related_name='member_avatar', null=True, blank=True)
 
-    ##objects = UserManager()
+    how_heard = models.TextField(_("Reference"),
+            help_text=_("How did you hear about us?"),
+            blank=True)
+
+    objects = UserManager()
 
     def __unicode__(self):
-        return self.profile.username
+        return self.user.username
 
     class Meta:
         verbose_name = _("Member")
         verbose_name_plural = _("Members")
+        ## abstract=True
 
     def is_student(self):
         try:
@@ -62,24 +67,10 @@ class Member(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(self.profile.username)
+            self.slug = slugify(self.user.username)
         super(Member, self).save(*args, **kwargs)
 
-class GeneralMember(Member):
-    """ An entity representing a registered, unaffiliated user.
-        Individual persons are represented in this way. This ensures that only
-        individuals can sign up for projects and volunteer events.
-        This is also the main model for initial signups.
-        * apply for grants
-    """
-    how_heard = models.TextField(_("Reference"),
-            help_text=_("How did you hear about us?"),
-            blank=True)
-
-    class Meta:
-        verbose_name = _("General Member")
-
-class Organization(Member):
+class Organization(models.Model):
     """ Organizations are entities applying for projects or grants.
     Organizations share a single login.
     Organizations may not apply for workshops and participate in volunteer
@@ -90,6 +81,7 @@ class Organization(Member):
             help_text=_("The name of your organization"),
             max_length=100,
             unique=True)
+    leader = models.ForeignKey("Member")
     org_slug = models.SlugField(_("URL-friendly name for organization"))
     portrait = models.ForeignKey(Photo, related_name="org_portrait",
             blank=True, null=True)
@@ -121,10 +113,6 @@ class Organization(Member):
             default="http://example.com/",
             help_text="Website must begin with 'http://'")
 
-    @property
-    def leader(self):
-        return self.profile
-
     def __unicode__(self):
         return self.title
 
@@ -137,7 +125,7 @@ class Organization(Member):
         return ('org_view', [str(self.org_slug)])
 
     def save(self, *args, **kwargs):
-        if not self.slug:
+        if not self.org_slug:
             self.org_slug = slugify(self.title)
         super(Organization, self).save(*args, **kwargs)
 
@@ -148,7 +136,7 @@ CALL_TIMES = (
             ('EV', 'Evening'),
         )
 
-class Student(GeneralMember):
+class Student(models.Model):
     """
         A student must be able to:
         * apply for an ARX project
@@ -156,6 +144,7 @@ class Student(GeneralMember):
         * Lookup volunteer opportunities
         * Choose to receive the newsletter
     """
+    member = models.ForeignKey("Member")
     phone = PhoneNumberField(_("Phone Number"), blank=True, null=True)
     call_time = models.CharField(_("Best time to call"),
             help_text=_("Generally, when is the best time to call?"),
@@ -176,13 +165,14 @@ class Student(GeneralMember):
     def get_absolute_url(self):
         return ('student_view', [str(self.slug)])
 
-class Faculty(GeneralMember):
+class Faculty(models.Model):
     """
     * Book a presentation
     * Choose to receive the newsletter
     They may not apply for grants
     """
     # The faculty the faculty member is in 
+    member = models.ForeignKey("Member")
     in_faculty = models.CharField(_("Is a member of faculty"),
             max_length=80, blank=True, null=True)
     phone = PhoneNumberField(_("Phone Number"), blank=True, null=True)
@@ -205,17 +195,17 @@ class Faculty(GeneralMember):
 # GROUP-Based Models
 # Each of these models refers to individuals in some way.
 class ActionGroup(models.Model):
-    """ Action groups are groups led by a leader to accomplish a goal.
-    Action groups may be supported by any member, but only led & started by
-    GeneralMembers """
+    """
+    Action groups are groups led by a leader to accomplish a goal.
+    """
     title = models.CharField(_("Action Group title"), max_length=80)
     slug = models.SlugField(_("URL-friendly title"))
     portrait = models.ForeignKey(Photo, related_name='actiongroup_portrait',
             null=True, blank=True)
-    leader = models.ForeignKey("GeneralMember", related_name='ag_leader')
+    leader = models.ForeignKey("Member", related_name='ag_leader')
     # a required portrait
     # Similar to facebook's "like"
-    supporters = models.ManyToManyField(GeneralMember,
+    supporters = models.ManyToManyField(Member,
             related_name = "group-supporters",
             blank=True)
     photos = models.ManyToManyField(Gallery,
@@ -294,7 +284,7 @@ class Workshop(Event):
     """
     room = models.CharField(_("Room"), max_length=80, blank=True)
     # organizations may NOT sign up for a workshop
-    members = models.ManyToManyField(GeneralMember,
+    members = models.ManyToManyField(Member,
             related_name = "workshops",
             verbose_name = "members",
         )
@@ -306,10 +296,9 @@ class Workshop(Event):
 class VolunteerOpportunity(Event):
     """
     A volunteer opportunity is an event with an organization and members
-    organization may NOT sign up (GeneralMembers only)
     """
     organization = models.ForeignKey(Organization)
-    volunteers = models.ManyToManyField(GeneralMember,
+    volunteers = models.ManyToManyField(Member,
             related_name = "volunteer-opportunities",
             verbose_name = "volunteers",
         )
@@ -576,7 +565,7 @@ def create_member(sender, **kwargs):
 
     # don't make a member if it already exists
     try:
-        p = Member.objects.get(profile=user)
+        p = Member.objects.get(user=user)
         return p
     except Member.DoesNotExist:
         p = None
@@ -587,23 +576,24 @@ def create_member(sender, **kwargs):
             user = user,
         )
         profile.save()
-    member = GeneralMember(
-        profile = user,
+    member = Member(
+        user = user,
     )
     member.save()
 
 post_save.connect(create_member, sender=User)
 
-
 def grant_addgroup_perms(sender, **kwargs):
     """
     Grant permission to faculty and students to create groups
     """
-    user = kwargs['instance']
+    if not kwargs['created']:
+        return
+    generic_member = kwargs['instance']
     perms = Permission.objects.get(codename='add_actiongroup')
-    user.profile.user_permissions.add(perm)
-    user.save()
-    return user
+    generic_member.member.user.user_permissions.add(perm)
+    generic_member.save()
+    return generic_member
 
 post_save.connect(grant_addgroup_perms, sender=Student)
 post_save.connect(grant_addgroup_perms, sender=Faculty)
@@ -614,13 +604,15 @@ def grant_arx_perms(sender, **kwargs):
         - add new project
         - delete their own project
     """
-    user = kwargs['instance']
+    if not kwargs['created']:
+        return
+    org = kwargs['instance']
     perms = Permission.objects.get(codename='add_project')
-    user.profile.user_permissions.add(perms)
-    user.save()
-    return user
+    org.leader.user.user_permissions.add(perms)
+    org.save()
+    return org
 
-post_save.connect(grant_arx_perms, sender=Organization)
+#post_save.connect(grant_arx_perms, sender=Organization)
 
 
 ################################################################################

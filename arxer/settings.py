@@ -14,7 +14,6 @@ PINAX_THEME = "default"
 # informs django of the new verbena user class
 AUTH_PROFILE_MODULE = 'verebena.Member'
 
-
 DEBUG = True
 #COMPRESS_ENABLED = True
 TEMPLATE_DEBUG = DEBUG
