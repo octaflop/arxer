@@ -155,11 +155,12 @@ def add_actiongroup(request, *args, **kwargs):
     agform = ActionGroupForm(data)
     if agform.is_valid():
         new_ag = agform.save(commit=False)
-        user = GeneralMember.objects.get(profile=request.user) or None
+        ##user = GeneralMember.objects.get(profile=request.user) or None
+        user = request.user.member or None
         try:
             new_ag.leader = user
             return HttpResponseRedirect(new_ag.get_absolute_url())
-        except GeneralMember.DoesNotExist:
+        except Member.DoesNotExist:
             return HttpResponse(status=404)
         return HttpResponseRedirect(new_ag.get_absolute_url())
     ret = dict(form=agform)
@@ -169,7 +170,8 @@ def add_actiongroup(request, *args, **kwargs):
 @permission_required('verbena.join_actiongroup')
 def join_actiongroup(request, *args, **kwargs):
     "Join an action group: must be a general member"
-    member = GeneralMember.objects.get(profile=request.user)
+    ##member = GeneralMember.objects.get(profile=request.user)
+    member = request.user.member
     try:
         ag = ActionGroup.objects.get(slug=kwargs['slug'])
     except ActionGroup.DoesNotExist:
@@ -185,7 +187,8 @@ def join_actiongroup(request, *args, **kwargs):
 @permission_required('verbena.join_actiongroup')
 def leave_actiongroup(request, *args, **kwargs):
     "Leave an action group: must be a general member"
-    member = GeneralMember.objects.get(profile=request.user)
+    #member = GeneralMember.objects.get(profile=request.user)
+    member = request.user.member
     try:
         ag = ActionGroup.objects.get(slug=kwargs['slug'])
     except ActionGroup.DoesNotExist:
@@ -200,21 +203,24 @@ def leave_actiongroup(request, *args, **kwargs):
 # Organizations
 def add_organization(request, *args, **kwargs):
     data = request.POST or None
-    locform = LocationForm(data=data)
+    #locform = LocationForm(data=data)
+    locform = None
+    userform = None
     orgform = OrganizationForm(data=data)
-    userform = UserForm(data=data)
     location = {}
-    if locform.is_valid() and orgform.is_valid() and userform.is_valid():
-        new_location = locform.save()
+    if orgform.is_valid():
         new_organization = orgform.save(commit=False)
-        new_organization.location = new_location
-        if userform.cleaned_data['password'] == userform.cleaned_data['passconf']:
-            new_user = User.objects.create_user(
-                userform.cleaned_data['username'],
-                userform.cleaned_data['email'],
-                userform.cleaned_data['password'])
-            ## The profile is not implemented! TK
-        new_organization.user = new_user
+        if not request.user:
+            userform = UserForm(data=data)
+            if userform.is_valid():
+                if userform.cleaned_data['password'] == userform.cleaned_data['passconf']:
+                    new_user = User.objects.create_user(
+                        userform.cleaned_data['username'],
+                        userform.cleaned_data['email'],
+                        userform.cleaned_data['password'])
+        else:
+            new_user = request.user
+        new_organization.profile = new_user
         new_organization.save()
         # JS Map information
         location = {

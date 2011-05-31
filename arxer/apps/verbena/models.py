@@ -24,9 +24,9 @@ import datetime
 
 class Member(models.Model):
     """ An abstract to represent all signed-in users"""
-    profile = models.ForeignKey(User, blank=True, related_name='member_profile')
+    profile = models.OneToOneField(User, related_name='member')
     slug = models.SlugField(_("URL-friendly name"), max_length=80)#, unique=True)
-    avatar = models.ForeignKey(Photo, related_name='member_avatar', null=True)
+    avatar = models.ForeignKey(Photo, related_name='member_avatar', null=True, blank=True)
 
     ##objects = UserManager()
 
@@ -91,6 +91,8 @@ class Organization(Member):
             max_length=100,
             unique=True)
     org_slug = models.SlugField(_("URL-friendly name for organization"))
+    portrait = models.ForeignKey(Photo, related_name="org_portrait",
+            blank=True, null=True)
     community = models.CharField(
             _("What community do you represent or work with?"),
             max_length=180,
@@ -114,8 +116,10 @@ class Organization(Member):
             _("Are you a registered non-profit?"),
             default=False)
     about = models.TextField(_("About"))
-    location = models.ForeignKey("Location", blank=True)
-    website = models.URLField(_("website"), blank=True, null=True)
+    location = models.ForeignKey("Location", blank=True, null=True)
+    website = models.URLField(_("website"), blank=True, null=True,
+            default="http://example.com/",
+            help_text="Website must begin with 'http://'")
 
     @property
     def leader(self):
@@ -127,10 +131,15 @@ class Organization(Member):
     class Meta:
         verbose_name = _("Organization")
         verbose_name_plural = _("Organizations")
-    
+
     @models.permalink
     def get_absolute_url(self):
         return ('org_view', [str(self.org_slug)])
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.org_slug = slugify(self.title)
+        super(Organization, self).save(*args, **kwargs)
 
 # Call time options for students and faculty
 CALL_TIMES = (
@@ -612,3 +621,8 @@ def grant_arx_perms(sender, **kwargs):
     return user
 
 post_save.connect(grant_arx_perms, sender=Organization)
+
+
+################################################################################
+# Admin Notifications
+

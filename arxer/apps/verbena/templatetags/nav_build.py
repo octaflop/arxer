@@ -30,7 +30,7 @@ def memberbox(context):
     if 'user' in context:
         user = context['user']
         usm = User.objects.filter(username=user.username)[0]
-        member = usm.member_profile.get()
+        member = usm.member
     else:
         user = None
         member = None

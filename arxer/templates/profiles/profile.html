@@ -16,10 +16,6 @@
 
 {% block main_article %}
     {% user_display other_user as other_user_display %}
-    <div class="right_panel">
-        {% include "profiles/profile_right_panel.html" %}
-    </div>
-    
     <div class="left_panel">
         <div class="vcard">
             <div id="profile_avatar">
@@ -47,25 +43,10 @@
             {% endif %}
             
             {% if user.is_authenticated %}
-                <p>
-                    <a href="{% url tweet_followers other_user %}">{% trans "Followers" %}</a>: {% follower_count other_user %}
-                    <a href="{% url tweet_following other_user %}">{% trans "Following" %}</a>: {% following_count other_user %}
-                </p>
-                
                 {% if is_me %}
+									<p>{% trans "Hello, " %}{{ user.username }}</p>
                 {% else %}
-                    {# @@@ this could be done with ajax, or at the very least turned into an inclusion tag #}
-                    <div>
-                        <form method="POST" action="{% url toggle_follow other_user %}">
-                            {% csrf_token %}
-                            {% if is_following %}
-                                <input type="hidden" name="action" value="unfollow" /><input type="submit" value="{% trans "unfollow" %}"/>
-                            {% else %}
-                                <input type="hidden" name="action" value="follow" /><input type="submit" value="{% trans "follow tweets" %}"/>
-                            {% endif %}
-                        </form>
-                    </div>
-                    
+                                    
                     {# @@@ this should be an inclusion tag #}
                     {% if is_friend %}
                         <p>{% blocktrans %}You are friends with {{ other_user_display }}.{% endblocktrans %} <a href="{% url messages_compose %}{{ other_user }}/">{% trans "Send a message" %}</a>.</p>
@@ -114,73 +95,8 @@
                             {% endif %} {# previous_invitations_to #}
                         {% endif %} {# previous_invitations_from #}
                     {% endif %} {# is_friend #}
-                    
                 {% endif %} {# is me #}
-                
-                <h2>{% trans "Wiki Articles" %}</h2>
-                
-                {% if other_user.article_set.all %}
-                    <table class="bookmarks">
-                        {% for article in other_user.article_set.all %}
-                        <tr class="{% cycle odd,even %}">
-                            <td class="meta">
-                                {{ article.created_at|date }}
-                            </td>
-                            <td>
-                                <h2><a href="{% groupurl wiki_article article.group title=article.title %}">{{ article.title }}</a></h2>
-                                <div class="body">{{ article.content|truncatewords:25 }}</div>
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </table>
-                {% else %}
-                    <p>{% trans "No wiki articles yet." %}</p>
-                {% endif %}
-                
-                <h2>{% trans "Bookmarks" %}</h2>
-                
-                {% if other_user.saved_bookmarks.all %}
-                    <table class="bookmarks narrow">
-                        {% for bookmark_instance in other_user.saved_bookmarks.all.select_related %}
-                            <tr class="{% cycle odd,even %} xfolkentry">
-                                <td class="meta">
-                                    {{ bookmark_instance.saved|date }}
-                                    {# add who originally added it and when #}
-                                </td>
-                                <td>
-                                    <h2><a class="taggedlink" href="{{ bookmark_instance.bookmark.url }}">{{ bookmark_instance.description }}</a></h2>
-                                    <div class="url">{% if bookmark_instance.bookmark.get_favicon_url %}<img src="{{ bookmark_instance.bookmark.get_favicon_url }}" height="16" width="16"/> {% endif %}{{ bookmark_instance.bookmark.url }}</div>
-                                    <div class="body description">{{ bookmark_instance.note|linebreaks }}</div>
-                                </td>
-                            </tr>
-                        {% endfor %}
-                    </table>
-                {% else %}
-                    {% url add_bookmark as add_bookmark_url %}
-                    <p>{% blocktrans %}You haven't added any <a href="{{ add_bookmark_url }}">bookmarks</a> yet.{% endblocktrans %}</p>
-                {% endif %}
-                
-                
-                <h2>{% trans "Blog Posts" %}</h2>
-                
-                {% if other_user.added_posts.all %}
-                    {% for blog_post in other_user.added_posts.all %}
-                        {% show_blog_post blog_post %}
-                    {% endfor %}
-                {% else %}
-                    {% trans "No blog posts yet." %}
-                {% endif %}
-                
-                
-                <h2>{% trans "Tweets" %}</h2>
-                
-                {% if user.is_authenticated and is_me %}
-                    {% sent_tweet_listing user 0 is_me %}
-                {% else %}
-                    {% sent_tweet_listing other_user 0 is_me %}
-                {% endif %}
-                
-                
+                                
                 <h2>{% trans "Photos" %}</h2>
                 
                 {% public_photos for other_user as photos %}
@@ -200,10 +116,13 @@
             {% else %} {# not user.is_authenticated #}
                 {% url acct_signup as signup_url %}
                 {% url acct_login as login_url %}
-                <p>{% blocktrans %}<a href="{{ signup_url }}">Sign up</a> and <a href="{{ login_url }}">log in </a> to add this person as a friend and see their tweets and blog posts.{% endblocktrans %}</p>
+                <p>{% blocktrans %}<a href="{{ signup_url }}">Sign up</a> and
+								<a href="{{ login_url }}">log in </a> to add this person as a
+								friend.{% endblocktrans %}</p>
             {% endif %}
         </div><!--/vcard-->
     </div>
+		{% include "profiles/profile_right_panel.html" %}
 {% endblock %}
 
 {% block extra_body %}
