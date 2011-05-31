@@ -11,13 +11,26 @@
         <p>Here are some things to do to get started with this site:</p>
         
         <dl class="what_next">
+            <dt><a href="{% url student_add %}">Signup as a student</a></dt>
+            <dd>Students are able to <a href="{% url act_add %}">create
+						action-groups</a> and <a href="{% url workshop_home %}">join
+						workshops</a>.</dd>
+
+            <dt><a href="{% url faculty_add %}">Signup as a faculty member</a></dt>
+            <dd>Faculty members may <a href="{% url workshop_home %}">join
+						workshops</a>.</dd>
+
+            <dt><a href="{% url org_add %}">Signup as a faculty member</a></dt>
+            <dd>Organizations may create <a href="{% url arx_add %}">Action
+						Research Projects</a></dd>
+
             <dt><a href="{% url acct_email %}">verify an email address</a></dt>
             <dd>so you can receive notifications, reset your password and so people can find you more easily.</dd>
             
             <dt><a href="{% url profile_detail user.username %}">fill out your profile</a></dt>
             <dd>to tell the world a little about yourself.</dd>
             
-            <dt><a href="{% url avatar_change %}">add an avatar</a></dt>
+            <dt><a href="{% url member_avatar_change %}">add an avatar</a></dt>
             <dd>so people can see what you look like.</dd>
             
             <dt><a href="{% url act_home %}">join some action-groups</a></dt>

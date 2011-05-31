@@ -4,8 +4,10 @@
 {% block head_title %}
 	General Members
 {% endblock %}
-{% block body %}
-	<h2>All Individual Members</h2>
+{% block content_title %}
+	All Individual Members
+{% endblock %}
+{% block main_article %}
 	<ul class="members_list">
 		{% for member in object_list %}
 			<li><img src="{{ member.avatar.get_thumbnail_url }}" 

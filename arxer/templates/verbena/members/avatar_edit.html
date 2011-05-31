@@ -1,0 +1,12 @@
+{% extends "verbena/members/mem_base.html" %}
+
+{% load i18n %}
+
+{% block head_title %}{% trans "Change Avatar" %}{% endblock %}
+{% block content_title %}{% trans "Change Avatar" %}{% endblock %}
+
+{% block main_article %}
+	<form class='uniForm' id='avatar_form' method="post"
+		action="{% url member_change_avatar %}">
+	</form>
+{% endblock %}

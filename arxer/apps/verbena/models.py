@@ -27,7 +27,6 @@ class Member(models.Model):
     user = models.OneToOneField(User)
     slug = models.SlugField(_("URL-friendly name"), max_length=80, unique=True)
     avatar = models.ForeignKey(Photo, related_name='member_avatar', null=True, blank=True)
-
     how_heard = models.TextField(_("Reference"),
             help_text=_("How did you hear about us?"),
             blank=True)
@@ -40,27 +39,7 @@ class Member(models.Model):
     class Meta:
         verbose_name = _("Member")
         verbose_name_plural = _("Members")
-        ## abstract=True
 
-    def is_student(self):
-        try:
-            if self.pk == self.student.pk:
-                return True
-            else:
-                return False
-        except:
-            return
-
-    def is_faculty(self):
-        try:
-            if self.pk == self.faculty.pk:
-                return True
-            else:
-                return False
-        except:
-            return
-
-    # Will be overridden by student & faculty views (I hope)
     @models.permalink
     def get_absolute_url(self):
         return ('member_view', [str(self.slug)])
@@ -218,6 +197,9 @@ class ActionGroup(models.Model):
     class Meta:
         verbose_name = _("Action group")
         verbose_name_plural = _("Action groups")
+        permissions = (
+                ("join_actiongroup", "Can join Action Group"),
+            )
 
     @models.permalink
     def get_absolute_url(self):
@@ -272,6 +254,9 @@ class Event(models.Model):
 
     class Meta:
         ordering = ('-start_date',)
+        permissions = (
+                ("join_event", "Can join event"),
+            )
 
     @models.permalink
     def get_absolute_url(self):
@@ -413,6 +398,13 @@ class Project(models.Model):
     approved = ProjectManager()
     objects = models.Manager()
 
+    class Meta:
+        verbose_name = _("ARX Project")
+        verbose_name_plural = _("ARX Projects")
+        permissions = (
+                ("join_arx", "Can join ARX Project"),
+            )
+
     def __unicode__(self):
         return self.title
 
@@ -438,6 +430,11 @@ class StudentProject(Project):
             help_text=_("How would you like to apply this project in your\
                 course?"),
             blank=True)
+
+    class Meta:
+        permissions = (
+                ("join_arx_student", "Can join ARX Student Project"),
+            )
 
 # Grant Progress
 GRANT_STATUS = (
@@ -596,7 +593,6 @@ def grant_addgroup_perms(sender, **kwargs):
     return generic_member
 
 post_save.connect(grant_addgroup_perms, sender=Student)
-post_save.connect(grant_addgroup_perms, sender=Faculty)
 
 def grant_arx_perms(sender, **kwargs):
     """

@@ -1,0 +1,26 @@
+{% extends "verbena/members/mem_base.html" %}
+
+{% load i18n %}
+{% load uni_form_tags %}
+
+{% block main_article %}
+	{% if user.is_authenticated %}
+				<p>{% trans "You are already logged in. Would you like to:" %}</p>
+				<ul>
+					<li><a href='{% url student_add %}'>{% trans "Signup as a student" %}</a></li>
+					<li><a href='{% url faculty_add %}'>{% trans "Signup as a faculty	member" %}</a></li>
+					<li><a href='{% url org_add %}'>{% trans "Signup as an Organization" %}</a></li>
+				</ul>
+	{% else %}
+	<form class='signup uniForm' id="signup_form" method="post" 
+		action="{% url member_signup %}">
+		{% csrf_token %}
+		<fieldset class='inlineLabels'>
+			{{ form|as_uni_form }}
+			<div class="form_block">
+					<input type="submit" value="{% trans "Sign Up &raquo;" %}" />
+			</div>
+		</fieldset>
+	</form>
+	{% endif %}
+{% endblock %}

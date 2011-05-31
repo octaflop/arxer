@@ -18,6 +18,7 @@ from django.core.urlresolvers import reverse
 #haystack
 from haystack.query import SearchQuerySet
 from django.utils import simplejson
+from pinax.apps.account.forms import SignupForm
 import datetime
 
 def ev_list(request, *args, **kwargs):
@@ -100,14 +101,30 @@ def change_research(*args, **kwargs):
     return update_object(*args, **kwargs)
 
 # Heavy lifting
+def member_signup(request, *args, **kwargs):
+    """
+    Signup a new member
+    Add the member to a group-type if necessary
+    """
+    data = request.POST or None
+    form = SignupForm(data=data)
+    ret = dict(form=form)
+    return render(request, 'verbena/members/signup.html', ret)
+
+def member_avatar_edit(request, *args, **kwargs):
+    """
+    edit or add an avatar to the member
+    """
+    return render(request, 'verbena/members/avatar_edit.html', ret)
+
 def list_all_members(request, *args, **kargs):
     """
     List all of the members
     """
     member_list = []
-    genmems = Member.objects.all()
-    for genmem in genmems:
-        member_list.append(genmem)
+    mems = Member.objects.all()
+    for mem in mems:
+        member_list.append(mem)
     orgs = Organization.objects.all()
     for org in orgs:
         member_list.append(org)

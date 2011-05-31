@@ -1,7 +1,8 @@
 from django.conf.urls.defaults import *
 from django.views.generic.list_detail import object_list, object_detail
 from django.views.generic.create_update import create_object, update_object
-from verbena.views import join_actiongroup, leave_actiongroup, list_all_members
+from verbena.views import join_actiongroup, leave_actiongroup,\
+    list_all_members, member_signup, member_avatar_edit
 from verbena.models import Student, Faculty, Member
 from verbena.forms import StudentForm, FacultyForm
 
@@ -40,8 +41,9 @@ member_view = {
 }
 
 urlpatterns = patterns("",
-    ##url(r"^$", object_list, member_list, name="member_list"),
     url(r"^$", list_all_members, name="member_list"),
+    url(r"signup$", member_signup, name="member_signup"),
+    url(r"avatar/edit$", member_avatar_edit, name="member_avatar_edit"),
     url(r"students$", object_list, student_list, name="student_list"),
     url(r"students/add", create_object, student_add, name="student_add"),
     url(r"students/(?P<slug>[-\w]+)$", object_detail, member_view, name="student_view"),
