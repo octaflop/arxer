@@ -59,7 +59,7 @@ class Organization(models.Model):
             help_text=_("The name of your organization"),
             max_length=100,
             unique=True)
-    leader = models.ForeignKey("Member")
+    leader = models.OneToOneField("Member")
     org_slug = models.SlugField(_("URL-friendly name for organization"))
     portrait = models.ForeignKey(Photo, related_name="org_portrait",
             blank=True, null=True)
@@ -122,7 +122,7 @@ class Student(models.Model):
         * Lookup volunteer opportunities
         * Choose to receive the newsletter
     """
-    member = models.ForeignKey("Member")
+    member = models.OneToOneField("Member")
     phone = PhoneNumberField(_("Phone Number"), blank=True, null=True)
     call_time = models.CharField(_("Best time to call"),
             help_text=_("Generally, when is the best time to call?"),
@@ -150,7 +150,7 @@ class Faculty(models.Model):
     They may not apply for grants
     """
     # The faculty the faculty member is in 
-    member = models.ForeignKey("Member")
+    member = models.OneToOneField("Member")
     in_faculty = models.CharField(_("Is a member of faculty"),
             max_length=80, blank=True, null=True)
     phone = PhoneNumberField(_("Phone Number"), blank=True, null=True)
@@ -609,7 +609,8 @@ def grant_arx_perms(sender, **kwargs):
 
 post_save.connect(grant_arx_perms, sender=Organization)
 
-
 ################################################################################
 # Admin Notifications
+
+
 

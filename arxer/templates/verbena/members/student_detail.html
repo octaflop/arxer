@@ -1,15 +1,18 @@
 {% extends "verbena/members/mem_base.html" %}
 {% block head_title %}
-	{{ object.profile.user.username }}
+	{{ object.member.user.username }}
 {% endblock %}
-	{% block content_title %}<a href="{{ object.get_absolute_url }}">{{
-	object.profile.user.username	}}</a>{% endblock %}
+	{% block content_title %}<a href="{{ object.get_absolute_url }}">{{	object.member.user.username	}}</a>{% endblock %}
 {% block main_article %}
 	<dl>
-		<dt>Username:</dt><dd>{{ object.profile.user.username }}</dd>
-		<dt>Name:</dt><dd>{{ object.profile.user.last_name }}, {{ object.profile.user.first_name }}</dd>
-		<dt>email:</dt><dd>{{ object.profile.user.email }}</dd>
+		<dt>Username:</dt><dd>{{ object.member.user.username }}</dd>
+		<dt>Name:</dt><dd>{{ object.member.user.last_name }}, {{ object.member.user.first_name }}</dd>
+		<dt>email:</dt><dd>{{ object.member.user.email }}</dd>
 		<dt>Studying:</dt><dd>{{ object.studying }}</dd>
 		<dt>Expected Year of Completion:</dt><dd>{{ object.comp_year }}</dd>
 	</dl>
+{% if is_me %}
+<p> it's you</p>
+<a href='{% url student_edit object.member.slug %}'>Edit</a>
+{% endif %}
 {% endblock %}

@@ -12,19 +12,20 @@
 {% endif %}
 
 {% block main_article %}
-{% if perms.verbena.add_project %}
-	<form action="" method="post" class="uniForm">
-	{% csrf_token %}
-	{{ form|as_uni_form }}
-		<input type="submit" value="submit" />
-		{% if object.slug %}
-			<a href="{% url org_view object.slug %}">{% trans "Cancel Edits" %}</a>
-		{% endif %}
-	</form>
-{% else %}
-	{% trans "Sorry, you do not have permission to add an ARX Project" %}
-{% endif %}
+	{% if perms.verbena.add_project %}
+		<form action="" method="post" class="uniForm">
+		{% csrf_token %}
+		{{ form|as_uni_form }}
+			<input type="submit" value="submit" />
+			{% if object.slug %}
+				<a href="{% url org_view object.slug %}">{% trans "Cancel Edits" %}</a>
+			{% endif %}
+		</form>
+	{% else %}
+		{% trans "Sorry, you do not have permission to add an ARX Project" %}
+	{% endif %}
 {% endblock %}
+
 {% block extra_body %}
 	<script type="text/javascript" 
 	src="{{ STATIC_URL	}}admin/js/urlify.js"></script>

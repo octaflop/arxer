@@ -12,7 +12,7 @@
 	{% if not user.is_authenticated %}
 		{{ userform|as_uni_form }}
 	{% endif %}
-	{{ orgform|as_uni_form }}
+		{{ orgform|as_uni_form }}
 	<!-- The gMap canvas element -->
 	<!-- soon...
 		<div id="map_canvas">
@@ -30,7 +30,7 @@
 		src="{{ STATIC_URL	}}admin/js/urlify.js"></script>
 		<script type="text/javascript">
 			document.getElementById("id_title").onkeyup = function () {
-				var e = document.getElementById("id_slug");
+				var e = document.getElementById("id_org_slug");
 				if (!e._changed) { 
 					e.value =	URLify(document.getElementById("id_title").value, 75); 
 				}

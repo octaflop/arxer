@@ -51,30 +51,29 @@
 				</ul>
 		</div>	
 		{% endif %}
-		<header>
+		<header id="{% block header_id %}backBanner{% endblock %}">
 			{% block header %}{% endblock %}
 		</header>
 		<aside class="sign_in">
 			{% block sign_in %}{% endblock %}
 		</aside>
-		<aside class="search">
-			{% block search_box %}{% endblock %}
-		</aside>
 		<nav id="site_nav">
-			<nav id="main_nav">
-				{% block main_nav %}
-				{% endblock %}
-			</nav>
-			<nav id="main_navsub">
-				{% block main_navsub %}
-				{% endblock %}
-			</nav>
+			{% block main_nav %}
+			{% endblock %}
+		</nav>
+		<nav id="main_navsub">
+			{% block main_navsub %}
+			{% endblock %}
 		</nav>
 		<aside class="contact_box">
 			{% block contact_box %}
 			{% endblock %}
 		</aside>
+	<article id="content" class="{% block content_class %}{% endblock %}">
 		<aside "left_box">
+		<aside class="search">
+			{% block search_box %}{% endblock %}
+		</aside>
 			<section class='calendar'>
 				{% block calendar %}
 				{% endblock %}
@@ -88,7 +87,6 @@
 				{% endblock %}
 			</section>
 		</aside>
-		<article id="content" class="{% block content_class %}{% endblock %}">
 			<section id="main_content">
 			{% block main_content %}
 			{% endblock %}

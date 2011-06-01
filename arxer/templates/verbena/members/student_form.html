@@ -5,6 +5,7 @@
 {% endblock %}
 	{% block content_title %}{{ object.user.username }}{% endblock %}
 {% block main_article %}
+	{% if user.is_authenticated %}
 	<form action="" method="post" class="uniForm">
 	{% csrf_token %}
 	{{ form|as_uni_form }}
@@ -13,4 +14,7 @@
 			<a href="{% url student_view object.slug %}">Cancel Edits</a>
 		{% endif %}
 	</form>
+	{% else %}
+		<p>You are not logged in</p>
+	{% endif %}
 {% endblock %}

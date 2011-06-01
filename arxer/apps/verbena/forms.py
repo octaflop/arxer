@@ -51,6 +51,7 @@ class FacultyForm(ModelForm):
 class StudentForm(ModelForm):
     class Meta:
         model = Student
+        exclude = ('member',)
 
 class VolunteerOpForm(ModelForm):
     class Meta:
@@ -70,8 +71,8 @@ class OrganizationForm(ModelForm):
 
     class Meta:
         model = Organization
-        exclude = ('location','user',)
-        fields = ('title', 'slug', 'about', 'mandate',
+        exclude = ('location','leader',)
+        fields = ('title', 'org_slug', 'about', 'mandate',
                 'community','service', 'funding', 'annual_budget',
                 'nonprofit_status', 'website',)
 

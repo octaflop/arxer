@@ -10,9 +10,8 @@
 {% block main_article %}
 	<ul class="student_list">
 		{% for student in object_list %}
-			<li><b><a href="{{ student.get_absolute_url }}">{{ student.user.username }}
-			{{ student.user.first_name }}
-			{{ student.user.last_name }}</a><b></li>
+			<li><b><a href="{{ student.get_absolute_url }}">{{ student.member.user.username }}<br /></b>
+			{{ student.member.user.first_name }} {{ student.member.user.last_name }}</a></li>
 		{% endfor %}
 	</ul>
 	<a href="{% url member_list %}">Back to member list</a>

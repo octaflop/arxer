@@ -5,15 +5,13 @@
 	Action Research Exchange Projects
 {% endblock %}
 
-{% block main_content %}
-	{% block content_title %}{% trans "ARX Projects" %}{% endblock %}
+{% block content_title %}{% trans "ARX Projects" %}{% endblock %}
 
-	{% block main_article %}
+{% block main_article %}
 	<ul class='proj_list'>
 		{% for proj in object_list %}
 			<li><b><a href="{{ proj.get_absolute_url }}">{{ proj.title }}</a></b></li>
 		{% endfor %}
 	</ul>
 	<a href="{% url arx_add %}">{% trans "Apply for a project" %}</a>
-	{% endblock %}
 {% endblock %}

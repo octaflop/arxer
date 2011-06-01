@@ -58,9 +58,6 @@
 {% endblock %}
 
 {% block calendar %}
-	<header>
-		<h1>calendar</h1>
-	</header>
 	<h3 class="calendar">
 		<a href="{% url event_home %}"><img src="{{ STATIC_URL }}verbena/img/calendar.png" alt="Calendar"
 		title="Click to see events" /></a>
@@ -82,6 +79,8 @@
 {% endblock %}
 
 {% block main_content %}
+<section>
+<article class="content_post">
 	<article class="content_back">
 		<article class="content_dot">
 			<header>
@@ -90,6 +89,8 @@
 			{% block main_article %}{% endblock %}
 		</article>
 	</article>
+</article>
+</section>
 {% endblock %}
 
 {% block footer %}

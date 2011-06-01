@@ -50,6 +50,61 @@ def suggestion(request):
 
 # Simple Wrappers
 
+# Student signup
+def add_student(request, *args, **kwargs):
+    """
+    Sign up a member as a student.
+    Also "seal" the student into this membership
+    """
+    data = request.POST
+    studentform = StudentForm(data=data)
+    if studentform.is_valid():
+        student = studentform.save(commit=False)
+        member = request.user.member
+        student.member = member
+        try:
+            student.save()
+        except:
+            return HttpResponse(status=500)
+        return redirect(student.get_absolute_url())
+    ret = dict(form=studentform)
+    return HttpResponse(request, 'verbena/members/student_form.html', ret)
+
+def student_edit(request, *args, **kwargs):
+    """ A wrapper to pull up a student and edit them """
+    student = Student.objects.get(member__slug=kwargs['slug'])
+    is_me = False
+    data = request.POST or None
+    #if not data:
+    #    data = student
+    form = StudentForm(data=data)
+    if student.member.user == request.user:
+        is_me=True
+    if form.is_valid():
+        new_student = form.save(commit=False)
+        if is_me:
+            new_student.member = request.user.member
+            student.delete()
+            new_student.save()
+            return redirect(student.get_absolute_url())
+        else:
+            return HttpResponse(status=403)
+    ret = dict(object=student, form=form, is_me=is_me)
+    return render(request, 'verbena/members/student_form.html', ret)
+
+def student_detail(request, *args, **kwargs):
+    """ A wrapper to see if a student is logged in as themselves """
+    student = Student.objects.filter(member__slug=kwargs['slug'])
+    is_me = False
+    if student:
+        student = student[0]
+        if student.member.user == request.user:
+            is_me = True
+    else:
+        return HttpResponse(status=404)
+    ret = dict(is_me=is_me, object=student)
+    return render(request, 'verbena/members/student_detail.html', ret)
+
 # ARX
 @permission_required('verbena.add_project')
 def add_project(request, *args, **kwargs):
@@ -112,6 +167,7 @@ def member_signup(request, *args, **kwargs):
     ret = dict(form=form)
     return render(request, 'verbena/members/signup.html', ret)
 
+@login_required
 def member_avatar_edit(request, *args, **kwargs):
     """
     edit or add an avatar to the member
@@ -238,15 +294,12 @@ def leave_actiongroup(request, *args, **kwargs):
 # Organizations
 def add_organization(request, *args, **kwargs):
     data = request.POST or None
-    #locform = LocationForm(data=data)
-    locform = None
-    userform = None
+    userform = UserForm(data=data)
     orgform = OrganizationForm(data=data)
     location = {}
     if orgform.is_valid():
         new_organization = orgform.save(commit=False)
         if not request.user:
-            userform = UserForm(data=data)
             if userform.is_valid():
                 if userform.cleaned_data['password'] == userform.cleaned_data['passconf']:
                     new_user = User.objects.create_user(
@@ -255,15 +308,9 @@ def add_organization(request, *args, **kwargs):
                         userform.cleaned_data['password'])
         else:
             new_user = request.user
-        new_organization.user = new_user
+        new_organization.leader = new_user.member
         new_organization.save()
-        # JS Map information
-        location = {
-            "latitude": new_location.latitude,
-            "longitude": new_location.longitude,
-            "place": new_location.place
-        }
         return HttpResponseRedirect(new_organization.get_absolute_url())
-    ret = dict(userform=userform, locform=locform, orgform=orgform, location=location)
+    ret = dict(userform=userform, orgform=orgform)
     return render(request, 'verbena/organization/organization_form.html', ret)
 
