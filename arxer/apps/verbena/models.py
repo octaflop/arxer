@@ -8,11 +8,10 @@ from django.contrib.localflavor.us.models import PhoneNumberField
 from django.template.defaultfilters import slugify
 
 from verbena.managers import ProjectManager
+from guardian.shortcuts import assign
 
 from django.utils.translation import ugettext_lazy as _
 
-##from pinax.apps.profiles.models import Profile
-##from pinax.apps.tribes.models import Tribe
 from settings import STATIC_ROOT, MEDIA_ROOT
 
 import datetime

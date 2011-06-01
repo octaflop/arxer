@@ -1,12 +1,30 @@
 {% extends "verbena/members/mem_base.html" %}
 
 {% load i18n %}
+{% load uni_form_tags %}
 
 {% block head_title %}{% trans "Change Avatar" %}{% endblock %}
 {% block content_title %}{% trans "Change Avatar" %}{% endblock %}
 
 {% block main_article %}
-	<form class='uniForm' id='avatar_form' method="post"
-		action="{% url member_change_avatar %}">
+	{% if user.is_authenticated %}
+	<form enctype="mutlipart/form-data" class='uniForm' id='avatar_form' method="post"
+		action="{% url member_avatar_edit %}">
+		{% csrf_token %}
+		{{ form|as_uni_form }}
+		<input type='submit' value='Change' />
 	</form>
+	{% endif %}
+{% endblock %}
+{% block extra_body %}
+		<script type="text/javascript" 
+		src="{{ STATIC_URL }}admin/js/urlify.js"></script>
+		<script type="text/javascript">
+			document.getElementById("id_title").onkeyup = function () {
+				var e = document.getElementById("id_title_slug");
+				if (!e._changed) { 
+					e.value =	URLify(document.getElementById("id_title").value, 75); 
+				}
+			}
+		</script>
 {% endblock %}

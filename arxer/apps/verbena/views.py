@@ -10,7 +10,8 @@ from verbena.models import Organization, Project, VolunteerOpportunity,\
     Member, ActionGroup, Research, Student, Faculty, Event,\
     StudentProject
 from verbena.forms import ProjectForm, OrganizationForm, LocationForm,\
-    StudentForm, UserForm, MemberForm, ActionGroupForm
+    StudentForm, UserForm, MemberForm, ActionGroupForm, AvatarForm
+from django.core.files.uploadedfile import SimpleUploadedFile
 from verbena.models import Organization, Location, Project
 from django.views.generic.list_detail import object_list, object_detail
 from django.views.generic.create_update import create_object, update_object
@@ -115,6 +116,18 @@ def member_avatar_edit(request, *args, **kwargs):
     """
     edit or add an avatar to the member
     """
+    data = request.POST or None
+    file_data = request.FILES
+    form = AvatarForm(data, file_data)
+    if form.is_valid():
+        member = request.user.member
+        member.avatar = form.save()
+        try:
+            member.save()
+            return redirect(member.get_absolute_url())
+        except:
+            return HttpResponse(status=404)
+    ret = dict(form=form)
     return render(request, 'verbena/members/avatar_edit.html', ret)
 
 def list_all_members(request, *args, **kargs):
@@ -135,7 +148,7 @@ def list_all_members(request, *args, **kargs):
     for faculty in facultys:
         member_list.append(faculty)
     ret = dict(object_list=member_list)
-    return render(request, 'verbena/members/generalmember_list.html', ret)
+    return render(request, 'verbena/members/member_list.html', ret)
 
 # Volunteer opportunities
 @login_required

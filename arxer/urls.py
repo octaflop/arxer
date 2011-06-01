@@ -21,10 +21,7 @@ from pinax.apps.photos.models import Image
 from pinax.apps.topics.models import Topic
 from pinax.apps.tribes.models import Tribe
 
-
-
 handler500 = "pinax.views.server_error"
-
 
 tweets_feed_dict = {"feed_dict": {
     "all": TweetFeedAll,
@@ -168,6 +165,10 @@ urlpatterns += patterns("",
         kwargs=tagging_ext_kwargs, name="tagging_ext_tag"),
     url(r"^tags/$", "tagging_ext.views.index", name="tagging_ext_index"),
 )
+
+# Sitemap -- the active sitemap generation for google and other SEO.
+##(r'sitemap\.xml$', 'django.contib.sitemaps.views.sitemap',
+##        {'sitemaps': sitemaps})
 
 # Flatpages -- static pages on the site
 urlpatterns += patterns("django.contrib.flatpages.views",

@@ -10,8 +10,8 @@
 {% block main_article %}
 	<ul class="members_list">
 		{% for member in object_list %}
-			<li><img src="{{ member.avatar.get_thumbnail_url }}" 
-			alt="{{	member.avatar.title }} "/><b><a href="{{ member.get_absolute_url }}">{{ member.user.username }}
+			<li><a href="{{ member.get_absolute_url }}"><img src="{{ member.avatar.get_thumbnail_url }}" 
+			alt="{{	member.avatar.title }} "/><b>{{ member.user.username }}
 			{{ member.user.first_name }}
 			{{ member.user.last_name }}</a><b></li>
 		{% endfor %}
