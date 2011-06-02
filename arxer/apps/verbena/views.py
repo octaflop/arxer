@@ -252,7 +252,11 @@ def add_actiongroup(request, *args, **kwargs):
         user = request.user.member or None
         try:
             new_ag.leader = user
-            return HttpResponseRedirect(new_ag.get_absolute_url())
+            try:
+                new_ag.save()
+                return HttpResponseRedirect(new_ag.get_absolute_url())
+            except:
+                return HttpResponse(status=500)
         except Member.DoesNotExist:
             return HttpResponse(status=404)
         return HttpResponseRedirect(new_ag.get_absolute_url())

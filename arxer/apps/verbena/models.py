@@ -195,7 +195,6 @@ class ActionGroup(models.Model):
     portrait = models.ForeignKey(Photo, related_name='actiongroup_portrait',
             null=True, blank=True)
     leader = models.ForeignKey("Member", related_name='ag_leader')
-    # a required portrait
     # Similar to facebook's "like"
     supporters = models.ManyToManyField(Member,
             related_name = "group-supporters",

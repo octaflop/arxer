@@ -30,9 +30,9 @@ act_view = {
 urlpatterns = patterns("",
     url(r"^$", object_list, act_list, name="act_home"),
     url(r"^(?P<slug>[-\w]+)$", object_detail, act_view, name="act_view"),
+    url(r"^(?P<slug>[-\w]+)/edit$", update_object, act_edit, name="act_edit"),
     url(r"^(?P<slug>[-\w]+)/join$", join_actiongroup, act_list, name="act_join"),
     url(r"^(?P<slug>[-\w]+)/leave$", leave_actiongroup, act_list, name="act_leave"),
     #url(r"^add/$", create_object, act_add, name="act_add"),
     url(r"^add/$", add_actiongroup, act_add, name="act_add"),
-    url(r"^(?P<slug>[-\w]+)/edit$", update_object, act_edit, name="act_edit"),
     )

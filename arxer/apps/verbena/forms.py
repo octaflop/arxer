@@ -80,7 +80,7 @@ class ActionGroupForm(ModelForm):
     class Meta:
         model = ActionGroup
         fields =('title', 'slug',)
-        exclude = ('supporters',)
+        exclude = ('supporters','gallery',)
 
 class GrantForm(ModelForm):
     class Meta:

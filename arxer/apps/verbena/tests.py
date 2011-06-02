@@ -11,7 +11,8 @@ TODO:
 from django.test import TestCase
 from django.test.client import Client
 from django.contrib.auth.models import User
-from verbena.models import Student, Faculty, Organization, Location, Member, Event
+from verbena.models import Student, Faculty, Organization, Location, Member,\
+    Event, ActionGroup
 import datetime
 
 class StudentTestCase(TestCase):
@@ -110,8 +111,14 @@ class ActionGroupTestCase(TestCase):
     NOT IMPLEMENTED (yet)
     """
     def setUp(self):
-        return None
-    def test_page_disp(self):
-        return None
+        self.user = User.objects.create_user("steve", "", "that")
+        self.student = Student.objects.create(member = self.user.member)
+        self.act = ActionGroup.objects.create(title="Save the Whales",
+            leader=self.student.member, slug='save-whales')
+        self.c = Client()
 
+    def test_page_disp(self):
+        url = "/action-group/%s" % self.act.slug
+        response = self.c.get(url)
+        self.assertContains(response, self.act.title)
 
