@@ -5,10 +5,7 @@ unittest). These will both pass when you run "manage.py test".
 Replace these with more appropriate tests for your application.
 
 TODO:
-    - add invalid test cases with assertnotcontains
     - add a permission inspector function to each test-case
-    - add a general login inspector for an anonymous client
-    - add tests for the event/date-based models (verbena.models Event)
 """
 
 from django.test import TestCase
@@ -29,6 +26,16 @@ class StudentTestCase(TestCase):
         url = "/members/students/%s" % self.bob.member.slug
         response = self.c.get(url)
         self.assertContains(response, self.u.username)
+
+    def test_permissions(self):
+        """
+            Ensure that students may not become a faculty or an organization
+            without removing their student status first.
+        """
+        self.member = self.bob.member
+        # may not be an organization leader
+        org = Organization.objects.create(leader=self.member)
+        return None
 
 class FacultyTestCase(TestCase):
     def setUp(self):
@@ -51,7 +58,7 @@ class OrganizationTestCase(TestCase):
         self.leader = self.bob.member
         self.location =  Location.objects.create(place='Vancouver')
         self.hippies = Organization.objects.create(
-            leader=self.leader, about="About noting", location=self.location, title="The Hippies")
+            leader=self.leader, about="About nothing", location=self.location, title="The Hippies")
         self.c = Client()
         self.c.logout()
 
@@ -59,12 +66,22 @@ class OrganizationTestCase(TestCase):
         url = "/organization/%s" % self.hippies.org_slug
         response = self.c.get(url)
         self.assertContains(response, self.hippies.title)
+
     def test_page_noedit(self):
+        """
+         ensure that groups can't be edited by non-owners,
+         in this case, only self.bob can edit, but bill is trying to.
+        """
         url = "/organization/%s/edit" % self.hippies.org_slug
         self.c.login(username='hippieclub', password='that')
         response = self.c.get(url)
         self.assertNotContains(response, self.hippies.title)
-    def test_page_noedit(self):
+
+    def test_page_noedit_tologin(self):
+        """
+            ensure that AnonymousUsers are redirected to the login page when
+            trying to edit.
+        """
         url = "/organization/%s/edit" % self.hippies.org_slug
         login_url = "/account/login/"
         redirect_url = "%s?next=/organization/%s/edit" % (login_url,
@@ -80,7 +97,19 @@ class EventTestCase(TestCase):
                 end_date = datetime.datetime.now() + datetime.timedelta(200),
                 location = self.location)
         self.c = Client()
+
     def test_page_disp(self):
         url = "/event/%s" % self.event.slug
         response = self.c.get(url)
         self.assertContains(response, self.event.title)
+
+class ActionGroupTestCase(TestCase):
+    """
+    NOT IMPLEMENTED (yet)
+    """
+    def setUp(self):
+        return None
+    def test_page_disp(self):
+        return None
+
+

@@ -1,5 +1,4 @@
 {% load i18n %}
-{# load assets #}
 {% load compress %}
 <!doctype html>
 <html lang="{{ LANGUAGE_CODE }}">
@@ -30,10 +29,6 @@
 		{% compress js %}
 			<script src="{{ STATIC_URL }}verbena/js/modernizr-1.7.min.js" type="text/javascript"></script>
 		{% endcompress %}
-
-		{#<link rel="stylesheet" href="{{ STATIC_URL }}verbena/css/sfpirg.css" />#}
-		<!-- django-assets PROD -->
-		{# assets "js_top" %}<script type="text/javascript" src="{{ ASSET_URL }}"></script>{% endassets %}{% assets "css_all" %}<link rel="stylesheet" href="{{ ASSET_URL }}" />{% endassets #}
 
 		{% block extra_head %}
 		{% endblock %}
