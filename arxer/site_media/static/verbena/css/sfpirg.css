@@ -216,6 +216,7 @@ h3#articleTitle {
 	margin: 22px 0;
 	-webkit-box-shadow: 3px 3px 7px #777;
 }
+
 article {
 	font-family: verdana;
 	color: #666666;
@@ -228,6 +229,14 @@ hr {
 	border-width: 1px;
 	border-style:dashed;
 	border-color:#ffffff;
+}
+
+.uniForm .login form {
+	width: 150px;
+}
+
+.login .ctrlHolder {
+	width: 145px;
 }
 
 /*------------------------------
@@ -681,3 +690,4 @@ header#intro {
 	background-image: url('img/back_intro.png');
 	background-repeat: no-repeat;
 }
+
