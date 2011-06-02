@@ -1,0 +1,7 @@
+{% load i18n %}
+{% url org_home as org_home %}
+{% blocktrans %}
+	Sorry, your Organization has been denied. You can review the criteria by visiting:
+
+	http://{{ current_site }}{{ org_home }}
+{% endblocktrans %}

@@ -1,0 +1,7 @@
+{% load i18n %}
+{% url arx_home as arx_home %}
+{% blocktrans %}
+	Sorry, your ARX has been denied. You can review the criteria by visiting:
+
+	http://{{ current_site }}{{ arx_home }}
+{% endblocktrans %}

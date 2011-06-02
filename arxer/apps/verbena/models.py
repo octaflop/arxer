@@ -613,4 +613,26 @@ post_save.connect(grant_arx_perms, sender=Organization)
 # Admin Notifications
 
 
+def mail_admin_about_org(sender, **kwargs):
+    """
+    Main the admin about the formation of a new organization
+    """
+    return None
 
+def mail_admin_about_arx(sender, **kwargs):
+    """
+    Mail the admin about the formation of a new arx
+    """
+    return None
+
+def mail_org_about_status(sender, **kwargs):
+    """
+    Mail the org about a change in their status
+    """
+    return None
+
+def mail_arx_about_status(sender, **kwargs):
+    """
+    Mail the arx about a change in their status
+    """
+    return None

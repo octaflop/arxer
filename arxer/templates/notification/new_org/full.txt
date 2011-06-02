@@ -1,0 +1,6 @@
+{% load i18n %}
+{% blocktrans %}
+	A new organization is requesting approval status. You can view and change the organization's approval status by visiting:
+
+	http://{{ current_site }}/admin/verbena/organization/
+{% endblocktrans %}

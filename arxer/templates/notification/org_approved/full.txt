@@ -1,0 +1,7 @@
+{% load i18n %}
+{% url org_home as org_home %}
+{% blocktrans %}
+	Your organization has been approved! You can visit it by going to the organization home page at:
+
+	http://{{ current_site }}{{ org_home }}
+{% endblocktrans %}

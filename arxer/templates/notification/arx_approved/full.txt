@@ -1,0 +1,7 @@
+{% load i18n %}
+{% url arx_home as arx_home %}
+{% blocktrans %}
+	Your ARX has been approved! You can visit it by going to the ARX home page at:
+
+	http://{{ current_site }}{{ arx_home }}
+{% endblocktrans %}
