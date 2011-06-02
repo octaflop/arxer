@@ -37,6 +37,9 @@
 
 		{% block extra_head %}
 		{% endblock %}
+
+		{% block section_style %}
+		{% endblock %}
 	</head>
 	<body>
 	{% if site_wide_announcements %}
@@ -81,15 +84,11 @@
 		</aside>
 	<article id="content" class="{% block content_class %}{% endblock %}">
 		<aside "left_box">
-		<aside class="search">
-			{% block search_box %}{% endblock %}
-		</aside>
+			<aside class="search">
+				{% block search_box %}{% endblock %}
+			</aside>
 			<section class='calendar'>
 				{% block calendar %}
-				{% endblock %}
-			</section>
-			<section class='archives'>
-				{% block archives %}
 				{% endblock %}
 			</section>
 			<section class='latest_news'>

@@ -2,7 +2,10 @@
 
 {% load i18n %}
 
-{% block header_id %}about{% endblock %}
+{% block section_style %}
+	<link rel="stylesheet" href="{{ STATIC_URL }}verbena/css/involved.css" />
+{% endblock %}
+
 {% block main_navsub %}
 	<ul>
 		<li><a href="{% url get-involved %}">{% trans "Get Involved" %}</a></li>

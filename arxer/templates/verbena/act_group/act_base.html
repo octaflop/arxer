@@ -1,6 +1,11 @@
 {% extends "site_base.html" %}
 {% load i18n %}
 {% block body_class %}action-group{% endblock %}
+
+{% block section_style %}
+	<link rel="stylesheet" href="{{ STATIC_URL }}verbena/css/action.css" />
+{% endblock %}
+
 {% block main_navsub %}
 <ul>
 	<li><a href="{% url act_home %}">{% trans "List action groups" %}</a></li>

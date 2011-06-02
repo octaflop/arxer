@@ -1,0 +1,66 @@
+/*------------------------------
+=CONTENT AREA - INDEX
+------------------------------*/
+
+header#backBanner {
+	margin: 0 auto;
+	background-image: url('../img/banner_index.png');
+	background-repeat: no-repeat;
+	width: 1089px;
+	height: 187px;
+	padding: 5px;
+}
+
+header#intro {
+	padding: 20px 10px;
+	margin-top: 10px;
+	background-image: url('../img/back_intro.png');
+	background-repeat: no-repeat;
+}
+
+h1 {
+	font-size: 28px;
+	line-height: 44px;
+	padding: 22px 0;
+}
+
+h2 {
+	font-size: 18px;
+	line-height: 28px;
+	margin: 0 0 20px 0;
+	color: #ffffff;
+	text-align: center;
+	background-image: url('../img/back_intro.png');
+	background-repeat: no-repeat;
+}
+
+h3 {
+	font-size: 18px;
+	line-height: 22px;
+	padding: 11px 0;
+}
+
+.signBox {
+	font-size: 14px;
+	color: #fff;
+	padding: 5px 10px;
+	font-weight: bold;
+	background-color: #605D56;
+	border-radius: 20px;
+	width: 160px;
+	height: 134px;
+	float: left;
+}
+
+.title {
+		font-size: 14px;
+		padding: 8px 30px;
+		margin: 10px 20px;
+		color: #fff;
+		background: #323232;
+		height: 25px;
+		border: none;
+		-moz-border-radius: 12px;
+		-webkit-border-radius: 12px;
+	}
+

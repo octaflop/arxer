@@ -20,6 +20,10 @@
 	{% endcompress %}
 {% endblock %}
 
+{% block section_style %}
+	<link rel="stylesheet" href="{{ STATIC_URL }}verbena/css/index.css" />
+{% endblock %}
+
 {% block head_title %}{% endblock %}
 
 {% load nav_build %}
@@ -54,28 +58,19 @@
 {% endblock %}
 
 {% block header %}
-	<a href="/" title="back to home"><img src="{{ STATIC_URL }}verbena/img/banner.png" alt="SFPIRG Banner" /></a>
+	<a href="/" title="back to home"><img src="{{ STATIC_URL }}verbena/img/sfpirg_logo.png" alt="SFPIRG Banner" /></a>
 {% endblock %}
 
 {% block calendar %}
-	<h3 class="calendar">
+	<header class="calendar">
 		<a href="{% url event_home %}"><img src="{{ STATIC_URL }}verbena/img/calendar.png" alt="Calendar"
 		title="Click to see events" /></a>
-	</h3>
+	</header>
 {% endblock %}
 
 {% block latest_news %}
 	<header>Nothing</header>
 	<article>Something</article>
-{% endblock %}
-
-{% block archives %}
-	<header>
-		<h1>archives</h1>
-	</header>
-	<ul class="side_back">
-		{# archive_list #}
-	</ul>
 {% endblock %}
 
 {% block main_content %}
