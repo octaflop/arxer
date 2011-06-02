@@ -21,7 +21,8 @@ org_add = {
 org_edit = {
     "form_class" : OrganizationForm,
     "login_required" : True,
-    "template_name" : "%s%s" % (tdir, "organization_form.html")
+    "template_name" : "%s%s" % (tdir, "organization_form.html"),
+    "slug_field" : "org_slug",
 }
 
 org_detail = {

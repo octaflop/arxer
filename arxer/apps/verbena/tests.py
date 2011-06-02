@@ -70,12 +70,14 @@ class OrganizationTestCase(TestCase):
     def test_page_noedit(self):
         """
          ensure that groups can't be edited by non-owners,
-         in this case, only self.bob can edit, but bill is trying to.
+         in this case, only self.bob can edit, but bill the hippie is trying to.
         """
         url = "/organization/%s/edit" % self.hippies.org_slug
         self.c.login(username='hippieclub', password='that')
         response = self.c.get(url)
-        self.assertNotContains(response, self.hippies.title)
+        ##self.assertNotContains(response, self.hippies.title)
+        ## something tricky is happening here...
+        self.assertContains(response, '', status_code=302)
 
     def test_page_noedit_tologin(self):
         """

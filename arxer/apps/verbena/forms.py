@@ -71,7 +71,7 @@ class OrganizationForm(ModelForm):
 
     class Meta:
         model = Organization
-        exclude = ('location','leader',)
+        exclude = ('location','leader','approval_status',)
         fields = ('title', 'org_slug', 'about', 'mandate',
                 'community','service', 'funding', 'annual_budget',
                 'nonprofit_status', 'website',)
@@ -80,6 +80,7 @@ class ActionGroupForm(ModelForm):
     class Meta:
         model = ActionGroup
         fields =('title', 'slug',)
+        exclude = ('supporters',)
 
 class GrantForm(ModelForm):
     class Meta:

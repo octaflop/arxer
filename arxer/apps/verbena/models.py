@@ -14,6 +14,8 @@ from django.utils.translation import ugettext_lazy as _
 
 from settings import STATIC_ROOT, MEDIA_ROOT
 
+from notification.models import send
+
 import datetime
 
 #############################################################################
@@ -47,6 +49,14 @@ class Member(models.Model):
         if not self.slug:
             self.slug = slugify(self.user.username)
         super(Member, self).save(*args, **kwargs)
+# Possible Project statuses
+ORGANIZATION_APPROVAL_STATUS = (
+    (_("PR"), _("Proposed")),
+    (_("RE"), _("Received")),
+    (_("PE"), _("Pending")),
+    (_("DN"), _("Denied")),
+    (_("AP"), _("Approved")),
+)
 
 class Organization(models.Model):
     """ Organizations are entities applying for projects or grants.
@@ -90,6 +100,10 @@ class Organization(models.Model):
     website = models.URLField(_("website"), blank=True, null=True,
             default="http://example.com/",
             help_text="Website must begin with 'http://'")
+    approval_status = models.CharField(_("approval status"),
+            max_length=2, choices=ORGANIZATION_APPROVAL_STATUS,
+            default="PR",
+            blank=False)
 
     def __unicode__(self):
         return self.title
@@ -612,27 +626,73 @@ post_save.connect(grant_arx_perms, sender=Organization)
 ################################################################################
 # Admin Notifications
 
-
 def mail_admin_about_org(sender, **kwargs):
     """
     Main the admin about the formation of a new organization
     """
-    return None
+    if not kwargs['created']:
+        return
+    try:
+        users = User.objects.filter(username='admin')
+        user = User.objects.get(username='admin')
+    except User.DoesNotExist:
+        print "COULD NOT SEND ADMIN EMAIL AS ADMIN IS NOT SET!"
+        return None
+    if user.is_superuser:
+            send(users, "new_org")
+    return
+
+post_save.connect(mail_admin_about_org, sender=Organization)
 
 def mail_admin_about_arx(sender, **kwargs):
     """
     Mail the admin about the formation of a new arx
     """
-    return None
+    if not kwargs['created']:
+        return
+    try:
+        users = User.objects.filter(username='admin')
+        user = User.objects.get(username='admin')
+    except User.DoesNotExist:
+        print "COULD NOT SEND ADMIN EMAIL AS ADMIN IS NOT SET!"
+        return None
+    if user.is_superuser:
+            send(users, "new_arx")
+    return
+post_save.connect(mail_admin_about_arx, sender=Project)
+post_save.connect(mail_admin_about_arx, sender=StudentProject)
 
 def mail_org_about_status(sender, **kwargs):
     """
     Mail the org about a change in their status
     """
-    return None
+    users = []
+    org = kwargs['instance']
+    user = org.leader.user
+    users.append(user)
+    if org.approval_status == "PR":
+        org.approval_status == "RE"
+    elif org.approval_status == "DN":
+        send(user, "org_denied")
+    elif org.approval_status == "AP":
+        send(users, "org_approved")
+    return
+post_save.connect(mail_org_about_status, sender=Organization)
 
 def mail_arx_about_status(sender, **kwargs):
     """
     Mail the arx about a change in their status
     """
-    return None
+    users = []
+    arx = kwargs['instance']
+    user = arx.leader.user
+    users.append(user)
+    if arx.approval_status == "PR":
+        arx.approval_status == "RE"
+    elif arx.approval_status == "DN":
+        send(user, "arx_denied")
+    elif arx.approval_status == "AP":
+        send(users, "arx_approved")
+    return
+post_save.connect(mail_arx_about_status, sender=Project)
+post_save.connect(mail_arx_about_status, sender=StudentProject)
