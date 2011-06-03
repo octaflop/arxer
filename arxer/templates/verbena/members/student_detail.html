@@ -12,7 +12,6 @@
 		<dt>Expected Year of Completion:</dt><dd>{{ object.comp_year }}</dd>
 	</dl>
 {% if is_me %}
-<p> it's you</p>
-<a href='{% url student_edit object.member.slug %}'>Edit</a>
+	<p> it's you,</p>	<a href='{% url student_edit object.member.slug %}'>edit?</a>
 {% endif %}
 {% endblock %}

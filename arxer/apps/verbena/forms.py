@@ -47,6 +47,7 @@ class MemberForm(ModelForm):
 class FacultyForm(ModelForm):
     class Meta:
         model = Faculty
+        exclude = ('member',)
 
 class StudentForm(ModelForm):
     class Meta:

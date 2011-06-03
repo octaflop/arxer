@@ -10,7 +10,8 @@ from verbena.models import Organization, Project, VolunteerOpportunity,\
     Member, ActionGroup, Research, Student, Faculty, Event,\
     StudentProject
 from verbena.forms import ProjectForm, OrganizationForm, LocationForm,\
-    StudentForm, UserForm, MemberForm, ActionGroupForm, AvatarForm
+    StudentForm, UserForm, MemberForm, ActionGroupForm, AvatarForm,\
+    FacultyForm
 from django.core.files.uploadedfile import SimpleUploadedFile
 from verbena.models import Organization, Location, Project
 from django.views.generic.list_detail import object_list, object_detail
@@ -47,9 +48,72 @@ def suggestion(request):
     results = SearchQuerySet().autocomplete(title_auto=word)
     resp = compile_search(results)
     return HttpResponse(resp, content_type='application/x-javascript')
+# model control functions
+def del_member_class(old_member):
+    old_org = Organization.objects.filter(leader=old_member)
+    old_faculty = Faculty.objects.filter(member=old_member)
+    old_student = Student.objects.filter(member=old_member)
+    if old_org.exists():
+        old_org.delete()
+    if old_faculty.exists():
+        old_faculty.delete()
+    if old_student.exists():
+        old_student.delete()
 
 # Simple Wrappers
+def add_faculty(request, *args, **kwargs):
+    """
+    Sign up a member as a faculty.
+    Also "seal" the faculty into this membership by deleting old memberships
+    """
+    data = request.POST
+    facultyform = FacultyForm(data=data)
+    if facultyform.is_valid():
+        faculty = facultyform.save(commit=False)
+        faculty.member = request.user.member
+        del_member_class(faculty.member)
+        # after deleting, we finally try one more save
+        try:
+            faculty.save()
+        except:
+            return HttpResponse(status=500)
+        return redirect(faculty.get_absolute_url())
+    ret = dict(form=facultyform)
+    return HttpResponse(request, 'verbena/members/faculty_form.html', ret)
 
+def faculty_edit(request, *args, **kwargs):
+    """ A wrapper to pull up a student and edit them """
+    faculty = Faculty.objects.get(member__slug=kwargs['slug'])
+    is_me = False
+    if request.method == 'POST':
+        form = FacultyForm(request.POST, instance=faculty)
+        if faculty.member.user == request.user:
+            is_me=True
+        if form.is_valid():
+            new_faculty = form.save(commit=False)
+            if is_me:
+                new_faculty.member = request.user.member
+                faculty.delete()
+                new_faculty.save()
+                return redirect(faculty.get_absolute_url())
+            else:
+                return HttpResponse(status=403)
+    else:
+        form = FacultyForm(instance=faculty)
+    ret = dict(object=faculty, form=form, is_me=is_me)
+    return render(request, 'verbena/members/faculty_form.html', ret)
+
+def faculty_detail(request, *args, **kwargs):
+    """ A wrapper to see if a faculty member is logged in as themselves """
+    is_me = False
+    try:
+        faculty = Faculty.objects.get(member__slug=kwargs['slug'])
+    except Faculty.DoesNotExist:
+        return HttpResponse(status=404)
+    if faculty.member.user == request.user:
+        is_me = True
+    ret = dict(is_me=is_me, object=faculty)
+    return render(request, 'verbena/members/faculty_detail.html', ret)
 # Student signup
 def add_student(request, *args, **kwargs):
     """
@@ -60,8 +124,9 @@ def add_student(request, *args, **kwargs):
     studentform = StudentForm(data=data)
     if studentform.is_valid():
         student = studentform.save(commit=False)
-        member = request.user.member
-        student.member = member
+        student.member = request.user.member
+        del_member_class(student.member)
+        # after deleting, we finally try one more save
         try:
             student.save()
         except:
@@ -74,34 +139,33 @@ def student_edit(request, *args, **kwargs):
     """ A wrapper to pull up a student and edit them """
     student = Student.objects.get(member__slug=kwargs['slug'])
     is_me = False
-    data = request.POST or None
-    #if not data:
-    #    data = student
-    form = StudentForm(data=data)
-    if student.member.user == request.user:
-        is_me=True
-    if form.is_valid():
-        new_student = form.save(commit=False)
-        if is_me:
-            new_student.member = request.user.member
-            student.delete()
-            new_student.save()
-            return redirect(student.get_absolute_url())
-        else:
-            return HttpResponse(status=403)
+    if request.method == 'POST':
+        form = StudentForm(request.POST, instance=student)
+        if student.member.user == request.user:
+            is_me=True
+        if form.is_valid():
+            new_student = form.save(commit=False)
+            if is_me:
+                new_student.member = request.user.member
+                student.delete()
+                new_student.save()
+                return redirect(student.get_absolute_url())
+            else:
+                return HttpResponse(status=403)
+    else:
+        form = StudentForm(instance=student)
     ret = dict(object=student, form=form, is_me=is_me)
     return render(request, 'verbena/members/student_form.html', ret)
 
 def student_detail(request, *args, **kwargs):
     """ A wrapper to see if a student is logged in as themselves """
-    student = Student.objects.filter(member__slug=kwargs['slug'])
     is_me = False
-    if student:
-        student = student[0]
-        if student.member.user == request.user:
-            is_me = True
-    else:
+    try:
+        student = Student.objects.get(member__slug=kwargs['slug'])
+    except Student.DoesNotExist:
         return HttpResponse(status=404)
+    if student.member.user == request.user:
+        is_me = True
     ret = dict(is_me=is_me, object=student)
     return render(request, 'verbena/members/student_detail.html', ret)
 
