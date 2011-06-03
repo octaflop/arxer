@@ -10,10 +10,13 @@
 {% block main_article %}
 	<ul class="members_list">
 		{% for member in object_list %}
+			{% if member.student or member.faculty or member.organization %}
 			<li><a href="{{ member.get_absolute_url }}"><img src="{{ member.avatar.get_thumbnail_url }}" 
 			alt="{{	member.avatar.title }} "/><b>{{ member.user.username }}
 			{{ member.user.first_name }}
 			{{ member.user.last_name }}</a><b></li>
+			{% else %}
+			{% endif %}
 		{% endfor %}
 	</ul>
 {% endblock %}

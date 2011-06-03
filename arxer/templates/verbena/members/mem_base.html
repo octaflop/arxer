@@ -3,6 +3,10 @@
 
 {% block body_class %}member{% endblock %}
 
+{% block section_style %}
+	<link rel="stylesheet" href="{{ STATIC_URL }}verbena/css/involved.css" />
+{% endblock %}
+
 {% block main_navsub %}
 	{% if user.is_authenticated %}
 			<ul>

@@ -27,7 +27,7 @@ student_add = {
 
 faculty_list = {
     "queryset"  : Faculty.objects.all(),
-    "template_name" : "%s%s" % (memtemp, "member_list.html"),
+    "template_name" : "%s%s" % (memtemp, "faculty_list.html"),
 }
 
 faculty_add = {

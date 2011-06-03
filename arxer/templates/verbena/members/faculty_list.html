@@ -9,9 +9,9 @@
 {% block main_article %}
 	<ul class="faculty_list">
 		{% for faculty in object_list %}
-			<li><b><a href="{{ faculty.get_absolute_url }}">{{ faculty.user.username }}
-			{{ faculty.user.first_name }}
-			{{ faculty.user.last_name }}</a><b></li>
+			<li><b><a href="{{ faculty.get_absolute_url }}">{{ faculty.member.user.username }}
+			{{ faculty.member.user.first_name }}
+			{{ faculty.member.user.last_name }}</a><b></li>
 		{% endfor %}
 	</ul>
 	<a href="{% url member_list %}">Back to member list</a>
