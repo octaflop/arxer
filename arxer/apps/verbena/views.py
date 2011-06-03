@@ -52,7 +52,7 @@ def suggestion(request):
 def edit_org(request, *args, **kwargs):
     is_me = False
     try:
-        org = Organization.objects.get(org_slug=kwargs['org_slug'])
+        org = Organization.objects.get(org_slug=kwargs['slug'])
     except Organization.DoesNotExist:
         return HttpResponse(status=404)
     try:
@@ -207,17 +207,22 @@ def student_detail(request, *args, **kwargs):
 @permission_required('verbena.add_project')
 def add_project(request, *args, **kwargs):
     "Add a project: must be organization"
-    data = request.POST or None
-    projform = ProjectForm(data=data)
-    if projform.is_valid():
-        try:
-            projform.student_leader = Organization.objects.get(leader__user=request.user)
-        except Organization.DoesNotExist:
-            return HttpResponse(status=403)
-        try:
-            projform.save()
-        except:
-            return HttpResponse(status=500)
+    if request.POST:
+        data = request.POST
+        projform = ProjectForm(data=data)
+        if projform.is_valid():
+            proj = projform.save(commit=False)
+            try:
+                organization =\
+                    Organization.objects.get(leader=request.user.member)
+            except Organization.DoesNotExist:
+                return HttpResponse(status=403)
+            ##import pdb; pdb.set_trace()
+            proj.organization = organization
+            proj.save()
+            return redirect(proj.get_absolute_url())
+    else:
+        projform = ProjectForm()
     #return create_object(*args, **kwargs)
     ret = dict(form=projform)
     return render(request, 'verbena/arx/arx_form.html', ret)
@@ -395,25 +400,29 @@ def leave_actiongroup(request, *args, **kwargs):
 
 # Organizations
 def add_organization(request, *args, **kwargs):
-    data = request.POST or None
-    userform = UserForm(data=data)
-    orgform = OrganizationForm(data=data)
-    location = {}
-    if orgform.is_valid():
-        new_organization = orgform.save(commit=False)
-        if not request.user:
-            if userform.is_valid():
-                if userform.cleaned_data['password'] == userform.cleaned_data['passconf']:
-                    new_user = User.objects.create_user(
-                        userform.cleaned_data['username'],
-                        userform.cleaned_data['email'],
-                        userform.cleaned_data['password'])
-        else:
-            new_user = request.user
-        del_member_class(new_user.member)
-        new_organization.leader = new_user.member
-        new_organization.save()
-        return HttpResponseRedirect(new_organization.get_absolute_url())
+    if request.POST:
+        data = request.POST
+        userform = UserForm(data=data)
+        orgform = OrganizationForm(data=data)
+        location = {}
+        if orgform.is_valid():
+            new_organization = orgform.save(commit=False)
+            if not request.user:
+                if userform.is_valid():
+                    if userform.cleaned_data['password'] == userform.cleaned_data['passconf']:
+                        new_user = User.objects.create_user(
+                            userform.cleaned_data['username'],
+                            userform.cleaned_data['email'],
+                            userform.cleaned_data['password'])
+            else:
+                new_user = request.user
+            del_member_class(new_user.member)
+            new_organization.leader = new_user.member
+            new_organization.save()
+            return HttpResponseRedirect(new_organization.get_absolute_url())
+    else:
+        userform = UserForm()
+        orgform = OrganizationForm()
     ret = dict(userform=userform, orgform=orgform)
     return render(request, 'verbena/organization/organization_form.html', ret)
 
