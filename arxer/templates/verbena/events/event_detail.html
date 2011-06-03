@@ -1,0 +1,11 @@
+{% extends "verbena/events/ev_base.html" %}
+{% block head_title %}
+	{{ object.title }}
+{% endblock %}
+{% block content_title %}
+	{{ object.title }}
+{% endblock %}
+{% block main_article %}
+	{{ object.start_date }}<br />
+	{{ object.end_date }}
+{% endblock %}
