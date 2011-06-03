@@ -349,6 +349,7 @@ class Project(models.Model):
     portrait = models.ForeignKey(Photo, related_name='project_portrait',
             null=True, blank=True)
     date_applied = models.DateField(_("Project start date"))
+    organization = models.ForeignKey("Organization")
     research_question = models.TextField(_("Central Research Question"),
             help_text=_("What is the central research question you want answered?"),
             blank=True
@@ -422,7 +423,7 @@ class Project(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        return ('project_view', [str(self.slug)])
+        return ('arx_view', [str(self.slug)])
 
     def save(self, *args, **kwargs):
         self.date_applied = datetime.datetime.now()
@@ -432,7 +433,7 @@ class StudentProject(Project):
     """
     Only student can sign up for these projects.
     """
-    student_leader = models.ForeignKey(Student)
+    student_leader = models.ForeignKey(Student, blank=True)
     professor = models.ForeignKey(Faculty, blank=True)
     course_name = models.CharField(_("Course name"),
             help_text=_("Course name and number"),
@@ -684,7 +685,7 @@ def mail_arx_about_status(sender, **kwargs):
     """
     users = []
     arx = kwargs['instance']
-    user = arx.leader.user
+    user = arx.organization.leader.user
     users.append(user)
     if arx.approval_status == "PR":
         arx.approval_status == "RE"

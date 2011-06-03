@@ -18,8 +18,9 @@ class AvatarForm(ModelForm):
 
 class ProjectForm(ModelForm):
     class Meta:
-        model = StudentProject
-        exclude = ('approval_status','date_applied','progress_status','portrait','student_leader','professor',)
+        #model = StudentProject
+        model = Project
+        exclude = ('approval_status','date_applied','progress_status','portrait','student_leader','professor','organization',)
 
 class EventForm(ModelForm):
     class Meta:
