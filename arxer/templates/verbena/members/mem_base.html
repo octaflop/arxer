@@ -8,12 +8,12 @@
 {% endblock %}
 
 {% block main_navsub %}
-	{% if user.is_authenticated %}
 			<ul>
+	{% if user.is_authenticated %}
 					<li><a href="{% url member_view user.username %} ">{% trans "Your Profile" %}</a></li>
+	{% endif %}
 					<li><a href="{% url member_list %} ">{% trans "All Members" %}</a></li>
 					<li><a href="{% url student_list %} ">{% trans "Student Members" %}</a></li>
 					<li><a href="{% url faculty_list %} ">{% trans "Faculty Members" %}</a></li>
 			</ul>
-	{% endif %}
 {% endblock %}

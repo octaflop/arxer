@@ -2,7 +2,7 @@
 {% block head_title %}
 	{{ object.member.user.username }}
 {% endblock %}
-	{% block content_title %}<a href="{{ object.get_absolute_url }}">{{ object.user.username	}}</a>{% endblock %}
+	{% block content_title %}<a href="{{ object.get_absolute_url }}">{{	object.member.user.username	}}</a>{% endblock %}
 {% block main_article %}
 	<dl>
 		<dt>Username:</dt><dd>{{ object.member.user.username }}</dd>

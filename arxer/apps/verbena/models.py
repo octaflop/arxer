@@ -99,7 +99,7 @@ class Organization(models.Model):
     location = models.ForeignKey("Location", blank=True, null=True)
     website = models.URLField(_("website"), blank=True, null=True,
             default="http://example.com/",
-            help_text="Website must begin with 'http://'")
+            help_text="Website must begin with 'http://'", verify_exists=False)
     approval_status = models.CharField(_("approval status"),
             max_length=2, choices=ORGANIZATION_APPROVAL_STATUS,
             default="PR",

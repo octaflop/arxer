@@ -3,7 +3,7 @@
 	{{ object.profile.user.username }}
 {% endblock %}
 
-{% block content_title %}<a href="{{ object.get_absolute_url }}">{{	object.profile.user.username	}}</a>{% endblock %}
+{% block content_title %}<a href="{{ object.get_absolute_url }}">{{ object.member.user.username	}}</a>{% endblock %}
 {% block main_article %}
 	<a href="{% url member_avatar_edit %}">
 	<img class='member_avatar' src="{{ object.avatar.get_display_url }}" 

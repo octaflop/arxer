@@ -13,17 +13,19 @@
 		<dd>
 			<ul>
 			{% for supporter in object.supporters.all %}
-				<li><b>{{ supporter.profile.username }}</b></li>
+				<li><b>{{ supporter.user.username }}</b></li>
 			{% endfor %}
 			</ul>
 		</dd>
 		<dt>location:</dt><dd>{{ object.location }}</dd>
 	</dl>
-	{# if request.user.is_in? #}
+	{% if is_in %}
 		<a href="{{ object.get_absolute_url }}/leave">Leave group</a>
-	{# else #}
+	{% else %}
+		{% if user.is_authenticated %}
 		<a href="{{ object.get_absolute_url }}/join">Join group</a>
-	{# endif #}
+		{% endif %}
+	{% endif %}
 	{% if request.user.is_authenticated %}
 		{% if perms.verbena.change_organization %}
 			<a href="{{ object.get_absolute_url }}/edit">Edit Organization</a>

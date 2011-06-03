@@ -48,6 +48,40 @@ def suggestion(request):
     results = SearchQuerySet().autocomplete(title_auto=word)
     resp = compile_search(results)
     return HttpResponse(resp, content_type='application/x-javascript')
+
+def edit_org(request, *args, **kwargs):
+    is_me = False
+    try:
+        org = Organization.objects.get(org_slug=kwargs['org_slug'])
+    except Organization.DoesNotExist:
+        return HttpResponse(status=404)
+    try:
+        member = request.user.member
+        if member == org.leader:
+            is_me = True
+    except AttributeError:
+        is_me = False
+    kwargs['extra_context'] = is_me
+    return update_object(request, *args, **kwargs)
+
+def act_detail(request, *args, **kwargs):
+    """
+        List details for org, show if user is in or not
+    """
+    is_in = False
+    try:
+        act = ActionGroup.objects.get(slug=kwargs['slug'])
+    except ActionGroup.DoesNotExist:
+        return HttpResponse(status=404)
+    try:
+        member = request.user.member
+        if member in act.supporters.all():
+            is_in = True
+    except AttributeError:
+        is_in = False
+    ret = dict(object=act, is_in=is_in)
+    return render(request, 'verbena/act_group/actiongroup_detail.html', ret)
+
 # model control functions
 def del_member_class(old_member):
     old_org = Organization.objects.filter(leader=old_member)
@@ -376,6 +410,7 @@ def add_organization(request, *args, **kwargs):
                         userform.cleaned_data['password'])
         else:
             new_user = request.user
+        del_member_class(new_user.member)
         new_organization.leader = new_user.member
         new_organization.save()
         return HttpResponseRedirect(new_organization.get_absolute_url())

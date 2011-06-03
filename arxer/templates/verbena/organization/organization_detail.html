@@ -13,7 +13,9 @@
 	</dl>
 	{% if request.user.is_authenticated %}
 		{% if perms.verbena.change_organization %}
+			{% if is_me %}
 			<a href="{{ object.get_absolute_url }}/edit">Edit Organization</a>
+			{% endif %}
 		{% endif %}
 	{% endif %}
 	<a href="{% url org_home %}">Back to organizations</a>
