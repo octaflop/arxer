@@ -249,7 +249,7 @@ class Location(models.Model):
 
 class Event(models.Model):
     """
-    ABSTRACT Model
+    "ABSTRACT" Model
     Events are anything occurring at a specific time
     """
     title = models.CharField(_("Event title"), max_length=100)
@@ -259,7 +259,9 @@ class Event(models.Model):
     )
     start_date = models.DateTimeField(_("Event start date & time"))
     end_date = models.DateTimeField(_("Event end date & time"))
-    location = models.ForeignKey(Location, blank=True)
+    location = models.ForeignKey(Location, blank=True, null=True)
+    description = models.TextField(_("Event description"),
+        help_text=_("A short description of the event"))
 
     def __unicode__(self):
         return self.title

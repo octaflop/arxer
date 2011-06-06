@@ -1,10 +1,17 @@
 from django import template
-from verbena.models import Navigation
+from verbena.models import Navigation, Event
 from pinax.apps.account.forms import LoginForm
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
+import datetime
 
 register = template.Library()
+
+@register.inclusion_tag('verbena/templatetags/newsbox.html', takes_context=True)
+def newsbox(context):
+    events = Event.objects.filter(end_date__gte=datetime.datetime.now())
+    context['news'] = events
+    return dict(news=context['news'])
 
 @register.inclusion_tag('verbena/templatetags/sfpirgnav.html', takes_context=True)
 def sfpirgnav(context):

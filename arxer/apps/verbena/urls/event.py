@@ -7,7 +7,7 @@ from verbena.views import ev_list
 import datetime
 
 event_list = {
-    "queryset" : Event.objects.filter(end_date__lte=datetime.datetime.now()),
+    "queryset" : Event.objects.filter(end_date__gte=datetime.datetime.now()),
     "template_name" : "verbena/events/event_list.html",
 }
 
@@ -21,11 +21,16 @@ event_edit = {
     "login_required" : True,
 }
 
+event_detail = {
+    "queryset" : Event.objects.all(),
+    "template_name" : "verbena/events/event_detail.html",
+}
+
 urlpatterns = patterns("",
     #url(r"^$", object_list, event_list, name="event_home"),
     url(r"^$", ev_list, event_list, name="event_home"),
     url(r"^add/$", create_object, event_add, name="event_add"),
-    url(r"^(?P<slug>[-\w]+)$", object_detail, event_list, name="event_view"),
+    url(r"^(?P<slug>[-\w]+)$", object_detail, event_detail, name="event_view"),
     url(r"^(?P<slug>[-\w]+)/edit$", update_object, event_edit,
         name="event_edit"),
 )

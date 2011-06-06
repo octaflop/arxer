@@ -6,16 +6,19 @@ from verbena.forms import WorkshopForm
 
 workshop_list = {
     "queryset" : Workshop.objects.all(),
+    "template_name": "verbena/events/event_list.html",
 }
 
 workshop_add = {
     "model" : Workshop,
     "login_required" : True,
+    "template_name": "verbena/events/event_form.html",
 }
 
 workshop_edit = {
     "form_class" : WorkshopForm,
     "login_required" : True,
+    "template_name": "verbena/events/event_form.html",
 }
 
 urlpatterns = patterns("",
