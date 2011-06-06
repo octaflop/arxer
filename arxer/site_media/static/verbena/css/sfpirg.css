@@ -10,10 +10,10 @@
 
 /* Makeshift CSS Reset */
 /* NOT NEEDED? */
-/* * {
+ * {
 	margin: 0;
 	padding: 0;
-}*/
+}
 
 /* Tell the browser to render HTML 5 elements as block */
 header, footer, section, aside, nav, article {
@@ -99,6 +99,12 @@ h4 {
 	-webkit-transform: rotate(-8deg);
 }
 
+.contact_dot aside {
+	-moz-transform: rotate(8deg);
+	-webkit-transform: rotate(8deg);
+}
+	
+
 /*------------------------------
 =NAVIGATION
 ------------------------------*/
@@ -121,7 +127,7 @@ h4 {
 #main_navsub {
 	margin: 0px 210px;
 	position: absolute;
-	top: 330px;
+	top: 26em;
 }
 
 #main_navsub ul {
@@ -160,10 +166,15 @@ nav ul li img {
 =CONTENT AREA AND SIDEBAR LAYOUT
 ------------------------------*/
 
+#intro {
+	padding: 20px 10px;
+	margin-top: 10px;
+}
 	
 aside {
 	display: table-cell;
-	width: 170px;
+	width: 200px;
+	float: left;
 }
 
 #calendar {
@@ -286,6 +297,11 @@ hr {
 	-webkit-transform: rotate(-4deg);
 }
 
+article > article > article > div {
+	-moz-transform: rotate(2deg);
+	-webkit-transform: rotate(2deg);
+}
+
 .ctrlHolder p {
 	-moz-transform: rotate(0deg);
 	-webkit-transform: rotate(0deg);
@@ -293,8 +309,6 @@ hr {
 }
 
 .content_dot form {
-	-moz-transform: rotate(2deg);
-	-webkit-transform: rotate(2deg);
 	margin: 30px;
 }
 

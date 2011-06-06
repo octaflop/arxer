@@ -74,8 +74,15 @@
 			{% endblock %}
 		</nav>
 		<aside class="contact_box">
+			<aside class="contact_dot">
+				<h3>{% trans "contact" %}</h3>
+				<a href="/#"><img src="{{ STATIC_URL }}verbena/img/twitter.png"
+				alt="twitter" /></a>
+				<a href="/#"><img src="{{ STATIC_URL }}verbena/img/facebook.png"
+				alt="facebook" /></a>
 			{% block contact_box %}
 			{% endblock %}
+			</aside>
 		</aside>
 	<article id="content" class="{% block content_class %}{% endblock %}">
 		<aside "left_box">
