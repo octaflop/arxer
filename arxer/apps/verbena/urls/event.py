@@ -14,11 +14,13 @@ event_list = {
 event_add = {
     "model" : Event,
     "login_required" : True,
+    "template_name" : "verbena/events/event_form.html",
 }
 
 event_edit = {
     "form_class" : EventForm,
     "login_required" : True,
+    "template_name" : "verbena/events/event_form.html",
 }
 
 event_detail = {

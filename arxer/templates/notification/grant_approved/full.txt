@@ -1,0 +1,7 @@
+{% load i18n %}
+{% url grant_home as grant_home %}
+{% blocktrans %}
+	Your grant has been approved! You can visit it by going to the grant home page at:
+
+	http://{{ current_site }}{{ grant_home }}
+{% endblocktrans %}

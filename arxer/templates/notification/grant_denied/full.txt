@@ -1,0 +1,7 @@
+{% load i18n %}
+{% url grant_home as grant_home %}
+{% blocktrans %}
+	Sorry, your grant has been denied. You can review the criteria by visiting:
+
+	http://{{ current_site }}{{ grant_home }}
+{% endblocktrans %}

@@ -479,8 +479,11 @@ class Grant(models.Model):
     slug = models.SlugField(_("Slug"),
             help_text="The slug is the URL-friendly title")
     date_applied = models.DateTimeField(_("Date Applied"))
-    org_name = models.ForeignKey(Organization)
-    applicant_name = models.CharField(_("Applicant's Name"), max_length=100)
+    ##org_name = models.ForeignKey(Organization)
+    org_name = models.CharField(_("Organization"),
+        help_text=_("The organization requesting the grant."),
+        max_length=100)
+    applicant = models.ForeignKey("Member")
     mail_address = models.TextField(_("Mailing address with postal code"))
     email = models.EmailField(_("Contact email"))
     phone = PhoneNumberField(_("Phone Number"))
@@ -690,11 +693,46 @@ def mail_arx_about_status(sender, **kwargs):
     user = arx.organization.leader.user
     users.append(user)
     if arx.approval_status == "PR":
-        arx.approval_status == "RE"
+        arx.approval_status = "RE"
+        arx.save()
     elif arx.approval_status == "DN":
-        send(user, "arx_denied")
+        send(users, "arx_denied")
     elif arx.approval_status == "AP":
         send(users, "arx_approved")
     return
 post_save.connect(mail_arx_about_status, sender=Project)
 post_save.connect(mail_arx_about_status, sender=StudentProject)
+
+def mail_admin_about_grant(sender, **kwargs):
+    """
+    Mail the sfpirg admins about a new grant
+    """
+    if not kwargs['created']:
+        return
+    try:
+        users = User.objects.filter(username='admin')
+        user = User.objects.get(username='admin')
+    except User.DoesNotExist:
+        print "COULD NOT SEND ADMIN EMAIL AS ADMIN IS NOT SET!"
+        return None
+    if user.is_superuser:
+        send(users, "new_grant")
+    return
+post_save.connect(mail_admin_about_grant, sender=Grant)
+
+def mail_grant_about_status(sender, **kwargs):
+    """
+    Mail the grant-applier about a change in their status
+    """
+    users = []
+    grant = kwargs['instance']
+    user = grant.applicant.user
+    users.append(user)
+    if grant.approval_status == "SU":
+        grant.approval_status = "PE"
+    elif grant.approval_status == "DN":
+        send(users, "grant_denied")
+    elif grant.approval_status == "AP":
+        send(users, "grant_approved")
+    return
+post_save.connect(mail_grant_about_status, sender=Grant)

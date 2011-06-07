@@ -8,10 +8,10 @@ from django.views.generic.simple import direct_to_template as render
 from django.core.urlresolvers import reverse
 from verbena.models import Organization, Project, VolunteerOpportunity,\
     Member, ActionGroup, Research, Student, Faculty, Event,\
-    StudentProject
+    StudentProject, Grant
 from verbena.forms import ProjectForm, OrganizationForm, LocationForm,\
     StudentForm, UserForm, MemberForm, ActionGroupForm, AvatarForm,\
-    FacultyForm
+    FacultyForm, GrantForm
 from django.core.files.uploadedfile import SimpleUploadedFile
 from verbena.models import Organization, Location, Project
 from django.views.generic.list_detail import object_list, object_detail
@@ -39,6 +39,28 @@ def compile_search(results):
     encoder = simplejson.JSONEncoder()
     resp = encoder.encode(resultlist)
     return resp
+
+# Grant application
+@login_required
+def add_grant(request, *args, **kwargs):
+    """
+    Add the current user as the applicant for the grant
+    """
+    if request.POST:
+        data = request.POST
+        grantform = GrantForm(data=data)
+        if grantform.is_valid():
+            grant = grantform.save(commit=False)
+            grant.applicant = request.user.member
+            try:
+                grant.save()
+            except:
+                return HttpResponse(status=500)
+            return redirect(grant.get_absolute_url())
+    else:
+        grantform = GrantForm()
+    ret = dict(form=grantform)
+    return render(request, 'verbena/grants/grant_form.html', ret)
 
 #haystack search
 # Search suggestions
@@ -148,6 +170,7 @@ def faculty_detail(request, *args, **kwargs):
         is_me = True
     ret = dict(is_me=is_me, object=faculty)
     return render(request, 'verbena/members/faculty_detail.html', ret)
+
 # Student signup
 def add_student(request, *args, **kwargs):
     """
@@ -217,7 +240,6 @@ def add_project(request, *args, **kwargs):
                     Organization.objects.get(leader=request.user.member)
             except Organization.DoesNotExist:
                 return HttpResponse(status=403)
-            ##import pdb; pdb.set_trace()
             proj.organization = organization
             proj.save()
             return redirect(proj.get_absolute_url())

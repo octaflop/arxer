@@ -13,6 +13,9 @@ if "notification" in settings.INSTALLED_APPS:
         notification.create_notice_type("new_arx",
                 _("New Action Research Project"),
                 _("Someone has created a new action research project"))
+        notification.create_notice_type("new_grant",
+                _("New Grant"),
+                _("Someone has applied for a new grant"))
         # arx/org notifications
         notification.create_notice_type("arx_approved", _("ARX Approved"),
                 _("The admins have approved the ARX"))
@@ -22,6 +25,10 @@ if "notification" in settings.INSTALLED_APPS:
                 _("The admins have approved the new organization"))
         notification.create_notice_type("org_denied", _("Organization Denied"),
                 _("The admins have denied the new organization"))
+        notification.create_notice_type("grant_approved", _("Grant Approved"),
+                _("The admins have approved the new grant"))
+        notification.create_notice_type("grant_denied", _("Grant Denied"),
+                _("The admins have denied the new grant"))
     post_syncdb.connect(create_notice_types, sender=notification)
 else:
     print "Skipping notification creation as notification app has not been found"

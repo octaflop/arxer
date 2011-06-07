@@ -87,5 +87,5 @@ class ActionGroupForm(ModelForm):
 class GrantForm(ModelForm):
     class Meta:
         model = Grant
-        exclude = ('date_applied','approval_status',)
+        exclude = ('date_applied','approval_status','applicant',)
 
