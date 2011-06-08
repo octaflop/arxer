@@ -224,7 +224,7 @@ class Research(models.Model):
     """ Research & Resources have their own logos and pages """
     title = models.CharField(_("Group title"), max_length=80)
     slug = models.SlugField(_("URL-friendly title"))
-    about = models.TextField(_("About"), blank=True)
+    about = models.TextField(_("About"), blank=True, null=True)
     portrait = models.ForeignKey(Photo, related_name='research_portrait',
             null=True, blank=True)
     supporters = models.ManyToManyField(Member,
