@@ -2,6 +2,7 @@ from django.contrib.admin.models import User
 from verbena.models import Organization, Grant, Project, ActionGroup, Member,\
     Workshop, VolunteerOpportunity, Faculty, Student, Location,\
     Event, Member, Research, StudentProject
+
 from photologue.models import Photo
 from django.forms import ModelForm
 import django.forms as forms
@@ -10,6 +11,8 @@ from django.template.defaultfilters import slugify
 from django.utils.translation import ugettext_lazy as _
 
 from ajax_select.fields import AutoCompleteSelectField
+
+from verbena.recaptchawidget.fields import ReCaptchaField
 
 class AvatarForm(ModelForm):
     class Meta:
@@ -36,6 +39,7 @@ class UserForm(forms.Form):
     passconf = forms.CharField(widget=forms.PasswordInput(),
             label=_("Please confirm your password"))
     email = forms.EmailField()
+    recaptcha = ReCaptchaField()
 
 class MemberForm(ModelForm):
     class Meta:

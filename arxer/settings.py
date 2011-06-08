@@ -25,6 +25,8 @@ INTERNAL_IPS = [
     "127.0.0.1",
 ]
 
+RECAPTCHA_PUBLIC_KEY = "6LcWFsUSAAAAAI9ZJOiTopD96nuIb5I0Rm_ya-yx" # for taskcollab
+RECAPTCHA_PRIVATE_KEY = "6LcWFsUSAAAAAHO4s8eGHNcNsqftRXRvbVFf8Zgv" # for taskcollab
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be available on all operating systems.
