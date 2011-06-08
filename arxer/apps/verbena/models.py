@@ -195,6 +195,9 @@ class ActionGroup(models.Model):
     portrait = models.ForeignKey(Photo, related_name='actiongroup_portrait',
             null=True, blank=True)
     leader = models.ForeignKey("Member", related_name='ag_leader')
+    about = models.TextField(_("About"),
+            help_text=_("A short summary of your action group. This will be\
+                    displayed on the action group listings page."))
     # Similar to facebook's "like"
     supporters = models.ManyToManyField(Member,
             related_name = "group-supporters",
@@ -221,6 +224,7 @@ class Research(models.Model):
     """ Research & Resources have their own logos and pages """
     title = models.CharField(_("Group title"), max_length=80)
     slug = models.SlugField(_("URL-friendly title"))
+    about = models.TextField(_("About"), blank=True)
     portrait = models.ForeignKey(Photo, related_name='research_portrait',
             null=True, blank=True)
     supporters = models.ManyToManyField(Member,

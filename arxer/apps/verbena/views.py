@@ -2,7 +2,7 @@
 from django.http import HttpResponseRedirect, HttpResponse
 # other imports
 from django.contrib.auth.decorators import permission_required, login_required
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, AnonymousUser
 from django.shortcuts import get_object_or_404, render_to_response, redirect
 from django.views.generic.simple import direct_to_template as render
 from django.core.urlresolvers import reverse
@@ -429,7 +429,7 @@ def add_organization(request, *args, **kwargs):
         location = {}
         if orgform.is_valid():
             new_organization = orgform.save(commit=False)
-            if not request.user:
+            if not request.user == AnonymousUser:
                 if userform.is_valid():
                     if userform.cleaned_data['password'] == userform.cleaned_data['passconf']:
                         new_user = User.objects.create_user(
@@ -438,7 +438,10 @@ def add_organization(request, *args, **kwargs):
                             userform.cleaned_data['password'])
             else:
                 new_user = request.user
-            del_member_class(new_user.member)
+                try:
+                    del_member_class(new_user.member)
+                except:
+                    pass
             new_organization.leader = new_user.member
             new_organization.save()
             return HttpResponseRedirect(new_organization.get_absolute_url())
