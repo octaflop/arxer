@@ -16,6 +16,7 @@
 			{{ member.user.first_name }}
 			{{ member.user.last_name }}</a><b></li>
 			{% else %}
+      <li><a href="{{ member.get_absolute_url }}">{{ member.user.username }}</a></li>
 			{% endif %}
 		{% endfor %}
 	</ul>

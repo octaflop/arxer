@@ -20,7 +20,8 @@ from django.core.urlresolvers import reverse
 #haystack
 from haystack.query import SearchQuerySet
 from django.utils import simplejson
-from pinax.apps.account.forms import SignupForm
+#from pinax.apps.account.forms import SignupForm
+from verbena.forms import UserForm
 import datetime
 
 def ev_list(request, *args, **kwargs):
@@ -270,7 +271,6 @@ def leave_project(request, *args, **kwargs):
 @permission_required('verbena.join_project')
 def join_project(*args, **kwargs):
     "join a research project"
-    ##project = Project.objects.get(slug=request.slug)
     project = Project.objects.get(slug=kwargs['slug'])
     return update_object(*args, **kwargs)
 
@@ -288,8 +288,19 @@ def member_signup(request, *args, **kwargs):
     Add the member to a group-type if necessary
     """
     data = request.POST or None
-    form = SignupForm(data=data)
-    ret = dict(form=form)
+    form = UserForm(data=data)
+    mdata = request.FILES or None
+    avatar_form = AvatarForm(data, mdata)
+    if avatar_form.is_valid() and form.is_valid():
+        user = form.save()
+        avatar = avatar_form.save()
+        user.member.avatar = avatar
+        try:
+            user.member.save()
+            return redirect(user.member.get_absolute_url())
+        except:
+            return redirect("member_signup")
+    ret = dict(form=form,avform=avatar_form)
     return render(request, 'verbena/members/signup.html', ret)
 
 @login_required
@@ -315,10 +326,12 @@ def list_all_members(request, *args, **kargs):
     """
     List all of the members
     """
-    member_list = []
+    ##import pdb; pdb.set_trace()
+    ##member_list = []
     mems = Member.objects.all()
-    for mem in mems:
-        member_list.append(mem)
+    #for mem in mems:
+    #    member_list.append(mem)
+    """
     orgs = Organization.objects.all()
     for org in orgs:
         member_list.append(org)
@@ -328,7 +341,8 @@ def list_all_members(request, *args, **kargs):
     facultys = Faculty.objects.all()
     for faculty in facultys:
         member_list.append(faculty)
-    ret = dict(object_list=member_list)
+    """
+    ret = dict(object_list=mems)
     return render(request, 'verbena/members/member_list.html', ret)
 
 # Volunteer opportunities
