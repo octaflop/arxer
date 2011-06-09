@@ -9,15 +9,17 @@ import django.forms as forms
 from django.forms.formsets import formset_factory
 from django.template.defaultfilters import slugify
 from django.utils.translation import ugettext_lazy as _
-
+from django.utils.translation import ugettext
 from ajax_select.fields import AutoCompleteSelectField
 
 from verbena.recaptchawidget.fields import ReCaptchaField
+import re
+alnum_re = re.compile(r"^\w+$")
 
 class AvatarForm(ModelForm):
     class Meta:
         model = Photo
-        exclude = ('',)
+        exclude = ('effect', 'tags', 'effect', 'crop_from', 'is_public')
 
 class ProjectForm(ModelForm):
     class Meta:
@@ -35,11 +37,63 @@ class LocationForm(ModelForm):
 
 class UserForm(forms.Form):
     username = forms.CharField()
-    password = forms.CharField(widget=forms.PasswordInput())
-    passconf = forms.CharField(widget=forms.PasswordInput(),
+    password1 = forms.CharField(widget=forms.PasswordInput())
+    password2 = forms.CharField(widget=forms.PasswordInput(),
             label=_("Please confirm your password"))
     email = forms.EmailField()
     recaptcha = ReCaptchaField()
+    
+    def __init__(self, *args, **kwargs):
+        super(UserForm, self).__init__(*args, **kwargs)
+        self.fields["email"].label = ugettext("E-mail (optional)")
+        self.fields["email"].required = False
+    
+    def clean_username(self):
+        if not alnum_re.search(self.cleaned_data["username"]):
+            raise forms.ValidationError(_("Usernames can only contain letters, numbers and underscores."))
+        try:
+            user = User.objects.get(username__iexact=self.cleaned_data["username"])
+        except User.DoesNotExist:
+            return self.cleaned_data["username"]
+        raise forms.ValidationError(_("This username is already taken. Please choose another."))
+    
+    def clean_email(self):
+        value = self.cleaned_data["email"]
+        return value
+
+    def clean(self):
+        if "password1" in self.cleaned_data and "password2" in self.cleaned_data:
+            if self.cleaned_data["password1"] != self.cleaned_data["password2"]:
+                raise forms.ValidationError(_("You must type the same password each time."))
+        return self.cleaned_data
+
+    def create_user(self, username=None, commit=True):
+        user = User()
+        if username is None:
+            raise NotImplementedError("UserForm.create_user does not handle "
+                "username=None case. You must override this method.")
+        user.username = username
+        user.email = self.cleaned_data["email"].strip().lower()
+        password = self.cleaned_data.get("password1")
+        if password:
+            user.set_password(password)
+        else:
+            user.set_unusable_password()
+        if commit:
+            user.save()
+        return user
+
+    def save(self, request=None):
+        # don't assume a username is available. it is a common removal if
+        # site developer wants to use e-mail authentication.
+        username = self.clean_username()
+        email = self.clean_email()
+        if self.is_valid():
+            new_user = self.create_user(username)
+            return new_user
+        else:
+            return
+
 
 class MemberForm(ModelForm):
     class Meta:

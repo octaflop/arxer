@@ -5,7 +5,7 @@
     |
     <a href="{% url acct_email %}">Account</a>
     |
-		<a href="{% url profile_detail user.username %}">Profile</a>
+		<a href="{% url member_view user.member.slug %}">Profile</a>
 		|
     {% if user.is_staff %}
         <a href="/admin/">Admin</a>
