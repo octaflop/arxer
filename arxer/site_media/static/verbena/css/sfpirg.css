@@ -64,8 +64,12 @@ h4 {
 	margin: 20px 0 15px 0;
 }
 
+#disp_username {
+	font-size: 15px;
+}
+
 .sign_in {
-	font-size: 14px;
+	font-size: 10px;
 	color: #fff;
 	padding: 5px 10px;
 	font-weight: bold;
@@ -330,5 +334,4 @@ aside section {
 		-moz-border-radius: 12px;
 		-webkit-border-radius: 12px;
 	}
-
 

@@ -297,6 +297,7 @@ def member_signup(request, *args, **kwargs):
         user.member.avatar = avatar
         try:
             user.member.save()
+            form.login(request, user)
             return redirect(user.member.get_absolute_url())
         except:
             return redirect("member_signup")

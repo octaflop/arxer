@@ -14,7 +14,7 @@
 		{{ form|as_uni_form }}
 		<input type='submit' value='Change' />
 	</form>
-	<a href="{% url student_view object.slug %}">Cancel Edits</a>
+	<a href="{% url member_view request.user.member.slug %}">Cancel Edits</a>
 	{% endif %}
 {% endblock %}
 {% block extra_body %}

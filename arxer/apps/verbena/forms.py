@@ -11,6 +11,7 @@ from django.template.defaultfilters import slugify
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import ugettext
 from ajax_select.fields import AutoCompleteSelectField
+from pinax.apps.account.utils import perform_login
 
 from verbena.recaptchawidget.fields import ReCaptchaField
 import re
@@ -42,12 +43,12 @@ class UserForm(forms.Form):
             label=_("Please confirm your password"))
     email = forms.EmailField()
     recaptcha = ReCaptchaField()
-    
+
     def __init__(self, *args, **kwargs):
         super(UserForm, self).__init__(*args, **kwargs)
         self.fields["email"].label = ugettext("E-mail (optional)")
         self.fields["email"].required = False
-    
+
     def clean_username(self):
         if not alnum_re.search(self.cleaned_data["username"]):
             raise forms.ValidationError(_("Usernames can only contain letters, numbers and underscores."))
@@ -56,7 +57,7 @@ class UserForm(forms.Form):
         except User.DoesNotExist:
             return self.cleaned_data["username"]
         raise forms.ValidationError(_("This username is already taken. Please choose another."))
-    
+
     def clean_email(self):
         value = self.cleaned_data["email"]
         return value
@@ -82,6 +83,11 @@ class UserForm(forms.Form):
         if commit:
             user.save()
         return user
+
+    def login(self, request, user):
+        # nasty hack to get get_user to work in Django
+        user.backend = "django.contrib.auth.backends.ModelBackend"
+        perform_login(request, user)
 
     def save(self, request=None):
         # don't assume a username is available. it is a common removal if

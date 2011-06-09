@@ -1,19 +1,17 @@
 {% load i18n ifsetting_tag account_tags openid_tags %}
 {% load nav_build %}
 {% if user.is_authenticated %}
-    {% ifopenid %}<img src="{{ STATIC_URL }}images/openid-icon.png" alt="Logged in with OpenID" />{% endifopenid %}<b>{% user_display user %}</b>
-    |
+    {% ifopenid %}<img src="{{ STATIC_URL }}images/openid-icon.png" alt="Logged
+		in with OpenID" />{% endifopenid %}<p id="disp_username"><b>{% user_display user %}</b></p>
     <a href="{% url acct_email %}">Account</a>
     |
 		<a href="{% url member_view user.member.slug %}">Profile</a>
 		|
-    {% if user.is_staff %}
-        <a href="/admin/">Admin</a>
-        |
-    {% endif %}
     <a href="{% if request.openid %}/openid/logout/?next={% url acct_logout %}{% else %}{% url acct_logout %}{% endif %}">Logout</a>
-
 		<section class='member_box'>{% memberbox %}</section>
+    {% if user.is_staff %}
+        <p><a href="/admin/">Admin</a></p>
+    {% endif %}
 {% else %}
 		<section class='login_box'>{% loginbox %}</section>
 {% endif %}
