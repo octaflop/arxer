@@ -226,6 +226,19 @@ aside {
 	width: 669px;
 }
 
+.ag_post .act_avatar {
+	float: center;
+
+}
+.ag_post .content_back {
+	width: 180px;
+	margin-left: 10px;
+}
+
+.ag_post .content_dot {
+	width: 180px
+}
+
 h3#articleTitle {
 	font-family: verdana;
 	color: #CC0000;

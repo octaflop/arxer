@@ -2,15 +2,31 @@
 {% block head_title %}
 	Action Groups
 {% endblock %}
-{% block content_title %}
-	Action Groups
-{% endblock %}
-{% block main_article %}
-	<ul class='org_list'>
-		{% for ag in object_list %}
-			<li><img src="{{ ag.portrait.get_thumbnail_url }}" alt="{{ ag.portrait.title }}" />
-			<b><a href="{{ ag.get_absolute_url }}">{{ ag.title }}</a></b></li>
-		{% endfor %}
-	</ul>
+
+{% block main_content %}
+<section>
+<article class="content_post ag_post">
+	<header id="intro">
+		<h1>Action Groups</h1>
+	</header>
+	{% include "verbena/act_group/_intro.html" %}
+	{% for ag in object_list %}
+	<article class="content_back">
+		<article class="content_dot">
+	<div class='act_avatar'>
+		<a href="{{ ag.get_absolute_url }}"><img src="{{ ag.portrait.get_thumbnail_url }}" alt="{{ ag.portrait.title }}" /></a>
+	</div>
+
+			<div>
+			<header>
+				<h1><span class="title">{{ ag.title }}</span></h1>
+			</header>
+			{{ ag.about }}
+			</div>
+		</article>
+	</article>
+	{% endfor %}
 	<a href="{% url act_add %}">Add an Action Group</a>
+</article>
+</section>
 {% endblock %}

@@ -18,3 +18,24 @@
 {% block intro_title %}
 	{% trans "About Us" %}
 {% endblock %}
+
+{% block main_content %}
+<section>
+<article class="content_post">
+	<header id="intro">
+		<h1>About</h1>
+	</header>
+	<article class="content_back">
+		<article class="content_dot">
+			<div>
+			<header>
+				<h1><span class="title">{% block content_title %}{% endblock %}</span></h1>
+			</header>
+			{% block main_article %}{% endblock %}
+			</div>
+		</article>
+	</article>
+</article>
+</section>
+{% endblock %}
+

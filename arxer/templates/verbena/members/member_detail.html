@@ -13,5 +13,10 @@
 		<dt>Name:</dt><dd>{{ object.user.last_name }}, {{ object.profile.user.first_name }}</dd>
 		<dt>email:</dt><dd>{{ object.user.email }}</dd>
 	</dl>
+	{% if object.student or object.faculty or object.organization %}
+	{% else %}
+		You don't seem to be signed up as a particular profile. You should <a 
+		href="{% url get-involved %}">get involved</a>!
+	{% endif %}
 {% endblock %}
 

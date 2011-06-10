@@ -145,7 +145,7 @@ class OrganizationForm(ModelForm):
 class ActionGroupForm(ModelForm):
     class Meta:
         model = ActionGroup
-        fields =('title', 'slug',)
+        fields =('title', 'slug','about',)
         exclude = ('supporters','gallery',)
 
 class GrantForm(ModelForm):
