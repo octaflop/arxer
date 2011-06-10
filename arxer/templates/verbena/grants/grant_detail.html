@@ -1,0 +1,19 @@
+{% extends "verbena/grants/grant_base.html" %}
+{% block head_title %}
+	{{ object.title }}
+{% endblock %}
+{% block content_title %}
+	<a href="{{ object.get_absolute_url }}">{{ object.name }}</a>
+{% endblock %}
+{% block main_article %}
+	<dl>
+		<dt>Grant Name:</dt><dd>{{ object.title }}</dd>
+		<dt>Grant approval status:</dt><dd>{{ object.approval_status }}</dd>
+	</dl>
+	{% if request.user.is_authenticated %}
+		{% if request.user.is_superuser %}
+			<a href="{{ object.get_absolute_url }}/edit">Edit Grant</a>
+		{% endif %}
+	{% endif %}
+	<a href="{% url org_home %}">Back to list of grants</a>
+{% endblock %}

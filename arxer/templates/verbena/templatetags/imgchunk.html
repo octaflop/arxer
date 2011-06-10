@@ -1,0 +1,11 @@
+<div class="chunkbox" id="chunk-{{ chunk.slug }}">
+	<div class="chunk-contentbox">
+		<p id="chunk-{{ chunk.slug }}-content">{{ chunk.content }}</p>
+	</div>
+</div>
+	{% if chunk.image %}
+	<div class="chunk-imagebox">
+		<img src="{{ chunk.image.url }}" alt="{{ chunk.slug }}" />
+	</div>
+	{% endif %}
+
