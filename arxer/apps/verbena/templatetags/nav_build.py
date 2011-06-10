@@ -8,6 +8,7 @@ from verbena.models import Chunk
 
 register = template.Library()
 
+# CHUNK Tags
 @register.inclusion_tag('verbena/templatetags/chunk.html', takes_context=True)
 def chunk(context, slug):
     """
@@ -21,6 +22,36 @@ def chunk(context, slug):
         context['chunk'] = ''
     return dict(chunk=context['chunk'])
 
+@register.inclusion_tag('verbena/templatetags/colchunk.html', takes_context=True)
+def colchunk(context, slug):
+    """
+    Inserts the contents of a flatpage by looking up the chunk slug. This chunk
+    is a column.
+    eg:
+        {% colchunk "actiongroup" %}
+    """
+    try:
+        context['chunk'] = Chunk.objects.get(slug=slug)
+    except Chunk.DoesNotExist:
+        context['chunk'] = ''
+    return dict(chunk=context['chunk'])
+
+@register.inclusion_tag('verbena/templatetags/imgchunk.html', takes_context=True)
+def imgchunk(context, slug):
+    """
+    Inserts the contents of a flatpage by looking up the chunk slug. This chunk
+    is a column.
+    eg:
+        {% imgchunk "actiongroup" %}
+    """
+    try:
+        context['chunk'] = Chunk.objects.get(slug=slug)
+    except Chunk.DoesNotExist:
+        context['chunk'] = ''
+    return dict(chunk=context['chunk'])
+
+
+# dynamic tags
 @register.inclusion_tag('verbena/templatetags/newsbox.html', takes_context=True)
 def newsbox(context):
     events = Event.objects.filter(end_date__gte=datetime.datetime.now())

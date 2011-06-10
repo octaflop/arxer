@@ -6,13 +6,16 @@ from ajax_select import make_ajax_form
 
 from verbena.models import Student, Faculty, NewsRelease, Location, Project,\
     VolunteerOpportunity, Organization, Workshop, ActionGroup, Grant,\
-    Navigation, Member, Chunk
+    Navigation, Member, Chunk, StaffBio
 
 #class MemberAdmin(UserAdmin):
 #    pass
 
 class MemberAdmin(admin.ModelAdmin):
     pass
+
+class StaffBioAdmin(admin.ModelAdmin):
+    list_display = ('name',)
 
 class ChunkAdmin(admin.ModelAdmin):
     list_display = ('slug',)
@@ -60,6 +63,7 @@ class GrantAdmin(admin.ModelAdmin):
     exclude = ('date_applied',)
     prepopulated_fields = {'slug': ('title',)}
 
+admin.site.register(StaffBio, StaffBioAdmin)
 admin.site.register(Chunk, ChunkAdmin)
 # akin to adding !important, but for some "AlreadyRegistered" error.
 #admin.site.unregister(Project)

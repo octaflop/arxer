@@ -7,7 +7,7 @@
 	<dl>
 		<dt>title:</dt><dd>{{ object.title }}</dd>
 		<dt>location:</dt><dd>{{ object.location }}</dd>
-		<dt>about:</dt><dd>{{ object.about }}</dd>
+		<dt>about:</dt><dd>{{ object.about|safe }}</dd>
 		<dt>url:</dt><dd><a href="{{object.website}}">{{ object.website }}</a></dd>
 		<dt>Workshops</dt><dd>{{ object.workshops }}</dd>
 	</dl>

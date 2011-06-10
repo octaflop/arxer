@@ -24,6 +24,7 @@
 		<!-- Ajax_select icons -->
 		<link rel="stylesheet" href="{{ STATIC_URL }}verbena/css/iconic.css" />
 		{% endcompress %}
+		{{ form.media }}
 
 		<!-- top js: modernizr only -->
 		{% compress js %}
@@ -48,16 +49,16 @@
 						{% endfor %}
 				</ul>
 		</div>	
+		{% endif %}
 		{% if messages %}
-									<ul id="messages">
-											{% for message in messages %}
-											<li id="message_{{ forloop.counter }}"{% if message.tags %} class="{{ message.tags }}"{% endif %}>
-													<a href="#"><small>{% trans "clear" %}</small></a>
-													{{ message }}
-											</li>
-											{% endfor %}
-									</ul>
-							{% endif %}
+			<ul id="messages">
+					{% for message in messages %}
+					<li id="message_{{ forloop.counter }}"{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+							<a href="#"><small>{% trans "clear" %}</small></a>
+							{{ message }}
+					</li>
+					{% endfor %}
+			</ul>
 		{% endif %}
 		<header id="{% block header_id %}backBanner{% endblock %}">
 			{% block header %}{% endblock %}

@@ -1,4 +1,5 @@
 {% extends "verbena/research/res_base.html" %}
+{% load nav_build %}
 {% load i18n %}
 
 {% block head_title %}
@@ -8,7 +9,9 @@
 	{% trans "Research and Resources" %}
 {% endblock %}
 
+
 {% block main_article %}
+{% chunk "researchandresources" %}
 	<ul class='res_list'>
 		{% for res in object_list %}
 			<li><b><a href="{{ res.get_absolute_url }}">{{ res.title }}</a></b></li>

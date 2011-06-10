@@ -153,7 +153,7 @@ INSTALLED_APPS = [
     "django.contrib.sites",
     "django.contrib.messages",
     "django.contrib.humanize",
-    #"django.contrib.markup",
+    "django.contrib.markup",
 
     # Pinax    
     "pinax.templatetags",
@@ -176,7 +176,7 @@ INSTALLED_APPS = [
     "groups",
     "threadedcomments",
     "wakawaka",
-    #"swaps",
+    "swaps",
     "voting",
     "tagging",
     "bookmarks",
@@ -217,8 +217,7 @@ INSTALLED_APPS = [
     "ajax_select",
     "idios",
     "django.contrib.flatpages",
-#    "django_assets",
-    "template_repl",
+    ##"template_repl",
     "compressor",
     "gunicorn",
     "guardian",

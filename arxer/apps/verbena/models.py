@@ -16,6 +16,8 @@ from settings import STATIC_ROOT, MEDIA_ROOT
 
 from notification.models import send
 
+from tinymce import models as mce_models
+
 import datetime
 
 #############################################################################
@@ -81,7 +83,8 @@ class Organization(models.Model):
             _("What is your organization's goal or mandate?"),
             max_length=180,
             blank=True)
-    service = models.TextField(
+    ##service = models.TextField(
+    service = mce_models.HTMLField(
             _("How does your organization goal or mandate fit in with our\
                 desire to support community organizations?"),
             blank=True)
@@ -95,7 +98,8 @@ class Organization(models.Model):
     nonprofit_status = models.BooleanField(
             _("Are you a registered non-profit?"),
             default=False)
-    about = models.TextField(_("About"))
+    ##about = models.TextField(_("About"))
+    about = mce_models.HTMLField(_("About"))
     location = models.ForeignKey("Location", blank=True, null=True)
     website = models.URLField(_("website"), blank=True, null=True,
             default="http://example.com/",
@@ -195,7 +199,10 @@ class ActionGroup(models.Model):
     portrait = models.ForeignKey(Photo, related_name='actiongroup_portrait',
             null=True, blank=True)
     leader = models.ForeignKey("Member", related_name='ag_leader')
-    about = models.TextField(_("About"),
+    #about = models.TextField(_("About"),
+    #        help_text=_("A short summary of your action group. This will be\
+    #                displayed on the action group listings page."))
+    about = mce_models.HTMLField(_("About"),
             help_text=_("A short summary of your action group. This will be\
                     displayed on the action group listings page."))
     # Similar to facebook's "like"
@@ -224,7 +231,8 @@ class Research(models.Model):
     """ Research & Resources have their own logos and pages """
     title = models.CharField(_("Group title"), max_length=80)
     slug = models.SlugField(_("URL-friendly title"))
-    about = models.TextField(_("About"), blank=True, null=True)
+    ##about = models.TextField(_("About"), blank=True, null=True)
+    about = mce_models.HTMLField(_("About"), blank=True, null=True)
     portrait = models.ForeignKey(Photo, related_name='research_portrait',
             null=True, blank=True)
     supporters = models.ManyToManyField(Member,
@@ -264,7 +272,8 @@ class Event(models.Model):
     start_date = models.DateTimeField(_("Event start date & time"))
     end_date = models.DateTimeField(_("Event end date & time"))
     location = models.ForeignKey(Location, blank=True, null=True)
-    description = models.TextField(_("Event description"),
+    ##description = models.TextField(_("Event description"),
+    description = mce_models.HTMLField(_("Event description"),
         help_text=_("A short description of the event"))
 
     def __unicode__(self):
@@ -356,7 +365,8 @@ class Project(models.Model):
             null=True, blank=True)
     date_applied = models.DateField(_("Project start date"))
     organization = models.ForeignKey("Organization")
-    research_question = models.TextField(_("Central Research Question"),
+    ##research_question = models.TextField(_("Central Research Question"),
+    research_question = mce_models.HTMLField(_("Central Research Question"),
             help_text=_("What is the central research question you want answered?"),
             blank=True
             )
@@ -389,20 +399,25 @@ class Project(models.Model):
                         describe your project-type."),
             max_length=200,
             blank=True)
-    magnitude = models.TextField(_("Scope of Project"),
+    ##magnitude = models.TextField(_("Scope of Project"),
+    magnitude = mce_models.HTMLField(_("Scope of Project"),
             help_text=_("Describe the size of the project in quantifiable terms\
                 (e.g. word/page count, duration of radio, number of hours)."),
             )
-    project_description = models.TextField(_("Project Description"),
+    ##project_description = models.TextField(_("Project Description"),
+    project_description = mce_models.HTMLField(_("Project Description"),
             help_text=_("Please describe your project here")
             )
-    issues = models.TextField(_("Issues Address"),
+    ##issues = models.TextField(_("Issues Address"),
+    issues = mce_models.HTMLField(_("Issues Addressed"),
             help_text=_("What social/environmental issues are addressed by this project?")
             )
-    results_plan = models.TextField(_("Resultant goal"),
+    ##results_plan = models.TextField(_("Resultant goal"),
+    results_plan = mce_models.HTMLField(_("Resultant goal"),
             help_text=_("How do you plan on using the results of this project?")
             )
-    goal = models.TextField(_("Project goal"),
+    ##goal = models.TextField(_("Project goal"),
+    goal = mce_models.HTMLField(_("Project goal"),
             help_text=_("What larger goal is served by undertaking this project?")
             )
     approval_status = models.CharField(_("approval status"),
@@ -445,7 +460,8 @@ class StudentProject(Project):
             help_text=_("Course name and number"),
             max_length=100,
             blank=True)
-    course_apply = models.TextField(_("Course application"),
+    #course_apply = models.TextField(_("Course application"),
+    course_apply = mce_models.HTMLField(_("Course application"),
             help_text=_("How would you like to apply this project in your\
                 course?"),
             blank=True)
@@ -498,19 +514,25 @@ class Grant(models.Model):
     accessibility_opt = models.BooleanField(_("Accessibility Grant"),
             help_text=("Select this option if you are applying for an\
             accessibility grant in conjunction with your request."))
-    other_fund = models.TextField(_("Other funding sources"),
+    ##other_fund = models.TextField(_("Other funding sources"),
+    other_fund = mce_models.HTMLField(_("Other funding sources"),
             help_text="Where else have you applied for funding?",
             blank=True)
-    description = models.TextField(_("Project description"),
+    ##description = models.TextField(_("Project description"),
+    description = mce_models.HTMLField(_("Project description"),
             help_text="What are you requesting this money for? Please briefly\
             describe your project/campaign/event.")
-    comm_benefit = models.TextField(_("Community Benefit"),
+    ##comm_benefit = models.TextField(_("Community Benefit"),
+    comm_benefit = mce_models.HTMLField(_("Community Benefit"),
         help_text="How does this initiative benefit the community?")
-    budget_timeline = models.TextField(_("Breakdown and Timeline"),
+    ##budget_timeline = models.TextField(_("Breakdown and Timeline"),
+    budget_timeline = mce_models.HTMLField(_("Breakdown and Timeline"),
             help_text="Please provide a project break-down and timeline")
-    mandate = models.TextField(_("Mandate"), help_text="What is the mandate of\
+    ##mandate = models.TextField(_("Mandate"), help_text="What is the mandate of\
+    mandate = mce_models.HTMLField(_("Mandate"), help_text="What is the mandate of\
             your organization?")
-    history = models.TextField(_("History"),
+    ##history = models.TextField(_("History"),
+    history = mce_models.HTMLField(_("History"),
         help_text="How long has your project been around and what are some of\
         your past projects/initiatives?")
     magnitude = models.TextField(_("Amount of people"),
@@ -539,7 +561,7 @@ class NewsRelease(models.Model):
     A News release is a short document with up-to-date information for the
     press and other public media entities.
     """
-    content = models.TextField(_("A description of the news"))
+    content = mce_models.HTMLField(_("A description of the news"))
     datetime_released = models.DateTimeField(_("News Release date and time"),
             help_text=_("Indicate the date and time of the news release"))
 
@@ -576,7 +598,8 @@ class Chunk(models.Model):
     Only Admins can edit blocks
     """
     slug = models.SlugField(unique=True)
-    content = models.TextField(_("Chunk content"))
+    #content = models.TextField(_("Chunk content"))
+    content = mce_models.HTMLField(_("Chunk content"))
     image = models.ImageField(_("Image"),
         help_text="An image for the Chunk. Optional.",
         null=True, blank=True, upload_to="block-image")
@@ -586,6 +609,21 @@ class Chunk(models.Model):
     class Meta:
         ordering = ('weight',)
 
+class StaffBio(models.Model):
+    name = models.CharField(_("Staff Member Name"),
+            help_text=_("The full name of the staff-member"),
+            max_length=100,)
+    ##bio = models.TextField(_("A short biography of the staff-member"))
+    bio = mce_models.HTMLField(_("Bio"),
+            help_text=_("A short biography of the staff-member"))
+    image = models.ImageField(_("Image"),
+        help_text="An image of the staff member. Optional.",
+        null=True, blank=True, upload_to="block-image")
+    weight = models.IntegerField(default=0, help_text="Weights determine staff\
+        ordering. Lower values equal higher positions.")
+
+    class Meta:
+        ordering = ('weight',)
 
 ################################################################################
 # Listeners
