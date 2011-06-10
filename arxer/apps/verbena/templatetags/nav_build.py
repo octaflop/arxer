@@ -4,23 +4,22 @@ from pinax.apps.account.forms import LoginForm
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 import datetime
-from django.contrib.flatpages.models import FlatPage
+from verbena.models import Chunk
 
 register = template.Library()
 
-@register.inclusion_tag('verbena/templatetags/flatpage.html', takes_context=True)
-def flatpage(context, flatpage):
+@register.inclusion_tag('verbena/templatetags/chunk.html', takes_context=True)
+def chunk(context, slug):
     """
-    Inserts the contents of a flatpage by looking up the flatpage slug
+    Inserts the contents of a flatpage by looking up the chunk slug
     eg:
-        {% flatpage "/action-group/" %}
+        {% chunk "actiongroup" %}
     """
     try:
-        flatpage = FlatPage.objects.get(slug=flatpage)
-    except FlatPage.DoesNotExist:
-        flatpage = ''
-    return dict(flatpage=context['flatpage'])
-
+        context['chunk'] = Chunk.objects.get(slug=slug)
+    except Chunk.DoesNotExist:
+        context['chunk'] = ''
+    return dict(chunk=context['chunk'])
 
 @register.inclusion_tag('verbena/templatetags/newsbox.html', takes_context=True)
 def newsbox(context):

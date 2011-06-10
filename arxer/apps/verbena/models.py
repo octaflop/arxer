@@ -568,6 +568,25 @@ class Navigation(models.Model):
         self.navlogo_path = "%s%s" % ("/site_media/static", self.navlogo_path)
         super(Navigation, self).save(*args, **kwargs)
 
+class Chunk(models.Model):
+    """
+    A Chunk is a simple model for inclusion into certain pages. They are called
+    into the page via their slug. Blocks may also contain an image, but not
+    necessarily. Each block must have a unique slug.
+    Only Admins can edit blocks
+    """
+    slug = models.SlugField(unique=True)
+    content = models.TextField(_("Chunk content"))
+    image = models.ImageField(_("Image"),
+        help_text="An image for the Chunk. Optional.",
+        null=True, blank=True, upload_to="block-image")
+    weight = models.IntegerField(default=0, help_text="Weights determine block\
+        ordering")
+
+    class Meta:
+        ordering = ('weight',)
+
+
 ################################################################################
 # Listeners
 ################################################################################

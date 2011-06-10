@@ -1,0 +1,6 @@
+<div id="chunk-{{ chunk.slug }}">
+	<p id="chunk-{{ chunk.slug }}-content">{{ chunk.content }}</p>
+	{% if chunk.image %}
+	<img src="{{ chunk.image.url }}" alt="{{ chunk.slug }}" />
+	{% endif %}
+</div>

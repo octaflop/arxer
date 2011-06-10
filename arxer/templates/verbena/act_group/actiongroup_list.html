@@ -1,4 +1,6 @@
 {% extends "verbena/act_group/act_base.html" %}
+{% load nav_build %}
+
 {% block head_title %}
 	Action Groups
 {% endblock %}
@@ -9,7 +11,7 @@
 	<header id="intro">
 		<h1>Action Groups</h1>
 	</header>
-	{% include "verbena/act_group/_intro.html" %}
+	{% chunk "actiongroup" %}
 	{% for ag in object_list %}
 	<article class="content_back">
 		<article class="content_dot">
