@@ -320,6 +320,9 @@ AJAX_LOOKUP_CHANNELS = {
 
 ADMIN_TOOLS_MENU = 'arxer.menu.CustomMenu'
 INTERNAL_IPS = ('127.0.0.1',)
+#TINYMCE_DEFAULT_CONFIG
+
+FILEBROWSER_DIRECTORY = "uploads"
 
 # local_settings.py can be used to override environment-specific settings
 # like database and email that differ between development and production.
