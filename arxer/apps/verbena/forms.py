@@ -18,10 +18,67 @@ from verbena.recaptchawidget.fields import ReCaptchaField
 import re
 alnum_re = re.compile(r"^\w+$")
 
+class GroupForm(forms.Form):
+    
+    def __init__(self, *args, **kwargs):
+        self.group = kwargs.pop("group", None)
+        super(GroupForm, self).__init__(*args, **kwargs)
+
+
+class LoginForm(GroupForm):
+    
+    password = forms.CharField(
+        label = _("Password"),
+        widget = forms.PasswordInput(render_value=False)
+    )
+    
+    user = None
+    
+    def __init__(self, *args, **kwargs):
+        super(LoginForm, self).__init__(*args, **kwargs)
+        ordering = []
+        self.fields["username"] = forms.CharField(
+            label = ugettext("Username"),
+            max_length = 30,
+        )
+        ordering.append("username")
+        ordering.extend(["password",])
+        self.fields.keyOrder = ordering
+    
+    def user_credentials(self):
+        """
+        Provides the credentials required to authenticate the user for
+        login.
+        """
+        credentials = {}
+        credentials["username"] = self.cleaned_data["username"]
+        credentials["password"] = self.cleaned_data["password"]
+        return credentials
+    
+    def clean(self):
+        if self._errors:
+            return
+        user = authenticate(**self.user_credentials())
+        if user:
+            if user.is_active:
+                self.user = user
+            else:
+                raise forms.ValidationError(_("This account is currently inactive."))
+        else:
+            error = _("The username and/or password you specified are not correct.")
+            raise forms.ValidationError(error)
+        return self.cleaned_data
+    
+    def login(self, request):
+        perform_login(request, self.user)
+        request.session.set_expiry(60 * 60 * 24 * 7 * 3)
+
+
+
 class AvatarForm(ModelForm):
     class Meta:
         model = Photo
-        exclude = ('effect', 'tags', 'effect', 'crop_from', 'is_public')
+        exclude = ('effect', 'tags', 'effect', 'crop_from', 'is_public',)
 
 class ProjectForm(ModelForm):
     class Meta:

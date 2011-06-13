@@ -10,10 +10,11 @@
 
 /* Makeshift CSS Reset */
 /* NOT NEEDED? */
+/*
  * {
 	margin: 0;
 	padding: 0;
-}
+}*/
 
 /* Tell the browser to render HTML 5 elements as block */
 header, footer, section, aside, nav, article {
@@ -26,6 +27,10 @@ body {
 	width: 1088px;
 	font: 13px/22px Helvetica, Arial, sans-serif;
 	background-image: url('../img/paper_background.png');
+}
+
+a, a:visited {
+	color: #010101;
 }
 
 footer {
@@ -68,6 +73,19 @@ h4 {
 	font-size: 15px;
 }
 
+/* SEARCH */
+.search {
+	padding-top: 1em;
+	padding-bottom: 1em;
+	margin-left: .5em;
+	height: 2.5em;
+}
+
+input[type="search"] {
+	border-radius: 20px;
+	height: 2em;
+}
+
 .sign_in {
 	font-size: 10px;
 	color: #fff;
@@ -78,6 +96,10 @@ h4 {
 	width: 160px;
 	height: 134px;
 	float: left;
+}
+
+.login .textinput .textInput {
+	width: 50px;
 }
 
 .contact_box {
@@ -270,7 +292,7 @@ hr {
 }
 
 .login .ctrlHolder {
-	width: 145px;
+	width: 150;
 }
 
 /*------------------------------
@@ -288,6 +310,29 @@ hr {
 	display: table-cell;
 	width: 620px;
 	padding-top: 5em;
+}
+
+.login_box p {
+	height: 0.9em;
+}
+
+form.signup input[type="submit"], form.login input[type="submit"] {
+	margin: 0;
+	font-size: 0.9em;
+}
+
+#id_username {
+	width: 110px;
+	height: 1em;
+}
+
+#id_password {
+	width: 110px;
+	height: 1em;
+}
+
+#loginform fieldset {
+	height: 180px;
 }
 
 .content_post {
