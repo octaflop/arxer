@@ -1,18 +1,10 @@
 {% load i18n %}
-{% load uni_form_tags %}
 {% load ifsetting_tag %}
 
-{% ifsetting ACCOUNT_OPEN_SIGNUP %}
-{% url acct_signup as signup_url %}
-<p>{% blocktrans %}Don't have an account?{% endblocktrans %}<a href="{% url  member_signup %}">{% blocktrans %}Sign up</a>!{% endblocktrans %}</p>
-{% endifsetting %}
 <form id='loginform' class="login uniForm" method="POST" action="{% url acct_login %}">
 		{% csrf_token %}
 		<fieldset class="inlineLabels">
-				<div class="form_block">
-						<a href="{% url acct_passwd_reset %}">{% trans "Forgot password?" %}</a>
-				</div>
-				{{ form|as_uni_form }}
+				{{ form }}
 				{% if redirect_field_value %}
 						<input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
 				{% endif %}

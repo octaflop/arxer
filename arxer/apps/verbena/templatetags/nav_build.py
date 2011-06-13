@@ -1,10 +1,10 @@
 from django import template
 from verbena.models import Navigation, Event
-from pinax.apps.account.forms import LoginForm
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 import datetime
 from verbena.models import Chunk
+from verbena.forms import LoginForm
 
 register = template.Library()
 

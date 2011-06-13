@@ -73,7 +73,8 @@ STATICFILES_DIRS = [
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
 # trailing slash.
 # Examples: "http://foo.com/media/", "/media/".
-ADMIN_MEDIA_PREFIX = posixpath.join(STATIC_URL, "admin/")
+#ADMIN_MEDIA_PREFIX = posixpath.join(STATIC_URL, "admin/")
+ADMIN_MEDIA_PREFIX = STATIC_URL + "grappelli/"
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = "y2pvlbgq1wc@7v2wd8m2j$)ao*^eh&nolb1u9b$y96vkcj5g^)"
@@ -141,6 +142,7 @@ COMBINED_INBOX_COUNT_SOURCES = [
 
 INSTALLED_APPS = [
     #admin tools
+    "grappelli",
     "admin_tools",
     "admin_tools.theming",
     "admin_tools.menu",
@@ -320,9 +322,12 @@ AJAX_LOOKUP_CHANNELS = {
 
 ADMIN_TOOLS_MENU = 'arxer.menu.CustomMenu'
 INTERNAL_IPS = ('127.0.0.1',)
-#TINYMCE_DEFAULT_CONFIG
+TINYMCE_DEFAULT_CONFIG = {
+        'file_browser_callback': 'mce_filebrowser',
+    }
 
-FILEBROWSER_DIRECTORY = "uploads"
+FILEBROWSER_DIRECTORY = ""
+
 
 # local_settings.py can be used to override environment-specific settings
 # like database and email that differ between development and production.
