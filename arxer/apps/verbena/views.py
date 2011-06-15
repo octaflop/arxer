@@ -12,6 +12,7 @@ from verbena.models import Organization, Project, VolunteerOpportunity,\
 from verbena.forms import ProjectForm, OrganizationForm, LocationForm,\
     StudentForm, UserForm, MemberForm, ActionGroupForm, AvatarForm,\
     FacultyForm, GrantForm
+from photologue.models import Photo
 from django.core.files.uploadedfile import SimpleUploadedFile
 from verbena.models import Organization, Location, Project
 from django.views.generic.list_detail import object_list, object_detail
@@ -23,6 +24,12 @@ from django.utils import simplejson
 #from pinax.apps.account.forms import SignupForm
 from verbena.forms import UserForm
 import datetime
+#from tinymce.views import render_to_link_list
+
+#def mcefilebrowser(request):
+#    objects = Photos.objects.all()
+   # link_list = [(unicode(obj), obj.get_absolute_url()) for obj in objects]
+   # return render_to_link_list(link_list)
 
 def ev_list(request, *args, **kwargs):
     """

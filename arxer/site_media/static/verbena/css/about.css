@@ -16,6 +16,10 @@ header#intro {
 	margin-top: 10px;
 }
 
+.sign_in a, a:visited {
+	color: #fefefe;
+}
+
 h1 {
 	font-size: 20px;
 	text-align: center;

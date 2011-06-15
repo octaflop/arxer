@@ -171,6 +171,7 @@ urlpatterns += patterns("",
 ##(r'sitemap\.xml$', 'django.contib.sitemaps.views.sitemap',
 ##        {'sitemaps': sitemaps})
 
+
 # Flatpages -- static pages on the site
 urlpatterns += patterns("django.contrib.flatpages.views",
     url(r"^about-us/$", 'flatpage', {'url': '/about-us/'}, name="about-us"),

@@ -201,7 +201,13 @@ class OrganizationForm(ModelForm):
                 'nonprofit_status', 'website',)
 
 class ActionGroupForm(ModelForm):
-    about = forms.CharField(widget=TinyMCE(attrs={'cols':80, 'rows':30}))
+    from django.core.urlresolvers import reverse
+    about = forms.CharField(widget=TinyMCE(attrs={
+                'cols':80,
+                'rows':30,
+            },
+        )
+    )
     class Meta:
         model = ActionGroup
         fields =('title', 'slug','about',)

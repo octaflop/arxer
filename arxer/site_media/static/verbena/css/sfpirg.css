@@ -29,7 +29,7 @@ body {
 	background-image: url('../img/paper_background.png');
 }
 
-a, a:visited {
+.sign_in a, a:visited {
 	color: #010101;
 }
 
@@ -250,15 +250,15 @@ aside {
 
 .ag_post .act_avatar {
 	float: center;
-
 }
+
 .ag_post .content_back {
-	width: 180px;
-	margin-left: 10px;
+	width: 175px;
+	margin-left: 1em;
 }
 
 .ag_post .content_dot {
-	width: 180px
+	width: 175px;
 }
 
 h3#articleTitle {
@@ -393,22 +393,24 @@ aside section {
 		-webkit-border-radius: 12px;
 	}
 
-.chunkbox {
-	width: 540px;
+.chunkbox-container {
+	width: 700px;
 	margin: 10px 10px;
+	padding: 10px 10px;
 	height: 120px;
 	-moz-border-radius: 12px;
 	-webkit-border-radius: 12px;
 	background-color: #0f0f0f;
 }
 
-.chunkbox p {
+.chunkbox-container p {
 	padding: 5px 5px;
 	margin: 5px 5px;
 }
 
-.chunk-contentbox {
+.chunkbox {
 	width: 540px;
+	background-color: #dddddd;
 	float: left;
 }
 
