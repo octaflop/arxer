@@ -328,11 +328,10 @@ TINYMCE_DEFAULT_CONFIG = {
     }
 
 
-#URL_FILEBROWSER_MEDIA = os.path.join(MEDIA_URL, 'filebrowser/') 
-PATH_FILEBROWSER_MEDIA = os.path.join(STATIC_ROOT, 'filebrowser')
-URL_FILEBROWSER_MEDIA = os.path.join(STATIC_URL, 'filebrowser')
-FILEBROWSER_DIRECTORY = 'uploads'
-
+#URL_FILEBROWSER_MEDIA = os.path.join(STATIC_URL, 'filebrowser')
+#PATH_FILEBROWSER_MEDIA = os.path.join(STATIC_ROOT, 'filebrowser')
+#FILEBROWSER_DIRECTORY = ''
+DIRECTORY = 'uploads'
 # local_settings.py can be used to override environment-specific settings
 # like database and email that differ between development and production.
 try:
