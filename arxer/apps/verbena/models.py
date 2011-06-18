@@ -199,9 +199,6 @@ class ActionGroup(models.Model):
     portrait = models.ForeignKey(Photo, related_name='actiongroup_portrait',
             null=True, blank=True)
     leader = models.ForeignKey("Member", related_name='ag_leader')
-    #about = models.TextField(_("About"),
-    #        help_text=_("A short summary of your action group. This will be\
-    #                displayed on the action group listings page."))
     about = mce_models.HTMLField(_("About"),
             help_text=_("A short summary of your action group. This will be\
                     displayed on the action group listings page."))

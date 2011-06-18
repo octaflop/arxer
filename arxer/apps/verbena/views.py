@@ -1,6 +1,7 @@
 # Create your views here.
 from django.http import HttpResponseRedirect, HttpResponse
 # other imports
+from django.utils.translation import ugettext, ugettext_lazy as _
 from django.contrib.auth.decorators import permission_required, login_required
 from django.contrib.auth.models import User, AnonymousUser
 from django.shortcuts import get_object_or_404, render_to_response, redirect
@@ -18,6 +19,7 @@ from verbena.models import Organization, Location, Project
 from django.views.generic.list_detail import object_list, object_detail
 from django.views.generic.create_update import create_object, update_object
 from django.core.urlresolvers import reverse
+from django.contrib import messages
 #haystack
 from haystack.query import SearchQuerySet
 from django.utils import simplejson
@@ -139,6 +141,11 @@ def add_faculty(request, *args, **kwargs):
         # after deleting, we finally try one more save
         try:
             faculty.save()
+            messages.add_message(request, messages.SUCCESS,
+                _("Successfully added %(faculty)s as faculty.") % {
+                    "faculty": faculty.member.user.username
+                }
+            )
         except:
             return HttpResponse(status=500)
         return redirect(faculty.get_absolute_url())
@@ -194,6 +201,11 @@ def add_student(request, *args, **kwargs):
         # after deleting, we finally try one more save
         try:
             student.save()
+            messages.add_message(request, messages.SUCCESS,
+                _("Successfully added %(student)s as student.") % {
+                    "student": student.member.user.username
+                }
+            )
         except:
             return HttpResponse(status=500)
         return redirect(student.get_absolute_url())
@@ -393,21 +405,31 @@ def add_actiongroup(request, *args, **kwargs):
     Create an action group and set up logged-in user as the leader
     """
     data = request.POST or None
-    agform = ActionGroupForm(data)
-    if agform.is_valid():
+    agform = ActionGroupForm(data=data)
+    mdata = request.FILES or None
+    avatar_form = AvatarForm(data, mdata)
+    if agform.is_valid() and avatar_form.is_valid():
         new_ag = agform.save(commit=False)
-        user = request.user.member or None
+        user = request.user.member
         try:
             new_ag.leader = user
+##            import pdb; pdb.set_trace()
+            portrait = avatar_form.save()
+            new_ag.portrait = portrait
             try:
                 new_ag.save()
+                messages.add_message(request, messages.SUCCESS,
+                    _("Successfully added %(ag)s to action groups.") % {
+                        "ag": new_ag.title
+                    }
+                )
                 return HttpResponseRedirect(new_ag.get_absolute_url())
             except:
                 return HttpResponse(status=500)
         except Member.DoesNotExist:
             return HttpResponse(status=404)
         return HttpResponseRedirect(new_ag.get_absolute_url())
-    ret = dict(form=agform)
+    ret = dict(form=agform, avform=avatar_form)
     return render(request, 'verbena/act_group/actiongroup_form.html', ret)
 
 @login_required
@@ -466,6 +488,12 @@ def add_organization(request, *args, **kwargs):
                     pass
             new_organization.leader = new_user.member
             new_organization.save()
+            new_organization.save()
+            messages.add_message(request, messages.SUCCESS,
+                _("Successfully added %(org)s as organization.") % {
+                    "org": new_organization.leader.user.username
+                }
+            )
             return HttpResponseRedirect(new_organization.get_absolute_url())
     else:
         userform = UserForm()

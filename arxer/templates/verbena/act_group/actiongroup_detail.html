@@ -6,6 +6,9 @@
 	{% block content_title %}<a href="{{ object.get_absolute_url }}">{{	object.name }}</a>{% endblock %}
 
 {% block main_article %}
+  {% if object.portrait %}
+    <img src="{{ object.portrait.get_display_url }}" alt="{{ object.portrait.title }}" />
+  {% endif %}
 	<dl>
 		<dt>title:</dt><dd>{{ object.title }}</dd>
 		<dt>leader:</dt><dd><a href="{% url member_view object.leader.slug %}">{{ object.leader }}</a></dd>
