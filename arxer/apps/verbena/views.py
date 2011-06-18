@@ -317,6 +317,11 @@ def member_signup(request, *args, **kwargs):
         try:
             user.member.save()
             form.login(request, user)
+            messages.add_message(request, messages.SUCCESS,
+                    _("Successfully added %(member)s as a member.") % {
+                        "member": user.username
+                    }
+                )
             return redirect(user.member.get_absolute_url())
         except:
             return redirect("member_signup")
@@ -336,6 +341,9 @@ def member_avatar_edit(request, *args, **kwargs):
         member.avatar = form.save()
         try:
             member.save()
+            messages.add_message(request, messages.SUCCESS,
+                    _("Successfully added an avatar")
+                )
             return redirect(member.get_absolute_url())
         except:
             return HttpResponse(status=404)
