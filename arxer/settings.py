@@ -323,11 +323,20 @@ AJAX_LOOKUP_CHANNELS = {
 
 ADMIN_TOOLS_MENU = 'arxer.menu.CustomMenu'
 INTERNAL_IPS = ('127.0.0.1',)
-TINYMCE_DEFAULT_CONFIG = {
-        'theme': 'advanced',
-        'custom_undo_redo_levels': 10,
-    }
 
+#TINYMCE_DEFAULT_CONFIG = {
+#        'theme': 'advanced',
+#        'custom_undo_redo_levels': 10,
+#    }
+
+TINYMCE_DEFAULT_CONFIG = {
+    'theme': 'advanced',
+    'theme_advanced_toolbar_location': "top",
+    'theme_advanced_toolbar_align': "left",
+    'skin': "o2k7",
+    "file_browser_callback" : "CustomFileBrowser",
+}
+TINYMCE_FILEBROWSER = False
 
 #URL_FILEBROWSER_MEDIA = os.path.join(STATIC_URL, 'filebrowser')
 #PATH_FILEBROWSER_MEDIA = os.path.join(STATIC_ROOT, 'filebrowser')
