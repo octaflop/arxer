@@ -144,10 +144,10 @@ INSTALLED_APPS = [
     #admin tools
     "grappelli",
     "filebrowser",
-    "admin_tools",
-    "admin_tools.theming",
-    "admin_tools.menu",
-    "admin_tools.dashboard",
+#    "admin_tools",
+#    "admin_tools.theming",
+#    "admin_tools.menu",
+#    "admin_tools.dashboard",
    # Django
     "django.contrib.admin",
     "django.contrib.auth",
