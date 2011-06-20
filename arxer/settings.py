@@ -74,7 +74,6 @@ STATICFILES_DIRS = [
 # trailing slash.
 # Examples: "http://foo.com/media/", "/media/".
 ADMIN_MEDIA_PREFIX = posixpath.join(STATIC_URL, "admin/")
-#ADMIN_MEDIA_PREFIX = STATIC_URL + "grappelli/"
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = "y2pvlbgq1wc@7v2wd8m2j$)ao*^eh&nolb1u9b$y96vkcj5g^)"
@@ -142,7 +141,6 @@ COMBINED_INBOX_COUNT_SOURCES = [
 
 INSTALLED_APPS = [
     #admin tools
-    "grappelli",
     "filebrowser",
     "admin_tools",
     "admin_tools.theming",
