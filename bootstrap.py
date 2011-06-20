@@ -19,11 +19,19 @@ subprocess.call(["git", "clone", FB_DOWNLOAD, os.path.join(file_path,\
 subprocess.call(["python", os.path.join(file_path, "django-filebrowser",
     "setup.py"), "build"])
 # makeshift install if needed
-if not os.path.isdir(os.path.join(file_path, "lib", "python2.6", "site-packages",
-    "filebrowser")):
+version = sys.version_info
+# checks for version 2.6 or 2.7 (to determine filepath)
+if version[1] == 6:
+    version = "python2.6"
+elif version[1] == 7:
+    version = "python2.7"
+else:
+    break
+sp = os.path.join(file_path, "lib", version, "site-packages")
+
+if not os.path.isdir(os.path.join(sp, "filebrowser")):
     shutil.copytree(os.path.join(file_path, "django-filebrowser", "filebrowser"),
-        os.path.join(file_path, "lib", "python2.6", "site-packages",
-        "filebrowser"))
+        os.path.join(sp, "filebrowser"))
 
 # add custom settings file for pinax
 ## Not needed due to fork
@@ -38,8 +46,6 @@ shutil.copyfile(os.path.join(file_path, "arxer", "requirements",
     "site-packages", "filebrowser", "settings.py"))
 """
 # Copy the mediafiles to the static files location
-shutil.copytree(os.path.join(file_path, "lib", "python2.6", "site-packages",
-    "filebrowser", "media", "filebrowser"), os.path.join(file_path, "arxer",
-        "site_media", "static", "filebrowser"))
-
+shutil.copytree(os.path.join(sp, "filebrowser", "media", "filebrowser"), 
+    os.path.join(file_path, "arxer", "site_media", "static", "filebrowser"))
 
