@@ -10,7 +10,9 @@ subprocess.call(["pip", "install", "-E", virtualenv, "--requirement",
                  os.path.join(file_path, "arxer/requirements/project.txt")])
 subprocess.call(["pip", "install", "-E", virtualenv, "--requirement",
                  os.path.join(file_path, "requirements.txt")])
-FB_DOWNLOAD = "https://github.com/wardi/django-filebrowser-no-grappelli.git"
+#old
+##FB_DOWNLOAD = "https://github.com/wardi/django-filebrowser-no-grappelli.git"
+FB_DOWNLOAD = "git://github.com/octaflop/django-filebrowser-no-grappelli.git"
 subprocess.call(["git", "clone", FB_DOWNLOAD, os.path.join(file_path,\
     "django-filebrowser")])
 # build the source
@@ -24,6 +26,8 @@ if not os.path.isdir(os.path.join(file_path, "lib", "python2.6", "site-packages"
         "filebrowser"))
 
 # add custom settings file for pinax
+## Not needed due to fork
+"""
 if os.path.isfile(os.path.join(file_path, "lib", "python2.6",
     "site-packages", "filebrowser", "settings.py")):
     shutil.move(os.path.join(file_path, "lib", "python2.6", "site-packages",
@@ -32,3 +36,10 @@ if os.path.isfile(os.path.join(file_path, "lib", "python2.6",
 shutil.copyfile(os.path.join(file_path, "arxer", "requirements",
     "settings.py"), os.path.join(file_path, "lib", "python2.6",
     "site-packages", "filebrowser", "settings.py"))
+"""
+# Copy the mediafiles to the static files location
+shutil.copytree(os.path.join(file_path, "lib", "python2.6", "site-packages",
+    "filebrowser", "media", "filebrowser"), os.path.join(file_path, "arxer",
+        "site_media", "static", "filebrowser"))
+
+

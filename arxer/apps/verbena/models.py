@@ -16,7 +16,10 @@ from settings import STATIC_ROOT, MEDIA_ROOT
 
 from notification.models import send
 
+# rich text settings
 from tinymce import models as mce_models
+from filebrowser.views import filebrowser_pre_upload, filebrowser_pre_delete
+from django.http import HttpResponseRedirect, HttpResponse
 
 import datetime
 
@@ -622,9 +625,71 @@ class StaffBio(models.Model):
     class Meta:
         ordering = ('weight',)
 
+# FILEBROWSER Models
+# Used to maintain permissions
+class File(models.Model):
+    filename = models.CharField(_("filename"),
+        max_length=500,
+        primary_key=True)
+    owner = models.ForeignKey("Member")
+
 ################################################################################
 # Listeners
 ################################################################################
+def add_file_callback(sender, **kwargs):
+    """
+    Checks for existence of a file before deleting said file
+    """
+    filename, path = kwargs['file'], kwargs['path']
+    owner = sender.user.member
+    try:
+        fm = File.objects.get(filename=filename)
+        if fm.owner == owner:
+            fm.delete()
+            fm = File(filename=filename, owner=owner)
+        else:
+            # TODO: add a message here
+            return HttpResponse(status=403)
+    except File.DoesNotExist:
+        fm = File(filename=filename, owner=owner)
+    try:
+        fm.save()
+    except:
+        # TODO: add a message here
+        return HttpResponse(status=500)
+filebrowser_pre_upload.connect(add_file_callback)
+
+from exceptions import Exception
+class FileDeleteError(Exception):
+    def __init__(self):
+        pass
+    def __str__(self):
+        pass
+
+def check_delete_perms(sender, **kwargs):
+    """
+    Checks if the requesting user has permission to delete the file
+    """
+    filename, path = kwargs['filename'], kwargs['path']
+    member = sender.user.member
+    try:
+        fm = File.objects.get(filename=filename)
+    except File.DoesNotExist:
+        # TODO: add a message here
+        return
+    if fm.owner == member or sender.user.is_superuser:
+        fm.delete()
+        return
+    else:
+        # TODO: add a message here
+        from django.core.urlresolvers import reverse
+        #msg = _("You do not have permission to delete this file")
+        #print msg
+        #sender.user.message_set.create(message=msg)
+        raise FileDeleteError
+        return HttpResponseRedirect(reverse("fb_browse"))
+filebrowser_pre_delete.connect(check_delete_perms)
+
 def create_member(sender, **kwargs):
     """
     Create a new member when a User object is saved
@@ -653,6 +718,8 @@ def create_member(sender, **kwargs):
         user = user,
     )
     member.save()
+    user.is_staff = True
+    user.save()
 
 post_save.connect(create_member, sender=User)
 
