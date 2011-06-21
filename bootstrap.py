@@ -26,7 +26,7 @@ if version[1] == 6:
 elif version[1] == 7:
     version = "python2.7"
 else:
-    break
+    raise
 sp = os.path.join(file_path, "lib", version, "site-packages")
 
 if not os.path.isdir(os.path.join(sp, "filebrowser")):
