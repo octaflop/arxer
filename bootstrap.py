@@ -33,19 +33,9 @@ if not os.path.isdir(os.path.join(sp, "filebrowser")):
     shutil.copytree(os.path.join(file_path, "django-filebrowser", "filebrowser"),
         os.path.join(sp, "filebrowser"))
 
-# add custom settings file for pinax
-## Not needed due to fork
-"""
-if os.path.isfile(os.path.join(file_path, "lib", "python2.6",
-    "site-packages", "filebrowser", "settings.py")):
-    shutil.move(os.path.join(file_path, "lib", "python2.6", "site-packages",
-    "filebrowser", "settings.py"), os.path.join(file_path, "lib", "python2.6",
-    "site-packages", "filebrowser", "settings.py.back"))
-shutil.copyfile(os.path.join(file_path, "arxer", "requirements",
-    "settings.py"), os.path.join(file_path, "lib", "python2.6",
-    "site-packages", "filebrowser", "settings.py"))
-"""
-# Copy the mediafiles to the static files location
-shutil.copytree(os.path.join(sp, "filebrowser", "media", "filebrowser"), 
-    os.path.join(file_path, "arxer", "site_media", "static", "filebrowser"))
+# Copy the filebrowser mediafiles to the static files location
+
+if not os.path.isdir(os.path.join(file_path, "arxer", "site_media", "static", "filebrowser")):
+    shutil.copytree(os.path.join(sp, "filebrowser", "media", "filebrowser"), 
+        os.path.join(file_path, "arxer", "site_media", "static", "filebrowser"))
 
