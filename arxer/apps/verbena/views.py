@@ -121,7 +121,7 @@ def add_event(request, slug, *args, **kwargs):
     evform = EventForm(data=data)
     if evform.is_valid():
         ev = evform.save()
-        ag.events = ev
+        ag.events.add(ev)
         ag.save()
     ret = dict(form=evform)
     return render(request, 'verbena/act_group/actiongroup_form_add_event.html', ret)
@@ -295,6 +295,11 @@ def leave_project(request, *args, **kwargs):
     res.volunteers.remove(volunteer)
     try:
         res.save()
+        messages.add_message(request, messages.SUCCESS,
+                _("Successfully left %(op)s.") % {
+                    "op": res.title,
+                }
+            )
     except DoesNotExist:
         return HttpResponse(status=500)
     return redirect(res.get_absolute_url())
@@ -397,6 +402,11 @@ def join_vop(request, *args, **kwargs):
     op.volunteers.add(volunteer)
     try:
         op.save()
+        messages.add_message(request, messages.SUCCESS,
+                _("Successfully joined %(op)s.") % {
+                    "op": op.title,
+                }
+            )
     except:
         return HttpResponse(status=500)
     return redirect(op.get_absolute_url())
@@ -483,6 +493,37 @@ def leave_actiongroup(request, *args, **kwargs):
     except:
         return HttpResponse(status=500)
     return redirect(ag.get_absolute_url())
+
+@login_required
+def edit_action_group(request, slug, *args, **kwargs):
+    data = request.POST or None
+    mdata = request.FILES or None
+    try:
+        ag = ActionGroup.objects.get(slug=slug)
+        if ag.leader != request.user.member:
+            messages.add_message(request, messages.ERROR,
+                _("You do not have permission to edit %(ag)s.") % {
+                    "ag": ag.title,
+                }
+            )
+            return HttpResponse(status=403)
+    except ActionGroup.DoesNotExist:
+        return HttpResponse(status=404)
+    avform = AvatarForm(data, mdata, instance=ag.portrait)
+    agform = ActionGroupForm(data, instance=ag)
+    ret = dict(form=agform, avform=avform)
+    if agform.is_valid() and avform.is_valid():
+        agform.save(commit=False)
+        av = avform.save()
+        agform.portrait = av
+        ag = agform.save()
+        messages.add_message(request, messages.SUCCESS,
+                _("Successfully edited %(ag)s.") % {
+                    "ag": ag.title,
+                }
+            )
+        return redirect(ag.get_absolute_url())
+    return render(request, "verbena/act_group/actiongroup_form.html", ret)
 
 # Organizations
 def add_organization(request, *args, **kwargs):

@@ -25,7 +25,7 @@
 		<dt>events:</dt>
 		<dd>
 			<ul class='events'>
-				{% for event in object.events %}
+				{% for event in object.events.all %}
 					<li>
 						<h3>{{ event.title }}</h3>
 						<b>{{ event.start_date|naturalday }}<b> to 
