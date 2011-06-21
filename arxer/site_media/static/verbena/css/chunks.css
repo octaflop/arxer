@@ -1,0 +1,52 @@
+.chunk-wrapper {
+  width: 100%;
+  overflow:hidden;
+  zoom:1;
+  padding: 20px 10px;
+}
+.chunkbox-container {
+  width: 490px;
+  float: left;
+	-moz-border-radius: 15px;
+	-webkit-border-radius: 15px;
+	-moz-transform: rotate(4deg);
+	-webkit-transform: rotate(4deg);
+  background-color: #fefefe;
+}
+
+.chunkbox {
+  width: 490px;
+  float: left;
+	border-radius: 22px;
+	border-radius: 22px;
+	border: 2px dashed #666666;
+	-moz-transform: rotate(-4deg);
+	-webkit-transform: rotate(-4deg);
+}
+
+.chunkbox p {
+  font-size: 1.0em;
+  padding: 15px;
+  margin: 2px;
+}
+
+.chunk-imagebox {
+  width: 100px;
+  float: right;
+  padding-right: 20px;
+}
+
+.chunk-imagebox img {
+  float: right;
+  width: 90px;
+  height: 90px;
+  margin: 0;
+  padding: 0;
+}
+
+
+/* Individual chunks:*/
+/**
+#chunk-actiongroup {
+  background-color: #26AAE1;
+}*/

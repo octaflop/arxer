@@ -1,7 +1,9 @@
 {# The normal chunk is horizontally displayed #}
-<div class="chunkbox-container" id="chunk-{{ chunk.slug }}">
-	<div class="chunkbox">
-		<p id="chunk-{{ chunk.slug }}-content">{{ chunk.content }}</p>
+<div class="chunk-wrapper">
+	<div class="chunkbox-container" id="chunk-{{ chunk.slug }}">
+		<div class="chunkbox">
+			<p id="chunk-{{ chunk.slug }}-content">{{ chunk.content|safe }}</p>
+		</div>
 	</div>
 	{% if chunk.image %}
 	<div class="chunk-imagebox">

@@ -1,9 +1,12 @@
+{# The normal chunk is horizontally displayed #}
+<div class="imgchunkbox-container" id="imgchunk-{{ chunk.slug }}">
 	{% if chunk.image %}
-	<div class="imgchunk" id="imgchunk-{{ chunk.slug }}-id">
+	<div class="imgchunk-imagebox">
 		<img src="{{ chunk.image.url }}" alt="{{ chunk.slug }}" />
 	</div>
-	{% else %}
-		{# placeholder #}
-		&nbsp;
 	{% endif %}
+	<div class="imgchunkbox">
+		<p id="imgchunk-{{ chunk.slug }}-content" class="caption">{{ chunk.content|safe }}</p>
+	</div>
+</div>
 

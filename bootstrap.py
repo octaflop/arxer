@@ -1,18 +1,22 @@
 import os, sys, parser
 import subprocess, shutil
+
+import pip
 if "VIRTUAL_ENV" not in os.environ:
     sys.stderr.write("$VIRTUAL_ENV not found.\n\n")
     parser.print_usage()
     sys.exit(-1)
+
 virtualenv = os.environ["VIRTUAL_ENV"]
 file_path = os.path.dirname(__file__)
 subprocess.call(["pip", "install", "-E", virtualenv, "--requirement",
                  os.path.join(file_path, "arxer/requirements/project.txt")])
 subprocess.call(["pip", "install", "-E", virtualenv, "--requirement",
                  os.path.join(file_path, "requirements.txt")])
-#old
+#old, uncomment this to revert to original paths
 ##FB_DOWNLOAD = "https://github.com/wardi/django-filebrowser-no-grappelli.git"
 FB_DOWNLOAD = "git://github.com/octaflop/django-filebrowser-no-grappelli.git"
+
 subprocess.call(["git", "clone", FB_DOWNLOAD, os.path.join(file_path,\
     "django-filebrowser")])
 # build the source

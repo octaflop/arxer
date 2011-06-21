@@ -50,7 +50,7 @@ def imgchunk(context, slug):
         context['chunk'] = ''
     return dict(chunk=context['chunk'])
 
-
+# Site-Wide tags
 # dynamic tags
 @register.inclusion_tag('verbena/templatetags/newsbox.html', takes_context=True)
 def newsbox(context):
