@@ -12,7 +12,7 @@ from verbena.models import Organization, Project, VolunteerOpportunity,\
     StudentProject, Grant
 from verbena.forms import ProjectForm, OrganizationForm, LocationForm,\
     StudentForm, UserForm, MemberForm, ActionGroupForm, AvatarForm,\
-    FacultyForm, GrantForm
+    FacultyForm, GrantForm, EventForm
 from photologue.models import Photo
 from django.core.files.uploadedfile import SimpleUploadedFile
 from verbena.models import Organization, Location, Project
@@ -113,6 +113,18 @@ def act_detail(request, *args, **kwargs):
         is_in = False
     ret = dict(object=act, is_in=is_in)
     return render(request, 'verbena/act_group/actiongroup_detail.html', ret)
+
+# Add an event to a 
+def add_event(request, slug, *args, **kwargs):
+    data = request.POST or None
+    ag = ActionGroup.objects.get(slug=slug)
+    evform = EventForm(data=data)
+    if evform.is_valid():
+        ev = evform.save()
+        ag.events = ev
+        ag.save()
+    ret = dict(form=evform)
+    return render(request, 'verbena/act_group/actiongroup_form_add_event.html', ret)
 
 # model control functions
 def del_member_class(old_member):

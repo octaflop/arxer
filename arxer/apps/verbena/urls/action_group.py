@@ -2,7 +2,7 @@ from django.conf.urls.defaults import *
 from django.views.generic.list_detail import object_list, object_detail
 from django.views.generic.create_update import create_object, update_object
 from verbena.views import join_actiongroup, leave_actiongroup,\
-    add_actiongroup, act_detail
+    add_actiongroup, act_detail, add_event
 from verbena.models import ActionGroup
 from verbena.forms import ActionGroupForm
 
@@ -37,4 +37,5 @@ urlpatterns = patterns("",
     url(r"^(?P<slug>[-\w]+)/leave$", leave_actiongroup, act_list, name="act_leave"),
     #url(r"^add/$", create_object, act_add, name="act_add"),
     url(r"^add/$", add_actiongroup, act_add, name="act_add"),
-    )
+    url(r"^(?P<slug>[-\w]+)/event/add$", add_event, name="add_event"),
+)

@@ -1,4 +1,5 @@
 {% extends "verbena/act_group/act_base.html" %}
+{% load humanize %}
 {% block head_title %}
 	{{ object.title }}
 {% endblock %}
@@ -21,6 +22,21 @@
 			</ul>
 		</dd>
 		<dt>location:</dt><dd>{{ object.location }}</dd>
+		<dt>events:</dt>
+		<dd>
+			<ul class='events'>
+				{% for event in object.events %}
+					<li>
+						<h3>{{ event.title }}</h3>
+						<b>{{ event.start_date|naturalday }}<b> to 
+						<b>{{ event.end_date|naturalday	}}</b>
+						<article>
+							{{ event.description|safe }}
+						</article>
+					</li>
+				{% endfor %}
+			</ul>
+		</dd>
 	</dl>
 	{% if is_in %}
 		<a href="{{ object.get_absolute_url }}/leave">Leave group</a>
@@ -31,8 +47,9 @@
 	{% endif %}
 	{% if request.user.is_authenticated %}
 		{% if perms.verbena.change_organization %}
-			<a href="{{ object.get_absolute_url }}/edit">Edit Organization</a>
+			<a href="{% url add_event object.slug %}">Add an Event</a>
+			<a href="{{ object.get_absolute_url }}/edit">Edit Action Group</a>
 		{% endif %}
 	{% endif %}
-	<a href="{% url act_edit object.slug %}">Back to organizations</a>
+	<a href="{% url act_edit object.slug %}">Back to Action Groups</a>
 {% endblock %}

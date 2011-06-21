@@ -5,6 +5,6 @@
 	<header><a href="{{ new.get_absolute_url }}">{{ new.title }}</a></header>
 	<b>{{ new.start_date|naturalday }}<b> to 
 	<b>{{ new.end_date|naturalday	}}</b>
-	<article>{{ new.description }}</article>
+	<article>{{ new.description|safe }}</article>
 	{% endfor %}
 {% endif %}

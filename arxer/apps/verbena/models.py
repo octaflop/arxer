@@ -209,6 +209,9 @@ class ActionGroup(models.Model):
     supporters = models.ManyToManyField(Member,
             related_name = "group-supporters",
             blank=True)
+    events = models.ManyToManyField("Event",
+            related_name = "ag-event",
+            blank=True, null=True)
     photos = models.ManyToManyField(Gallery,
             related_name = "group-photos",
             blank=True)
@@ -271,8 +274,9 @@ class Event(models.Model):
     )
     start_date = models.DateTimeField(_("Event start date & time"))
     end_date = models.DateTimeField(_("Event end date & time"))
-    location = models.ForeignKey(Location, blank=True, null=True)
-    ##description = models.TextField(_("Event description"),
+    #location = models.ForeignKey(Location, blank=True, null=True)
+    location = models.CharField(_("Event Location"),
+            help_text=_("Where will this event be held?"), max_length=200)
     description = mce_models.HTMLField(_("Event description"),
         help_text=_("A short description of the event"))
 
