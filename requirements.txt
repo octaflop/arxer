@@ -27,7 +27,6 @@ django-compressor==0.9.2
 django-debug-toolbar==0.8.3
 django-email-confirmation==0.2.dev2
 django-extensions==0.6
-django-filebrowser==3.2
 django-flag==0.2.dev9
 django-friends==0.1.5
 django-gencal==0.1
