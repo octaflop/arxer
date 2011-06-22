@@ -48,8 +48,8 @@
 	{% if request.user.is_authenticated %}
 		{% if perms.verbena.change_organization %}
 			<a href="{% url add_event object.slug %}">Add an Event</a>
-			<a href="{{ object.get_absolute_url }}/edit">Edit Action Group</a>
+			<a href="{% url act_edit object.slug %}">Edit Action Groups</a>
 		{% endif %}
 	{% endif %}
-	<a href="{% url act_edit object.slug %}">Back to Action Groups</a>
+	<a href="{% url act_home %}">Back to Action Groups</a>
 {% endblock %}
