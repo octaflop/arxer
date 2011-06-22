@@ -1,0 +1,12 @@
+[
+  {
+    "pk": 1, 
+    "model": "verbena.chunk", 
+    "fields": {
+      "content": "<p>Suspendisse posuere, metus non elementum vestibulum, felis odio vestibulum justo, nec congue felis urna ut elit? Nam elementum, turpis vitae venenatis tempor, felis ipsum tristique tortor, quis hendrerit nisl quam ut nisl? Mauris sollicitudin viverra fermentum. Pellentesque lobortis iaculis lorem quis consequat! Curabitur lorem mi, porta ut dictum vel, sollicitudin a felis. Pellentesque scelerisque turpis magna. In ac eros nec augue accumsan aliquet eget nec sapien. Cras cursus mi id nisi bibendum consectetur. Sed arcu ipsum, aliquam vitae egestas et, suscipit vel quam. In quis congue augue. Praesent a dui eget nisl auctor convallis. Phasellus rhoncus porta massa, vitae imperdiet quam rutrum vel. Vestibulum ut ipsum ligula, sed consequat mi. Nam adipiscing imperdiet elit vitae pretium. Phasellus eget mauris dolor. Duis eu nunc quis quam auctor mollis. Aenean condimentum mauris nec turpis sodales quis vehicula lorem fringilla.</p>", 
+      "image": "block-image/plate.png", 
+      "slug": "actiongroup", 
+      "weight": 0
+    }
+  }
+]
