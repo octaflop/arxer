@@ -474,6 +474,11 @@ def join_actiongroup(request, *args, **kwargs):
     ag.supporters.add(member)
     try:
         ag.save()
+        messages.add_message(request, messages.SUCCESS,
+                _("Successfully joined %(ag)s.") % {
+                    "ag": ag.title,
+                }
+            )
     except:
         return HttpResponse(status=500)
     return redirect(ag.get_absolute_url())
@@ -490,6 +495,11 @@ def leave_actiongroup(request, *args, **kwargs):
     ag.supporters.remove(member)
     try:
         ag.save()
+        messages.add_message(request, messages.SUCCESS,
+                _("Successfully left %(ag)s.") % {
+                    "ag": ag.title,
+                }
+            )
     except:
         return HttpResponse(status=500)
     return redirect(ag.get_absolute_url())
