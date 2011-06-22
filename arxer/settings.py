@@ -142,10 +142,10 @@ COMBINED_INBOX_COUNT_SOURCES = [
 INSTALLED_APPS = [
     #admin tools
     "filebrowser",
-#    "admin_tools",
-#    "admin_tools.theming",
-#    "admin_tools.menu",
-#    "admin_tools.dashboard",
+    "admin_tools",
+    "admin_tools.theming",
+    "admin_tools.menu",
+    "admin_tools.dashboard",
    # Django
     "django.contrib.admin",
     "django.contrib.auth",
@@ -321,20 +321,11 @@ AJAX_LOOKUP_CHANNELS = {
 
 ADMIN_TOOLS_MENU = 'arxer.menu.CustomMenu'
 INTERNAL_IPS = ('127.0.0.1',)
-
-#TINYMCE_DEFAULT_CONFIG = {
-#        'theme': 'advanced',
-#        'custom_undo_redo_levels': 10,
-#    }
-
 TINYMCE_DEFAULT_CONFIG = {
-    'theme': 'advanced',
-    'theme_advanced_toolbar_location': "top",
-    'theme_advanced_toolbar_align': "left",
-    'skin': "o2k7",
-    "file_browser_callback" : "CustomFileBrowser",
-}
-TINYMCE_FILEBROWSER = False
+        'theme': 'advanced',
+        'custom_undo_redo_levels': 10,
+    }
+
 
 #URL_FILEBROWSER_MEDIA = os.path.join('/site_media/static/filebrowser/')
 #PATH_FILEBROWSER_MEDIA = os.path.join(STATIC_ROOT, 'filebrowser/')

@@ -17,11 +17,11 @@
 .chunkbox {
   width: 490px;
   float: left;
-  border-radius: 22px;
-  border-radius: 22px;
-  border: 2px dashed #666666;
-  -moz-transform: rotate(-4deg);
-  -webkit-transform: rotate(-4deg);
+	border-radius: 22px;
+	border-radius: 22px;
+	border: 2px dashed #666666;
+	-moz-transform: rotate(-4deg);
+	-webkit-transform: rotate(-4deg);
 }
 
 .chunkbox p {
@@ -46,63 +46,7 @@
 
 
 /* Individual chunks:*/
-
-/* CHUNKS -- General */
-.chunkbox-container {
-	margin: 10px 10px;
-	padding: 10px 10px;
-	height: 120px;
-	-moz-border-radius: 12px;
-	-webkit-border-radius: 12px;
-	background-color: #0f0f0f;
-}
-
-/* surrounds the chunkbox */
-.chunkbox-container p {
-	padding: 5px 5px;
-	margin: 5px 5px;
-}
-
-/*contains description text */
-.chunkbox {
-	width: 540px;
-	background-color: #dddddd;
-	float: left;
-}
-
-.chunk-imagebox {
-	background-color: #345345;
-	margin: 5px 5px;
-	padding: 5px 5px;
-	width: 75px;
-	height: 75px;
-	float: right;
-}
-
-.chunk-imagebox img {
-	border: none;
-	margin: 5px 5px;
-	width: 75px;
-	height: 75px;
-}
-
-/* Column CHUNKBOX -- a vertical chunkbox */
-.colchunk-container {
-	width: 150px;
-}
-
-.colchunk-imagebox {
-	background-color: #345345;
-	margin: 5px 5px;
-	padding: 5px 5px;
-	width: 75px;
-	height: 75px;
-	float: center;
-}
-
-.colchunk-imgbox img {
-	border: none;
-	margin: 5px 5px;
-	width: 75px;
-	height: 75px;
-}
+/**
+#chunk-actiongroup {
+  background-color: #26AAE1;
+}*/
