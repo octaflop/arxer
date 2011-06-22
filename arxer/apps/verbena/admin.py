@@ -48,6 +48,9 @@ class ActionGroupAdmin(admin.ModelAdmin):
     list_display = ('title',)
     prepopulated_fields = {'slug': ('title',)}
 
+class EventAdmin(admin.ModelAdmin):
+    pass
+
 class WorkshopAdmin(admin.ModelAdmin):
     display_inline = ('members',)
     prepopulated_fields = {'slug': ('title',)}
