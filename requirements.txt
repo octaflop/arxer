@@ -81,7 +81,6 @@ python-twitter==0.5
 pytz==2010h
 recaptcha-client==1.0.6
 simplejson==2.0.9
-tagging==0.2.1
 textile==2.1.5
 vobject==0.8.1c
 webassets==0.5
