@@ -86,6 +86,10 @@ input[type="search"] {
 	height: 2em;
 }
 
+input {
+	border-radius: 20px;
+}
+
 .sign_in {
 	font-size: 10px;
 	color: #fff;

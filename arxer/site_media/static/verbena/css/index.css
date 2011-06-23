@@ -12,36 +12,38 @@ header#backBanner {
 }
 
 header#intro {
-	padding: 3px 0px;
+	padding: 20px 10px;
 	margin-top: 10px;
 }
 
 h1 {
-	font-size: 28px;
-	line-height: 44px;
-	padding: 3px 0;
+	font-size: 20px;
+	text-align: center;
+	padding: 15px 10px;
+	color: #fff;
 	background: #999999;
-	-moz-border-radius: 12px;
-	-webkit-border-radius: 12px;
+	border: none;
+	-moz-border-radius: 15px;
+	-webkit-border-radius: 15px;
 }
 
 h2 {
 	font-size: 18px;
-	line-height: 28px;
-	margin: 0 0 20px 0;
+	padding: 15px 0;
 	color: #ffffff;
+	border: none;
 	text-align: center;
 	background: #999999;
-	-moz-border-radius: 12px;
-	-webkit-border-radius: 12px;
+	-moz-border-radius: 15px;
+	-webkit-border-radius: 15px;
 }
 
 h3 {
-	font-size: 18px;
-	line-height: 22px;
-	padding: 2px 0;
+	font-size: 20px;
+	padding: 3px 0;
 	color: #fefefe;
 	background: #999999;
+	border: none;
 	-moz-border-radius: 12px;
 	-webkit-border-radius: 12px;
 }
