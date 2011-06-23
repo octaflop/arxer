@@ -1,6 +1,7 @@
 {% extends "flatpages/default.html" %}
 
 {% load i18n %}
+{% load nav_build %}
 
 {% block section_style %}
 	<link rel="stylesheet" href="{{ STATIC_URL }}verbena/css/about.css" />
@@ -23,18 +24,10 @@
 <section>
 <article class="content_post">
 	<header id="intro">
-		<h1>About</h1>
 	</header>
-	<article class="content_back">
-		<article class="content_dot">
-			<div>
-			<header>
-				<h1><span class="title">{% block content_title %}{% endblock %}</span></h1>
-			</header>
-			{% block main_article %}{% endblock %}
-			</div>
-		</article>
-	</article>
+				{% colchunk "aboutsfpirg" %}
+				{% colchunk "aboutstaff" %}
+				{% colchunk "aboutboard" %}
 </article>
 </section>
 {% endblock %}

@@ -50,3 +50,48 @@
 #chunk-actiongroup {
   background-color: #26AAE1;
 }*/
+
+.colchunkbox-container {
+	width: 25%;
+	float: left;
+	-moz-border-radius: 15px;
+	-webkit-border-radius: 15px;
+	-moz-transform: rotate(4deg);
+	-webkit-transform: rotate(4deg);
+  background-color: #fefefe;
+	margin: 2em;
+}
+
+.colchunkbox {
+	padding: 0.2em;
+}
+
+.colchunk-imagebox {
+}
+
+.colchunk-imagebox img {
+	width: 120px;
+	height: 120px;
+	-moz-transform: rotate(-4deg);
+	-webkit-transform: rotate(-4deg);
+	border-radius: 22px;
+	border: 2px dashed #666666;
+}
+
+.colchunkboxwrapper {
+  width: 33%;
+  overflow:hidden;
+  zoom:1;
+	float: right;
+	border-radius: 22px;
+	border: 2px dashed #666666;
+}
+
+.colchunkbox {
+	float: left;
+	border-radius: 22px;
+	border-radius: 22px;
+	border: 2px dashed #666666;
+	-moz-transform: rotate(-4deg);
+	-webkit-transform: rotate(-4deg);
+}

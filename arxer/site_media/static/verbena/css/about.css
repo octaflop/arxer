@@ -78,13 +78,13 @@ h3 {
 	}
 
 nav ul li {
-	color: #888;
+	color: #8a8a8a;
 }
 
 #site_nav ul li a, a:hover, a:active {
-	color: #040404;
+	color: #999999;
 }
 
 #main_navsub ul li a, a:hover, a:active {
-	color: #040404;
+	color: #999999;
 }

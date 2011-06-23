@@ -26,12 +26,15 @@ from django.utils import simplejson
 #from pinax.apps.account.forms import SignupForm
 from verbena.forms import UserForm
 import datetime
-#from tinymce.views import render_to_link_list
 
-#def mcefilebrowser(request):
-#    objects = Photos.objects.all()
-   # link_list = [(unicode(obj), obj.get_absolute_url()) for obj in objects]
-   # return render_to_link_list(link_list)
+# monkeypatch login
+#def login_required(*args, **kwargs):
+#    from django.contrib.auth.decorators import login_required as trogdor
+#    messages.add_message(request, messages.ERROR,
+#        _("You need to log in to do that.") % {
+#        }
+#    )
+#    return trogdor
 
 def ev_list(request, *args, **kwargs):
     """
