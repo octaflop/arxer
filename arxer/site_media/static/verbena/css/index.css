@@ -46,6 +46,7 @@ h3 {
 	border: none;
 	-moz-border-radius: 12px;
 	-webkit-border-radius: 12px;
+	margin: 20px 10px;
 }
 
 .sign_in {
