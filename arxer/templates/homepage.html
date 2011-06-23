@@ -8,6 +8,10 @@
 
 {% block content_title %}{% trans "SFPIRG Home page" %}{% endblock %}
 
+{% block section_style %}
+	<link rel="stylesheet" href="{{ STATIC_URL }}verbena/css/index.css" />
+{% endblock %}
+
 {% block main_article %}
 	{% blocktrans %}
 		Welcome to the SFPIRG homepage. This site is under development.

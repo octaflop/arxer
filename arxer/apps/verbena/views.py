@@ -114,15 +114,25 @@ def act_detail(request, *args, **kwargs):
     ret = dict(object=act, is_in=is_in)
     return render(request, 'verbena/act_group/actiongroup_detail.html', ret)
 
-# Add an event to a 
+# Add an event to an action group 
 def add_event(request, slug, *args, **kwargs):
     data = request.POST or None
-    ag = ActionGroup.objects.get(slug=slug)
+    try:
+        ag = ActionGroup.objects.get(slug=slug)
+    except ActionGroup.DoesNotExist:
+        return HttpResponse(status=404)
     evform = EventForm(data=data)
     if evform.is_valid():
         ev = evform.save()
         ag.events.add(ev)
         ag.save()
+        messages.add_message(request, messages.SUCCESS,
+                _("Successfully added %(event)s to %(ag)s-hosted events.") % {
+                    "event": ev.title,
+                    "ag": ag.title,
+                }
+            )
+        return redirect(ag.get_absolute_url())
     ret = dict(form=evform)
     return render(request, 'verbena/act_group/actiongroup_form_add_event.html', ret)
 

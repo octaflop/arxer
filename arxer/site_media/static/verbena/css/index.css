@@ -12,16 +12,17 @@ header#backBanner {
 }
 
 header#intro {
-	padding: 20px 10px;
+	padding: 3px 0px;
 	margin-top: 10px;
-	background-image: url('../img/back_intro.png');
-	background-repeat: no-repeat;
 }
 
 h1 {
 	font-size: 28px;
 	line-height: 44px;
-	padding: 22px 0;
+	padding: 3px 0;
+	background: #999999;
+	-moz-border-radius: 12px;
+	-webkit-border-radius: 12px;
 }
 
 h2 {
@@ -30,14 +31,19 @@ h2 {
 	margin: 0 0 20px 0;
 	color: #ffffff;
 	text-align: center;
-	background-image: url('../img/back_intro.png');
-	background-repeat: no-repeat;
+	background: #999999;
+	-moz-border-radius: 12px;
+	-webkit-border-radius: 12px;
 }
 
 h3 {
 	font-size: 18px;
 	line-height: 22px;
-	padding: 11px 0;
+	padding: 2px 0;
+	color: #fefefe;
+	background: #999999;
+	-moz-border-radius: 12px;
+	-webkit-border-radius: 12px;
 }
 
 .sign_in {
@@ -45,7 +51,7 @@ h3 {
 	color: #fff;
 	padding: 5px 10px;
 	font-weight: bold;
-	background-color: #605D56;
+	background-color: #999999;
 	border-radius: 20px;
 	width: 160px;
 	height: 134px;

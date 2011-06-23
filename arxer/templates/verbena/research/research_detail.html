@@ -7,6 +7,7 @@
 	{{ object.title }}
 {% endblock %}
 {% block main_article %}
+	<img src="{{ object.portrait.get_display_url }}" />
 	<h2><a href="{{ object.get_absolute_url }}">{{ object.title }}</a></h2>
 	<dl>
 		<dt>title:</dt><dd>{{ object.title }}</dd>

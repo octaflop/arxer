@@ -76,3 +76,15 @@ h3 {
 		-moz-border-radius: 12px;
 		-webkit-border-radius: 12px;
 	}
+
+nav ul li {
+	color: #888;
+}
+
+#site_nav ul li a, a:hover, a:active {
+	color: #040404;
+}
+
+#main_navsub ul li a, a:hover, a:active {
+	color: #040404;
+}

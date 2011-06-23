@@ -236,6 +236,7 @@ class Research(models.Model):
     slug = models.SlugField(_("URL-friendly title"))
     ##about = models.TextField(_("About"), blank=True, null=True)
     about = mce_models.HTMLField(_("About"), blank=True, null=True)
+    sidebar = mce_models.HTMLField(_("Sidebar"), blank=True, null=True)
     portrait = models.ForeignKey(Photo, related_name='research_portrait',
             null=True, blank=True)
     supporters = models.ManyToManyField(Member,
