@@ -3,19 +3,25 @@
 {% load i18n %}
 
 {% block head_title %}
-	Action Research Exchange 
+	Research and Resources 
 {% endblock %}
 {% block content_title %}
 	{% trans "Research and Resources" %}
 {% endblock %}
 
-
-{% block main_article %}
-{% chunk "researchandresources" %}
-	<ul class='res_list'>
-		{% for res in object_list %}
-			<li><b><a href="{{ res.get_absolute_url }}">{{ res.title }}</a></b></li>
-		{% endfor %}
-	</ul>
-	<a href="{% url res_add %}">{% trans "Apply for a project" %}</a>
+{% block main_content %}
+	{% block main_article %}
+		{% chunk "resourceheader" %}
+		<ul class='res_list'>
+			<div class='resourcelist'>
+				{% for res in object_list %}
+					<li><b><a href="{{ res.get_absolute_url }}">{{ res.title }}</a></b></li>
+				{% endfor %}
+			</div>
+			<div class='resourcesidebar'>
+				{% colchunk "resourcesidebar" %}
+			</div>
+		</ul>
+		<a href="{% url res_add %}">{% trans "Apply for a project" %}</a>
+	{% endblock %}
 {% endblock %}

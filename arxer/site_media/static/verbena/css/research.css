@@ -72,3 +72,24 @@ h3 {
 		-moz-border-radius: 12px;
 		-webkit-border-radius: 12px;
 	}
+
+.resourcessidebar {
+	float: right;
+	width: 30%;
+}
+
+.resourcelist {
+	float: left;
+	width: 68%;
+}
+
+.resourcelist li {
+	border-radius: 12px;
+	-moz-border-radius: 12px;
+	-webkit-border-radius: 12px;
+}
+
+#chunk-resourceheader {
+	width: 60%;
+	float: left;
+}
