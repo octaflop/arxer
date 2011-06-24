@@ -12,16 +12,21 @@
 {% block main_content %}
 	{% block main_article %}
 		{% chunk "resourceheader" %}
-		<ul class='res_list'>
-			<div class='resourcelist'>
+			<article class="resource_back">
+				<article class="resource_dot">
 				{% for res in object_list %}
-					<li><b><a href="{{ res.get_absolute_url }}">{{ res.title }}</a></b></li>
+					<div class="resource">
+						<h1><a href="{{ res.get_absolute_url }}">{{ res.title }}</a></h1>
+						<article>
+							{{ res.about|safe|truncatewords_html:50 }}
+						</article>
+					</div>
 				{% endfor %}
-			</div>
-			<div class='resourcesidebar'>
-				{% colchunk "resourcesidebar" %}
-			</div>
-		</ul>
+				<div class='resourcesidebar'>
+					{% colchunk "resourcesidebar" %}
+				</div>
+				</article>
+			</article>
 		<a href="{% url res_add %}">{% trans "Apply for a project" %}</a>
 	{% endblock %}
 {% endblock %}

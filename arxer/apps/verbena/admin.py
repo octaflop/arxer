@@ -6,12 +6,15 @@ from ajax_select import make_ajax_form
 
 from verbena.models import Student, Faculty, NewsRelease, Location, Project,\
     VolunteerOpportunity, Organization, Workshop, ActionGroup, Grant,\
-    Navigation, Member, Chunk, StaffBio
+    Navigation, Member, Chunk, StaffBio, Research
 
 #class MemberAdmin(UserAdmin):
 #    pass
 
 class MemberAdmin(admin.ModelAdmin):
+    pass
+
+class ResearchAdmin(admin.ModelAdmin):
     pass
 
 class StaffBioAdmin(admin.ModelAdmin):
@@ -65,6 +68,8 @@ class GrantAdmin(admin.ModelAdmin):
     display_inline = ('organization','date_applied',)
     exclude = ('date_applied',)
     prepopulated_fields = {'slug': ('title',)}
+
+admin.site.register(Research, ResearchAdmin)
 
 admin.site.register(StaffBio, StaffBioAdmin)
 admin.site.register(Chunk, ChunkAdmin)

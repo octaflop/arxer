@@ -73,9 +73,10 @@ h3 {
 		-webkit-border-radius: 12px;
 	}
 
-.resourcessidebar {
+.resourcesidebar {
 	float: right;
-	width: 30%;
+	width: 15em;
+	margin: 3.5em;
 }
 
 .resourcelist {
@@ -93,3 +94,34 @@ h3 {
 	width: 60%;
 	float: left;
 }
+
+.resource {
+	width: 15em;
+	padding: 1em;
+	margin: 1em;
+	margin-left: 1em;
+	float: left;
+}
+
+.resource_back {
+	width: 700px;
+	margin-left: 50px;
+	display: block;
+	background: repeat scroll 0 0 #ffffff;
+	color: black;
+	border-radius: 50px / 30px;
+	-moz-transform: rotate(2deg);
+	-webkit-transform: rotate(2deg);
+}
+
+.resource_dot {
+	padding: 15px;
+	display: block;
+	background: repeat scroll 0 0;
+	border: 2px dashed #666666;
+	border-radius: 22px;
+	-moz-transform: rotate(-2deg);
+	-webkit-transform: rotate(-2deg);
+	overflow: hidden;
+}
+
