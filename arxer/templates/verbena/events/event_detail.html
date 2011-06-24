@@ -7,7 +7,7 @@
 {% endblock %}
 {% block main_article %}
 	<p>
-		{{ object.description }}
+		{{ object.description|safe }}
 	</p>
 	{{ object.start_date }}<br />
 	{{ object.end_date }}

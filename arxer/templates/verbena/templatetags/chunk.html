@@ -2,7 +2,7 @@
 <div class="chunk-wrapper">
 	<div class="chunkbox-container" id="chunk-{{ chunk.slug }}">
 		<div class="chunkbox">
-			<p id="chunk-{{ chunk.slug }}-content">{{ chunk.content|safe }}</p>
+			<p id="chunk-{{ chunk.slug }}-content">{{	chunk.content|safe|truncatewords_html:75 }}</p>
 		</div>
 	</div>
 	{% if chunk.image %}

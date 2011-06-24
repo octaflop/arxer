@@ -1,0 +1,26 @@
+{% extends "verbena/about_us/about_base.html" %}
+
+{% load i18n %}
+{% load nav_build %}
+
+{% block main_content %}
+<section>
+<article class="content_post">
+	<header id="intro">
+		<h1>{% block intro_title %}
+			{% trans "About Us" %}
+		{% endblock %}</h1>
+	</header>
+<article id='about-us' class="about_back">
+		<article class="about_dot">
+			{% block main_article %}
+				{% colchunk "aboutsfpirg" %}
+				{% colchunk "aboutstaff" %}
+				{% colchunk "aboutboard" %}
+			{% endblock %}
+		</article>
+	</article>
+</article>
+</section>
+{% endblock %}
+

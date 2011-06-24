@@ -63,8 +63,8 @@ h3 {
 
 .title {
 		font-size: 14px;
-		padding: 8px 30px;
-		margin: 10px 20px;
+		padding: 0;
+		margin: 0;
 		color: #fff;
 		background: #26AAE1;
 		height: 25px;
@@ -72,3 +72,31 @@ h3 {
 		-moz-border-radius: 12px;
 		-webkit-border-radius: 12px;
 	}
+
+.ag_post .act_avatar {
+	float: center;
+}
+
+.action-group {
+	width: 15em;
+	padding: 1em;
+	margin-left: 1em;
+	float: left;
+}
+
+.action-group h1 {
+	padding: 1em;
+}
+
+.content_dot {
+	overflow: hidden;
+}
+/*.ag_post .content_back {
+	width: 15em;
+	margin-left: 1em;
+}
+
+.ag_post .content_dot {
+	width: 15em;
+}
+*/

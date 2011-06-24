@@ -252,19 +252,6 @@ aside {
 	width: 669px;
 }
 
-.ag_post .act_avatar {
-	float: center;
-}
-
-.ag_post .content_back {
-	width: 175px;
-	margin-left: 1em;
-}
-
-.ag_post .content_dot {
-	width: 175px;
-}
-
 h3#articleTitle {
 	font-family: verdana;
 	color: #CC0000;

@@ -12,22 +12,23 @@
 		<h1>Action Groups</h1>
 	</header>
 	{% chunk "actiongroup" %}
-	{% for ag in object_list %}
 	<article class="content_back">
 		<article class="content_dot">
-	<div class='act_avatar'>
-		<a href="{{ ag.get_absolute_url }}"><img src="{{ ag.portrait.get_thumbnail_url }}" alt="{{ ag.portrait.title }}" /></a>
-	</div>
-
-			<div>
-			<header>
-				<h1><span class="title">{{ ag.title }}</span></h1>
-			</header>
-			{{ ag.about|safe }}
+	{% for ag in object_list %}
+		<div class='action-group'>
+			<div class='act_avatar'>
+				<a href="{{ ag.get_absolute_url }}"><img src="{{ ag.portrait.get_thumbnail_url }}" alt="{{ ag.portrait.title }}" /></a>
 			</div>
+			<div>
+				<header>
+					<a href="{{ ag.get_absolute_url }}"><h1><span class="title">{{ ag.title }}</span></h1></a>
+				</header>
+				{{ ag.about|safe|truncatewords_html:75 }}
+			</div>
+		</div>
+	{% endfor %}
 		</article>
 	</article>
-	{% endfor %}
 	<a href="{% url act_add %}">Add an Action Group</a>
 </article>
 </section>
