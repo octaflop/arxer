@@ -27,8 +27,8 @@ h1 {
 	color: #fff;
 	background: #000000;
 	border: none;
-	-moz-border-radius: 15px;
-	-webkit-border-radius: 15px;
+	-moz-border-radius: 12px;
+	-webkit-border-radius: 12px;
 }
 
 h2 {
@@ -37,8 +37,8 @@ h2 {
 	color: #ffffff;
 	background: #000000;
 	border: none;
-	-moz-border-radius: 15px;
-	-webkit-border-radius: 15px;
+	-moz-border-radius: 12px;
+	-webkit-border-radius: 12px;
 	text-align: center;
 }
 
@@ -88,3 +88,40 @@ nav ul li {
 #main_navsub ul li a, a:hover, a:active {
 	color: #999999;
 }
+
+#about-us .content_dot {
+	overflow: hidden;
+	width: 669px;
+	margin-left: 5em;
+}
+
+#about-us {
+	width: 660px;
+}
+
+#main_content article > article > div {
+	-moz-transform: rotate(0deg);
+	-webkit-transform: rotate(0deg);
+}
+
+.about_back {
+	margin-left: 50px;
+	display: block;
+	background: repeat scroll 0 0 #ffffff;
+	color: black;
+	border-radius: 50px / 30px;
+	-moz-transform: rotate(2deg);
+	-webkit-transform: rotate(2deg);
+}
+
+.about_dot {
+	padding: 15px;
+	display: block;
+	background: repeat scroll 0 0;
+	border: 2px dashed #666666;
+	border-radius: 22px;
+	-moz-transform: rotate(-2deg);
+	-webkit-transform: rotate(-2deg);
+	overflow: hidden;
+}
+

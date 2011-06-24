@@ -2,14 +2,12 @@
 {% load i18n %}
 {% load uni_form_tags %}
 {% block head_title %}
-	Edit {{ object.name }}
+	Apply for a project {{ object.name }}
 {% endblock %}
 
-{% if object.name %}
 {% block content_title %}
-	{{ object.name }}
+	Apply for a project 
 {% endblock %}
-{% endif %}
 
 {% block main_article %}
 	{% if perms.verbena.add_project %}

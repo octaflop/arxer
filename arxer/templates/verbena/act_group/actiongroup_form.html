@@ -4,11 +4,9 @@
 	Add Action Group
 {% endblock %}
 
-{% if object.name %}
-	{% block content_title %}
-		Edit {{ object.name }}
-	{% endblock %}
-{% endif %}
+{% block content_title %}
+	Create an Action Group {{ object.name }}
+{% endblock %}
 
 {% block main_article %}
 	<form action="" method="post" class="uniForm" enctype="multipart/form-data">

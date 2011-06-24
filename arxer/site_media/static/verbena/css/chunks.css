@@ -52,30 +52,23 @@
 }*/
 
 .colchunkbox-container {
-	width: 25%;
+	width: 15em;
 	float: left;
 	-moz-border-radius: 15px;
 	-webkit-border-radius: 15px;
-	-moz-transform: rotate(4deg);
-	-webkit-transform: rotate(4deg);
-  background-color: #fefefe;
-	margin: 2em;
+	padding: 1em;
+	padding-left: 1em;
+	margin: 1em;
 }
 
 .colchunkbox {
-	padding: 0.2em;
-}
-
-.colchunk-imagebox {
+	padding: 0.5em;
 }
 
 .colchunk-imagebox img {
 	width: 120px;
 	height: 120px;
-	-moz-transform: rotate(-4deg);
-	-webkit-transform: rotate(-4deg);
 	border-radius: 22px;
-	border: 2px dashed #666666;
 }
 
 .colchunkboxwrapper {
@@ -84,15 +77,11 @@
   zoom:1;
 	float: right;
 	border-radius: 22px;
-	border: 2px dashed #666666;
 }
 
 .colchunkbox {
 	float: left;
 	border-radius: 22px;
 	border-radius: 22px;
-	border: 2px dashed #666666;
-	-moz-transform: rotate(-4deg);
-	-webkit-transform: rotate(-4deg);
 }
 

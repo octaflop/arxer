@@ -1,14 +1,12 @@
 {# The normal chunk is horizontally displayed #}
-<div class='colchunkbox-wrapper' id='colchunkboxwrapper-{{ chunk.slug }}'>
-	<div class="colchunkbox-container" id="colchunk-{{ chunk.slug }}">
-		{% if chunk.image %}
-		<div class="colchunk-imagebox">
-			<img src="{{ chunk.image.url }}" alt="{{ chunk.slug }}" />
-		</div>
-		{% endif %}
-		<div class="colchunkbox">
-			<p id="colchunk-{{ chunk.slug }}-content">{{ chunk.content|safe }}</p>
-		</div>
+<div class="colchunkbox-container" id="colchunk-{{ chunk.slug }}">
+	{% if chunk.image %}
+	<div class="colchunk-imagebox">
+		<img src="{{ chunk.image.url }}" alt="{{ chunk.slug }}" />
+	</div>
+	{% endif %}
+	<div class="colchunkbox">
+		<p id="colchunk-{{ chunk.slug }}-content">{{ chunk.content|safe }}</p>
 	</div>
 </div>
 
