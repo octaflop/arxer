@@ -215,6 +215,8 @@ INSTALLED_APPS = [
 
     # ARX
     "verbena",
+    "rose", # slideshow app
+
     "ajax_select",
     "idios",
     "django.contrib.flatpages",
