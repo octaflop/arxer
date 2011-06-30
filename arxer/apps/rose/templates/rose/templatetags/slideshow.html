@@ -1,0 +1,5 @@
+<div class="slideshow">
+	{% for slide in slides %}
+		<img src='{{ slide.image.url }}' alt='{{ slide.title }}' />
+	{% endfor %}
+</div>
