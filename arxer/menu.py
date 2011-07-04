@@ -23,7 +23,7 @@ class CustomMenu(Menu):
             items.Bookmarks(),
             items.AppList(
                 _('SFPIRG'),
-                models=('verbena.models.*',)
+                models=('verbena.models.*','rose.models.*',)
             ),
             items.AppList(
                 _('Applications'),
