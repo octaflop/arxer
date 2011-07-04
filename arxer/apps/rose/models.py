@@ -38,7 +38,7 @@ An example of extension. This will be moved to the app in a later iteration
 TODO
 """
 class FrontPageSlide(Slide):
-    pass
+    published = SlideManager()
 
 class ARXSlide(Slide):
-    pass
+    published = SlideManager()

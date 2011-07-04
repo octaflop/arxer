@@ -1,19 +1,38 @@
 {% extends "site_base.html" %}
 
 {% load i18n %}
+{% load slideshow %}
 
 {% block head_title %}{% trans "Home" %}{% endblock %}
 
 {% block content_class %}home{% endblock %}
 
-{% block content_title %}{% trans "SFPIRG Home page" %}{% endblock %}
-
 {% block section_style %}
 	<link rel="stylesheet" href="{{ STATIC_URL }}verbena/css/index.css" />
 {% endblock %}
 
-{% block main_article %}
-	{% blocktrans %}
-		Welcome to the SFPIRG homepage. This site is under development.
-	{% endblocktrans %}
+{% block main_content %}
+{% slideshow "frontpage" %}
+<section>
+<article class="content_post">
+  <header id="intro">
+    <h1>{% block intro_title %}SFPIRG{% endblock %}</h1>
+  </header>
+  <article class="content_back">
+    <article class="content_dot">
+      <div>
+      <header>
+        <h1><span class="title">{% block content_title %}{% trans "SFPIRG Home page" %}{% endblock %}</span></h1>
+      </header>
+      {% block main_article %}
+			{% blocktrans %}
+				Welcome to the SFPIRG homepage. This site is under development.
+			{% endblocktrans %}
+			{% endblock %}
+      </div>
+    </article>
+  </article>
+</article>
+</section>
 {% endblock %}
+

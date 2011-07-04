@@ -1,5 +1,14 @@
-<div class="slideshow">
+<div class="galleria">
 	{% for slide in slides %}
-		<img src='{{ slide.image.url }}' alt='{{ slide.title }}' />
+		<img src='{{ slide.image.url }}' alt='{{ slide.description }}' title='{{	slide.title}}' />
 	{% endfor %}
 </div>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js"></script>
+<script src="/site_media/static/galleria/galleria.js"></script>
+<script src="/site_media/static/galleria/themes/classic/galleria.classic.js"></script>
+<script>
+	$('.galleria').galleria({
+		width: 600,
+		height: 400
+	});
+</script>

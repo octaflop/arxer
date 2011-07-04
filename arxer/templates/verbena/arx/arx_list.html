@@ -6,15 +6,30 @@
 	Action Research Exchange Projects
 {% endblock %}
 
-{% block content_title %}{% trans "Approved ARX Projects" %}{% endblock %}
-
-
-{% block main_article %}
-	{% slideshow "arxslideshow" %}
-	<ul class='proj_list'>
-		{% for proj in object_list %}
-			<li><b><a href="{{ proj.get_absolute_url }}">{{ proj.title }}</a></b></li>
-		{% endfor %}
-	</ul>
-	<a href="{% url arx_add %}">{% trans "Apply for a project" %}</a>
+{% block main_content %}
+{% slideshow "arxslideshow" %}
+<section>
+<article class="content_post">
+  <header id="intro">
+    <h1>{% block intro_title %}ARX{% endblock %}</h1>
+  </header>
+  <article class="content_back">
+    <article class="content_dot">
+      <div>
+      <header>
+        <h1><span class="title">{% block content_title %}{% trans "Approved ARX Projects" %}{% endblock %}</span></h1>
+      </header>
+      {% block main_article %}
+				<ul class='proj_list'>
+					{% for proj in object_list %}
+						<li><b><a href="{{ proj.get_absolute_url }}">{{ proj.title }}</a></b></li>
+					{% endfor %}
+				</ul>
+				<a href="{% url arx_add %}">{% trans "Apply for a project" %}</a>
+			{% endblock %}
+      </div>
+    </article>
+  </article>
+</article>
+</section>
 {% endblock %}
