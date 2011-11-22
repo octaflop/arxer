@@ -2,7 +2,7 @@
 <div class="imgchunkbox-container" id="imgchunk-{{ chunk.slug }}">
 	{% if chunk.image %}
 	<div class="imgchunk-imagebox">
-		<img src="{{ chunk.image.url }}" alt="{{ chunk.slug }}" />
+		<img src="{{ chunk.image.get_display_url }}" alt="{{ chunk.slug }}" />
 	</div>
 	{% endif %}
 	<div class="imgchunkbox">

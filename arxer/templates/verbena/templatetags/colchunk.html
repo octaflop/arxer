@@ -2,7 +2,7 @@
 <div class="colchunkbox-container" id="colchunk-{{ chunk.slug }}">
 	{% if chunk.image %}
 	<div class="colchunk-imagebox">
-		<img src="{{ chunk.image.url }}" alt="{{ chunk.slug }}" />
+		<img src="{{ chunk.image.get_thumbnail_url }}" alt="{{ chunk.slug }}" />
 	</div>
 	{% endif %}
 	<div class="colchunkbox">

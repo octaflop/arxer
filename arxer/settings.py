@@ -224,6 +224,7 @@ INSTALLED_APPS = [
     "compressor",
     "gunicorn",
     "guardian",
+    "easy_maps",
 ]
 
 
@@ -282,6 +283,7 @@ LANGUAGES = [
 # URCHIN_ID = "ua-..."
 
 YAHOO_MAPS_API_KEY = "S1oXzE_V34FP7CDPXxik7jEFPssOJLQ87aGY_bJSInZ_TYACPjaaAHJWe.yRYjKFtnEF.6Y-"
+
 
 class NullStream(object):
     def write(*args, **kwargs):
