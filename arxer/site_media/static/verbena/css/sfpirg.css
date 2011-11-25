@@ -137,18 +137,17 @@ input {
 =NAVIGATION
 ------------------------------*/
 
-#site_nav {
-	position: absolute;
-	width: 694px;
+#nav-container {
+	width: 856px;
 	height: 143px;
-	margin: 0px 210px;
-	background-position: top center;
+	float: right;
 }
 
 #site_nav ul {
-	margin: 30px auto;
-	width: 694px;
 	list-style: none;
+}
+
+#site_nav li {
 }
 
 #main_navsub {
@@ -384,6 +383,13 @@ aside section {
 #backBanner {
 	background: #797D17;
 }
+
+#header-container {
+	width: 233px;
+	height: 97px;
+	float: left;
+}
+
 
 #subBanner {
 	background: #990000;

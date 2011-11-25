@@ -56,11 +56,15 @@
 		</div>	
 		{% endif %}
 		<header id="{% block header_id %}backBanner{% endblock %}">
+		<div id='header-container'>
 			{% block header %}{% endblock %}
+		</div>
+		<div id='nav-container'>
 			<nav id="site_nav">
 				{% block main_nav %}
 				{% endblock %}
 			</nav>
+		</div>
 		</header>
 		<header id="{% block subheader_id %}subBanner{% endblock %}">
 			{% block subheader %}{% endblock %}
