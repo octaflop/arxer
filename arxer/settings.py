@@ -9,7 +9,7 @@ PINAX_ROOT = os.path.abspath(os.path.dirname(pinax.__file__))
 PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
 
 # tells Pinax to use the default theme
-PINAX_THEME = "default"
+PINAX_THEME = "verbena"
 
 # informs django of the new verbena user class
 AUTH_PROFILE_MODULE = 'verebena.Member'
@@ -36,7 +36,7 @@ TIME_ZONE = "America/Vancouver"
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
-LANGUAGE_CODE = "en-us"
+LANGUAGE_CODE = "en-ca"
 
 SITE_ID = 1
 

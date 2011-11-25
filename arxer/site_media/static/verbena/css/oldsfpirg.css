@@ -1,0 +1,112 @@
+body {
+	margin:8px;
+	padding:8px;
+}
+body, td {
+	font-family:arial,sans-serif;
+	font-size:13px;
+}
+
+.maintable{
+	border:1px solid #797D17;
+}
+.subnav {
+	color: #FFF;
+	font-weight:bold;
+	font-size:12px;
+}
+.info {
+	color: #FFF;
+	font-weight:bold;
+	font-size:11px;
+}
+.footer {
+	font-size:9px;
+
+}
+
+.header{
+	color:#990000;
+	font-size:20px;
+	font-weight:bold;
+}
+
+.sideheader{
+	color:#797D17;
+	font-size:20px;
+	font-weight:bold;
+}
+a.sideheader{color:#797D17;font-weight:bold;}
+a.sideheader:hover{color:#797D17;font-weight:bold;}
+
+.subhead{
+	color:#990000;
+	font-size:14px;
+}
+a.subhead{color:#990000;font-weight:bold;}
+a.subhead:hover{color:#990000;font-weight:bold;}
+
+
+/* page section id's */
+#body {background-color:#FFF;}
+#nav {background-color:#797D17;}
+#subnav {background-color:#990000;}
+#content {
+	background-color:#FFF;
+	padding: 20px;
+	text-align:left;
+}
+#info {background-color:#797D17;}
+#footer {background-color:#A7A966;}
+
+
+a{color:#797D17;font-weight:bold;}
+a:hover{color:#797D17;font-weight:bold;}
+
+a.subnav{color:#F1F8D3;font-weight:bold;text-decoration:none;font-size:12px;}
+a.subnav:hover{color:#fff;font-weight:bold;text-decoration:none;font-size:12px;}
+
+a.info{color:#F1F8D3;}
+a.info:hover{color:#fff;}
+
+a.footer{color:#000;font-weight:bold;}
+a.footer:hover{color:#555;font-weight:bold;}
+
+/* current hot topic border */
+.box{
+	border: 1px solid #990000;
+	padding:6px;
+	width:90%;
+}
+
+/* calendar classes */
+.calendar {
+	border: 1px solid #000;
+}
+.calendarhead{
+	background-color:#eee;
+	border: 1px solid #000;
+}
+
+/* horizontal rules */
+.horz{
+	color:#990000;
+	height:7px;
+	width:100%;
+}
+
+/* so forms will not create any unnecessary white space */
+.forms{
+	margin-bottom:0;
+	padding:0;
+	display:inline;
+}
+
+.generic-control {
+	margin-bottom:0;
+	padding:0;
+	display:inline;
+}
+
+
+

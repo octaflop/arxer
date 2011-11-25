@@ -57,59 +57,64 @@
 		{% endif %}
 		<header id="{% block header_id %}backBanner{% endblock %}">
 			{% block header %}{% endblock %}
+			<nav id="site_nav">
+				{% block main_nav %}
+				{% endblock %}
+			</nav>
 		</header>
-		<aside class="sign_in">
-			{% block sign_in %}{% endblock %}
-		</aside>
-		<nav id="site_nav">
-			{% block main_nav %}
-			{% endblock %}
-		</nav>
-		<nav id="main_navsub">
-			{% block main_navsub %}
-			{% endblock %}
-		</nav>
-		<aside class="contact_box">
-			<aside class="contact_dot">
-				<h3>{% trans "contact" %}</h3>
-				<a href="/#"><img src="{{ STATIC_URL }}verbena/img/twitter.png"
-				alt="twitter" /></a>
-				<a href="/#"><img src="{{ STATIC_URL }}verbena/img/facebook.png"
-				alt="facebook" /></a>
-			{% block contact_box %}
-			{% endblock %}
-			</aside>
-		</aside>
-	<article id="content" class="{% block content_class %}{% endblock %}">
-		<aside "left_box">
-			<aside class="search">
-				{% block search_box %}{% endblock %}
-			</aside>
-			<section class='calendar'>
-				{% block calendar %}
+		<header id="{% block subheader_id %}subBanner{% endblock %}">
+			{% block subheader %}{% endblock %}
+			<nav id="main_navsub">
+				{% block main_navsub %}
 				{% endblock %}
-			</section>
-			<section class='latest_news'>
-				{% block latest_news %}
+			</nav>
+		</header>
+		<div id='content-body'>
+			<aside class="sign_in">
+				{% block sign_in %}{% endblock %}
+			</aside>
+			<aside class="contact_box">
+				<aside class="contact_dot">
+					<h3>{% trans "contact" %}</h3>
+					<a href="https://twitter.com/#!/SFPIRG"><img src="{{ STATIC_URL }}verbena/img/twitter.png"
+					alt="twitter" /></a>
+					<a href="http://www.facebook.com/sfpirg"><img src="{{ STATIC_URL }}verbena/img/facebook.png"
+					alt="facebook" /></a>
+				{% block contact_box %}
 				{% endblock %}
-			</section>
-		</aside>
-			<section id="main_content">
-			{% if messages %}
-			<ul id="messages">
-					{% for message in messages %}
-					<li id="message_{{ forloop.counter }}"{% if message.tags %} class="{{ message.tags }}"{% endif %}>
-							<a href="#"><small>{% trans "clear" %}</small></a>
-							{{ message }}
-					</li>
-			{% endfor %}
-			</ul>
-		{% endif %}
+				</aside>
+			</aside>
+		<article id="content" class="{% block content_class %}{% endblock %}">
+			<aside "left_box">
+				<aside class="search">
+					{% block search_box %}{% endblock %}
+				</aside>
+				<section class='calendar'>
+					{% block calendar %}
+					{% endblock %}
+				</section>
+				<section class='latest_news'>
+					{% block latest_news %}
+					{% endblock %}
+				</section>
+			</aside>
+				<section id="main_content">
+				{% if messages %}
+				<ul id="messages">
+						{% for message in messages %}
+						<li id="message_{{ forloop.counter }}"{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+								<a href="#"><small>{% trans "clear" %}</small></a>
+								{{ message }}
+						</li>
+				{% endfor %}
+				</ul>
+			{% endif %}
 
-			{% block main_content %}
-			{% endblock %}
-			</section>
-		</article>
+				{% block main_content %}
+				{% endblock %}
+				</section>
+			</article>
+		</div>
 		<footer>
 			{% block footer %}
 			{% endblock %}
