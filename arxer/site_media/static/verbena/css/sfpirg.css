@@ -138,7 +138,6 @@ input {
 ------------------------------*/
 
 #nav-container {
-	width: 856px;
 	height: 143px;
 	float: right;
 }
@@ -286,13 +285,11 @@ hr {
 ------------------------------*/
 
 #content {
-	float: left;
 	display: table;
 	width: 890px;
 }
 
 #main_content {
-	float: right;
 	display: table-cell;
 	width: 620px;
 	padding-top: 5em;
