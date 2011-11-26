@@ -70,7 +70,7 @@ html5lib==0.90
 idios==0.1.dev6
 nose==1.0.0
 pycrypto==2.3
-pygraphviz==1.1rc1
+#pygraphviz==1.1rc1
 pysolr==2.0.13
 python-openid==2.2.5
 python-ptrace==0.6.3
@@ -81,6 +81,6 @@ simplejson==2.0.9
 textile==2.1.4
 vobject==0.8.1c
 webassets==0.5
-xlrd==0.7.1
+#xlrd==0.7.1
 xlwt==0.7.2
 ybrowserauth==1.2
