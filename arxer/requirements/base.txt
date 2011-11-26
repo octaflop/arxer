@@ -25,7 +25,7 @@ django-debug-toolbar==0.8.3
 django-easy-maps==0.7.1
 django-email-confirmation==0.2.dev2
 django-extensions==0.6
-django-filebrowser====3.4.0
+django-filebrowser==3.4.0
 
 django-flag==0.2.dev9
 django-friends==0.1.5
