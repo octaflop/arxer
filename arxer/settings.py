@@ -205,7 +205,7 @@ INSTALLED_APPS = [
     # Locally installed apps
     "south",
     "django_nose",
-    "haystack",
+    #"haystack",
     "tinymce",
     #"emencia.django.newsletter",
     "gencal",
