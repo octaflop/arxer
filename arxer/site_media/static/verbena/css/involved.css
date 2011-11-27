@@ -4,11 +4,14 @@
 
 header#backBanner {
 	margin: 0 auto;
-	background-image: url('../img/banner_get_involved.png');
-	background-repeat: no-repeat;
 	width: 1089px;
 	height: 187px;
 	padding: 5px;
+}
+
+#subBanner {
+	background: #A1228B;
+	color: white;
 }
 
 header#intro {

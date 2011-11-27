@@ -4,16 +4,20 @@
 
 header#backBanner {
 	margin: 0 auto;
-	background-image: url('../img/banner_about.png');
-	background-repeat: no-repeat;
+	background: #797D17;
 	width: 1089px;
-	height: 187px;
+	height: 120px;
 	padding: 5px;
 }
 
 header#intro {
 	padding: 20px 10px;
 	margin-top: 10px;
+}
+
+#subBanner {
+	background: #000000;
+	color: white;
 }
 
 .sign_in a, a:visited {

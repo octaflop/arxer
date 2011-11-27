@@ -4,13 +4,14 @@
 
 header#backBanner {
 	margin: 0 auto;
-	background-image: url('../img/banner_research_resources.png');
-	background-repeat: no-repeat;
 	width: 1089px;
 	height: 187px;
 	padding: 5px;
 }
-
+#subBanner {
+	background: #FFCA03;
+	color: white;
+}
 header#intro{
 	padding: 20px 10px;
 	margin-top: 10px;
