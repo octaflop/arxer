@@ -1,0 +1,107 @@
+[
+  {
+    "pk": 1, 
+    "model": "flatpages.flatpage", 
+    "fields": {
+      "registration_required": false, 
+      "title": "About Us", 
+      "url": "/about-us/", 
+      "template_name": "verbena/about_us/about_base.html", 
+      "sites": [
+        1
+      ], 
+      "content": "< This is the about us page. Edit it by going to  admin/flatpages/flatpage/add/ >", 
+      "enable_comments": false
+    }
+  }, 
+  {
+    "pk": 3, 
+    "model": "flatpages.flatpage", 
+    "fields": {
+      "registration_required": false, 
+      "title": "SFPIRG Board of Directors", 
+      "url": "/about-us/board/", 
+      "template_name": "verbena/about_us/about_base.html", 
+      "sites": [
+        1
+      ], 
+      "content": "< This page hasn't been changed yet. You can change it by logging in as an administrator and going to  admin/flatpages/flatpage/add >", 
+      "enable_comments": false
+    }
+  }, 
+  {
+    "pk": 7, 
+    "model": "flatpages.flatpage", 
+    "fields": {
+      "registration_required": false, 
+      "title": "About This Website", 
+      "url": "/about-us/site/", 
+      "template_name": "verbena/about_us/about_site.html", 
+      "sites": [
+        1
+      ], 
+      "content": "This site was made by the VCN webteam.", 
+      "enable_comments": false
+    }
+  }, 
+  {
+    "pk": 2, 
+    "model": "flatpages.flatpage", 
+    "fields": {
+      "registration_required": false, 
+      "title": "Our Staff", 
+      "url": "/about-us/staff/", 
+      "template_name": "verbena/about_us/about_base.html", 
+      "sites": [
+        1
+      ], 
+      "content": "< This page hasn't been changed yet. You can change it by logging in as an administrator and going to  admin/flatpages >", 
+      "enable_comments": false
+    }
+  }, 
+  {
+    "pk": 4, 
+    "model": "flatpages.flatpage", 
+    "fields": {
+      "registration_required": false, 
+      "title": "Get Involved", 
+      "url": "/get-involved/", 
+      "template_name": "verbena/get_involved/get_base.html", 
+      "sites": [
+        1
+      ], 
+      "content": "< This page hasn't been changed yet. You can change it by logging in as an administrator and going to  admin/flatpages/flatpage/add >", 
+      "enable_comments": false
+    }
+  }, 
+  {
+    "pk": 6, 
+    "model": "flatpages.flatpage", 
+    "fields": {
+      "registration_required": false, 
+      "title": "Privacy Policy", 
+      "url": "/privacy/", 
+      "template_name": "", 
+      "sites": [
+        1
+      ], 
+      "content": "< This page hasn't been changed yet. You can change it by logging in as an administrator and going to  admin/flatpages/flatpage/add >", 
+      "enable_comments": false
+    }
+  }, 
+  {
+    "pk": 5, 
+    "model": "flatpages.flatpage", 
+    "fields": {
+      "registration_required": false, 
+      "title": "Terms of Use", 
+      "url": "/terms/", 
+      "template_name": "", 
+      "sites": [
+        1
+      ], 
+      "content": "< This page hasn't been changed yet. You can change it by logging in as an administrator and going to  admin/flatpages/flatpage/add >", 
+      "enable_comments": false
+    }
+  }
+]
