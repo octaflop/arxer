@@ -74,20 +74,36 @@
 			</nav>
 		</header>
 		<div id='content-body'>
-			<aside class="sign_in">
-				{% block sign_in %}{% endblock %}
-			</aside>
-			<aside class="contact_box">
-				<aside class="contact_dot">
-					<h3>{% trans "contact" %}</h3>
-					<a href="https://twitter.com/#!/SFPIRG"><img src="{{ STATIC_URL }}verbena/img/twitter.png"
-					alt="twitter" /></a>
-					<a href="http://www.facebook.com/sfpirg"><img src="{{ STATIC_URL }}verbena/img/facebook.png"
-					alt="facebook" /></a>
-				{% block contact_box %}
+				<section id="main_content">
+				{% if messages %}
+				<ul id="messages">
+						{% for message in messages %}
+						<li id="message_{{ forloop.counter }}"{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+								<a href="#"><small>{% trans "clear" %}</small></a>
+								{{ message }}
+						</li>
+				{% endfor %}
+				</ul>
+			{% endif %}
+				{% block main_content %}
 				{% endblock %}
-				</aside>
+				</section>
+			</article>
+		</div>
+		<aside class="sign_in">
+			{% block sign_in %}{% endblock %}
+		</aside>
+		<aside class="contact_box">
+			<aside class="contact_dot">
+				<h3>{% trans "contact" %}</h3>
+				<a href="https://twitter.com/#!/SFPIRG"><img src="{{ STATIC_URL }}verbena/img/twitter.png"
+				alt="twitter" /></a>
+				<a href="http://www.facebook.com/sfpirg"><img src="{{ STATIC_URL }}verbena/img/facebook.png"
+				alt="facebook" /></a>
+			{% block contact_box %}
+			{% endblock %}
 			</aside>
+		</aside>
 		<article id="content" class="{% block content_class %}{% endblock %}">
 			<aside "left_box">
 				<aside class="search">
@@ -102,23 +118,7 @@
 					{% endblock %}
 				</section>
 			</aside>
-				<section id="main_content">
-				{% if messages %}
-				<ul id="messages">
-						{% for message in messages %}
-						<li id="message_{{ forloop.counter }}"{% if message.tags %} class="{{ message.tags }}"{% endif %}>
-								<a href="#"><small>{% trans "clear" %}</small></a>
-								{{ message }}
-						</li>
-				{% endfor %}
-				</ul>
-			{% endif %}
 
-				{% block main_content %}
-				{% endblock %}
-				</section>
-			</article>
-		</div>
 		<footer>
 			{% block footer %}
 			{% endblock %}
