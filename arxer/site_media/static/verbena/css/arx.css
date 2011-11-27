@@ -5,7 +5,7 @@
 header#backBanner {
 	margin: 0 auto;
 	width: 1089px;
-	height: 187px;
+	height: 120px;
 	padding: 5px;
 }
 #subBanner {
@@ -24,8 +24,6 @@ h1 {
 	color: #fff;
 	background: #A3CC38;
 	border: none;
-	-moz-border-radius: 15px;
-	-webkit-border-radius: 15px;
 }
 
 h2 {
@@ -34,8 +32,6 @@ h2 {
 	color: #ffffff;
 	background: #A3CC38;
 	border: none;
-	-moz-border-radius: 15px;
-	-webkit-border-radius: 15px;
 	text-align: center;
 }
 
@@ -46,8 +42,6 @@ h3 {
 	color: #fff;
 	background: #A3CC38;
 	border: none;
-	-moz-border-radius: 12px;
-	-webkit-border-radius: 12px;
 }
 
 .sign_in {
@@ -56,7 +50,6 @@ h3 {
 	padding: 5px 10px;
 	font-weight: bold;
 	background-color: #A3CC38;
-	border-radius: 20px;
 	width: 160px;
 	height: 134px;
 	float: left;
@@ -70,6 +63,4 @@ h3 {
 		background: #A3CC38;
 		height: 25px;
 		border: none;
-		-moz-border-radius: 12px;
-		-webkit-border-radius: 12px;
 	}

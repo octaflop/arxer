@@ -91,13 +91,10 @@ input {
 .sign_in {
 	font-size: 10px;
 	color: #fff;
-	padding: 5px 10px;
 	font-weight: bold;
 	background-color: #605D56;
-	border-radius: 20px;
 	width: 160px;
 	height: 134px;
-	float: left;
 }
 
 .login .textinput .textInput {
@@ -107,31 +104,17 @@ input {
 .contact_box {
 	text-align: center;
 	color: #999999;
-	float: right;
 	width: 145px;
 	height: 147px;
-	background: repeat scroll 0 0 #ffffff;
-	border-radius: 15px;
-	-moz-transform: rotate(8deg);
-	-webkit-transform: rotate(8deg);
+	display: block;
 }
 
 .contact_dot {
 	width: 145px;
 	height: 147px;
 	display: block;
-	background: repeat scroll 0 0;
-	border: 2px dashed #666666;
-	border-radius: 20px;
-	-moz-transform: rotate(-8deg);
-	-webkit-transform: rotate(-8deg);
 }
 
-.contact_dot aside {
-	-moz-transform: rotate(8deg);
-	-webkit-transform: rotate(8deg);
-}
-	
 
 /*------------------------------
 =NAVIGATION
@@ -203,25 +186,19 @@ aside {
 }
 
 #calendar {
-	float: left;
 	padding: 20px 0;
 }
 
 .left_box {
 	background: none repeat scroll 0 0 #B1AAA2;
-	border-radius: 11px;
-	padding: 21px;
 	width: 164px;
 }
 
 .latest_news {
 	font-size: 14px;
 	color: #fff;
-	padding: 10px;
 	background-color: #999999;
-	border-radius: 20px;
 	width: 160px;
-	float: left;
 }
 
 /*------------------------------
@@ -236,8 +213,6 @@ aside {
 	width: 450px;
 	height: 25px;
 	border: 1px solid #323232;
-	-moz-border-radius: 20px;
-	-webkit-border-radius: 11px;
 }
 	
 .content_post header p a:hover {
@@ -323,29 +298,9 @@ form.signup input[type="submit"], form.login input[type="submit"] {
 	display: block;
 	background: repeat scroll 0 0 #ffffff;
 	color: black;
-	border-radius: 50px / 30px;
-	-moz-transform: rotate(2deg);
-	-webkit-transform: rotate(2deg);
-}
-
-.content_dot {
-	padding: 15px;
-	display: block;
-	background: repeat scroll 0 0;
-	border: 2px dashed #666666;
-	border-radius: 22px;
-	-moz-transform: rotate(-4deg);
-	-webkit-transform: rotate(-4deg);
-}
-
-article > article > article > div {
-	-moz-transform: rotate(2deg);
-	-webkit-transform: rotate(2deg);
 }
 
 .ctrlHolder p {
-	-moz-transform: rotate(0deg);
-	-webkit-transform: rotate(0deg);
 	margin: 30px;
 }
 
@@ -355,9 +310,6 @@ article > article > article > div {
 
 aside section {
 	padding: 0;
-	/* Border-radius not implemented yet */
-	-moz-border-radius: 11px;
-	-webkit-border-radius: 11px;
 }
 
 .title {
@@ -368,8 +320,6 @@ aside section {
 		background: #323232;
 		height: 25px;
 		border: none;
-		-moz-border-radius: 12px;
-		-webkit-border-radius: 12px;
 	}
 
 .login_box fieldset {
@@ -392,9 +342,12 @@ aside section {
 #subBanner {
 	background: #990000;
 	color: white;
+	width: 1089px;
+	padding-left: 10px;
 }
 
 div#content-body {
 	border-style: none solid none solid;
 	border-color: #000000;
+	width: 1093px;
 }
