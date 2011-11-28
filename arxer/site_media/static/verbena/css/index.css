@@ -82,3 +82,10 @@ h3 {
 		-webkit-border-radius: 12px;
 	}
 
+nav a, a:visited {
+	color: #000000;
+}
+
+nav a:hover {
+	color: #a0a0a0;
+}
