@@ -2,8 +2,7 @@
 {% for nav in navi %}
   <li>
       <a href="/{{ nav.menu_slug }}">
-        <img src="{{ nav.navlogo_path }}" alt="{{ nav.title }}">
-        <b>{{ nav.title }}</b>
+       {{ nav.title }}
       </a>
   </li>
 {% endfor %}
