@@ -1,9 +1,7 @@
 <ul>
 {% for nav in navi %}
   <li>
-      <a href="/{{ nav.menu_slug }}">
-       {{ nav.title }}
-      </a>
+      <a href="/{{ nav.menu_slug }}">{{ nav.title }}</a>
   </li>
 {% endfor %}
 </ul>
