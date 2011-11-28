@@ -4,7 +4,6 @@
 
 header#backBanner {
 	margin: 0 auto;
-	width: 1089px;
 	height: 120px;
 	padding: 5px;
 }
@@ -39,8 +38,6 @@ h2 {
 
 h3 {
 	font-size: 20px;
-	padding: 3px 0;
-	margin: 10px 20px;
 	color: #fff;
 	background: #A1228B;
 	border: none;
@@ -49,12 +46,9 @@ h3 {
 .sign_in {
 	font-size: 10px;
 	color: #fff;
-	padding: 5px 10px;
 	font-weight: bold;
 	background-color: #A1228B;
 	border-radius: 20px;
-	width: 160px;
-	height: 134px;
 	float: left;
 }
 

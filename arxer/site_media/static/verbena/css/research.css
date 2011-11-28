@@ -4,14 +4,15 @@
 
 header#backBanner {
 	margin: 0 auto;
-	width: 1089px;
 	height: 120px;
 	padding: 5px;
 }
+
 #subBanner {
 	background: #FFCA03;
-	color: white;
+	color: #ffffff;
 }
+
 header#intro{
 	padding: 20px 10px;
 	margin-top: 10px;
@@ -51,8 +52,6 @@ h3 {
 	font-weight: bold;
 	background-color: #FFCA03;
 	border-radius: 20px;
-	width: 160px;
-	height: 134px;
 	float: left;
 }
 
@@ -69,7 +68,6 @@ h3 {
 
 .resourcesidebar {
 	float: right;
-	width: 15em;
 	margin: 3.5em;
 }
 
