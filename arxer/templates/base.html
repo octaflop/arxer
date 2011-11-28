@@ -65,11 +65,13 @@
 				<div id='header-container' class="grid_4 alpha">
 					{% block header %}{% endblock %}
 				</div>
-				<div id='social-container' class="prefix_11 grid_1 omega">
-					<a href="https://twitter.com/#!/SFPIRG"><img src="{{ STATIC_URL }}verbena/img/twitter.png"
-					alt="twitter" title="Follow us on twitter!" /></a>
-					<a href="http://www.facebook.com/sfpirg"><img src="{{ STATIC_URL }}verbena/img/facebook.png"
-					alt="facebook" title="Join our facebook page!" /></a>
+				<div class="grid_2 prefix_10 omega">
+					<div id="social-logos">
+						<a href="https://twitter.com/#!/SFPIRG"><img src="{{ STATIC_URL }}verbena/img/twitter.png"
+						alt="twitter" title="Follow us on twitter!" /></a>
+						<a href="http://www.facebook.com/sfpirg"><img src="{{ STATIC_URL }}verbena/img/facebook.png"
+						alt="facebook" title="Join our facebook page!" /></a>
+					</div>
 				</div>
 			</header>
 			<header id="{% block subheader_id %}subBanner{% endblock %}" class="grid_16">

@@ -10,6 +10,10 @@
 
 .container_16 {
 	background: #F6F6F6;
+	border: 1px #797D17 solid;
+	background-image: url("../img/container_bg.png");
+	background-position: top;
+	background-repeat: repeat-x;
 }
 
 #main_nav {
@@ -40,8 +44,12 @@
 
 #backBanner {
 	background: #797D17;
+	height: 92px;
 }
 
-
-
+#social-logos {
+	width: 75px;
+	height: 35px;
+	margin-top: 60px;
+}
 
