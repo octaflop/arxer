@@ -53,3 +53,10 @@
 	margin-top: 60px;
 }
 
+header a, a:visited {
+	color: #ffffff;
+}
+
+header a:hover {
+	color: #a0a0a0;
+}
