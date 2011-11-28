@@ -1,3 +1,7 @@
+html, body {
+	font: 13px/1.3 'Open Sans', Arial, sans-serif;
+}
+
 .sb_hidden {
 	display: none;
 }
