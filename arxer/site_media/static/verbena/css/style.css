@@ -8,4 +8,18 @@
 	display: block;
 }
 
+.container_16 {
+	background: #F6F6F6;
+}
+
+#site_nav ul {
+	list-style: none;
+}
+
+#site_nav li {
+	display: inline;
+}
+
+
+
 

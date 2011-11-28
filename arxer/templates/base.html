@@ -61,25 +61,25 @@
 					</ul>
 			</div>	
 			{% endif %}
-			<header id="{% block header_id %}backBanner{% endblock %}">
-			<div id='header-container'>
-				{% block header %}{% endblock %}
-			</div>
-			<div id='nav-container'>
-				<nav id="site_nav">
-					{% block main_nav %}
-					{% endblock %}
-				</nav>
-			</div>
+			<header id="{% block header_id %}backBanner{% endblock %}" class="grid_16">
+				<div id='header-container' class="grid_4 alpha">
+					{% block header %}{% endblock %}
+				</div>
+				<div id='nav-container' class="grid_12 omega">
+					<nav id="site_nav">
+						{% block main_nav %}
+						{% endblock %}
+					</nav>
+				</div>
 			</header>
-			<header id="{% block subheader_id %}subBanner{% endblock %}">
+			<header id="{% block subheader_id %}subBanner{% endblock %}" class="grid_16">
 				{% block subheader %}{% endblock %}
-				<nav id="main_navsub">
+				<nav id="main_navsub" class="grid_16 alpha omega">
 					{% block main_navsub %}
 					{% endblock %}
 				</nav>
 			</header>
-			<div id='content-body'>
+			<div id='content-body' class="grid_10">
 					<section id="main_content">
 					{% if messages %}
 					<ul id="messages">
@@ -96,10 +96,14 @@
 					</section>
 				</article>
 			</div>
-			<aside class="sign_in">
+			<section class='grid_6 latest_news'>
+				{% block latest_news %}
+				{% endblock %}
+			</section>
+			<aside class="sign_in grid_6">
 				{% block sign_in %}{% endblock %}
 			</aside>
-			<aside class="contact_box">
+			<aside class="contact_box grid_6 prefix_2">
 				<aside class="contact_dot">
 					<h3>{% trans "contact" %}</h3>
 					<a href="https://twitter.com/#!/SFPIRG"><img src="{{ STATIC_URL }}verbena/img/twitter.png"
@@ -110,23 +114,16 @@
 				{% endblock %}
 				</aside>
 			</aside>
-			<article id="content" class="{% block content_class %}{% endblock %}">
-				<aside "left_box">
-					<aside class="search">
-						{% block search_box %}{% endblock %}
-					</aside>
-					<section class='calendar'>
-						{% block calendar %}
-						{% endblock %}
-					</section>
-					<section class='latest_news'>
-						{% block latest_news %}
-						{% endblock %}
-					</section>
+			<aside id="left_box" class="grid_16">
+				<aside class="search">
+					{% block search_box %}{% endblock %}
 				</aside>
-			</article>
-
-			<footer>
+				<section class='calendar'>
+					{% block calendar %}
+					{% endblock %}
+				</section>
+			</aside>
+			<footer class="grid_16">
 				{% block footer %}
 				{% endblock %}
 			</footer>
