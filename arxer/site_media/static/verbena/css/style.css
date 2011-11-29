@@ -3,11 +3,11 @@ html, body {
 	background: #FAFAFA;
 }
 
-a, a:visited {
+section a, a:visited {
 	color: #797D17;
 }
 
-a:hover {
+section a:hover {
 	color: #797D00;
 }
 
@@ -128,7 +128,11 @@ footer aside {
 	background: #797D17;
 }
 
-footer a,a:visited {
+footer a:visited {
+	color: #fefefe;
+}
+
+footer a {
 	color: #fefefe;
 }
 
