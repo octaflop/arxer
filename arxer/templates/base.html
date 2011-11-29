@@ -82,7 +82,7 @@
 					{% endblock %}
 				</nav>
 			</header>
-			<div id='content-body' class="grid_10">
+			<div id='content-body' class="grid_13">
 					<section id="main_content">
 					{% if messages %}
 					<ul id="messages">
@@ -99,18 +99,20 @@
 					</section>
 				</article>
 			</div>
-			<section class='grid_6 latest_news'>
+			<section class='grid_3 latest_news'>
 				{% block search_box %}{% endblock %}
 				<hr />
 				{% block latest_news %}
 					&nbsp;
 				{% endblock %}
 			</section>
-			<aside class="sign_in prefix_10 grid_6">
-				{% block sign_in %}{% endblock %}
+			<aside class="prefix_13 grid_3">
+				<div class="sign_in">
+					{% block sign_in %}{% endblock %}
+				</div>
 			</aside>
 			<aside id="left_box" class="grid_16">
-				<section class='calendar grid_6 prefix_10 alpha omega'>
+				<section class='calendar grid_3 prefix_13 alpha omega'>
 					{% block calendar %}
 					{% endblock %}
 				</section>

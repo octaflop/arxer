@@ -96,3 +96,11 @@ header a:hover {
 #content-body {
 	margin-top: 2em;
 }
+
+.sign_in input {
+	width: 150px;
+}
+
+.calendar img {
+	width: 150px;
+}
