@@ -29,7 +29,6 @@
 		<link rel="stylesheet" href="{{ STATIC_URL }}uni_form/uni-form.css" />
 		<link rel="stylesheet" href="{{ STATIC_URL }}verbena/css/style.css" />
 
-		<link rel="stylesheet" href="{{ STATIC_URL }}verbena/css/chunks.css" />
 		<link rel="stylesheet" href="{{ STATIC_URL }}verbena/css/jquery-theme/jquery.ui.all.css" />
 		<!-- Ajax_select icons -->
 		<link rel="stylesheet" href="{{ STATIC_URL }}verbena/css/iconic.css" />
@@ -101,25 +100,17 @@
 				</article>
 			</div>
 			<section class='grid_6 latest_news'>
+				{% block search_box %}{% endblock %}
+				<hr />
 				{% block latest_news %}
+					&nbsp;
 				{% endblock %}
 			</section>
-			<aside class="sign_in grid_6">
+			<aside class="sign_in prefix_10 grid_6">
 				{% block sign_in %}{% endblock %}
 			</aside>
-			<aside class="contact_box grid_6 prefix_2">
-				<aside class="contact_dot">
-					<h3>{% trans "contact" %}</h3>
-					
-				{% block contact_box %}
-				{% endblock %}
-				</aside>
-			</aside>
 			<aside id="left_box" class="grid_16">
-				<aside class="search">
-					{% block search_box %}{% endblock %}
-				</aside>
-				<section class='calendar'>
+				<section class='calendar grid_6 prefix_10 alpha omega'>
 					{% block calendar %}
 					{% endblock %}
 				</section>

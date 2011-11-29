@@ -7,21 +7,12 @@
 .chunkbox-container {
   width: 490px;
   float: left;
-	-moz-border-radius: 15px;
-	-webkit-border-radius: 15px;
-	-moz-transform: rotate(4deg);
-	-webkit-transform: rotate(4deg);
   background-color: #fefefe;
 }
 
 .chunkbox {
   width: 490px;
   float: left;
-	border-radius: 22px;
-	border-radius: 22px;
-	border: 2px dashed #666666;
-	-moz-transform: rotate(-4deg);
-	-webkit-transform: rotate(-4deg);
 }
 
 .chunkbox p {
@@ -54,8 +45,6 @@
 .colchunkbox-container {
 	width: 15em;
 	float: left;
-	-moz-border-radius: 15px;
-	-webkit-border-radius: 15px;
 	padding: 1em;
 	padding-left: 1em;
 	margin: 1em;
@@ -68,7 +57,6 @@
 .colchunk-imagebox img {
 	width: 120px;
 	height: 120px;
-	border-radius: 22px;
 }
 
 .colchunkboxwrapper {
@@ -76,12 +64,9 @@
   overflow:hidden;
   zoom:1;
 	float: right;
-	border-radius: 22px;
 }
 
 .colchunkbox {
 	float: left;
-	border-radius: 22px;
-	border-radius: 22px;
 }
 

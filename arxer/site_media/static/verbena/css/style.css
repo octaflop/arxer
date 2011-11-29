@@ -1,5 +1,6 @@
 html, body {
 	font: 13px/1.3 'Open Sans', Arial, sans-serif;
+	background: #FAFAFA;
 }
 
 .sb_hidden {
@@ -13,7 +14,7 @@ html, body {
 }
 
 .container_16 {
-	background: #F6F6F6;
+	background: #FFFFFF;
 	border: 1px #797D17 solid;
 	background-image: url("../img/container_bg.png");
 	background-position: top;
@@ -60,6 +61,38 @@ header a, a:visited {
 	color: #ffffff;
 }
 
+#main_nav a, a:visited {
+	color: #ffffff;
+}
+
+#main_navsub a, a:visited {
+	color: #ffffff;
+}
+
+#main_nav a:hover {
+	color: #a0a0a0;
+}
+
+#main_navsub a:hover {
+	color: #a0a0a0;
+}
+
 header a:hover {
 	color: #a0a0a0;
+}
+
+.latest_news {
+	margin-top: 2em;
+}
+
+.latest_news a, a:visited {
+	color: #797D17;
+}
+
+.latest_news a:hover {
+	color: #797a1a;
+}
+
+#content-body {
+	margin-top: 2em;
 }
