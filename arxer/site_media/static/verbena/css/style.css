@@ -3,6 +3,14 @@ html, body {
 	background: #FAFAFA;
 }
 
+a, a:visited {
+	color: #797D17;
+}
+
+a:hover {
+	color: #797D00;
+}
+
 .sb_hidden {
 	display: none;
 }
@@ -103,4 +111,39 @@ header a:hover {
 
 .calendar img {
 	width: 150px;
+}
+
+footer ul {
+	list-style: none;
+}
+footer li {
+	display: inline;
+}
+
+footer {
+	background: #A7A966;
+}
+
+footer aside {
+	background: #797D17;
+}
+
+footer a,a:visited {
+	color: #fefefe;
+}
+
+footer a:hover {
+	color: #F0F0F0;
+}
+
+footer p {
+	color: #FaFaFa;
+}
+
+div.sign_in a, a:visited {
+	color: #797D17;
+}
+
+div.sign_in a:hover {
+	color: #797A00;
 }
