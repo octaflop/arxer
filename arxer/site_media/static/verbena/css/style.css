@@ -85,16 +85,20 @@ header a, a:visited {
 	color: #ffffff;
 }
 
-#main_navsub a, a:visited {
-	color: #ffffff;
+#main_navsub a {
+	color: #202020;
+}
+
+#main_navsub a:visited {
+	color: #202020;
 }
 
 #main_nav a:hover {
-	color: #a0a0a0;
+	color: #f0f0f0;
 }
 
 #main_navsub a:hover {
-	color: #a0a0a0;
+	color: #f0f0f0;
 }
 
 header a:hover {
