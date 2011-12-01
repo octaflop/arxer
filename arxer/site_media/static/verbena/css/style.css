@@ -40,6 +40,18 @@ section a:hover {
 	margin-bottom: 2em;
 }
 
+#main_navsub a {
+	color: #010101;
+}
+
+#main_navsub a:visited {
+	color: #010101;
+}
+
+#main_navsub a:hover {
+	color: #707070;
+}
+
 #main_nav ul {
 	list-style: none;
 	margin: 1em 0;
@@ -121,7 +133,7 @@ footer li {
 }
 
 footer {
-	background: #A7A966;
+	background: #ffffff;
 }
 
 footer aside {
@@ -129,15 +141,15 @@ footer aside {
 }
 
 footer a:visited {
-	color: #fefefe;
+	color: #010101;
 }
 
 footer a {
-	color: #fefefe;
+	color: #010101;
 }
 
 footer a:hover {
-	color: #F0F0F0;
+	color: #616161;
 }
 
 footer p {
