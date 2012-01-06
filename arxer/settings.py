@@ -205,7 +205,7 @@ INSTALLED_APPS = [
     # Locally installed apps
     "south",
     "django_nose",
-    #"haystack",
+    "haystack",
     "tinymce",
     #"emencia.django.newsletter",
     "gencal",
@@ -227,12 +227,15 @@ INSTALLED_APPS = [
     "easy_maps",
 ]
 
-
-HAYSTACK_SITECONF = 'verbena.search_sites'
-
-HAYSTACK_SEARCH_ENGINE = 'solr'
-
-HAYSTACK_SOLR_URL = 'http://127.0.0.1:8983/solr'
+# HAYSTACK
+HAYSTACK_CONNECTIONS = {
+        'default': {
+            'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
+            'PATH': os.path.join(PROJECT_ROOT, 'whoosh_index'),
+            'INCLUDE_SPELLING': True,
+            'BATCH_SIZE': 100,
+            }
+        }
 
 FIXTURE_DIRS = [
     os.path.join(PROJECT_ROOT, "fixtures"),
