@@ -1,42 +1,55 @@
-from haystack.indexes import *
-from haystack import site
+from haystack import indexes
 from verbena.models import Project, ActionGroup, Organization, Student,\
 Faculty, Member, Event
 
-class ProjectIndex(SearchIndex):
-    text = CharField(document=True, use_template=True)
-    project_description = CharField(model_attr='project_description')
-    title_auto = EdgeNgramField(model_attr='title')
+class ProjectIndex(indexes.SearchIndex, indexes.Indexable):
+    text = indexes.CharField(document=True, use_template=True)
+    project_description = indexes.CharField(model_attr='project_description')
+    title_auto = indexes.EdgeNgramField(model_attr='title')
 
-class ActionGroupIndex(SearchIndex):
-    text = CharField(document=True, use_template=True)
-    title_auto = EdgeNgramField(model_attr='title')
+    def get_model(self):
+        return Project
 
-class OrganizationIndex(SearchIndex):
-    text = CharField(document=True, use_template=True)
-    about = CharField(model_attr='about')
-    title_auto = EdgeNgramField(model_attr='title')
+class ActionGroupIndex(indexes.SearchIndex, indexes.Indexable):
+    text = indexes.CharField(document=True, use_template=True)
+    title_auto = indexes.EdgeNgramField(model_attr='title')
+
+    def get_model(self):
+        return ActionGroup
+
+class OrganizationIndex(indexes.SearchIndex, indexes.Indexable):
+    text = indexes.CharField(document=True, use_template=True)
+    about = indexes.CharField(model_attr='about')
+    title_auto = indexes.EdgeNgramField(model_attr='title')
+
+    def get_model(self):
+        return Organization
 
 """
 TODO: Make this differentiate between future and previous events in the search
 """
-class EventIndex(SearchIndex):
-    text = CharField(document=True, use_template=True)
-    title_auto = EdgeNgramField(model_attr='title')
+class EventIndex(indexes.SearchIndex, indexes.Indexable):
+    text = indexes.CharField(document=True, use_template=True)
+    title_auto = indexes.EdgeNgramField(model_attr='title')
 
-class MemberIndex(SearchIndex):
-    text = CharField(document=True, use_template=True)
+    def get_model(self):
+        return Event
 
-class StudentIndex(SearchIndex):
-    text = CharField(document=True, use_template=True)
+class MemberIndex(indexes.SearchIndex, indexes.Indexable):
+    text = indexes.CharField(document=True, use_template=True)
 
-class FacultyIndex(SearchIndex):
-    text = CharField(document=True, use_template=True)
+    def get_model(self):
+        return Member
 
-site.register(Project, ProjectIndex)
-site.register(ActionGroup, ActionGroupIndex)
-site.register(Organization, OrganizationIndex)
-site.register(Member, MemberIndex)
-site.register(Student, StudentIndex)
-site.register(Faculty, FacultyIndex)
-site.register(Event, EventIndex)
+class StudentIndex(indexes.SearchIndex, indexes.Indexable):
+    text = indexes.CharField(document=True, use_template=True)
+
+    def get_model(self):
+        return Student
+
+class FacultyIndex(indexes.SearchIndex, indexes.Indexable):
+    text = indexes.CharField(document=True, use_template=True)
+
+    def get_model(self):
+        return Faculty
+

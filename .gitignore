@@ -9,3 +9,5 @@ include/
 src/
 dev.db
 local_settings.py
+production_settings.py
+

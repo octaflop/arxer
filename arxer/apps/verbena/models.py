@@ -48,7 +48,7 @@ class Member(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        return ('member_view', [str(self.slug)])
+        return ('member_view', [str(self.slug)],)
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -76,7 +76,7 @@ class Organization(models.Model):
             unique=True)
     leader = models.OneToOneField("Member")
     org_slug = models.SlugField(_("URL-friendly name for organization"))
-    portrait = models.ForeignKey(Photo, related_name="org_portrait",
+    portrait = models.ForeignKey(Photo, related_name="organization_portrait",
             blank=True, null=True)
     community = models.CharField(
             _("What community do you represent or work with?"),
@@ -201,19 +201,19 @@ class ActionGroup(models.Model):
     slug = models.SlugField(_("URL-friendly title"))
     portrait = models.ForeignKey(Photo, related_name='actiongroup_portrait',
             null=True, blank=True)
-    leader = models.ForeignKey("Member", related_name='ag_leader')
+    leader = models.ForeignKey("Member", related_name='actiongroup_leader')
     about = mce_models.HTMLField(_("About"),
             help_text=_("A short summary of your action group. This will be\
                     displayed on the action group listings page."))
     # Similar to facebook's "like"
     supporters = models.ManyToManyField(Member,
-            related_name = "group-supporters",
+            related_name = "actiongroup_supporters",
             blank=True)
     events = models.ManyToManyField("Event",
-            related_name = "ag-event",
+            related_name = "actiongroup_events",
             blank=True, null=True)
     photos = models.ManyToManyField(Gallery,
-            related_name = "group-photos",
+            related_name = "actiongroup_photos",
             blank=True)
 
     def __unicode__(self):
@@ -240,7 +240,7 @@ class Research(models.Model):
     portrait = models.ForeignKey(Photo, related_name='research_portrait',
             null=True, blank=True)
     supporters = models.ManyToManyField(Member,
-            related_name = "research-supporters",
+            related_name = "research_supporters",
             blank=True)
 
     def __unicode__(self):
@@ -302,7 +302,7 @@ class Workshop(Event):
     room = models.CharField(_("Room"), max_length=80, blank=True)
     # organizations may NOT sign up for a workshop
     members = models.ManyToManyField(Member,
-            related_name = "workshops",
+            related_name = "workshop_members",
             verbose_name = "members",
         )
 
@@ -316,7 +316,7 @@ class VolunteerOpportunity(Event):
     """
     organization = models.ForeignKey(Organization)
     volunteers = models.ManyToManyField(Member,
-            related_name = "volunteer-opportunities",
+            related_name = "volunteeropportunity_volunteers",
             verbose_name = "volunteers",
         )
     class Meta:
@@ -605,11 +605,14 @@ class Chunk(models.Model):
     slug = models.SlugField(unique=True)
     #content = models.TextField(_("Chunk content"))
     content = mce_models.HTMLField(_("Chunk content"))
-    image = models.ImageField(_("Image"),
-        help_text="An image for the Chunk. Optional.",
-        null=True, blank=True, upload_to="block-image")
+    image = models.ForeignKey(Photo, related_name='chunk_image', help_text=\
+        "An image for the Chunk. Optional.",
+        null=True, blank=True)
     weight = models.IntegerField(default=0, help_text="Weights determine block\
         ordering")
+
+    def __unicode__(self):
+        return self.slug
 
     class Meta:
         ordering = ('weight',)
@@ -621,9 +624,9 @@ class StaffBio(models.Model):
     ##bio = models.TextField(_("A short biography of the staff-member"))
     bio = mce_models.HTMLField(_("Bio"),
             help_text=_("A short biography of the staff-member"))
-    image = models.ImageField(_("Image"),
-        help_text="An image of the staff member. Optional.",
-        null=True, blank=True, upload_to="block-image")
+    image = models.ForeignKey(Photo, related_name='staffbio_image', help_text=\
+        "An image of the staff member. Optional.",
+        null=True, blank=True)
     weight = models.IntegerField(default=0, help_text="Weights determine staff\
         ordering. Lower values equal higher positions.")
 

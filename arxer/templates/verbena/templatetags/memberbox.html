@@ -2,6 +2,8 @@
 {% load uni_form_tags %}
 {% load ifsetting_tag %}
 {% if member %}
+	{% if member.avatar.get_thumbnail_url %}
 	<img src="{{ member.avatar.get_thumbnail_url }}" alt="{{ member.avatar.title }}"/>
+	{% endif %}
 {% endif %}
 

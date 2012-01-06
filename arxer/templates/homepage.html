@@ -2,12 +2,13 @@
 
 {% load i18n %}
 {% load slideshow %}
+{% load easy_maps_tags %}
 
 {% block head_title %}{% trans "Home" %}{% endblock %}
 
 {% block content_class %}home{% endblock %}
 
-{% block section_style %}
+{% block extra_head %}
 	<link rel="stylesheet" href="{{ STATIC_URL }}verbena/css/index.css" />
 {% endblock %}
 
@@ -23,6 +24,7 @@
       <div>
       <header>
         <h1><span class="title">{% block content_title %}{% trans "SFPIRG Home page" %}{% endblock %}</span></h1>
+				{% easy_map "Woodwards, Vancouver, Canada" 300 400 %}
       </header>
       {% block main_article %}
 			{% blocktrans %}

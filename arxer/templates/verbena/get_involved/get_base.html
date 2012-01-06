@@ -15,10 +15,6 @@
 	</ul>
 {% endblock %}
 
-{% block intro_title %}
-	{% trans "Get Involved" %}
-{% endblock %}
-
 {% block main_article %}
   {{ flatpage.content }}
 
@@ -33,7 +29,6 @@
 	{% else %}
 		<li><a href="{% url acct_signup %}">{% trans "I'm none of these, just sign me up!" %}</a></li>
 	{% endif %}
-
 </ul>
 
 {% endblock %}

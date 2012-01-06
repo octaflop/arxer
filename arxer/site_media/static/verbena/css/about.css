@@ -4,16 +4,19 @@
 
 header#backBanner {
 	margin: 0 auto;
-	background-image: url('../img/banner_about.png');
-	background-repeat: no-repeat;
-	width: 1089px;
-	height: 187px;
+	background: #797D17;
+	height: 92px;
 	padding: 5px;
 }
 
 header#intro {
 	padding: 20px 10px;
 	margin-top: 10px;
+}
+
+#subBanner {
+	background: #000000;
+	color: white;
 }
 
 .sign_in a, a:visited {
@@ -27,8 +30,6 @@ h1 {
 	color: #fff;
 	background: #000000;
 	border: none;
-	-moz-border-radius: 12px;
-	-webkit-border-radius: 12px;
 }
 
 h2 {
@@ -37,8 +38,6 @@ h2 {
 	color: #ffffff;
 	background: #000000;
 	border: none;
-	-moz-border-radius: 12px;
-	-webkit-border-radius: 12px;
 	text-align: center;
 }
 
@@ -49,8 +48,6 @@ h3 {
 	color: #fff;
 	background: #000000;
 	border: none;
-	-moz-border-radius: 12px;
-	-webkit-border-radius: 12px;
 }
 
 .sign_in {
@@ -59,7 +56,6 @@ h3 {
 	padding: 5px 10px;
 	font-weight: bold;
 	background-color: #000000;
-	border-radius: 20px;
 	width: 160px;
 	height: 134px;
 	float: left;
@@ -73,8 +69,6 @@ h3 {
 		background: #000000;
 		height: 25px;
 		border: none;
-		-moz-border-radius: 12px;
-		-webkit-border-radius: 12px;
 	}
 
 nav ul li {
@@ -99,29 +93,11 @@ nav ul li {
 	width: 660px;
 }
 
-#main_content article > article > div {
-	-moz-transform: rotate(0deg);
-	-webkit-transform: rotate(0deg);
-}
-
 .about_back {
 	margin-left: 50px;
 	display: block;
 	background: repeat scroll 0 0 #ffffff;
 	color: black;
-	border-radius: 50px / 30px;
-	-moz-transform: rotate(2deg);
-	-webkit-transform: rotate(2deg);
 }
 
-.about_dot {
-	padding: 15px;
-	display: block;
-	background: repeat scroll 0 0;
-	border: 2px dashed #666666;
-	border-radius: 22px;
-	-moz-transform: rotate(-2deg);
-	-webkit-transform: rotate(-2deg);
-	overflow: hidden;
-}
 

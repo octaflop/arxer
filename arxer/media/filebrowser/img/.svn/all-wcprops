@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/690/trunk/filebrowser/static/filebrowser/img
+END
+testimage.jpg
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/690/trunk/filebrowser/static/filebrowser/img/testimage.jpg
+END
+icon-pulldown-versions.png
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/!svn/ver/690/trunk/filebrowser/static/filebrowser/img/icon-pulldown-versions.png
+END
+icon-pulldown-versions-hover.png
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/!svn/ver/690/trunk/filebrowser/static/filebrowser/img/icon-pulldown-versions-hover.png
+END
+icon-pulldown-versions-active.png
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/!svn/ver/690/trunk/filebrowser/static/filebrowser/img/icon-pulldown-versions-active.png
+END

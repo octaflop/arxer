@@ -9,7 +9,7 @@ PINAX_ROOT = os.path.abspath(os.path.dirname(pinax.__file__))
 PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
 
 # tells Pinax to use the default theme
-PINAX_THEME = "default"
+PINAX_THEME = "verbena"
 
 # informs django of the new verbena user class
 AUTH_PROFILE_MODULE = 'verebena.Member'
@@ -36,7 +36,7 @@ TIME_ZONE = "America/Vancouver"
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
-LANGUAGE_CODE = "en-us"
+LANGUAGE_CODE = "en-ca"
 
 SITE_ID = 1
 
@@ -224,14 +224,18 @@ INSTALLED_APPS = [
     "compressor",
     "gunicorn",
     "guardian",
+    "easy_maps",
 ]
 
-
-HAYSTACK_SITECONF = 'verbena.search_sites'
-
-HAYSTACK_SEARCH_ENGINE = 'solr'
-
-HAYSTACK_SOLR_URL = 'http://127.0.0.1:8983/solr'
+# HAYSTACK
+HAYSTACK_CONNECTIONS = {
+        'default': {
+            'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
+            'PATH': os.path.join(PROJECT_ROOT, 'whoosh_index'),
+            'INCLUDE_SPELLING': True,
+            'BATCH_SIZE': 100,
+            }
+        }
 
 FIXTURE_DIRS = [
     os.path.join(PROJECT_ROOT, "fixtures"),
@@ -282,6 +286,7 @@ LANGUAGES = [
 # URCHIN_ID = "ua-..."
 
 YAHOO_MAPS_API_KEY = "S1oXzE_V34FP7CDPXxik7jEFPssOJLQ87aGY_bJSInZ_TYACPjaaAHJWe.yRYjKFtnEF.6Y-"
+
 
 class NullStream(object):
     def write(*args, **kwargs):
