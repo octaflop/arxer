@@ -39,6 +39,10 @@ class Member(models.Model):
 
     objects = UserManager()
 
+    @property
+    def title(self):
+        return self.user.username
+
     def __unicode__(self):
         return self.user.username
 
@@ -54,6 +58,7 @@ class Member(models.Model):
         if not self.slug:
             self.slug = slugify(self.user.username)
         super(Member, self).save(*args, **kwargs)
+
 # Possible Project statuses
 ORGANIZATION_APPROVAL_STATUS = (
     (_("PR"), _("Proposed")),
@@ -160,6 +165,10 @@ class Student(models.Model):
         verbose_name = _("student")
         verbose_name_plural = _("students")
 
+    @property
+    def title(self):
+        return self.member.user.username
+
     @models.permalink
     def get_absolute_url(self):
         return ('student_view', [str(self.member.slug)])
@@ -185,6 +194,10 @@ class Faculty(models.Model):
     class Meta:
         verbose_name = _("faculty member")
         verbose_name_plural = _("faculty members")
+
+    @property
+    def title(self):
+        return self.member.user.username
 
     @models.permalink
     def get_absolute_url(self):
@@ -259,6 +272,9 @@ class Location(models.Model):
     longitude = models.FloatField(blank=True, default=-123.10754)
     place = models.CharField(_("The name of the location"), max_length=100,\
             default=_("Vancouver"))
+    @property
+    def title(self):
+        return self.place
 
     def __unicode__(self):
         return self.place
