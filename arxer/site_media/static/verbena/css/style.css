@@ -33,11 +33,13 @@ section a:hover {
 	text-align: center;
 	font-size: 16px;
 	font-weight: bold;
+	margin-left: -85px;
 }
 
 #main_navsub {
 	text-align: center;
 	margin-bottom: 2em;
+	margin-left: -400px;
 }
 
 #main_navsub a {
@@ -160,6 +162,14 @@ footer p {
 	color: #FaFaFa;
 }
 
+#nav_footer {
+	margin-left: -65px;
+}
+
+#info_footer p {
+	margin-left: -58px;
+}
+
 div.sign_in a, a:visited {
 	color: #797D17;
 }
@@ -167,3 +177,4 @@ div.sign_in a, a:visited {
 div.sign_in a:hover {
 	color: #797A00;
 }
+

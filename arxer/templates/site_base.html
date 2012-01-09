@@ -76,31 +76,26 @@
 </section>
 {% endblock %}
 
-{% block calendar %}
+{# block calendar %}
 	<header class="calendar">
 		<a href="{% url event_home %}"><img src="{{ STATIC_URL }}verbena/img/calendar.png" alt="Calendar"
 		title="Click to see events" /></a>
 	</header>
-{% endblock %}
+{% endblock #}
 
 
 {% block footer %}
-	<aside class="grid_16 alpha">
+	<aside id="info_footer" class="grid_16 alpha">
 		<p class="grid_15 prefix_1 alpha omega">SFPIRG's office and our events are wheelchair accessible. Childcare and other subsidies are available for events.
 For more information, call 778-782-4360 or email sfpirg (at) sfu (dot) ca.</p>
 	</aside>
-	<ul class="grid_16">
-		<li><a href="/">Home</a></li>
+	<ul class="grid_16" id="nav_footer">
 		<li><a href="/about-us/">About</a></li>
-		<li><a href="/research-resources/">Research &amp; Resources</a></li>
-		<li><a href="/action-group/">Action Groups</a></li>
-		<li><a href="/events/">Events</a></li>
 		<li><a href="/get-involved/">Get Involved</a></li>
 		<li><a href="/about-us/contact">Contact</a></li>
 		<li><a href="/arx/">Arx</a></li>
-	</ul>
-	<ul class="grid_16 omega">
 		<li><a href="/privacy/">Privacy</a></li>
 		<li><a href="/terms/">Terms</a></li>
+		<li><a href="/terms/">Credits</a></li>
 	</ul>
 {% endblock %}
