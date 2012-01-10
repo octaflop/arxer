@@ -30,16 +30,16 @@ section a:hover {
 }
 
 #main_nav {
-	text-align: center;
+	text-align: left;
 	font-size: 16px;
 	font-weight: bold;
-	margin-left: -85px;
+	margin-left: -60px;
 }
 
 #main_navsub {
-	text-align: center;
+	text-align: left;
 	margin-bottom: 2em;
-	margin-left: -400px;
+	margin-left: -60px;
 }
 
 #main_navsub a {
