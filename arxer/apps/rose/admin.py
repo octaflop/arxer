@@ -4,6 +4,7 @@ from rose.models import FrontPageSlide, ARXSlide, Slide
 
 class SlideAdmin(admin.ModelAdmin):
     list_display = ('title', 'description', 'link', 'weight')
+    prepopulated_fields = {'slug': ('title',)}
 
 class FrontPageSlideAdmin(SlideAdmin):
     pass

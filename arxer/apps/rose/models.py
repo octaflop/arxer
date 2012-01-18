@@ -16,12 +16,13 @@ class Slide(models.Model):
                     dimensions: %s if you don't want any issues" % IMAGE_DIMS))
     description = models.TextField(_("Description"), max_length=500,
             help_text=_("A short description under the title. You may add\
-                links by using the markdown syntax"))
+                links by using the markdown syntax"), null=True, blank=True)
     is_published = models.BooleanField(_("Published?"), help_text=_("Only\
-            published slides are shown"))
-    link = models.URLField(_("Slide Link"))
+            published slides are shown"), default=True)
+    link = models.URLField(_("Slide Link"), null=True, blank=True)
     weight = models.IntegerField(_("Weight"), default=0, help_text=_("Weights\
-        determine slide-ordering. Lower weights are higher on the page"))
+        determine slide-ordering. Lower weights are higher on the page"),
+        null=True, blank=True)
 
     # manager
     published = SlideManager()
